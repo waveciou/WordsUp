@@ -1,4 +1,7 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document';
+import * as React from 'react';
+import Document, {
+  Html, Head, Main, NextScript,
+} from 'next/document';
 
 class DocumentComponent extends Document {
   render() {
@@ -10,8 +13,8 @@ class DocumentComponent extends Document {
           <NextScript />
         </body>
       </Html>
-    )
+    );
   }
-};
+}
 
 export default DocumentComponent;

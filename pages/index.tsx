@@ -12,12 +12,12 @@ const HomeComponent: React.FC = () => {
   return (
     <div>
       <div>
-        <button onClick={() => {dispatch(increment())}}>increment</button>
+        <button type="button" onClick={() => { dispatch(increment()); }}>increment</button>
         <div>{ count }</div>
-        <button onClick={() => {dispatch(decrement())}}>decrement</button>
+        <button type="button" onClick={() => { dispatch(decrement()); }}>decrement</button>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default HomeComponent;
