@@ -1,21 +1,20 @@
 import * as React from 'react';
-import { AppProps } from 'next/app'
+import { AppProps } from 'next/app';
+import Layout from '../components/layout';
 import '../styles/main.scss';
 
 // Redux
 import { Provider } from 'react-redux';
-import { createWrapper } from 'next-redux-wrapper';
 import { store } from '../store';
 
-const App = ({ Component, pageProps }: AppProps) => {
+const AppComponent = ({ Component, pageProps }: AppProps) => {
   return (
-    <Provider store={ store }>
-      <Component {...pageProps} />
+    <Provider store={store}>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </Provider>
   )
 };
 
-const makestore = () => store;
-const wrapper = createWrapper(makestore);
-
-export default wrapper.withRedux(App);
+export default AppComponent;
