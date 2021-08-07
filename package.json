@@ -2,6 +2,8 @@
   "name": "words-up",
   "version": "0.1.0",
   "private": true,
+  "author": "waveciou <waveciou@gmail.com>",
+  "license": "MIT",
   "scripts": {
     "dev": "next dev",
     "build": "next build && next export",
@@ -21,6 +23,10 @@
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
+    "@types/node": "^16.4.13",
+    "@types/react": "^17.0.16",
+    "@typescript-eslint/eslint-plugin": "^4.29.0",
+    "@typescript-eslint/parser": "^4.29.0",
     "eslint": "7.32.0",
     "eslint-config-next": "11.0.1",
     "pre-commit": "^1.2.2",
@@ -31,6 +37,7 @@
     "stylelint-config-standard": "^22.0.0",
     "stylelint-order": "^4.1.0",
     "stylelint-scss": "^3.20.1",
-    "stylelint-selector-bem-pattern": "^2.1.1"
+    "stylelint-selector-bem-pattern": "^2.1.1",
+    "typescript": "^4.3.5"
   }
 }
