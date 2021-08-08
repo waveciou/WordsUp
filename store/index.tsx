@@ -1,13 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 // Slice (Reducer)
-import counterReducer from './slice/counterSlice';
 import screenWidthReducer from './slice/screenWidthSlice';
+import menuControlReducer from './slice/menuControlSlice';
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
     screenWidth: screenWidthReducer,
+    menuControl: menuControlReducer,
   },
 });
 
