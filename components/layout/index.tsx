@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import Meta from '../Meta';
+import Meta from '../common/Meta';
 // import styles from '../styles/modules/Layout.module.scss';
 
 // Redux

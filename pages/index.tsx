@@ -11,11 +11,9 @@ const HomeComponent: React.FC = () => {
 
   return (
     <div>
-      <div>
-        <button type="button" onClick={() => { dispatch(increment()); }}>increment</button>
-        <div>{ count }</div>
-        <button type="button" onClick={() => { dispatch(decrement()); }}>decrement</button>
-      </div>
+      <button type="button" onClick={() => { dispatch(increment()); }}>increment</button>
+      <div>{ count }</div>
+      <button type="button" onClick={() => { dispatch(decrement()); }}>decrement</button>
     </div>
   );
 };
