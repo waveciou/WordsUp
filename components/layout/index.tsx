@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import Meta from '../common/Meta';
 import Menu from '../common/Menu';
 import Header from '../common/Header';
+import Loader from '../common/Loader';
 
 // Style
 import styles from '../../styles/modules/Layout.module.scss';
@@ -15,6 +16,7 @@ import styles from '../../styles/modules/Layout.module.scss';
 import { RootState } from '../../store';
 import { setScreenWidth } from '../../store/slice/screenWidthSlice';
 import { setMenuControl } from '../../store/slice/menuControlSlice';
+import { setLoaderControl } from '../../store/slice/loaderControlSlice';
 
 interface IProps {
   children?: React.ReactNode
@@ -22,6 +24,7 @@ interface IProps {
 
 const LayoutComponent: React.FC = ({ children }: IProps) => {
   const menuIsOpen = useSelector((state: RootState) => state.menuControl.value);
+  const loaderIsOpen = useSelector((state: RootState) => state.loaderControl.value);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -53,6 +56,7 @@ const LayoutComponent: React.FC = ({ children }: IProps) => {
         />
         <Menu />
       </div>
+      { loaderIsOpen && <Loader /> }
     </>
   );
 };
