@@ -17,9 +17,23 @@ import { RootState } from '../../store';
 import { setScreenWidth } from '../../store/slice/screenWidthSlice';
 import { setMenuControl } from '../../store/slice/menuControlSlice';
 import { setLoaderControl } from '../../store/slice/loaderControlSlice';
+import { setWordsCollection } from '../../store/slice/wordsCollectionSlice';
+
+// Functions
+import loadGapiScrpit from '../functions/googleSheetAPI/loadAPIScrpit';
+import initGapiClient from '../functions/googleSheetAPI/initAPIClient';
+import makeApiCall from '../functions/googleSheetAPI/makeAPICall';
+
+import handleGetSheetData from '../functions/handleGetSheetData';
 
 interface IProps {
   children?: React.ReactNode
+}
+
+declare global {
+  interface Window {
+    gapi: any;
+  }
 }
 
 const LayoutComponent: React.FC = ({ children }: IProps) => {
@@ -28,9 +42,22 @@ const LayoutComponent: React.FC = ({ children }: IProps) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // 載入 Google Sheet API
+    loadGapiScrpit(() => {
+      window.gapi.load('client:auth2', initGapiClient((id) => {
+        makeApiCall(id).then((response: any) => {
+          const sheetData = handleGetSheetData(response);
+          dispatch(setWordsCollection(sheetData));
+        }).catch((err) => {
+          // eslint-disable-next-line no-console
+          console.log(err);
+        });
+      }));
+    });
+
     // 取得瀏覽器寬度
     const handleGetScreenWidth = () => {
-      const value:number = window.innerWidth;
+      const value: number = window.innerWidth;
       dispatch(setScreenWidth(value));
     };
 

@@ -4,12 +4,14 @@ import { configureStore } from '@reduxjs/toolkit';
 import screenWidthReducer from './slice/screenWidthSlice';
 import menuControlReducer from './slice/menuControlSlice';
 import loaderControlReducer from './slice/loaderControlSlice';
+import wordsCollectionReducer from './slice/wordsCollectionSlice';
 
 export const store = configureStore({
   reducer: {
     screenWidth: screenWidthReducer,
     menuControl: menuControlReducer,
     loaderControl: loaderControlReducer,
+    wordsCollection: wordsCollectionReducer,
   },
 });
 
