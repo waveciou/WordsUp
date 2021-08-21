@@ -1,0 +1,37 @@
+@charset 'UTF-8';
+@import '../utils/_utils.scss';
+
+#header {
+  width: 100%;
+}
+
+.logo {
+  font-size: 20px;
+}
+
+.header__container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header__menu-btn {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  &::before {
+    @include font-awesome;
+
+    content: '\f0c9';
+    width: 25px;
+    height: 25px;
+    margin: auto;
+    display: block;
+    line-height: 25px;
+  }
+}

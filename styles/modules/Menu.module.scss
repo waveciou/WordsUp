@@ -24,11 +24,31 @@
 .menu__header {
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;
-  flex-basis: 150px;
+  justify-content: flex-end;
+  flex-basis: 50px;
 }
 
 .menu__body {
   flex-grow: 1;
   overflow: hidden;
+}
+
+.menu__close-btn {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  &::before {
+    @include font-awesome;
+
+    content: '\f00d';
+    width: 25px;
+    height: 25px;
+    margin: auto;
+    display: block;
+    line-height: 25px;
+  }
 }

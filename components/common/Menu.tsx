@@ -14,7 +14,14 @@ const MenuComponent: React.FC = () => {
 
   return (
     <nav id={styles.menu} className={classHandleMenu()}>
-      <div className={styles.menu__header} />
+      <div className={styles.menu__header}>
+        <button
+          type="button"
+          aria-label="close-menu"
+          className={styles['menu__close-btn']}
+          onClick={() => { dispatch(setMenuControl(false)); }}
+        />
+      </div>
       <div className={styles.menu__body} />
     </nav>
   );

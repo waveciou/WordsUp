@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 // Component
 import Meta from '../common/Meta';
 import Menu from '../common/Menu';
+import Header from '../common/Header';
 
 // Style
 import styles from '../../styles/modules/Layout.module.scss';
@@ -26,7 +27,7 @@ const LayoutComponent: React.FC = ({ children }: IProps) => {
   useEffect(() => {
     // 取得瀏覽器寬度
     const handleGetScreenWidth = () => {
-      const value = window.innerWidth;
+      const value:number = window.innerWidth;
       dispatch(setScreenWidth(value));
     };
 
@@ -37,12 +38,13 @@ const LayoutComponent: React.FC = ({ children }: IProps) => {
     };
   }, [dispatch]);
 
-  const classHandleOverlay = () => `${styles.overlay} ${menuIsOpen === true ? styles['is-active'] : null}`;
+  const classHandleOverlay = () => `${styles.overlay} ${menuIsOpen === true ? styles['is-active'] : ''}`;
 
   return (
     <>
       <Meta />
       <div id="__layout">
+        <Header />
         <main className="main">{ children }</main>
         <div
           onClick={() => { dispatch(setMenuControl(false)); }}
