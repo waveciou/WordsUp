@@ -44,10 +44,11 @@ const LayoutComponent: React.FC = ({ children }: IProps) => {
   useEffect(() => {
     // 載入 Google Sheet API
     loadGapiScrpit(() => {
-      window.gapi.load('client:auth2', initGapiClient((id) => {
-        makeApiCall(id).then((response: any) => {
+      window.gapi.load('client:auth2', initGapiClient((SHEET_ID) => {
+        makeApiCall(SHEET_ID).then(async (response: any) => {
           const sheetData = handleGetSheetData(response);
-          dispatch(setWordsCollection(sheetData));
+          await dispatch(setWordsCollection(sheetData));
+          await dispatch(setLoaderControl(false));
         }).catch((err) => {
           // eslint-disable-next-line no-console
           console.log(err);

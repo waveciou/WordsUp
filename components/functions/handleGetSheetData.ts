@@ -29,7 +29,7 @@ declare global {
 const getSheetData = (sheetData: ISheetDataValue[]) => {
   const datas: ISheetDataValue[] = [...sheetData];
 
-  const resultData: IWordCase[] = datas.map((data: ISheetDataValue, index: number) => {
+  const resultData: IWordCase[] = datas.map((data: ISheetDataValue) => {
     const { values } = data;
 
     const result: IWordCase = {

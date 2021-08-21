@@ -12,14 +12,23 @@ const initGapiClient = (callback: (SHEET_ID: string) => void) => {
     API_KEY, CLIENT_ID, SCOPE, SHEET_ID,
   } : IGapisConfig = config;
 
-  window.gapi.client?.init({
-    apiKey: API_KEY,
-    clientId: CLIENT_ID,
-    scope: SCOPE,
-    discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
-  }).then(() => {
-    callback(SHEET_ID);
-  });
+  const handleInitial = () => {
+    window.gapi.client.init({
+      apiKey: API_KEY,
+      clientId: CLIENT_ID,
+      scope: SCOPE,
+      discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
+    }).then(() => {
+      callback(SHEET_ID);
+    });
+  };
+
+  const interval = setInterval(() => {
+    if (window.gapi.client) {
+      handleInitial();
+      clearInterval(interval);
+    }
+  }, 500);
 };
 
 export default initGapiClient;
