@@ -26,25 +26,27 @@ declare global {
   }
 }
 
-const getSheetData = (sheetData: ISheetDataValue[]) => {
+const handleGetSheetData = (sheetData: ISheetDataValue[]) => {
   const datas: ISheetDataValue[] = [...sheetData];
+
+  const getFormatValue = (values: ISheetDataItem[], index: number) => values[index]?.formattedValue || '';
 
   const resultData: IWordCase[] = datas.map((data: ISheetDataValue) => {
     const { values } = data;
 
     const result: IWordCase = {
-      english: values[0]?.formattedValue || '',
-      chinese: values[1]?.formattedValue || '',
-      part: values[2]?.formattedValue || '',
+      english: getFormatValue(values, 0),
+      chinese: getFormatValue(values, 1),
+      part: getFormatValue(values, 2),
       englishExample: {
-        sentence: values[3]?.formattedValue || '',
-        key: values[4]?.formattedValue || '',
+        sentence: getFormatValue(values, 3),
+        key: getFormatValue(values, 4),
       },
       chineseExample: {
-        sentence: values[5]?.formattedValue || '',
-        key: values[6]?.formattedValue || '',
+        sentence: getFormatValue(values, 5),
+        key: getFormatValue(values, 6),
       },
-      status: values[7]?.formattedValue || '',
+      status: getFormatValue(values, 7),
     };
 
     return result;
@@ -54,4 +56,4 @@ const getSheetData = (sheetData: ISheetDataValue[]) => {
   return resultData;
 };
 
-export default getSheetData;
+export default handleGetSheetData;

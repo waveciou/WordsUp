@@ -20,11 +20,10 @@ import { setLoaderControl } from '../../store/slice/loaderControlSlice';
 import { setWordsCollection } from '../../store/slice/wordsCollectionSlice';
 
 // Functions
-import loadGapiScrpit from '../functions/googleSheetAPI/loadAPIScrpit';
-import initGapiClient from '../functions/googleSheetAPI/initAPIClient';
-import makeApiCall from '../functions/googleSheetAPI/makeAPICall';
-
-import handleGetSheetData from '../functions/handleGetSheetData';
+import loadGapiScrpit from '../../functions/googleSheetAPI/loadAPIScrpit';
+import initGapiClient from '../../functions/googleSheetAPI/initAPIClient';
+import makeGapiCallback from '../../functions/googleSheetAPI/makeAPICallback';
+import handleGetSheetData from '../../functions/handleGetSheetData';
 
 interface IProps {
   children?: React.ReactNode
@@ -45,7 +44,7 @@ const LayoutComponent: React.FC = ({ children }: IProps) => {
     // 載入 Google Sheet API
     loadGapiScrpit(() => {
       window.gapi.load('client:auth2', initGapiClient((SHEET_ID) => {
-        makeApiCall(SHEET_ID).then(async (response: any) => {
+        makeGapiCallback(SHEET_ID).then(async (response: any) => {
           const sheetData = handleGetSheetData(response);
           await dispatch(setWordsCollection(sheetData));
           await dispatch(setLoaderControl(false));

@@ -5,12 +5,12 @@ interface IGapisConfig {
   SHEET_ID: string
 }
 
-const config = require('./apikey-config.json');
+const CONFIG = require('./config.json');
 
 const initGapiClient = (callback: (SHEET_ID: string) => void) => {
   const {
     API_KEY, CLIENT_ID, SCOPE, SHEET_ID,
-  } : IGapisConfig = config;
+  } : IGapisConfig = CONFIG;
 
   const handleInitial = () => {
     window.gapi.client.init({
