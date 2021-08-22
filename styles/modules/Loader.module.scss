@@ -29,10 +29,11 @@
   align-items: center;
   justify-content: center;
 
-  > div {
+  > span {
     width: 1rem;
     height: 1rem;
     margin: 3rem 0.2rem;
+    display: block;
     background: $color-white;
     border-radius: 50%;
     animation: bouncing-loader 0.6s infinite alternate;

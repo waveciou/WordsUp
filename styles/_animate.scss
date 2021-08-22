@@ -1,0 +1,25 @@
+@charset 'UTF-8';
+@import './utils/_utils.scss';
+
+// * ==========================================================================
+// * Animation
+// * ==========================================================================
+
+// * Fade
+
+.fade-exit,
+.fade-enter-done,
+.fade-enter-active {
+  opacity: 1;
+}
+
+.fade-enter,
+.fade-exit-done,
+.fade-exit-active {
+  opacity: 0;
+}
+
+.fade-enter-active,
+.fade-exit-active {
+  transition: opacity 0.3s ease;
+}

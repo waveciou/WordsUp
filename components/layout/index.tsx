@@ -37,7 +37,6 @@ declare global {
 
 const LayoutComponent: React.FC = ({ children }: IProps) => {
   const menuIsOpen = useSelector((state: RootState) => state.menuControl.value);
-  const loaderIsOpen = useSelector((state: RootState) => state.loaderControl.value);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -83,7 +82,7 @@ const LayoutComponent: React.FC = ({ children }: IProps) => {
         />
         <Menu />
       </div>
-      { loaderIsOpen && <Loader /> }
+      <Loader />
     </>
   );
 };
