@@ -29,8 +29,19 @@
 }
 
 .menu__body {
-  flex-grow: 1;
+  position: relative;
   overflow: hidden;
+  flex-grow: 1;
+}
+
+.menu__content {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .menu__close-btn {
@@ -51,5 +62,21 @@
     display: block;
     line-height: 25px;
     color: $color-black;
+  }
+}
+
+.menu__list {
+  > li {
+    margin-bottom: 10px;
+  }
+}
+
+.menu__item {
+  display: block;
+  font-size: 20px;
+  color: $color-black;
+
+  &.current {
+    color: $color-turquoise;
   }
 }

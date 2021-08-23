@@ -1,0 +1,29 @@
+{
+  "route": [
+    {
+      "id": "home",
+      "name": "今日單字",
+      "path": "/"
+    },
+    {
+      "id": "quiz",
+      "name": "單字測驗",
+      "path": "/quiz"
+    },
+    {
+      "id": "collection",
+      "name": "單字列表",
+      "path": "/collection"
+    },
+    {
+      "id": "record",
+      "name": "我的紀錄",
+      "path": "/record"
+    },
+    {
+      "id": "settings",
+      "name": "設定",
+      "path": "/settings"
+    }
+  ]
+}

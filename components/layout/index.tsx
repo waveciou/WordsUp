@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -38,6 +39,7 @@ declare global {
 const LayoutComponent: React.FC = ({ children }: IProps) => {
   const menuIsOpen = useSelector((state: RootState) => state.menuControl.value);
   const dispatch = useDispatch();
+  const router = useRouter();
 
   useEffect(() => {
     // 載入 Google Sheet API
@@ -67,7 +69,11 @@ const LayoutComponent: React.FC = ({ children }: IProps) => {
     };
   }, [dispatch]);
 
-  const classHandleOverlay = () => `${styles.overlay} ${menuIsOpen === true ? styles['is-active'] : ''}`;
+  useEffect(() => {
+    dispatch(setMenuControl(false));
+  }, [dispatch, router]);
+
+  const ClassHandleOverlay = () => `${styles.overlay} ${menuIsOpen === true ? styles['is-active'] : ''}`;
 
   return (
     <>
@@ -78,7 +84,7 @@ const LayoutComponent: React.FC = ({ children }: IProps) => {
         <div
           onClick={() => { dispatch(setMenuControl(false)); }}
           aria-hidden="true"
-          className={classHandleOverlay()}
+          className={ClassHandleOverlay()}
         />
         <Menu />
       </div>

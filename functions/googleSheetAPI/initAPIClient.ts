@@ -1,25 +1,26 @@
+const KEY_CONFIG = require('../../data/key.json');
+
 interface IGapisConfig {
   API_KEY: string,
   CLIENT_ID: string,
   SCOPE: string,
-  SHEET_ID: string
+  SHEET_ID: string,
+  DISCOVERY_DOCS: string
 }
 
-const CONFIG = require('./config.json');
-
-const initGapiClient = (callback: (SHEET_ID: string) => void) => {
+const initGapiClient = (handleCallback: (SHEET_ID: string) => void) => {
   const {
-    API_KEY, CLIENT_ID, SCOPE, SHEET_ID,
-  } : IGapisConfig = CONFIG;
+    API_KEY, CLIENT_ID, SCOPE, SHEET_ID, DISCOVERY_DOCS,
+  } : IGapisConfig = KEY_CONFIG;
 
   const handleInitial = () => {
     window.gapi.client.init({
       apiKey: API_KEY,
       clientId: CLIENT_ID,
       scope: SCOPE,
-      discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
+      discoveryDocs: [DISCOVERY_DOCS],
     }).then(() => {
-      callback(SHEET_ID);
+      handleCallback(SHEET_ID);
     });
   };
 
@@ -29,6 +30,10 @@ const initGapiClient = (callback: (SHEET_ID: string) => void) => {
       clearInterval(interval);
     }
   }, 500);
+
+  window.addEventListener('beforeunload', () => {
+    clearInterval(interval);
+  });
 };
 
 export default initGapiClient;
