@@ -78,9 +78,9 @@ const LayoutComponent: React.FC = ({ children }: IProps) => {
   return (
     <>
       <Meta />
-      <div id="__layout">
+      <div id="__layout" className={styles['layout-container']}>
         <Header />
-        <main className="main">{ children }</main>
+        <main className={styles.main}>{ children }</main>
         <div
           onClick={() => { dispatch(setMenuControl(false)); }}
           aria-hidden="true"

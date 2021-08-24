@@ -1,6 +1,15 @@
 @charset 'UTF-8';
 @import '../utils/_utils.scss';
 
+.layout-container {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.main {
+  padding-top: $header-height;
+}
+
 .overlay {
   width: 100%;
   height: 100%;

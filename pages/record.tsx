@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 const RecordComponent: React.FC = () => (
-  <div>
+  <div className="content">
     <div>Record</div>
   </div>
 );

@@ -9,7 +9,7 @@ const HeaderComponent: React.FC = () => {
   const dispatch = useDispatch();
 
   return (
-    <header id={styles.haeder}>
+    <header id={styles.header}>
       <div className={styles.header__container}>
         <h1 className={styles.logo}>
           <span>Words Up</span>

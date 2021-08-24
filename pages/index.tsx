@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 const HomeComponent: React.FC = () => (
-  <div>
+  <div className="content">
     <div>Home</div>
   </div>
 );

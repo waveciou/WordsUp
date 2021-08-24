@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 const QuizComponent: React.FC = () => (
-  <div>
+  <div className="content">
     <div>Quiz</div>
   </div>
 );

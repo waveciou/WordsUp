@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 const CollectionComponent: React.FC = () => (
-  <div>
+  <div className="content">
     <div>Collection</div>
   </div>
 );

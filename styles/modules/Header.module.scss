@@ -3,10 +3,20 @@
 
 #header {
   width: 100%;
+  height: $header-height;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: $color-white;
+  z-index: 3000;
 }
 
 .logo {
+  padding-right: 10px;
+  padding-left: 10px;
   font-size: 20px;
+  font-weight: 700;
+  color: $color-green;
 }
 
 .header__container {
@@ -17,8 +27,8 @@
 }
 
 .header__menu-btn {
-  width: 50px;
-  height: 50px;
+  width: $header-height;
+  height: $header-height;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -33,6 +43,6 @@
     margin: auto;
     display: block;
     line-height: 25px;
-    color: $color-white;
+    color: $color-green;
   }
 }
