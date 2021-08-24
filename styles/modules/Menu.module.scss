@@ -67,6 +67,8 @@
 
 .menu__list {
   > li {
+    padding-right: 15px;
+    padding-left: 15px;
     margin-bottom: 10px;
   }
 }
@@ -74,9 +76,9 @@
 .menu__item {
   display: block;
   font-size: 20px;
-  color: $color-black;
+  color: rgba($color-brown, 0.5);
 
   &.current {
-    color: $color-green;
+    color: $color-wine;
   }
 }

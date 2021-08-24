@@ -52,13 +52,13 @@ body,
 }
 
 .content {
-  width: calc(100% - 40px);
+  width: calc(100% - 30px);
   padding: 12px;
   margin: 20px auto;
   background-color: $color-white;
   border-radius: 8px;
 
-  @include min-width(768px + 40px) {
+  @include min-width(768px + 30px) {
     width: 100%;
     max-width: 768px;
   }
