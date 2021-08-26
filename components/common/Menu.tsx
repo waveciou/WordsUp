@@ -11,7 +11,7 @@ import styles from '../../styles/modules/Menu.module.scss';
 import { RootState } from '../../store';
 import { setMenuControl } from '../../store/slice/menuControlSlice';
 
-const ROUTE = require('../../data/route.json');
+const ROUTE = require('../../src/data/route.json');
 
 interface IRouteItem {
   id: string;

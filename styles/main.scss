@@ -51,10 +51,27 @@ body,
   overflow: hidden;
 }
 
+#__layout {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.6em;
+  color: $color-yellow;
+  margin: {
+    top: 1rem;
+    bottom: 1rem;
+  };
+}
+
 .content {
   width: calc(100% - 30px);
   padding: 12px;
-  margin: 20px auto;
+  margin: 1rem auto;
   background-color: $color-white;
   border-radius: 8px;
 

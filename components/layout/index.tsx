@@ -21,10 +21,10 @@ import { setLoaderControl } from '../../store/slice/loaderControlSlice';
 import { setWordsCollection } from '../../store/slice/wordsCollectionSlice';
 
 // Functions
-import loadGapiScrpit from '../../functions/googleSheetAPI/loadAPIScrpit';
-import initGapiClient from '../../functions/googleSheetAPI/initAPIClient';
-import makeGapiCallback from '../../functions/googleSheetAPI/makeAPICallback';
-import handleGetSheetData from '../../functions/handleGetSheetData';
+import loadGapiScrpit from '../../src/functions/googleSheetAPI/loadAPIScrpit';
+import initGapiClient from '../../src/functions/googleSheetAPI/initAPIClient';
+import makeGapiCallback from '../../src/functions/googleSheetAPI/makeAPICallback';
+import handleGetSheetData from '../../src/functions/handleGetSheetData';
 
 interface IProps {
   children?: React.ReactNode
@@ -78,7 +78,7 @@ const LayoutComponent: React.FC = ({ children }: IProps) => {
   return (
     <>
       <Meta />
-      <div id="__layout" className={styles['layout-container']}>
+      <div id="__layout">
         <Header />
         <main className={styles.main}>{ children }</main>
         <div
