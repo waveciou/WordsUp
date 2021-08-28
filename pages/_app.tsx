@@ -5,7 +5,10 @@ import { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
 import { store } from '../store';
 
+// Layout
 import Layout from '../components/layout';
+
+// Style
 import '../styles/main.scss';
 
 const AppComponent = ({ Component, pageProps }: AppProps) => (

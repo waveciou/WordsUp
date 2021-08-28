@@ -16,6 +16,7 @@ import styles from '../../styles/modules/Layout.module.scss';
 // Redux
 import { RootState } from '../../store';
 import { setScreenWidth } from '../../store/slice/screenWidthSlice';
+import { setScrollValue } from '../../store/slice/scrollValueSlice';
 import { setMenuControl } from '../../store/slice/menuControlSlice';
 import { setLoaderControl } from '../../store/slice/loaderControlSlice';
 import { setWordsCollection } from '../../store/slice/wordsCollectionSlice';
@@ -62,10 +63,21 @@ const LayoutComponent: React.FC = ({ children }: IProps) => {
       dispatch(setScreenWidth(value));
     };
 
+    // 取得 Scroll Value
+    const handleGetScrollValue = () => {
+      const value: number = window.pageYOffset
+      || document.documentElement.scrollTop
+      || document.body.scrollTop;
+      dispatch(setScrollValue(value));
+    };
+
     window.addEventListener('resize', handleGetScreenWidth);
+    window.addEventListener('scroll', handleGetScrollValue);
     handleGetScreenWidth();
+    handleGetScrollValue();
     return () => {
       window.removeEventListener('resize', handleGetScreenWidth);
+      window.removeEventListener('scroll', handleGetScrollValue);
     };
   }, [dispatch]);
 
