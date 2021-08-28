@@ -13,12 +13,15 @@ import handleGetHashId from '../src/functions/handleGetHashId';
 // Style
 import styles from '../styles/components/CollectedList.module.scss';
 
+// Interface
+import { IWordCase } from '../src/interfaces/I_WordCase';
+
 const CollectionComponent: React.FC = () => {
   const words = useSelector((state: RootState) => state.wordsCollection.value);
 
   return (
     <>
-      <h1 className="title">所有單字列表</h1>
+      <h1 className="title">ALL OF THE ENGLISH WORDS</h1>
       <div className="content size-large">
         <ul className={styles.CollectedList}>
           {

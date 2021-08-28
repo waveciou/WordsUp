@@ -1,12 +1,6 @@
-const KEY_CONFIG = require('../../data/key.json');
+import { IGapisConfig } from '../../interfaces/I_SheetData';
 
-interface IGapisConfig {
-  API_KEY: string,
-  CLIENT_ID: string,
-  SCOPE: string,
-  SHEET_ID: string,
-  DISCOVERY_DOCS: string
-}
+const KEY_CONFIG = require('../../data/key.json');
 
 const initGapiClient = (handleCallback: (SHEET_ID: string) => void) => {
   const {

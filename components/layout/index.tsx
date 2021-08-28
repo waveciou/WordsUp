@@ -27,10 +27,10 @@ import initGapiClient from '../../src/functions/googleSheetAPI/initAPIClient';
 import makeGapiCallback from '../../src/functions/googleSheetAPI/makeAPICallback';
 import handleGetSheetData from '../../src/functions/handleGetSheetData';
 
+// Interface
+import { IProps } from '../../src/interfaces/I_Global';
+
 declare global {
-  interface IProps {
-    children?: React.ReactNode
-  }
   interface Window {
     gapi: any;
   }

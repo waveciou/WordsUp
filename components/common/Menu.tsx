@@ -11,13 +11,10 @@ import styles from '../../styles/common/Menu.module.scss';
 import { RootState } from '../../store';
 import { setMenuControl } from '../../store/slice/menuControlSlice';
 
-const ROUTE = require('../../src/data/route.json');
+// Interface
+import { IRouteItem } from '../../src/interfaces/I_Global';
 
-interface IRouteItem {
-  id: string;
-  name: string;
-  path: string;
-}
+const ROUTE = require('../../src/data/route.json');
 
 const MenuComponent: React.FC = () => {
   const [routeLinks, setRouteLinks] = useState([]);

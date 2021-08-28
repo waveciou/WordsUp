@@ -1,3 +1,5 @@
+import { ISheetDataValue } from '../../interfaces/I_SheetData';
+
 const makeApiCall = (sheetId: string) => {
   const params = {
     spreadsheetId: sheetId,

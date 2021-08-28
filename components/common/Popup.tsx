@@ -6,6 +6,9 @@ import { CSSTransition } from 'react-transition-group';
 // Style
 import styles from '../../styles/common/Popup.module.scss';
 
+// Interface
+import { IProps } from '../../src/interfaces/I_Global';
+
 interface IPopupModal extends IProps {
   show: boolean;
   onClose: () => void;

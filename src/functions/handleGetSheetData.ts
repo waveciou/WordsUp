@@ -1,30 +1,5 @@
-declare global {
-  interface ISheetDataItem {
-    effectiveFormat: {};
-    effectiveValue?: {};
-    formattedValue?: string | undefined;
-    userEnteredValue?: {};
-  }
-
-  interface ISheetDataValue {
-    values: ISheetDataItem[]
-  }
-
-  interface IWordCase {
-    english: string,
-    chinese: string,
-    part: string,
-    englishExample: {
-      sentence: string,
-      key: string,
-    },
-    chineseExample: {
-      sentence: string,
-      key: string,
-    },
-    status: string
-  }
-}
+import { ISheetDataItem, ISheetDataValue } from '../interfaces/I_SheetData';
+import { IWordCase } from '../interfaces/I_WordCase';
 
 const handleGetSheetData = (sheetData: ISheetDataValue[]) => {
   const datas: ISheetDataValue[] = [...sheetData];

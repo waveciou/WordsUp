@@ -1,5 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+// Interface
+import { IWordCase } from '../../src/interfaces/I_WordCase';
+
 const initialState: { value: IWordCase[] } = {
   value: [],
 };
