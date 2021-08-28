@@ -27,17 +27,16 @@ import initGapiClient from '../../src/functions/googleSheetAPI/initAPIClient';
 import makeGapiCallback from '../../src/functions/googleSheetAPI/makeAPICallback';
 import handleGetSheetData from '../../src/functions/handleGetSheetData';
 
-interface IProps {
-  children?: React.ReactNode
-}
-
 declare global {
+  interface IProps {
+    children?: React.ReactNode
+  }
   interface Window {
     gapi: any;
   }
 }
 
-const LayoutComponent: React.FC = ({ children }: IProps) => {
+const LayoutComponent: React.FC<IProps> = ({ children }) => {
   const menuIsOpen = useSelector((state: RootState) => state.menuControl.value);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -75,6 +74,7 @@ const LayoutComponent: React.FC = ({ children }: IProps) => {
     window.addEventListener('scroll', handleGetScrollValue);
     handleGetScreenWidth();
     handleGetScrollValue();
+
     return () => {
       window.removeEventListener('resize', handleGetScreenWidth);
       window.removeEventListener('scroll', handleGetScrollValue);

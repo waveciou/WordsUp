@@ -60,11 +60,19 @@ html {
   @include min-width(1025px) {
     height: 100%;
     overflow-y: auto;
+
+    &.is-overflow-fixed {
+      overflow-y: hidden;
+    }
   }
 }
 
 #__layout {
   overflow-y: auto;
+
+  @at-root .is-overflow-fixed & {
+    overflow-y: hidden;
+  }
 
   @include min-width(1025px) {
     overflow-y: hidden;
