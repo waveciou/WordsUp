@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Style
-import styles from '../../styles/modules/Menu.module.scss';
+import styles from '../../styles/common/Menu.module.scss';
 
 // Redux
 import { RootState } from '../../store';

@@ -11,7 +11,7 @@ import Header from '../common/Header';
 import Loader from '../common/Loader';
 
 // Style
-import styles from '../../styles/modules/Layout.module.scss';
+import styles from '../../styles/common/Layout.module.scss';
 
 // Redux
 import { RootState } from '../../store';

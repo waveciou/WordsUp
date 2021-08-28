@@ -72,14 +72,14 @@ html {
 }
 
 .title {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 700;
   text-align: center;
   line-height: 1.6em;
   color: $color-yellow;
   margin: {
-    top: 1rem;
-    bottom: 1rem;
+    top: 1.125rem;
+    bottom: 1.125rem;
   };
 }
 
@@ -93,5 +93,11 @@ html {
   @include min-width(768px + 30px) {
     width: 100%;
     max-width: 768px;
+  }
+
+  &.size-large {
+    @include min-width(1024px + 30px) {
+      max-width: 1024px;
+    }
   }
 }

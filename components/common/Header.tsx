@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
-import styles from '../../styles/modules/Header.module.scss';
+import styles from '../../styles/common/Header.module.scss';
 
 // Redux
 import { setMenuControl } from '../../store/slice/menuControlSlice';

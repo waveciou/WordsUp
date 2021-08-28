@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
 
 // Style
-import styles from '../../styles/modules/Loader.module.scss';
+import styles from '../../styles/common/Loader.module.scss';
 
 // Redux
 import { RootState } from '../../store';

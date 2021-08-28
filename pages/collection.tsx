@@ -4,8 +4,14 @@ import { useSelector } from 'react-redux';
 // Redux
 import { RootState } from '../store';
 
+// Component
+import CollectedCard from '../components/CollectedCard';
+
 // Functions
 import handleGetHashId from '../src/functions/handleGetHashId';
+
+// Style
+import styles from '../styles/components/CollectedList.module.scss';
 
 const CollectionComponent: React.FC = () => {
   const words = useSelector((state: RootState) => state.wordsCollection.value);
@@ -13,19 +19,19 @@ const CollectionComponent: React.FC = () => {
   return (
     <>
       <h1 className="title">所有單字列表</h1>
-      <div className="content">
-        {
-          words.map((wordItem: IWordCase, index: number) => {
-            const id: string = handleGetHashId(index);
-            return (
-              <div key={id}>
-                <p>{ wordItem.english }</p>
-                <p>{ wordItem.chinese }</p>
-              </div>
-            );
-          })
-        }
-        <div>Collection</div>
+      <div className="content size-large">
+        <ul className={styles.CollectedList}>
+          {
+            words.map((word: IWordCase, index: number) => {
+              const id: string = handleGetHashId(index);
+              return (
+                <li key={id}>
+                  <CollectedCard word={word} />
+                </li>
+              );
+            })
+          }
+        </ul>
       </div>
     </>
   );
