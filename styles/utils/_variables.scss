@@ -8,6 +8,7 @@ $color-white: #fff;
 $color-black: #333;
 $color-gray: #c8c9cc;
 $color-green: #1ea79d;
+$color-green-dark: #168077;
 $color-wine: #a31621;
 $color-brown: #420c14;
 $color-orange: #f58f29;
@@ -18,6 +19,14 @@ $color-yellow: #ffe464;
 // * ==========================================================================
 
 $font-family: 'Noto Sans TC', '微軟正黑體', 'Microsoft JhengHei', sans-serif, arial;
+$font-size: (
+  xl: 28px,
+  lg: 24px,
+  md: 22px,
+  base: 20px,
+  sm: 18px,
+  xs: 16px
+);
 
 // * ==========================================================================
 // * Component

@@ -85,6 +85,14 @@ const LayoutComponent: React.FC<IProps> = ({ children }) => {
     dispatch(setMenuControl(false));
   }, [dispatch, router]);
 
+  useEffect(() => {
+    if (menuIsOpen === true) {
+      document.documentElement.classList.add('is-fixed');
+    } else {
+      document.documentElement.classList.remove('is-fixed');
+    }
+  }, [menuIsOpen]);
+
   const ClassHandleOverlay = () => `${styles.overlay} ${menuIsOpen === true ? styles['is-active'] : ''}`;
 
   return (

@@ -1,5 +1,8 @@
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
+import Link from 'next/link';
+
+// Style
 import styles from '../../styles/common/Header.module.scss';
 
 // Redux
@@ -11,9 +14,11 @@ const HeaderComponent: React.FC = () => {
   return (
     <header id={styles.header}>
       <div className={styles.header__container}>
-        <h1 className={styles.logo}>
-          <span>Words Up</span>
-        </h1>
+        <Link href="/" passHref>
+          <a href="replace" className={styles.logo}>
+            <span>Words Up</span>
+          </a>
+        </Link>
         <button
           type="button"
           aria-label="open-menu"

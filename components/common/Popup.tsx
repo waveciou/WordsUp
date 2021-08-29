@@ -24,9 +24,9 @@ const PopupModalComponent: React.FC<IPopupModal> = ({ children, show, onClose })
 
   useEffect(() => {
     if (show === true) {
-      document.documentElement.classList.add('is-overflow-fixed');
+      document.documentElement.classList.add('is-fixed');
     } else {
-      document.documentElement.classList.remove('is-overflow-fixed');
+      document.documentElement.classList.remove('is-fixed');
     }
   }, [show]);
 
@@ -44,8 +44,17 @@ const PopupModalComponent: React.FC<IPopupModal> = ({ children, show, onClose })
       unmountOnExit
       appear
     >
-      <div ref={nodeRef} className={styles['popup-desktop']}>
-        <div className={styles.popup__wrapper}>
+      <div
+        ref={nodeRef}
+        className={styles['popup-desktop']}
+        aria-hidden="true"
+        onClick={handleClosePopup}
+      >
+        <div
+          className={styles.popup__wrapper}
+          aria-hidden="true"
+          onClick={(e) => { e.stopPropagation(); }}
+        >
           <button
             type="button"
             aria-label="close-popup"

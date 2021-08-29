@@ -15,7 +15,8 @@
 .logo {
   padding-right: 10px;
   padding-left: 10px;
-  font-size: 20px;
+  display: block;
+  font-size: map-get($font-size, base);
   font-weight: 700;
   color: $color-green;
 }

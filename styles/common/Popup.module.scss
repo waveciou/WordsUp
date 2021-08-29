@@ -16,9 +16,9 @@
 
 .popup__wrapper {
   width: calc(100% - 20px);
-  height: calc(100% - 20px);
   max-width: 650px;
-  max-height: 800px;
+  min-height: 300px;
+  max-height: calc(100% - 20px);
   padding: 12px;
   padding-top: 32px;
   position: relative;

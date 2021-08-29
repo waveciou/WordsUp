@@ -75,7 +75,7 @@
 
 .menu__item {
   display: block;
-  font-size: 20px;
+  font-size: map-get($font-size, base);
   color: rgba($color-brown, 0.5);
 
   &.current {

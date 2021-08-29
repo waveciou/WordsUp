@@ -11,7 +11,7 @@ import CollectedCard from '../components/CollectedCard';
 import handleGetHashId from '../src/functions/handleGetHashId';
 
 // Style
-import styles from '../styles/components/CollectedList.module.scss';
+import styles from '../styles/components/Collection.module.scss';
 
 // Interface
 import { IWordCase } from '../src/interfaces/I_WordCase';
@@ -23,7 +23,7 @@ const CollectionComponent: React.FC = () => {
     <>
       <h1 className="title">ALL OF THE ENGLISH WORDS</h1>
       <div className="content size-large">
-        <ul className={styles.CollectedList}>
+        <ul className={styles.collectedList}>
           {
             words.map((word: IWordCase, index: number) => {
               const id: string = handleGetHashId(index);
