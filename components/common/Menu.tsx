@@ -28,7 +28,7 @@ const MenuComponent: React.FC = () => {
   }, []);
 
   const ClassHandleMenu = () => `${menuIsOpen === true ? styles['is-active'] : ''}`;
-  const ClassHandleLink = (path: string) => `${styles.menu__item} ${router.asPath === path ? styles.current : ''}`;
+  const ClassHandleLink = (path: string, id: string) => `${styles.menu__item} ${styles[`icon-${id}`]} ${router.asPath === path ? styles.current : ''}`;
 
   return (
     <nav id={styles.menu} className={ClassHandleMenu()}>
@@ -49,7 +49,7 @@ const MenuComponent: React.FC = () => {
                 return (
                   <li key={id}>
                     <Link href={path} passHref>
-                      <a href="replace" className={ClassHandleLink(path)}>{name}</a>
+                      <a href="replace" className={ClassHandleLink(path, id)}>{name}</a>
                     </Link>
                   </li>
                 );

@@ -1,6 +1,9 @@
 @charset 'UTF-8';
 @import '../utils/_utils.scss';
 
+$icon-size: 1.6em;
+$icons: ('home': '\f086', 'quiz': '\f303', 'collection': '\f02d', 'record': '\f091', 'settings': '\f013');
+
 #menu {
   width: 80%;
   height: 100%;
@@ -74,11 +77,30 @@
 }
 
 .menu__item {
-  display: block;
+  display: flex;
+  align-items: center;
   font-size: map-get($font-size, base);
   color: rgba($color-brown, 0.5);
+  line-height: $icon-size;
+
+  &::before {
+    @include font-awesome;
+
+    width: $icon-size;
+    height: $icon-size;
+    margin-right: 5px;
+    display: block;
+    text-align: center;
+    line-height: $icon-size;
+  }
 
   &.current {
     color: $color-wine;
+  }
+
+  @each $name, $glyph in $icons {
+    &.icon-#{$name}::before {
+      content: $glyph;
+    }
   }
 }
