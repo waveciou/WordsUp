@@ -10,6 +10,7 @@ import Popup from './common/Popup';
 
 // Function
 import handleGetExampleNode from '../src/functions/handleGetExampleNode';
+import handleSetWordStatusNode from '../src/functions/handleSetWordStatusNode';
 
 // Interface
 import { IWordItem } from '../src/interfaces/I_WordCase';
@@ -56,7 +57,12 @@ const CollectedCard: React.FC<IWordItem> = ({ word }: IWordItem) => {
           />
           {
             status !== ''
-              ? (<div className={styles[`${popup}__status`]}>{ status }</div>) : null
+              ? (
+                <div
+                  className={styles[`${popup}__status`]}
+                  dangerouslySetInnerHTML={{ __html: handleSetWordStatusNode(status) }}
+                />
+              ) : null
           }
         </div>
       </Popup>
