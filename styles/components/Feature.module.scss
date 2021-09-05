@@ -1,0 +1,47 @@
+@charset 'UTF-8';
+@import '../utils/_utils.scss';
+
+.feature {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  &.is-flex-start {
+    justify-content: flex-start;
+  }
+
+  &.is-flex-end {
+    justify-content: flex-end;
+  }
+
+  &.is-flex-center {
+    justify-content: center;
+  }
+}
+
+.fieldset {
+  margin-right: 10px;
+  list-style: 1em;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.sort-down-button {
+  width: 48px;
+  height: 48px;
+  background-color: $color-white;
+  border-radius: 8px;
+
+  &::before {
+    @include font-awesome;
+
+    content: '\f15d';
+    text-align: center;
+  }
+
+  &.is-down-alt::before {
+    content: '\f881';
+  }
+}

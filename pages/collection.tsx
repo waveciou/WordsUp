@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 
 // Redux
@@ -15,35 +15,100 @@ import handleGetHashId from '../src/functions/handleGetHashId';
 
 // Style
 import styles from '../styles/components/Collection.module.scss';
+import stylesFeature from '../styles/components/Feature.module.scss';
 
 // Interface
 import { IWordCase } from '../src/interfaces/I_WordCase';
+import { ISelectOption } from '../src/interfaces/I_Form';
 
 const CollectionComponent: React.FC = () => {
-  const words = useSelector((state: RootState) => state.wordsCollection.value);
-
-  // Sort
-  const [sortBase, setSortBase] = useState('');
-  const [sortList, setSortList] = useState([]);
+  const wordsData = useSelector((state: RootState) => state.wordsCollection.value);
+  const [words, setWords] = useState<IWordCase[]>([]);
 
   // Filter
   const [filterBase, setFilterBase] = useState('');
-  const [filterList, setFilterList] = useState([]);
+  const [filterList, setFilterList] = useState<ISelectOption[]>([]);
+
+  // Sort
+  const [isSortDownAlt, setIsSortDownAlt] = useState(false);
+
+  const handleGetPartList = (dataList: IWordCase[]) => {
+    const result = dataList.reduce<ISelectOption[]>((reduceList, word) => {
+      const { part } = word;
+      const hasInclude: boolean = reduceList.some((item) => item.value === part);
+
+      if (hasInclude === false && part !== '') {
+        const partItem: ISelectOption[] = [
+          {
+            value: part,
+            name: part.toLocaleUpperCase(),
+          },
+        ];
+        return [...reduceList, ...partItem];
+      }
+      return [...reduceList];
+    }, [{ value: 'all', name: 'ALL' }]);
+
+    return result;
+  };
+
+  const ClassHandleSortDownBtn = () => `${stylesFeature['sort-down-button']} ${isSortDownAlt === true ? stylesFeature['is-down-alt'] : ''}`;
+
+  const callbackProcessWords = useCallback(() => {
+    const _wordsData: IWordCase[] = [...wordsData];
+    const filterListResult: IWordCase[] = filterBase === 'all' ? _wordsData : _wordsData.filter((word) => word.part === filterBase);
+
+    const sortListResult: IWordCase[] = filterListResult.sort((a, b) => {
+      const aText: string = a.english.toLocaleLowerCase();
+      const bText: string = b.english.toLocaleLowerCase();
+
+      if (aText > bText) {
+        return isSortDownAlt === false ? 1 : -1;
+      }
+
+      if (aText < bText) {
+        return isSortDownAlt === false ? -1 : 1;
+      }
+      return 0;
+    });
+
+    setWords(sortListResult);
+  }, [wordsData, filterBase, isSortDownAlt]);
+
+  useEffect(() => {
+    const _wordsData: IWordCase[] = [...wordsData];
+    const partList: ISelectOption[] = handleGetPartList(_wordsData);
+
+    setFilterList(partList);
+    setFilterBase('all');
+  }, [wordsData]);
+
+  useEffect(() => {
+    callbackProcessWords();
+  }, [wordsData, filterBase, isSortDownAlt, callbackProcessWords]);
 
   return (
     <>
       <h1 className="title">ALL OF THE ENGLISH WORDS</h1>
-      <div className="content size-large">
-        <div className="feature">
-          <Select
-            options={sortList}
-            onChange={(event) => { setSortBase(event.target.value); }}
-          />
-
-          <Select
-            options={filterList}
-            onChange={(event) => { setFilterBase(event.target.value); }}
-          />
+      <div className="content size-large theme-transparent">
+        <div className={`${stylesFeature.feature} ${stylesFeature['is-flex-end']}`}>
+          <div className={stylesFeature.fieldset}>
+            <Select
+              options={filterList}
+              onChange={(event) => { setFilterBase(event.target.value); }}
+            />
+          </div>
+          <div className={stylesFeature.fieldset}>
+            <button
+              type="button"
+              className={ClassHandleSortDownBtn()}
+              aria-label="sort-alpha-button"
+              onClick={() => {
+                const result: boolean = !isSortDownAlt;
+                setIsSortDownAlt(result);
+              }}
+            />
+          </div>
         </div>
       </div>
       <div className="content size-large">

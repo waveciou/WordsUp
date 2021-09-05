@@ -80,4 +80,10 @@ html {
       max-width: 1024px;
     }
   }
+
+  &.theme-transparent {
+    padding: 0;
+    background-color: transparent;
+    border-radius: 0;
+  }
 }

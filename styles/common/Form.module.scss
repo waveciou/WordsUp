@@ -1,14 +1,38 @@
 @charset 'UTF-8';
 @import '../utils/_utils.scss';
 
+$select--padding: 12px;
+$select--line-height: 24px;
+
 .select {
+  min-width: 150px;
   display: block;
   position: relative;
-  cursor: pointer;
+  background-color: $color-gray-light;
+  border-radius: 8px;
 
   > select {
     width: 100%;
-    line-height: 1em;
+    padding: $select--padding;
+    padding-right: calc(#{$select--line-height} + #{$select--padding});
+    line-height: $select--line-height;
+    font-size: map-get($font-size, xs);
     appearance: none;
+    cursor: pointer;
+  }
+
+  &::after {
+    @include font-awesome;
+
+    content: '\f107';
+    width: $select--line-height;
+    height: $select--line-height;
+    display: block;
+    position: absolute;
+    top: $select--padding;
+    right: $select--padding;
+    text-align: center;
+    line-height: $select--line-height;
+    pointer-events: none;
   }
 }
