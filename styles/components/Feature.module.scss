@@ -21,7 +21,7 @@
 
 .fieldset {
   margin-right: 10px;
-  list-style: 1em;
+  line-height: 1em;
 
   &:last-child {
     margin-right: 0;
@@ -35,13 +35,15 @@
   border-radius: 8px;
 
   &::before {
-    @include font-awesome;
+    @include font-material;
 
-    content: '\f15d';
+    content: '\e164';
     text-align: center;
+    line-height: 48px;
+    color: $color-black;
   }
 
   &.is-down-alt::before {
-    content: '\f881';
+    color: $color-green;
   }
 }

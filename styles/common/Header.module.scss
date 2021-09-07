@@ -37,9 +37,9 @@
   text-align: center;
 
   &::before {
-    @include font-awesome;
+    @include font-material;
 
-    content: '\f0c9';
+    content: '\e5d2';
     width: 25px;
     height: 25px;
     margin: auto;

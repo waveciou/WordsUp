@@ -2,7 +2,7 @@
 @import '../utils/_utils.scss';
 
 $icon-size: 1.6em;
-$icons: ('home': '\f086', 'quiz': '\f303', 'collection': '\f02d', 'record': '\f091', 'settings': '\f013');
+$icons: ('home': '\e8ce', 'quiz': '\f04c', 'collection': '\e241', 'record': '\e85d', 'settings': '\e8b8');
 
 #menu {
   width: 80%;
@@ -56,9 +56,9 @@ $icons: ('home': '\f086', 'quiz': '\f303', 'collection': '\f02d', 'record': '\f0
   text-align: center;
 
   &::before {
-    @include font-awesome;
+    @include font-material;
 
-    content: '\f00d';
+    content: '\e5cd';
     width: 25px;
     height: 25px;
     margin: auto;
@@ -84,7 +84,7 @@ $icons: ('home': '\f086', 'quiz': '\f303', 'collection': '\f02d', 'record': '\f0
   line-height: $icon-size;
 
   &::before {
-    @include font-awesome;
+    @include font-material;
 
     width: $icon-size;
     height: $icon-size;

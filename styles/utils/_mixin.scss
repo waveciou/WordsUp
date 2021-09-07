@@ -40,3 +40,29 @@
   font-family: 'Font Awesome 5 solid', sans-serif;
   font-weight: 900;
 }
+
+// * Font Material
+@mixin font-material {
+  font-size: 24px;
+  font-family: 'Material Icons', sans-serif;
+  font-weight: normal;
+  white-space: nowrap;
+  font-style: normal;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}

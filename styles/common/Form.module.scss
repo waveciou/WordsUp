@@ -22,9 +22,9 @@ $select--line-height: 24px;
   }
 
   &::after {
-    @include font-awesome;
+    @include font-material;
 
-    content: '\f107';
+    content: '\e5cf';
     width: $select--line-height;
     height: $select--line-height;
     display: block;
