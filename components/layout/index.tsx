@@ -18,14 +18,10 @@ import { RootState } from '../../store';
 import { setScreenWidth } from '../../store/slice/screenWidthSlice';
 import { setScrollValue } from '../../store/slice/scrollValueSlice';
 import { setMenuControl } from '../../store/slice/menuControlSlice';
-import { setLoaderControl } from '../../store/slice/loaderControlSlice';
-import { setWordsCollection } from '../../store/slice/wordsCollectionSlice';
 
 // Functions
 import loadGapiScrpit from '../../src/functions/googleSheetAPI/loadAPIScrpit';
-import initGapiClient from '../../src/functions/googleSheetAPI/initAPIClient';
-import makeGapiCallback from '../../src/functions/googleSheetAPI/makeAPICallback';
-import handleGetSheetData from '../../src/functions/handleGetSheetData';
+import HandleGetGoogleSheetData from '../../src/functions/handleGetGoogleSheetData';
 
 // Interface
 import { IProps } from '../../src/interfaces/I_Global';
@@ -40,20 +36,12 @@ const LayoutComponent: React.FC<IProps> = ({ children }) => {
   const menuIsOpen = useSelector((state: RootState) => state.menuControl.value);
   const dispatch = useDispatch();
   const router = useRouter();
+  const handleGetData = HandleGetGoogleSheetData();
 
   useEffect(() => {
     // 載入 Google Sheet API
     loadGapiScrpit(() => {
-      window.gapi.load('client:auth2', initGapiClient((SHEET_ID) => {
-        makeGapiCallback(SHEET_ID).then(async (response: any) => {
-          const sheetData = handleGetSheetData(response);
-          await dispatch(setWordsCollection(sheetData));
-          await dispatch(setLoaderControl(false));
-        }).catch((err) => {
-          // eslint-disable-next-line no-console
-          console.log(err);
-        });
-      }));
+      window.gapi.load('client:auth2', handleGetData);
     });
 
     // 取得瀏覽器寬度

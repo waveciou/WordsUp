@@ -1,7 +1,7 @@
 import { ISheetDataItem, ISheetDataValue } from '../interfaces/I_SheetData';
 import { IWordCase } from '../interfaces/I_WordCase';
 
-const handleGetSheetData = (sheetData: ISheetDataValue[]) => {
+const handleProcessSheetData = (sheetData: ISheetDataValue[]) => {
   const datas: ISheetDataValue[] = [...sheetData];
 
   const getFormatValue = (values: ISheetDataItem[], index: number) => values[index]?.formattedValue || '';
@@ -31,4 +31,4 @@ const handleGetSheetData = (sheetData: ISheetDataValue[]) => {
   return resultData;
 };
 
-export default handleGetSheetData;
+export default handleProcessSheetData;

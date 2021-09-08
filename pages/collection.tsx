@@ -12,6 +12,7 @@ import { Select } from '../components/common/Form';
 
 // Functions
 import handleGetHashId from '../src/functions/handleGetHashId';
+import HandleGetGoogleSheetData from '../src/functions/handleGetGoogleSheetData';
 
 // Style
 import styles from '../styles/components/Collection.module.scss';
@@ -24,6 +25,7 @@ import { ISelectOption } from '../src/interfaces/I_Form';
 const CollectionComponent: React.FC = () => {
   const wordsData = useSelector((state: RootState) => state.wordsCollection.value);
   const [words, setWords] = useState<IWordCase[]>([]);
+  const handleGetData = HandleGetGoogleSheetData();
 
   // Filter
   const [filterBase, setFilterBase] = useState('');
@@ -107,6 +109,14 @@ const CollectionComponent: React.FC = () => {
                 const result: boolean = !isSortDownAlt;
                 setIsSortDownAlt(result);
               }}
+            />
+          </div>
+          <div className={stylesFeature.fieldset}>
+            <button
+              type="button"
+              className={stylesFeature['data-update-button']}
+              aria-label="data-update-button"
+              onClick={handleGetData}
             />
           </div>
         </div>
