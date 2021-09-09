@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -38,25 +38,25 @@ const LayoutComponent: React.FC<IProps> = ({ children }) => {
   const router = useRouter();
   const handleGetData = HandleGetGoogleSheetData();
 
+  // 取得瀏覽器寬度
+  const handleGetScreenWidth = useCallback(() => {
+    const value: number = window.innerWidth;
+    dispatch(setScreenWidth(value));
+  }, [dispatch]);
+
+  // 取得 Scroll Value
+  const handleGetScrollValue = useCallback(() => {
+    const value: number = window.pageYOffset
+    || document.documentElement.scrollTop
+    || document.body.scrollTop;
+    dispatch(setScrollValue(value));
+  }, [dispatch]);
+
   useEffect(() => {
     // 載入 Google Sheet API
     loadGapiScrpit(() => {
       window.gapi.load('client:auth2', handleGetData);
     });
-
-    // 取得瀏覽器寬度
-    const handleGetScreenWidth = () => {
-      const value: number = window.innerWidth;
-      dispatch(setScreenWidth(value));
-    };
-
-    // 取得 Scroll Value
-    const handleGetScrollValue = () => {
-      const value: number = window.pageYOffset
-      || document.documentElement.scrollTop
-      || document.body.scrollTop;
-      dispatch(setScrollValue(value));
-    };
 
     window.addEventListener('resize', handleGetScreenWidth);
     window.addEventListener('scroll', handleGetScrollValue);
@@ -67,7 +67,7 @@ const LayoutComponent: React.FC<IProps> = ({ children }) => {
       window.removeEventListener('resize', handleGetScreenWidth);
       window.removeEventListener('scroll', handleGetScrollValue);
     };
-  }, [dispatch]);
+  }, [dispatch, handleGetData, handleGetScreenWidth, handleGetScrollValue]);
 
   useEffect(() => {
     dispatch(setMenuControl(false));
