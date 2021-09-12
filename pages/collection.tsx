@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import * as React from 'react';
 import { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
@@ -15,8 +14,9 @@ import handleGetHashId from '../src/functions/handleGetHashId';
 import HandleGetGoogleSheetData from '../src/functions/handleGetGoogleSheetData';
 
 // Style
-import styles from '../styles/components/Collection.module.scss';
+import stylesCollection from '../styles/components/Collection.module.scss';
 import stylesFeature from '../styles/components/Feature.module.scss';
+import stylesButton from '../styles/common/Button.module.scss';
 
 // Interface
 import { IWordCase } from '../src/interfaces/I_WordCase';
@@ -54,7 +54,11 @@ const CollectionComponent: React.FC = () => {
     return result;
   };
 
-  const ClassHandleSortDownBtn = () => `${stylesFeature['sort-down-button']} ${isSortDownAlt === true ? stylesFeature['is-down-alt'] : ''}`;
+  const ClassHandleSortDownBtn = () => `
+  ${stylesButton['fab-btn']}
+  ${stylesButton['fab__sort-down-btn']} 
+  ${isSortDownAlt === true ? stylesButton['is-down-alt'] : ''}
+  `;
 
   const callbackProcessWords = useCallback(() => {
     const _wordsData: IWordCase[] = [...wordsData];
@@ -91,7 +95,7 @@ const CollectionComponent: React.FC = () => {
 
   return (
     <>
-      <h1 className="title">ALL OF THE ENGLISH WORDS</h1>
+      <h1 className="title">ALL OF THE WORDS</h1>
       <div className="content size-large theme-transparent">
         <div className={`${stylesFeature.feature} ${stylesFeature['is-flex-end']}`}>
           <div className={stylesFeature.fieldset}>
@@ -114,7 +118,10 @@ const CollectionComponent: React.FC = () => {
           <div className={stylesFeature.fieldset}>
             <button
               type="button"
-              className={stylesFeature['data-update-button']}
+              className={`
+              ${stylesButton['fab-btn']}
+              ${stylesButton['fab__update-btn']}
+              `}
               aria-label="data-update-button"
               onClick={handleGetData}
             />
@@ -122,7 +129,7 @@ const CollectionComponent: React.FC = () => {
         </div>
       </div>
       <div className="content size-large">
-        <ul className={styles.collectedList}>
+        <ul className={stylesCollection.collectedList}>
           {
             words.map((word: IWordCase, index: number) => {
               const id: string = handleGetHashId(index);

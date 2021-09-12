@@ -27,39 +27,3 @@
     margin-right: 0;
   }
 }
-
-.sort-down-button {
-  width: 48px;
-  height: 48px;
-  background-color: $color-white;
-  border-radius: 8px;
-
-  &::before {
-    @include font-material;
-
-    content: '\e164';
-    text-align: center;
-    line-height: 48px;
-    color: $color-black;
-  }
-
-  &.is-down-alt::before {
-    color: $color-green;
-  }
-}
-
-.data-update-button {
-  width: 48px;
-  height: 48px;
-  background-color: $color-white;
-  border-radius: 8px;
-
-  &::before {
-    @include font-material;
-
-    content: '\e5d5';
-    text-align: center;
-    line-height: 48px;
-    color: $color-black;
-  }
-}

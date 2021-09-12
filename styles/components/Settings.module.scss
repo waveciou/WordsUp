@@ -1,0 +1,35 @@
+@charset 'UTF-8';
+@import '../utils/_utils.scss';
+
+// * List
+
+.settingsList {
+  > li {
+    margin-bottom: 12px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__item {
+    width: 100%;
+    padding: 12px;
+    display: block;
+    font-size: map-get($font-size, sm);
+    text-align: left;
+    color: $color-black;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px 0 rgba($color-black, 0.2);
+  }
+}
+
+// * Section
+
+.settingsSection {
+  padding: 12px;
+  font-size: map-get($font-size, sm);
+  color: $color-black;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px 0 rgba($color-black, 0.2);
+}

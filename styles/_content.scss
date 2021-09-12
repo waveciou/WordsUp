@@ -81,6 +81,12 @@ html {
     }
   }
 
+  &.size-small {
+    @include min-width(480px + 30px) {
+      max-width: 480px;
+    }
+  }
+
   &.theme-transparent {
     padding: 0;
     background-color: transparent;
