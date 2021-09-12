@@ -39,9 +39,7 @@ export const Select: React.FC<ISelect> = ({ options, onChange }: ISelect) => {
 export const Checkbox: React.FC<ICheckbox> = ({
   id, title, status, onChange,
 }: ICheckbox) => {
-  const checkbox: string = 'checkbox';
-
-  const ClassHandle = (name: string) => styles[`${checkbox}__${name}`];
+  const ClassHandle = (name: string) => styles[`checkbox__${name}`];
 
   const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
     onChange(event);
