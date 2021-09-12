@@ -3,7 +3,7 @@
 
 // * List
 
-.settingsList {
+.settings-list {
   > li {
     margin-bottom: 12px;
 
@@ -11,25 +11,71 @@
       margin-bottom: 0;
     }
   }
-
-  &__item {
-    width: 100%;
-    padding: 12px;
-    display: block;
-    font-size: map-get($font-size, sm);
-    text-align: left;
-    color: $color-black;
-    border-radius: 8px;
-    box-shadow: 0 1px 3px 0 rgba($color-black, 0.2);
-  }
 }
 
 // * Section
 
-.settingsSection {
+.settings-section {
   padding: 12px;
-  font-size: map-get($font-size, sm);
+  font-size: map-get($font-size, xs);
   color: $color-black;
   border-radius: 8px;
   box-shadow: 0 1px 3px 0 rgba($color-black, 0.2);
+
+  &__content {
+    padding-left: 16px;
+  }
+}
+
+// * Links
+
+.settings-link {
+  width: 100%;
+  padding: 12px;
+  display: block;
+  font-size: map-get($font-size, xs);
+  text-align: left;
+  color: $color-black;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px 0 rgba($color-black, 0.2);
+}
+
+// * Icons
+
+$icon-size: 20px;
+$icons: (
+  'update': ('material', '\e5d5'),
+  'storage': ('material', '\e875'),
+  'github': ('awesome', '\f126'),
+);
+
+.settings__has-icon {
+  display: flex;
+  align-items: center;
+
+  &::before {
+    width: $icon-size;
+    height: $icon-size;
+    margin-right: 10px;
+    display: block;
+    text-align: right;
+    line-height: $icon-size;
+  }
+
+  @each $name, $item in $icons {
+    $family: nth($item, 1);
+    $unicode: nth($item, 2);
+
+    &.icon-#{$name}::before {
+      content: $unicode;
+
+      @if $family == 'material' {
+        @include font-material;
+      }
+
+      @if $family == 'awesome' {
+        @include font-awesome;
+      }
+    }
+  }
 }

@@ -55,9 +55,9 @@ const CollectionComponent: React.FC = () => {
   };
 
   const ClassHandleSortDownBtn = () => `
-  ${stylesButton['fab-btn']}
-  ${stylesButton['fab__sort-down-btn']} 
-  ${isSortDownAlt === true ? stylesButton['is-down-alt'] : ''}
+    ${stylesButton['fab-btn']}
+    ${stylesButton['fab__sort-down-btn']} 
+    ${isSortDownAlt === true ? stylesButton['is-down-alt'] : ''}
   `;
 
   const callbackProcessWords = useCallback(() => {
@@ -119,8 +119,8 @@ const CollectionComponent: React.FC = () => {
             <button
               type="button"
               className={`
-              ${stylesButton['fab-btn']}
-              ${stylesButton['fab__update-btn']}
+                ${stylesButton['fab-btn']}
+                ${stylesButton['fab__update-btn']}
               `}
               aria-label="data-update-button"
               onClick={handleGetData}

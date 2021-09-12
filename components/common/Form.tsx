@@ -5,8 +5,9 @@ import { useState, useEffect, ChangeEvent } from 'react';
 import styles from '../../styles/common/Form.module.scss';
 
 // Interface
-import { ISelect } from '../../src/interfaces/I_Form';
+import { ICheckbox, ISelect } from '../../src/interfaces/I_Form';
 
+// * Select
 export const Select: React.FC<ISelect> = ({ options, onChange }: ISelect) => {
   const [currentValue, setCurrentValue] = useState<string | number>('');
 
@@ -31,6 +32,33 @@ export const Select: React.FC<ISelect> = ({ options, onChange }: ISelect) => {
         }
       </select>
     </div>
+  );
+};
+
+// * Checkbox
+export const Checkbox: React.FC<ICheckbox> = ({
+  id, title, status, onChange,
+}: ICheckbox) => {
+  const checkbox: string = 'checkbox';
+
+  const ClassHandle = (name: string) => styles[`${checkbox}__${name}`];
+
+  const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
+    onChange(event);
+  };
+
+  return (
+    <label htmlFor={id} className={styles.checkbox}>
+      <input
+        id={id}
+        type="checkbox"
+        checked={status}
+        onChange={handleOnChange}
+      />
+      <div className={ClassHandle('content')}>
+        <span className={ClassHandle('title')}>{title}</span>
+      </div>
+    </label>
   );
 };
 

@@ -20,7 +20,7 @@ $select--line-height: 20px;
     padding: $select--padding-tb $select--padding-lr;
     padding-right: $select--line-height + $select--padding-lr;
     line-height: $select--line-height;
-    font-size: map-get($font-size, xs);
+    font-size: map-get($font-size, xxs);
     appearance: none;
     cursor: pointer;
   }
@@ -38,5 +38,57 @@ $select--line-height: 20px;
     text-align: center;
     line-height: $select--line-height;
     pointer-events: none;
+  }
+}
+
+// * Checkbox
+
+$checkbox--icon-size: 16px;
+
+.checkbox {
+  display: block;
+  cursor: pointer;
+
+  input[type='checkbox'] {
+    width: 0;
+    height: 0;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+    z-index: -9999;
+
+    &:checked + .checkbox__content::before {
+      color: $color-black;
+    }
+  }
+
+  &__content {
+    display: flex;
+    align-items: baseline;
+
+    &::before {
+      @include font-material;
+
+      content: '\e5ca';
+      width: $checkbox--icon-size;
+      height: $checkbox--icon-size;
+      margin-right: 10px;
+      display: block;
+      font-size: 14px;
+      text-align: center;
+      color: $color-white;
+      background-color: $color-white;
+      border: 1px $color-gray solid;
+      border-radius: 3px;
+      line-height: $checkbox--icon-size - 2px;
+      box-sizing: border-box;
+    }
+  }
+
+  &__title {
+    display: block;
+    font-size: map-get($font-size, xs);
   }
 }

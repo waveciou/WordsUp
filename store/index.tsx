@@ -6,6 +6,7 @@ import scrollValueReducer from './slice/scrollValueSlice';
 import menuControlReducer from './slice/menuControlSlice';
 import loaderControlReducer from './slice/loaderControlSlice';
 import wordsCollectionReducer from './slice/wordsCollectionSlice';
+import settingsOptionReducer from './slice/settingsOptionSlice';
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     menuControl: menuControlReducer,
     loaderControl: loaderControlReducer,
     wordsCollection: wordsCollectionReducer,
+    settingsOption: settingsOptionReducer,
   },
 });
 
