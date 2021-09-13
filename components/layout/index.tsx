@@ -52,6 +52,11 @@ const LayoutComponent: React.FC<IProps> = ({ children }) => {
     dispatch(setScrollValue(value));
   }, [dispatch]);
 
+  const handleGetLayoutScrollValue = useCallback((e) => {
+    const value: number = e.target.scrollTop;
+    dispatch(setScrollValue(value));
+  }, [dispatch]);
+
   useEffect(() => {
     // 載入 Google Sheet API
     loadGapiScrpit(() => {
@@ -86,7 +91,7 @@ const LayoutComponent: React.FC<IProps> = ({ children }) => {
   return (
     <>
       <Meta />
-      <div id="__layout">
+      <div id="__layout" onScroll={handleGetLayoutScrollValue}>
         <Header />
         <main className={styles.main}>{ children }</main>
         <div
