@@ -37,16 +37,24 @@ export const Select: React.FC<ISelect> = ({ options, onChange }: ISelect) => {
 
 // * Checkbox
 export const Checkbox: React.FC<ICheckbox> = ({
-  id, title, status, onChange,
+  id, title, status, onChange, disabled = false,
 }: ICheckbox) => {
   const ClassHandle = (name: string) => styles[`checkbox__${name}`];
 
   const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
-    onChange(event);
+    if (disabled === false) {
+      onChange(event);
+    }
   };
 
   return (
-    <label htmlFor={id} className={styles.checkbox}>
+    <label
+      htmlFor={id}
+      className={`
+        ${styles.checkbox}
+        ${disabled === true ? styles['is-disabled'] : ''}
+      `}
+    >
       <input
         id={id}
         type="checkbox"

@@ -33,6 +33,12 @@ const SettingsComponent: React.FC = () => {
   } = useSelector((state: RootState) => state.settingsOption.value);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    if (saveWords === true) {
+      dispatch(setOptionUpdateInstall(true));
+    }
+  }, [dispatch, saveWords]);
+
   return (
     <>
       <h1 className="title">SETTINGS</h1>
@@ -53,7 +59,12 @@ const SettingsComponent: React.FC = () => {
           </li>
           <li>
             <div className={styles[`${section}`]}>
-              <div>
+              <div
+                className={`
+                ${styles['settings__has-icon']}
+                ${styles['icon-storage']}
+              `}
+              >
                 <span>將資料儲存於 LocalStorage</span>
               </div>
 
@@ -65,6 +76,17 @@ const SettingsComponent: React.FC = () => {
                   onChange={(event) => {
                     const result: boolean = event.target.checked;
                     dispatch(setOptionSaveWords(result));
+                  }}
+                />
+
+                <Checkbox
+                  id="update-when-install"
+                  title="載入時更新單字資料庫"
+                  status={updateInstall}
+                  disabled={saveWords === false}
+                  onChange={(event) => {
+                    const result: boolean = event.target.checked;
+                    dispatch(setOptionUpdateInstall(result));
                   }}
                 />
 
@@ -91,18 +113,17 @@ const SettingsComponent: React.FC = () => {
             </div>
           </li>
           <li>
-            <div className={styles[`${section}`]}>
-              <Checkbox
-                id="update-when-install"
-                title="載入時更新單字資料庫"
-                status={updateInstall}
-                onChange={(event) => {
-                  const result: boolean = event.target.checked;
-                  dispatch(setOptionUpdateInstall(result));
-                }}
-              />
-
-            </div>
+            <button
+              type="button"
+              className={`
+                ${styles['settings-link']}
+                ${styles['settings__has-icon']}
+                ${styles['icon-clearall']}
+              `}
+              onClick={() => {}}
+            >
+              <span>清除所有 LocalStorage 的資料</span>
+            </button>
           </li>
           <li>
             <a

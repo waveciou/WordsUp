@@ -90,5 +90,11 @@ $checkbox--icon-size: 16px;
   &__title {
     display: block;
     font-size: map-get($font-size, xs);
+    color: $color-black;
+  }
+
+  &.is-disabled {
+    cursor: not-allowed;
+    opacity: 0.3;
   }
 }

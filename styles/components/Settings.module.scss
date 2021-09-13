@@ -4,8 +4,9 @@
 $icon-size: 20px;
 $icons: (
   'update': ('material', '\e5d5'),
-  'storage': ('material', '\e875'),
+  'storage': ('awesome', '\f1c0'),
   'github': ('awesome', '\f126'),
+  'clearall': ('material', '\e92b'),
 );
 
 // * List
@@ -30,7 +31,7 @@ $icons: (
   box-shadow: 0 1px 3px 0 rgba($color-black, 0.2);
 
   &__content {
-    padding-left: 16px;
+    padding-left: 30px;
   }
 }
 

@@ -14,5 +14,6 @@ export interface ICheckbox {
   id: string;
   title: string;
   status: boolean;
+  disabled?: boolean,
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
