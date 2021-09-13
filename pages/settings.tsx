@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Redux
@@ -16,6 +16,7 @@ import HandleGetGoogleSheetData from '../src/functions/handleGetGoogleSheetData'
 
 // Component
 import { Checkbox } from '../components/common/Form';
+import Alert from '../components/common/Alert';
 
 // Style
 import styles from '../styles/components/Settings.module.scss';
@@ -32,6 +33,9 @@ const SettingsComponent: React.FC = () => {
     saveOption,
   } = useSelector((state: RootState) => state.settingsOption.value);
   const dispatch = useDispatch();
+
+  const [alertDeleteRecord, setAlertDeleteRecord] = useState(false);
+  const [alertClearStorage, setAlertClearStorage] = useState(false);
 
   useEffect(() => {
     if (saveWords === true) {
@@ -96,7 +100,11 @@ const SettingsComponent: React.FC = () => {
                   status={saveRecord}
                   onChange={(event) => {
                     const result: boolean = event.target.checked;
-                    dispatch(setOptionSaveRecord(result));
+                    if (result === true) {
+                      dispatch(setOptionSaveRecord(result));
+                    } else {
+                      setAlertDeleteRecord(true);
+                    }
                   }}
                 />
 
@@ -120,7 +128,9 @@ const SettingsComponent: React.FC = () => {
                 ${styles['settings__has-icon']}
                 ${styles['icon-clearall']}
               `}
-              onClick={() => {}}
+              onClick={() => {
+                setAlertClearStorage(true);
+              }}
             >
               <span>清除所有 LocalStorage 的資料</span>
             </button>
@@ -139,6 +149,36 @@ const SettingsComponent: React.FC = () => {
           </li>
         </ul>
       </div>
+
+      <Alert
+        show={alertDeleteRecord}
+        title="確定要清除所有測驗紀錄？"
+        content="清除後將不可回復"
+        confirmText="清除"
+        cancelText="取消"
+        onConfirm={() => {
+          dispatch(setOptionSaveRecord(false));
+          setAlertDeleteRecord(false);
+        }}
+        onCancel={() => {
+          dispatch(setOptionSaveRecord(true));
+          setAlertDeleteRecord(false);
+        }}
+      />
+
+      <Alert
+        show={alertClearStorage}
+        title="確定要清除所有 LocalStorage 的資料？"
+        content="清除後將不可回復"
+        confirmText="清除"
+        cancelText="取消"
+        onConfirm={() => {
+          setAlertClearStorage(false);
+        }}
+        onCancel={() => {
+          setAlertClearStorage(false);
+        }}
+      />
     </>
   );
 };

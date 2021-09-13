@@ -12,6 +12,7 @@ class DocumentComponent extends Document {
           <Main />
           <NextScript />
           <div id="modal-root-popup" />
+          <div id="modal-root-alert" />
         </body>
       </Html>
     );
