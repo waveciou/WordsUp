@@ -18,10 +18,16 @@ import { RootState } from '../../store';
 import { setScreenWidth } from '../../store/slice/screenWidthSlice';
 import { setScrollValue } from '../../store/slice/scrollValueSlice';
 import { setMenuControl } from '../../store/slice/menuControlSlice';
+import { setSettingsOption } from '../../store/slice/settingsOptionSlice';
 
 // Functions
 import loadGapiScrpit from '../../src/functions/googleSheetAPI/loadAPIScrpit';
 import HandleGetGoogleSheetData from '../../src/functions/handleGetGoogleSheetData';
+import {
+  getItemWithObject,
+  setItemWithObject,
+  removeItem,
+} from '../../src/functions/handleLocalStorage';
 
 // Interface
 import { IProps } from '../../src/interfaces/I_Global';
@@ -33,18 +39,19 @@ declare global {
 }
 
 const LayoutComponent: React.FC<IProps> = ({ children }) => {
-  const menuIsOpen = useSelector((state: RootState) => state.menuControl.value);
+  const SETTINGS_OPTION = useSelector((state: RootState) => state.settingsOption.value);
+  const MENU_IS_OPEN = useSelector((state: RootState) => state.menuControl.value);
   const dispatch = useDispatch();
   const router = useRouter();
   const handleGetData = HandleGetGoogleSheetData();
 
-  // 取得瀏覽器寬度
+  // Get browser screen width
   const handleGetScreenWidth = useCallback(() => {
     const value: number = window.innerWidth;
     dispatch(setScreenWidth(value));
   }, [dispatch]);
 
-  // 取得 Scroll Value
+  // Get Scroll Value
   const handleGetScrollValue = useCallback(() => {
     const value: number = window.pageYOffset
     || document.documentElement.scrollTop
@@ -57,6 +64,15 @@ const LayoutComponent: React.FC<IProps> = ({ children }) => {
     dispatch(setScrollValue(value));
   }, [dispatch]);
 
+  // Set initialization settings option
+  useEffect(() => {
+    const options = getItemWithObject('settingsOption');
+    if (options !== '') {
+      dispatch(setSettingsOption(options));
+    }
+  }, [dispatch]);
+
+  // Get initialization data flow
   useEffect(() => {
     // 載入 Google Sheet API
     loadGapiScrpit(() => {
@@ -74,19 +90,31 @@ const LayoutComponent: React.FC<IProps> = ({ children }) => {
     };
   }, [dispatch, handleGetData, handleGetScreenWidth, handleGetScrollValue]);
 
+  // Close menu when router change
   useEffect(() => {
     dispatch(setMenuControl(false));
   }, [dispatch, router]);
 
+  // Layout fixed when menu opening
   useEffect(() => {
-    if (menuIsOpen === true) {
+    if (MENU_IS_OPEN === true) {
       document.documentElement.classList.add('is-fixed');
     } else {
       document.documentElement.classList.remove('is-fixed');
     }
-  }, [menuIsOpen]);
+  }, [MENU_IS_OPEN]);
 
-  const ClassHandleOverlay = () => `${styles.overlay} ${menuIsOpen === true ? styles['is-active'] : ''}`;
+  // Set settings option in localStorage
+  useEffect(() => {
+    const { saveOption } = SETTINGS_OPTION;
+    if (saveOption === true) {
+      setItemWithObject('settingsOption', SETTINGS_OPTION);
+    } else {
+      removeItem('settingsOption');
+    }
+  }, [SETTINGS_OPTION]);
+
+  const ClassHandleOverlay = () => `${styles.overlay} ${MENU_IS_OPEN === true ? styles['is-active'] : ''}`;
 
   return (
     <>

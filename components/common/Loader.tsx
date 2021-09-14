@@ -10,12 +10,12 @@ import styles from '../../styles/common/Loader.module.scss';
 import { RootState } from '../../store';
 
 const LoaderComponent: React.FC = () => {
-  const loaderIsOpen = useSelector((state: RootState) => state.loaderControl.value);
+  const LOADER_IS_OPEN = useSelector((state: RootState) => state.loaderControl.value);
   const nodeRef = useRef(null);
 
   return (
     <CSSTransition
-      in={loaderIsOpen}
+      in={LOADER_IS_OPEN}
       timeout={400}
       classNames="fade"
       nodeRef={nodeRef}

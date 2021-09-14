@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface ISettingsOption {
-  saveWords: boolean,
-  saveRecord: boolean,
-  updateInstall: boolean,
-  saveOption: boolean,
+  saveWords?: boolean,
+  saveRecord?: boolean,
+  updateInstall?: boolean,
+  saveOption?: boolean,
 }
 
 const initialState: { value: ISettingsOption } = {
@@ -22,23 +22,28 @@ export const settingsOptionSlice = createSlice({
   reducers: {
     setOptionSaveWords: (state, action: PayloadAction<boolean>) => {
       const _state = state;
-      const _value = _state.value;
-      _state.value = { ..._value, saveWords: action.payload };
+      const { value } = _state;
+      _state.value = { ...value, saveWords: action.payload };
     },
     setOptionSaveRecord: (state, action: PayloadAction<boolean>) => {
       const _state = state;
-      const _value = _state.value;
-      _state.value = { ..._value, saveRecord: action.payload };
+      const { value } = _state;
+      _state.value = { ...value, saveRecord: action.payload };
     },
     setOptionUpdateInstall: (state, action: PayloadAction<boolean>) => {
       const _state = state;
-      const _value = _state.value;
-      _state.value = { ..._value, updateInstall: action.payload };
+      const { value } = _state;
+      _state.value = { ...value, updateInstall: action.payload };
     },
     setOptionSaveOption: (state, action: PayloadAction<boolean>) => {
       const _state = state;
-      const _value = _state.value;
-      _state.value = { ..._value, saveOption: action.payload };
+      const { value } = _state;
+      _state.value = { ...value, saveOption: action.payload };
+    },
+    setSettingsOption: (state, action: PayloadAction<any>) => {
+      const _state = state;
+      const { value } = _state;
+      _state.value = { ...value, ...action.payload };
     },
   },
 });
@@ -48,6 +53,7 @@ export const {
   setOptionSaveRecord,
   setOptionUpdateInstall,
   setOptionSaveOption,
+  setSettingsOption,
 } = settingsOptionSlice.actions;
 
 export default settingsOptionSlice.reducer;

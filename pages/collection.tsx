@@ -23,7 +23,7 @@ import { IWordCase } from '../src/interfaces/I_WordCase';
 import { ISelectOption } from '../src/interfaces/I_Form';
 
 const CollectionComponent: React.FC = () => {
-  const wordsData = useSelector((state: RootState) => state.wordsCollection.value);
+  const WORDS_DATA = useSelector((state: RootState) => state.wordsCollection.value);
   const [words, setWords] = useState<IWordCase[]>([]);
   const handleGetData = HandleGetGoogleSheetData();
 
@@ -61,8 +61,8 @@ const CollectionComponent: React.FC = () => {
   `;
 
   const callbackProcessWords = useCallback(() => {
-    const _wordsData: IWordCase[] = [...wordsData];
-    const filterListResult: IWordCase[] = filterBase === 'all' ? _wordsData : _wordsData.filter((word) => word.part === filterBase);
+    const wordsData: IWordCase[] = [...WORDS_DATA];
+    const filterListResult: IWordCase[] = filterBase === 'all' ? wordsData : wordsData.filter((word) => word.part === filterBase);
 
     const sortListResult: IWordCase[] = filterListResult.sort((a, b) => {
       const aText: string = a.english.toLocaleLowerCase();
@@ -79,19 +79,19 @@ const CollectionComponent: React.FC = () => {
     });
 
     setWords(sortListResult);
-  }, [wordsData, filterBase, isSortDownAlt]);
+  }, [WORDS_DATA, filterBase, isSortDownAlt]);
 
   useEffect(() => {
-    const _wordsData: IWordCase[] = [...wordsData];
-    const partList: ISelectOption[] = handleGetPartList(_wordsData);
+    const wordsData: IWordCase[] = [...WORDS_DATA];
+    const partList: ISelectOption[] = handleGetPartList(wordsData);
 
     setFilterList(partList);
     setFilterBase('all');
-  }, [wordsData]);
+  }, [WORDS_DATA]);
 
   useEffect(() => {
     callbackProcessWords();
-  }, [wordsData, filterBase, isSortDownAlt, callbackProcessWords]);
+  }, [WORDS_DATA, filterBase, isSortDownAlt, callbackProcessWords]);
 
   return (
     <>

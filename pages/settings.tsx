@@ -27,21 +27,21 @@ const section: string = 'settings-section';
 const SettingsComponent: React.FC = () => {
   const handleGetData = HandleGetGoogleSheetData();
   const {
-    saveWords,
-    saveRecord,
-    updateInstall,
-    saveOption,
+    saveWords = false,
+    saveRecord = false,
+    updateInstall = true,
+    saveOption = true,
   } = useSelector((state: RootState) => state.settingsOption.value);
   const dispatch = useDispatch();
 
   const [alertDeleteRecord, setAlertDeleteRecord] = useState(false);
   const [alertClearStorage, setAlertClearStorage] = useState(false);
 
-  useEffect(() => {
-    if (saveWords === true) {
-      dispatch(setOptionUpdateInstall(true));
-    }
-  }, [dispatch, saveWords]);
+  // useEffect(() => {
+  //   if (saveWords === true) {
+  //     dispatch(setOptionUpdateInstall(true));
+  //   }
+  // }, [dispatch, saveWords]);
 
   return (
     <>

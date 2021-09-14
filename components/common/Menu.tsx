@@ -18,7 +18,7 @@ const ROUTE = require('../../src/data/route.json');
 
 const MenuComponent: React.FC = () => {
   const [routeLinks, setRouteLinks] = useState([]);
-  const menuIsOpen = useSelector((state: RootState) => state.menuControl.value);
+  const MENU_IS_OPEN = useSelector((state: RootState) => state.menuControl.value);
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -27,7 +27,7 @@ const MenuComponent: React.FC = () => {
     setRouteLinks(route);
   }, []);
 
-  const ClassHandleMenu = () => `${menuIsOpen === true ? styles['is-active'] : ''}`;
+  const ClassHandleMenu = () => `${MENU_IS_OPEN === true ? styles['is-active'] : ''}`;
   const ClassHandleLink = (path: string, id: string) => `${styles.menu__item} ${styles[`icon-${id}`]} ${router.asPath === path ? styles.current : ''}`;
 
   return (
