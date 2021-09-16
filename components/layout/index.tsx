@@ -19,6 +19,7 @@ import { setScreenWidth } from '../../store/slice/screenWidthSlice';
 import { setScrollValue } from '../../store/slice/scrollValueSlice';
 import { setMenuControl } from '../../store/slice/menuControlSlice';
 import { setSettingsOption } from '../../store/slice/settingsOptionSlice';
+import { setIsMounted } from '../../store/slice/isMountedSlice';
 
 // Functions
 import loadGapiScrpit from '../../src/functions/googleSheetAPI/loadAPIScrpit';
@@ -64,13 +65,19 @@ const LayoutComponent: React.FC<IProps> = ({ children }) => {
     dispatch(setScrollValue(value));
   }, [dispatch]);
 
-  // Set initialization settings option
-  useEffect(() => {
+  // Get LocalStorage Data
+  const handleGetLocalStorageData = useCallback(async () => {
     const options = getItemWithObject('settingsOption');
     if (options !== '') {
-      dispatch(setSettingsOption(options));
+      await dispatch(setSettingsOption(options));
     }
+    dispatch(setIsMounted(true));
   }, [dispatch]);
+
+  // Set initialization settings option
+  useEffect(() => {
+    handleGetLocalStorageData();
+  }, [handleGetLocalStorageData]);
 
   // Get initialization data flow
   useEffect(() => {

@@ -7,6 +7,7 @@ import menuControlReducer from './slice/menuControlSlice';
 import loaderControlReducer from './slice/loaderControlSlice';
 import wordsCollectionReducer from './slice/wordsCollectionSlice';
 import settingsOptionReducer from './slice/settingsOptionSlice';
+import isMountedSliceReducer from './slice/isMountedSlice';
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
     loaderControl: loaderControlReducer,
     wordsCollection: wordsCollectionReducer,
     settingsOption: settingsOptionReducer,
+    isMounted: isMountedSliceReducer,
   },
 });
 

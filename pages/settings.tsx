@@ -32,16 +32,18 @@ const SettingsComponent: React.FC = () => {
     updateInstall = true,
     saveOption = true,
   } = useSelector((state: RootState) => state.settingsOption.value);
+  const IS_MOUNTED = useSelector((state: RootState) => state.isMounted.value);
   const dispatch = useDispatch();
 
   const [alertDeleteRecord, setAlertDeleteRecord] = useState(false);
   const [alertClearStorage, setAlertClearStorage] = useState(false);
 
-  // useEffect(() => {
-  //   if (saveWords === true) {
-  //     dispatch(setOptionUpdateInstall(true));
-  //   }
-  // }, [dispatch, saveWords]);
+  useEffect(() => {
+    if (IS_MOUNTED && saveWords) {
+      dispatch(setOptionUpdateInstall(true));
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, saveWords]);
 
   return (
     <>
