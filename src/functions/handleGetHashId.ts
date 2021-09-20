@@ -1,7 +1,8 @@
-const handleGetHashId = (index: number) => {
+const handleGetHashId = (index: number, keycode: string) => {
   const date = new Date();
   const timeValue = date.getTime();
-  return `${timeValue}_${index}`;
+  const key = keycode.replace(/ /g, '');
+  return `${timeValue}_${index}_${key}`;
 };
 
 export default handleGetHashId;

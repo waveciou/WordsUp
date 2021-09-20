@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import initGapiClient from './googleSheetAPI/initAPIClient';
 import makeGapiCallback from './googleSheetAPI/makeAPICallback';
 import handleProcessSheetData from './handleProcessSheetData';
+import handleMergeDuplicateSheetData from './handleMergeDuplicateSheetData';
 
 // Redux
 import { setLoaderControl } from '../../store/slice/loaderControlSlice';
@@ -18,7 +19,8 @@ const HandleGetGoogleSheetData = () => {
 
     initGapiClient((SHEET_ID) => {
       makeGapiCallback(SHEET_ID).then(async (response: any) => {
-        const sheetData = handleProcessSheetData(response);
+        const _sheetData = handleProcessSheetData(response);
+        const sheetData = handleMergeDuplicateSheetData(_sheetData);
         await dispatch(setWordsCollection(sheetData));
         await dispatch(setLoaderControl(false));
       }).catch((err) => {

@@ -5,12 +5,12 @@ export interface IWordCase {
   englishExample: {
     sentence: string,
     key: string,
-  },
+  }[],
   chineseExample: {
     sentence: string,
     key: string,
-  },
-  status: string
+  }[],
+  status: string[]
 }
 
 export interface IWordItem {

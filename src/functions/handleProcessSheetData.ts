@@ -13,15 +13,21 @@ const handleProcessSheetData = (sheetData: ISheetDataValue[]) => {
       english: getFormatValue(values, 0),
       chinese: getFormatValue(values, 1),
       part: getFormatValue(values, 2),
-      englishExample: {
-        sentence: getFormatValue(values, 3),
-        key: getFormatValue(values, 4),
-      },
-      chineseExample: {
-        sentence: getFormatValue(values, 5),
-        key: getFormatValue(values, 6),
-      },
-      status: getFormatValue(values, 7),
+      englishExample: [
+        {
+          sentence: getFormatValue(values, 3),
+          key: getFormatValue(values, 4),
+        },
+      ],
+      chineseExample: [
+        {
+          sentence: getFormatValue(values, 5),
+          key: getFormatValue(values, 6),
+        },
+      ],
+      status: [
+        getFormatValue(values, 7),
+      ],
     };
 
     return result;

@@ -12,6 +12,7 @@ import Popup from './common/Popup';
 // Function
 import handleGetExampleNode from '../src/functions/handleGetExampleNode';
 import handleSetWordStatusNode from '../src/functions/handleSetWordStatusNode';
+import handleGetHashId from '../src/functions/handleGetHashId';
 
 // Interface
 import { IWordItem } from '../src/interfaces/I_WordCase';
@@ -24,9 +25,6 @@ const CollectedCard: React.FC<IWordItem> = ({ word }: IWordItem) => {
   const {
     english, chinese, part, status, englishExample, chineseExample,
   } = word;
-
-  const exampleSentenceEN: string = handleGetExampleNode(englishExample);
-  const exampleSentenceCH: string = handleGetExampleNode(chineseExample);
 
   // Speech Synthesis
   const { speak, speaking } = useSpeechSynthesis();
@@ -65,22 +63,35 @@ const CollectedCard: React.FC<IWordItem> = ({ word }: IWordItem) => {
             <span className={styles[`${popup}__part`]}>{ part }</span>
             <span>{ chinese }</span>
           </div>
-          <div
-            className={styles[`${popup}__example-en`]}
-            dangerouslySetInnerHTML={{ __html: exampleSentenceEN }}
-          />
-          <div
-            className={styles[`${popup}__example-ch`]}
-            dangerouslySetInnerHTML={{ __html: exampleSentenceCH }}
-          />
+
           {
-            status !== ''
-              ? (
-                <div
-                  className={styles[`${popup}__status`]}
-                  dangerouslySetInnerHTML={{ __html: handleSetWordStatusNode(status) }}
-                />
-              ) : null
+            englishExample.map((example, index) => (
+              <div
+                key={handleGetHashId(index, 'enExample')}
+                className={styles[`${popup}__example-en`]}
+                dangerouslySetInnerHTML={{ __html: handleGetExampleNode(example) }}
+              />
+            ))
+          }
+
+          {
+            chineseExample.map((example, index) => (
+              <div
+                key={handleGetHashId(index, 'chExample')}
+                className={styles[`${popup}__example-ch`]}
+                dangerouslySetInnerHTML={{ __html: handleGetExampleNode(example) }}
+              />
+            ))
+          }
+
+          {
+            status.map((statusText, index) => (
+              <div
+                key={handleGetHashId(index, 'status')}
+                className={styles[`${popup}__status`]}
+                dangerouslySetInnerHTML={{ __html: handleSetWordStatusNode(statusText) }}
+              />
+            ))
           }
         </div>
       </Popup>

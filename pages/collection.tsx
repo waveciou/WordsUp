@@ -132,7 +132,7 @@ const CollectionComponent: React.FC = () => {
         <ul className={stylesCollection.collectedList}>
           {
             words.map((word: IWordCase, index: number) => {
-              const id: string = handleGetHashId(index);
+              const id: string = handleGetHashId(index, word.english);
               return (
                 <li key={id}>
                   <CollectedCard word={word} />
