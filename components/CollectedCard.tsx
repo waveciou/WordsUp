@@ -1,6 +1,7 @@
 /* eslint-disable react/no-danger */
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
+import { useSpeechSynthesis } from 'react-speech-kit';
 
 // Style
 import styles from '../styles/components/Collection.module.scss';
@@ -27,6 +28,15 @@ const CollectedCard: React.FC<IWordItem> = ({ word }: IWordItem) => {
   const exampleSentenceEN: string = handleGetExampleNode(englishExample);
   const exampleSentenceCH: string = handleGetExampleNode(chineseExample);
 
+  // Speech Synthesis
+  const { speak, speaking } = useSpeechSynthesis();
+
+  const handleSpeechSpeak = useCallback((_text: string) => {
+    if (speaking === false) {
+      speak({ text: _text });
+    }
+  }, [speak, speaking]);
+
   return (
     <>
       <div
@@ -44,6 +54,14 @@ const CollectedCard: React.FC<IWordItem> = ({ word }: IWordItem) => {
         <div className={styles[popup]}>
           <div className={styles[`${popup}__title`]}>{ english }</div>
           <div className={styles[`${popup}__subtitle`]}>
+            <button
+              type="button"
+              aria-label="speech"
+              className={styles['speech-btn']}
+              onClick={() => {
+                handleSpeechSpeak(english);
+              }}
+            />
             <span className={styles[`${popup}__part`]}>{ part }</span>
             <span>{ chinese }</span>
           </div>

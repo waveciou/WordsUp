@@ -84,6 +84,9 @@ $popup-sentence-interval--lg: 1rem;
 
   &__subtitle {
     padding-bottom: $popup-sentence-interval--sm;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
     color: $color-black;
     border-bottom: 1px $color-gray solid;
     margin-bottom: $popup-sentence-interval--sm;
@@ -136,5 +139,21 @@ $popup-sentence-interval--lg: 1rem;
       padding-left: 30px;
       list-style: disc;
     }
+  }
+}
+
+.speech-btn {
+  margin-right: 5px;
+  display: block;
+
+  &::before {
+    @include font-material;
+
+    content: '\e050';
+    width: 24px;
+    height: 24px;
+    display: block;
+    text-align: center;
+    line-height: 24px;
   }
 }
