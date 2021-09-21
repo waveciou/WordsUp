@@ -1,6 +1,6 @@
 /* eslint-disable react/no-danger */
 import * as React from 'react';
-import { useState, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useSpeechSynthesis } from 'react-speech-kit';
 
 // Style
@@ -13,9 +13,10 @@ import Popup from './common/Popup';
 import handleGetExampleNode from '../src/functions/handleGetExampleNode';
 import handleSetWordStatusNode from '../src/functions/handleSetWordStatusNode';
 import handleGetHashId from '../src/functions/handleGetHashId';
+import handleObjectDeepClone from '../src/functions/handleObjectDeepClone';
 
 // Interface
-import { IWordItem } from '../src/interfaces/I_WordCase';
+import { IWordItem, IExampleListItem } from '../src/interfaces/I_WordCase';
 
 const card: string = 'collectedCard';
 const popup: string = 'collectedPopup';
@@ -34,6 +35,19 @@ const CollectedCard: React.FC<IWordItem> = ({ word }: IWordItem) => {
       speak({ text: _text });
     }
   }, [speak, speaking]);
+
+  // Example List
+  const [exampleList, setExampleList] = useState<IExampleListItem[]>([]);
+
+  useEffect(() => {
+    if (englishExample.length === chineseExample.length) {
+      const result: IExampleListItem[] = englishExample.map((example, index) => ({
+        englishItem: handleObjectDeepClone(example),
+        chineseItem: handleObjectDeepClone(chineseExample[index]),
+      }));
+      setExampleList(result);
+    }
+  }, [englishExample, chineseExample]);
 
   return (
     <>
@@ -65,23 +79,26 @@ const CollectedCard: React.FC<IWordItem> = ({ word }: IWordItem) => {
           </div>
 
           {
-            englishExample.map((example, index) => (
-              <div
-                key={handleGetHashId(index, 'enExample')}
-                className={styles[`${popup}__example-en`]}
-                dangerouslySetInnerHTML={{ __html: handleGetExampleNode(example) }}
-              />
-            ))
-          }
+            exampleList.map((example, index) => {
+              const { englishItem, chineseItem } = example;
 
-          {
-            chineseExample.map((example, index) => (
-              <div
-                key={handleGetHashId(index, 'chExample')}
-                className={styles[`${popup}__example-ch`]}
-                dangerouslySetInnerHTML={{ __html: handleGetExampleNode(example) }}
-              />
-            ))
+              return (
+                <div key={handleGetHashId(index, 'exampleList')}>
+                  <div
+                    className={styles[`${popup}__example-en`]}
+                    dangerouslySetInnerHTML={{
+                      __html: handleGetExampleNode(englishItem),
+                    }}
+                  />
+                  <div
+                    className={styles[`${popup}__example-ch`]}
+                    dangerouslySetInnerHTML={{
+                      __html: handleGetExampleNode(chineseItem),
+                    }}
+                  />
+                </div>
+              );
+            })
           }
 
           {
@@ -89,7 +106,9 @@ const CollectedCard: React.FC<IWordItem> = ({ word }: IWordItem) => {
               <div
                 key={handleGetHashId(index, 'status')}
                 className={styles[`${popup}__status`]}
-                dangerouslySetInnerHTML={{ __html: handleSetWordStatusNode(statusText) }}
+                dangerouslySetInnerHTML={{
+                  __html: handleSetWordStatusNode(statusText),
+                }}
               />
             ))
           }
