@@ -19,11 +19,16 @@
   max-width: 650px;
   min-height: 300px;
   max-height: calc(100% - 20px);
-  padding: 32px 20px 12px;
+  padding: 32px 10px;
   position: relative;
   overflow: hidden;
   background-color: $color-white;
   border-radius: 8px;
+
+  @include min-width(1025px) {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
 }
 
 .popup__close-btn {

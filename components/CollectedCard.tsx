@@ -11,7 +11,7 @@ import Popup from './common/Popup';
 
 // Function
 import handleGetExampleNode from '../src/functions/handleGetExampleNode';
-import handleSetWordStatusNode from '../src/functions/handleSetWordStatusNode';
+import handleSetWordStatusList from '../src/functions/handleSetWordStatusList';
 import handleGetHashId from '../src/functions/handleGetHashId';
 import handleObjectDeepClone from '../src/functions/handleObjectDeepClone';
 
@@ -49,6 +49,14 @@ const CollectedCard: React.FC<IWordItem> = ({ word }: IWordItem) => {
     }
   }, [englishExample, chineseExample]);
 
+  // Status List
+  const [statusList, setStatusList] = useState<string[]>([]);
+
+  useEffect(() => {
+    const result: string[] = handleSetWordStatusList(status);
+    setStatusList(result);
+  }, [status]);
+
   return (
     <>
       <div
@@ -81,9 +89,11 @@ const CollectedCard: React.FC<IWordItem> = ({ word }: IWordItem) => {
           {
             exampleList.map((example, index) => {
               const { englishItem, chineseItem } = example;
-
               return (
-                <div key={handleGetHashId(index, 'exampleList')}>
+                <div
+                  className={styles[`${popup}__example`]}
+                  key={handleGetHashId(index, 'example')}
+                >
                   <div
                     className={styles[`${popup}__example-en`]}
                     dangerouslySetInnerHTML={{
@@ -101,17 +111,13 @@ const CollectedCard: React.FC<IWordItem> = ({ word }: IWordItem) => {
             })
           }
 
-          {
-            status.map((statusText, index) => (
-              <div
-                key={handleGetHashId(index, 'status')}
-                className={styles[`${popup}__status`]}
-                dangerouslySetInnerHTML={{
-                  __html: handleSetWordStatusNode(statusText),
-                }}
-              />
-            ))
-          }
+          <ul className={styles[`${popup}__status`]}>
+            {
+              statusList.map((statusText, index) => (
+                <li key={handleGetHashId(index, 'status')}>{ statusText }</li>
+              ))
+            }
+          </ul>
         </div>
       </Popup>
     </>

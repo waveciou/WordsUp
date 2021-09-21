@@ -83,18 +83,10 @@ $popup-sentence-interval--lg: 1rem;
   }
 
   &__subtitle {
-    padding-bottom: $popup-sentence-interval--sm;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     color: $color-black;
-    border-bottom: 1px $color-gray solid;
-    margin-bottom: $popup-sentence-interval--sm;
-
-    @include min-width(1025px) {
-      padding-bottom: $popup-sentence-interval--lg;
-      margin-bottom: $popup-sentence-interval--lg;
-    }
   }
 
   &__part {
@@ -106,9 +98,18 @@ $popup-sentence-interval--lg: 1rem;
     }
   }
 
+  &__example {
+    padding: 5px 10px;
+    margin-top: $popup-sentence-interval--sm;
+    background-color: $color-yellow-light;
+    border-radius: 8px;
+    margin-bottom: $popup-sentence-interval--sm;
+  }
+
   &__example-en,
   &__example-ch {
     line-height: 1.4em;
+    font-size: map-get($font-size, xs);
 
     strong {
       text-decoration: underline;
@@ -125,19 +126,16 @@ $popup-sentence-interval--lg: 1rem;
 
   &__status {
     padding-top: $popup-sentence-interval--sm;
-    margin-top: $popup-sentence-interval--sm;
+    padding-bottom: $popup-sentence-interval--sm;
+    padding-left: 30px;
+    font-size: map-get($font-size, xs);
     color: $color-black;
+    list-style: disc;
     line-height: 1.4em;
-    border-top: 1px $color-gray solid;
 
     @include min-width(1025px) {
       padding-top: $popup-sentence-interval--lg;
-      margin-top: $popup-sentence-interval--lg;
-    }
-
-    .wordStatus {
-      padding-left: 30px;
-      list-style: disc;
+      padding-bottom: $popup-sentence-interval--lg;
     }
   }
 }
