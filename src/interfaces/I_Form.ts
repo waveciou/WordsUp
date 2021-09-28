@@ -1,7 +1,7 @@
 import { ChangeEvent } from 'react';
 
 export interface ISelectOption {
-  value: string | number;
+  value: string;
   name: string;
 }
 

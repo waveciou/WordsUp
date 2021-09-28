@@ -11,7 +11,7 @@ export interface IExampleListItem {
 export interface IWordCase {
   english: string,
   chinese: string,
-  part: string,
+  part: string[],
   englishExample: IExampleItem[],
   chineseExample: IExampleItem[],
   status: string[]

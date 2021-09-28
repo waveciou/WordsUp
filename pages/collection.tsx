@@ -37,18 +37,22 @@ const CollectionComponent: React.FC = () => {
   const handleGetPartList = (dataList: IWordCase[]) => {
     const result = dataList.reduce<ISelectOption[]>((reduceList, word) => {
       const { part } = word;
-      const hasInclude: boolean = reduceList.some((item) => item.value === part);
+      const reduceFlatList: string[] = reduceList.map((item) => item.value);
 
-      if (hasInclude === false && part !== '') {
-        const partItem: ISelectOption[] = [
-          {
-            value: part,
-            name: part.toLocaleUpperCase(),
-          },
-        ];
-        return [...reduceList, ...partItem];
-      }
-      return [...reduceList];
+      const subtractionList : string[] = part.filter((partItem: string) => {
+        const _result: boolean = partItem === '' ? true : reduceFlatList.includes(partItem);
+        return _result === false;
+      });
+
+      const partItemList: ISelectOption[] = subtractionList.map((partItem: string) => {
+        const _result = {
+          value: partItem,
+          name: partItem.toLocaleUpperCase(),
+        };
+        return _result;
+      });
+
+      return [...reduceList, ...partItemList];
     }, [{ value: 'all', name: 'ALL' }]);
 
     return result;
@@ -61,24 +65,25 @@ const CollectionComponent: React.FC = () => {
   `;
 
   const callbackProcessWords = useCallback(() => {
-    const wordsData: IWordCase[] = [...WORDS_DATA];
-    const filterListResult: IWordCase[] = filterBase === 'all' ? wordsData : wordsData.filter((word) => word.part === filterBase);
+    // const wordsData: IWordCase[] = [...WORDS_DATA];
+    // eslint-disable-next-line max-len
+    // const filterListResult: IWordCase[] = filterBase === 'all' ? wordsData : wordsData.filter((word) => word.part === filterBase);
 
-    const sortListResult: IWordCase[] = filterListResult.sort((a, b) => {
-      const aText: string = a.english.toLocaleLowerCase();
-      const bText: string = b.english.toLocaleLowerCase();
+    // const sortListResult: IWordCase[] = filterListResult.sort((a, b) => {
+    //   const aText: string = a.english.toLocaleLowerCase();
+    //   const bText: string = b.english.toLocaleLowerCase();
 
-      if (aText > bText) {
-        return isSortDownAlt === false ? 1 : -1;
-      }
+    //   if (aText > bText) {
+    //     return isSortDownAlt === false ? 1 : -1;
+    //   }
 
-      if (aText < bText) {
-        return isSortDownAlt === false ? -1 : 1;
-      }
-      return 0;
-    });
+    //   if (aText < bText) {
+    //     return isSortDownAlt === false ? -1 : 1;
+    //   }
+    //   return 0;
+    // });
 
-    setWords(sortListResult);
+    // setWords(sortListResult);
   }, [WORDS_DATA, filterBase, isSortDownAlt]);
 
   useEffect(() => {
