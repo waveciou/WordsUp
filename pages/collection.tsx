@@ -36,10 +36,10 @@ const CollectionComponent: React.FC = () => {
 
   const handleGetPartList = (dataList: IWordCase[]) => {
     const result = dataList.reduce<ISelectOption[]>((reduceList, word) => {
-      const { part } = word;
+      const { parts } = word;
       const reduceFlatList: string[] = reduceList.map((item) => item.value);
 
-      const subtractionList : string[] = part.filter((partItem: string) => {
+      const subtractionList : string[] = parts.filter((partItem: string) => {
         const _result: boolean = partItem === '' ? true : reduceFlatList.includes(partItem);
         return _result === false;
       });

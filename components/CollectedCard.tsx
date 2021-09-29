@@ -24,8 +24,9 @@ const popup: string = 'collectedPopup';
 const CollectedCard: React.FC<IWordItem> = ({ word }: IWordItem) => {
   const [isShow, setIsShow] = useState(false);
   const {
-    english, chinese, part, status, englishExample, chineseExample,
+    english, chinese, parts, status, englishExample, chineseExample,
   } = word;
+  const [partsText, setPartsText] = useState('');
 
   // Speech Synthesis
   const { speak, speaking } = useSpeechSynthesis();
@@ -57,6 +58,17 @@ const CollectedCard: React.FC<IWordItem> = ({ word }: IWordItem) => {
     setStatusList(result);
   }, [status]);
 
+  // Parts Text
+  useEffect(() => {
+    const result: string = parts.reduce((prevText, currentText, index) => {
+      if (index === 0) {
+        return `${currentText}`;
+      }
+      return `${prevText}、${currentText}`;
+    }, '');
+    setPartsText(result);
+  }, [parts]);
+
   return (
     <>
       <div
@@ -66,7 +78,7 @@ const CollectedCard: React.FC<IWordItem> = ({ word }: IWordItem) => {
       >
         <div className={styles[`${[card]}__title`]}>{ english }</div>
         <div className={styles[`${[card]}__subtitle`]}>
-          <span className={styles[`${[card]}__part`]}>{ part }</span>
+          <span className={styles[`${[card]}__part`]}>{ partsText }</span>
           <span>{ chinese }</span>
         </div>
       </div>
@@ -82,7 +94,7 @@ const CollectedCard: React.FC<IWordItem> = ({ word }: IWordItem) => {
                 handleSpeechSpeak(english);
               }}
             />
-            <span className={styles[`${popup}__part`]}>{ part }</span>
+            <span className={styles[`${popup}__part`]}>{ partsText }</span>
             <span>{ chinese }</span>
           </div>
 
