@@ -12,7 +12,7 @@ const handleProcessSheetData = (sheetData: ISheetDataValue[]) => {
     const result: IWordCase = {
       english: getFormatValue(values, 0),
       chinese: getFormatValue(values, 1),
-      part: [getFormatValue(values, 2)],
+      parts: [getFormatValue(values, 2)],
       englishExample: [
         {
           sentence: getFormatValue(values, 3),

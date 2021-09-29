@@ -7,7 +7,7 @@ const handleMergeDuplicateSheetData = (sheetData: IWordCase[]) => {
       const prevItem = prevList[prevList.length - 1];
 
       if (prevItem.english === currentItem.english) {
-        prevItem.part.push(currentItem.part[0]);
+        prevItem.parts.push(currentItem.parts[0]);
         prevItem.status.push(currentItem.status[0]);
         prevItem.englishExample.push(currentItem.englishExample[0]);
         prevItem.chineseExample.push(currentItem.chineseExample[0]);
