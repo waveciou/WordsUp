@@ -65,25 +65,25 @@ const CollectionComponent: React.FC = () => {
   `;
 
   const callbackProcessWords = useCallback(() => {
-    // const wordsData: IWordCase[] = [...WORDS_DATA];
+    const wordsData: IWordCase[] = [...WORDS_DATA];
     // eslint-disable-next-line max-len
-    // const filterListResult: IWordCase[] = filterBase === 'all' ? wordsData : wordsData.filter((word) => word.part === filterBase);
+    const filterListResult: IWordCase[] = filterBase === 'all' ? wordsData : wordsData.filter((word) => word.parts.includes(filterBase));
 
-    // const sortListResult: IWordCase[] = filterListResult.sort((a, b) => {
-    //   const aText: string = a.english.toLocaleLowerCase();
-    //   const bText: string = b.english.toLocaleLowerCase();
+    const sortListResult: IWordCase[] = filterListResult.sort((a, b) => {
+      const aText: string = a.english.toLocaleLowerCase();
+      const bText: string = b.english.toLocaleLowerCase();
 
-    //   if (aText > bText) {
-    //     return isSortDownAlt === false ? 1 : -1;
-    //   }
+      if (aText > bText) {
+        return isSortDownAlt === false ? 1 : -1;
+      }
 
-    //   if (aText < bText) {
-    //     return isSortDownAlt === false ? -1 : 1;
-    //   }
-    //   return 0;
-    // });
+      if (aText < bText) {
+        return isSortDownAlt === false ? -1 : 1;
+      }
+      return 0;
+    });
 
-    // setWords(sortListResult);
+    setWords(sortListResult);
   }, [WORDS_DATA, filterBase, isSortDownAlt]);
 
   useEffect(() => {
