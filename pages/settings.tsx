@@ -13,6 +13,10 @@ import {
 
 // Functions
 import HandleGetGoogleSheetData from '../src/functions/handleGetGoogleSheetData';
+import {
+  setItemWithObject,
+  removeItem,
+} from '../src/functions/handleLocalStorage';
 
 // Component
 import { Checkbox } from '../components/common/Form';
@@ -20,6 +24,9 @@ import Alert from '../components/common/Alert';
 
 // Style
 import styles from '../styles/components/Settings.module.scss';
+
+// Interface
+import { IWordCase } from '../src/interfaces/I_WordCase';
 
 const list: string = 'settings-list';
 const section: string = 'settings-section';
@@ -32,6 +39,7 @@ const SettingsComponent: React.FC = () => {
     updateInstall = true,
     saveOption = true,
   } = useSelector((state: RootState) => state.settingsOption.value);
+  const WORDS_DATA = useSelector((state: RootState) => state.wordsCollection.value);
   const IS_MOUNTED = useSelector((state: RootState) => state.isMounted.value);
   const dispatch = useDispatch();
 
@@ -39,7 +47,13 @@ const SettingsComponent: React.FC = () => {
   const [alertClearStorage, setAlertClearStorage] = useState(false);
 
   useEffect(() => {
-    if (IS_MOUNTED && saveWords) {
+    if (IS_MOUNTED) {
+      if (saveWords === true) {
+        const words: IWordCase[] = [...WORDS_DATA];
+        setItemWithObject('wordsCollection', words);
+      } else {
+        removeItem('wordsCollection');
+      }
       dispatch(setOptionUpdateInstall(true));
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps

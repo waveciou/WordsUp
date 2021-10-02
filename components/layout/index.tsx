@@ -20,6 +20,8 @@ import { setScrollValue } from '../../store/slice/scrollValueSlice';
 import { setMenuControl } from '../../store/slice/menuControlSlice';
 import { setSettingsOption } from '../../store/slice/settingsOptionSlice';
 import { setIsMounted } from '../../store/slice/isMountedSlice';
+import { setLoaderControl } from '../../store/slice/loaderControlSlice';
+import { setWordsCollection } from '../../store/slice/wordsCollectionSlice';
 
 // Functions
 import loadGapiScrpit from '../../src/functions/googleSheetAPI/loadAPIScrpit';
@@ -42,6 +44,7 @@ declare global {
 const LayoutComponent: React.FC<IProps> = ({ children }) => {
   const SETTINGS_OPTION = useSelector((state: RootState) => state.settingsOption.value);
   const MENU_IS_OPEN = useSelector((state: RootState) => state.menuControl.value);
+  const IS_MOUNTED = useSelector((state: RootState) => state.isMounted.value);
   const dispatch = useDispatch();
   const router = useRouter();
   const handleGetData = HandleGetGoogleSheetData();
@@ -68,7 +71,7 @@ const LayoutComponent: React.FC<IProps> = ({ children }) => {
   // Get LocalStorage Data
   const handleGetLocalStorageData = useCallback(async () => {
     const options = getItemWithObject('settingsOption');
-    if (options !== '') {
+    if ((typeof options === 'object') && (options instanceof Array === false)) {
       await dispatch(setSettingsOption(options));
     }
     dispatch(setIsMounted(true));
@@ -81,11 +84,6 @@ const LayoutComponent: React.FC<IProps> = ({ children }) => {
 
   // Get initialization data flow
   useEffect(() => {
-    // 載入 Google Sheet API
-    loadGapiScrpit(() => {
-      window.gapi.load('client:auth2', handleGetData);
-    });
-
     window.addEventListener('resize', handleGetScreenWidth);
     window.addEventListener('scroll', handleGetScrollValue);
     handleGetScreenWidth();
@@ -95,7 +93,7 @@ const LayoutComponent: React.FC<IProps> = ({ children }) => {
       window.removeEventListener('resize', handleGetScreenWidth);
       window.removeEventListener('scroll', handleGetScrollValue);
     };
-  }, [dispatch, handleGetData, handleGetScreenWidth, handleGetScrollValue]);
+  }, [dispatch, handleGetScreenWidth, handleGetScrollValue]);
 
   // Close menu when router change
   useEffect(() => {
@@ -120,6 +118,28 @@ const LayoutComponent: React.FC<IProps> = ({ children }) => {
       removeItem('settingsOption');
     }
   }, [SETTINGS_OPTION]);
+
+  useEffect(() => {
+    if (IS_MOUNTED === true) {
+      const { updateInstall } = SETTINGS_OPTION;
+      const wordsCollection: any = getItemWithObject('wordsCollection');
+
+      // 載入 Google Sheet API
+      loadGapiScrpit(() => {
+        window.gapi.load('client:auth2', () => {
+          if (updateInstall === false && Array.isArray(wordsCollection) === true) {
+            (async () => {
+              await dispatch(setWordsCollection(wordsCollection));
+              await dispatch(setLoaderControl(false));
+            })();
+          } else {
+            handleGetData();
+          }
+        });
+      });
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [IS_MOUNTED]);
 
   const ClassHandleOverlay = () => `${styles.overlay} ${MENU_IS_OPEN === true ? styles['is-active'] : ''}`;
 
