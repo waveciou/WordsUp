@@ -24,6 +24,7 @@ import { ISelectOption } from '../src/interfaces/I_Form';
 
 const CollectionComponent: React.FC = () => {
   const WORDS_DATA = useSelector((state: RootState) => state.wordsCollection.value);
+  const [isMounted, setIsMounted] = useState<Boolean>(false);
   const [words, setWords] = useState<IWordCase[]>([]);
   const handleGetData = HandleGetGoogleSheetData();
 
@@ -58,12 +59,14 @@ const CollectionComponent: React.FC = () => {
     return result;
   };
 
+  // Class Name
   const ClassHandleSortDownBtn = () => `
     ${stylesButton['fab-btn']}
     ${stylesButton['fab__sort-down-btn']} 
     ${isSortDownAlt === true ? stylesButton['is-down-alt'] : ''}
   `;
 
+  // Words list setting process
   const callbackProcessWords = useCallback(() => {
     const wordsData: IWordCase[] = [...WORDS_DATA];
     // eslint-disable-next-line max-len
@@ -87,6 +90,13 @@ const CollectionComponent: React.FC = () => {
   }, [WORDS_DATA, filterBase, isSortDownAlt]);
 
   useEffect(() => {
+    setIsMounted(true);
+    return () => {
+      setIsMounted(false);
+    };
+  }, []);
+
+  useEffect(() => {
     const wordsData: IWordCase[] = [...WORDS_DATA];
     const partList: ISelectOption[] = handleGetPartList(wordsData);
 
@@ -95,7 +105,10 @@ const CollectionComponent: React.FC = () => {
   }, [WORDS_DATA]);
 
   useEffect(() => {
-    callbackProcessWords();
+    if (isMounted === true) {
+      callbackProcessWords();
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [WORDS_DATA, filterBase, isSortDownAlt, callbackProcessWords]);
 
   return (
