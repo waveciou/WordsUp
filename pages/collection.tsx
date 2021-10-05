@@ -24,14 +24,14 @@ import stylesButton from '../styles/common/Button.module.scss';
 import { IWordCase, IWordParts } from '../src/interfaces/I_WordCase';
 import { ISelectOption } from '../src/interfaces/I_Form';
 
-const WORD_PARTS = require('../src/data/wordParts.json');
+const WORDPARTS = require('../src/data/wordParts.json');
 
 const CollectionComponent: React.FC = () => {
   const WORDS_DATA = useSelector((state: RootState) => state.wordsCollection.value);
   const [isMounted, setIsMounted] = useState<Boolean>(false);
   const [words, setWords] = useState<IWordCase[]>([]);
   const handleGetData = HandleGetGoogleSheetData();
-  const { wordParts } = WORD_PARTS;
+  const { wordParts } = WORDPARTS;
 
   // Filter
   const [filterBase, setFilterBase] = useState('');
