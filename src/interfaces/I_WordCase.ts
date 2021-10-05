@@ -20,3 +20,8 @@ export interface IWordCase {
 export interface IWordItem {
   word: IWordCase;
 }
+
+export interface IWordParts {
+  id: string,
+  name: string
+}

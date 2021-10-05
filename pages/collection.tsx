@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable max-len */
 import * as React from 'react';
 import { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
@@ -19,14 +21,17 @@ import stylesFeature from '../styles/components/Feature.module.scss';
 import stylesButton from '../styles/common/Button.module.scss';
 
 // Interface
-import { IWordCase } from '../src/interfaces/I_WordCase';
+import { IWordCase, IWordParts } from '../src/interfaces/I_WordCase';
 import { ISelectOption } from '../src/interfaces/I_Form';
+
+const WORD_PARTS = require('../src/data/wordParts.json');
 
 const CollectionComponent: React.FC = () => {
   const WORDS_DATA = useSelector((state: RootState) => state.wordsCollection.value);
   const [isMounted, setIsMounted] = useState<Boolean>(false);
   const [words, setWords] = useState<IWordCase[]>([]);
   const handleGetData = HandleGetGoogleSheetData();
+  const { wordParts } = WORD_PARTS;
 
   // Filter
   const [filterBase, setFilterBase] = useState('');
@@ -36,6 +41,8 @@ const CollectionComponent: React.FC = () => {
   const [isSortDownAlt, setIsSortDownAlt] = useState(false);
 
   const handleGetPartList = (dataList: IWordCase[]) => {
+    const allCaseName: IWordParts = wordParts.filter((part: IWordParts) => part.id === 'all')[0] || { id: 'all', name: '全部' };
+
     const result = dataList.reduce<ISelectOption[]>((reduceList, word) => {
       const { parts } = word;
       const reduceFlatList: string[] = reduceList.map((item) => item.value);
@@ -46,15 +53,19 @@ const CollectionComponent: React.FC = () => {
       });
 
       const partItemList: ISelectOption[] = subtractionList.map((partItem: string) => {
-        const _result = {
-          value: partItem,
+        const partNameFilter: IWordParts = wordParts.filter((part: IWordParts) => part.id === partItem)[0] || {
+          id: partItem,
           name: partItem.toLocaleUpperCase(),
         };
-        return _result;
+
+        return {
+          value: partItem,
+          name: partNameFilter.name,
+        };
       });
 
       return [...reduceList, ...partItemList];
-    }, [{ value: 'all', name: 'ALL' }]);
+    }, [{ value: 'all', name: allCaseName.name }]);
 
     return result;
   };
@@ -108,7 +119,6 @@ const CollectionComponent: React.FC = () => {
     if (isMounted === true) {
       callbackProcessWords();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [WORDS_DATA, filterBase, isSortDownAlt, callbackProcessWords]);
 
   return (
