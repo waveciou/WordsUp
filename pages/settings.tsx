@@ -59,6 +59,15 @@ const SettingsComponent: React.FC = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, saveWords]);
 
+  const handleClearLocalStorage = () => {
+    removeItem('settingsOption');
+    removeItem('wordsCollection');
+    dispatch(setOptionSaveWords(false));
+    dispatch(setOptionUpdateInstall(true));
+    dispatch(setOptionSaveRecord(false));
+    dispatch(setOptionSaveOption(false));
+  };
+
   return (
     <>
       <h1 className="title">SETTINGS</h1>
@@ -189,6 +198,7 @@ const SettingsComponent: React.FC = () => {
         confirmText="清除"
         cancelText="取消"
         onConfirm={() => {
+          handleClearLocalStorage();
           setAlertClearStorage(false);
         }}
         onCancel={() => {
