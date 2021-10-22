@@ -4,8 +4,8 @@ import { useDispatch } from 'react-redux';
 // Functions
 import initGapiClient from './googleSheetAPI/initAPIClient';
 import makeGapiCallback from './googleSheetAPI/makeAPICallback';
-import handleProcessSheetData from './handleProcessSheetData';
-import handleMergeDuplicateSheetData from './handleMergeDuplicateSheetData';
+import handleProcessSheetData from './processSheetData';
+import handleMergeDuplicateSheetData from './mergeDuplicateSheetData';
 
 // Redux
 import { setLoaderControl } from '../../store/slice/loaderControlSlice';

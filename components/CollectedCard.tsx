@@ -10,10 +10,10 @@ import styles from '../styles/components/Collection.module.scss';
 import Popup from './common/Popup';
 
 // Function
-import handleGetExampleNode from '../src/functions/handleGetExampleNode';
-import handleSetWordStatusList from '../src/functions/handleSetWordStatusList';
-import handleGetHashId from '../src/functions/handleGetHashId';
-import handleObjectDeepClone from '../src/functions/handleObjectDeepClone';
+import handleGetExampleNode from '../src/functions/getExampleNode';
+import handleSetWordStatusList from '../src/functions/setWordStatusList';
+import handleGetHashId from '../src/functions/getHashId';
+import handleObjectDeepClone from '../src/functions/objectDeepClone';
 
 // Interface
 import { IWordItem, IExampleListItem } from '../src/interfaces/I_WordCase';

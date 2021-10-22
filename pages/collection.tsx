@@ -12,8 +12,8 @@ import CollectedCard from '../components/CollectedCard';
 import { Select } from '../components/common/Form';
 
 // Functions
-import handleGetHashId from '../src/functions/handleGetHashId';
-import HandleGetGoogleSheetData from '../src/functions/handleGetGoogleSheetData';
+import handleGetHashId from '../src/functions/getHashId';
+import HandleGetGoogleSheetData from '../src/functions/getGoogleSheetData';
 
 // Style
 import stylesCollection from '../styles/components/Collection.module.scss';

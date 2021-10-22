@@ -25,12 +25,12 @@ import { setWordsCollection } from '../../store/slice/wordsCollectionSlice';
 
 // Functions
 import loadGapiScrpit from '../../src/functions/googleSheetAPI/loadAPIScrpit';
-import HandleGetGoogleSheetData from '../../src/functions/handleGetGoogleSheetData';
+import HandleGetGoogleSheetData from '../../src/functions/getGoogleSheetData';
 import {
   getItemWithObject,
   setItemWithObject,
   removeItem,
-} from '../../src/functions/handleLocalStorage';
+} from '../../src/functions/localStorage';
 
 // Interface
 import { IProps } from '../../src/interfaces/I_Global';

@@ -12,11 +12,11 @@ import {
 } from '../store/slice/settingsOptionSlice';
 
 // Functions
-import HandleGetGoogleSheetData from '../src/functions/handleGetGoogleSheetData';
+import HandleGetGoogleSheetData from '../src/functions/getGoogleSheetData';
 import {
   setItemWithObject,
   removeItem,
-} from '../src/functions/handleLocalStorage';
+} from '../src/functions/localStorage';
 
 // Component
 import { Checkbox } from '../components/common/Form';

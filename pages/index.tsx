@@ -13,8 +13,8 @@ import { RootState } from '../store';
 import { IWordCase } from '../src/interfaces/I_WordCase';
 
 // Function
-import handleGetRandomNumber from '../src/functions/handleGetRandomNumber';
-import { getItemWithObject, setItemWithObject } from '../src/functions/handleLocalStorage';
+import handleGetRandomNumber from '../src/functions/getRandomNumber';
+import { getItemWithObject, setItemWithObject } from '../src/functions/localStorage';
 
 interface ILocalWordCase {
   date: string;
