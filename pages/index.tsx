@@ -16,17 +16,26 @@ import { IWordCase } from '../src/interfaces/I_WordCase';
 import handleGetRandomNumber from '../src/functions/getRandomNumber';
 import { getItemWithObject, setItemWithObject } from '../src/functions/localStorage';
 
-interface ILocalWordCase {
+interface ILocalCase {
   date: string;
-  wordCase: IWordCase;
+  case: IWordCase;
 }
 
-const handleGetRandomWordCase = (WORDS_DATA: IWordCase[], todayText: string) => {
+const caseTemplate: IWordCase = {
+  chinese: '',
+  chineseExample: [],
+  english: '',
+  englishExample: [],
+  parts: [],
+  status: [],
+};
+
+const handleGetRandomWordCase = (WORDS_DATA: IWordCase[], todayDate: string) => {
   const randomIndex: number = handleGetRandomNumber(0, WORDS_DATA.length - 1);
   const todayWordCase: IWordCase = WORDS_DATA[randomIndex];
-  const result: ILocalWordCase = {
-    date: todayText,
-    wordCase: todayWordCase,
+  const result: ILocalCase = {
+    date: todayDate,
+    case: todayWordCase,
   };
   return result;
 };
@@ -35,38 +44,46 @@ const HomeComponent: React.FC = () => {
   dayjs.extend(utc);
   const day = dayjs();
   const WORDS_DATA = useSelector((state: RootState) => state.wordsCollection.value);
-  const [todayText, setTodayText] = useState<string>('');
+  const [todayDate, setTodayDate] = useState<string>('');
+  const [todayCase, setTodayCase] = useState<IWordCase>(JSON.parse(JSON.stringify(caseTemplate)));
 
   useEffect(() => {
     const year: number = day.utcOffset(8).year();
     const month: number = day.utcOffset(8).month() + 1;
     const date: number = day.utcOffset(8).date();
     const result: string = `${year}-${month}-${date}`;
-    setTodayText(result);
+    setTodayDate(result);
   }, [day]);
 
   useEffect(() => {
-    if (!!todayText && WORDS_DATA.length) {
-      let result: ILocalWordCase | {} = {};
+    if (!!todayDate && WORDS_DATA.length) {
+      let result: ILocalCase = {
+        date: '',
+        case: JSON.parse(JSON.stringify(caseTemplate)),
+      };
 
       if (!!getItemWithObject('dailyWordCase') === true) {
-        const localWordCase: ILocalWordCase = getItemWithObject('dailyWordCase') as ILocalWordCase;
+        const localWordCase: ILocalCase = getItemWithObject('dailyWordCase') as ILocalCase;
 
-        if (localWordCase.date !== todayText) {
-          result = handleGetRandomWordCase(WORDS_DATA, todayText);
+        if (localWordCase.date !== todayDate) {
+          result = handleGetRandomWordCase(WORDS_DATA, todayDate);
         } else {
           result = localWordCase;
         }
       } else {
-        result = handleGetRandomWordCase(WORDS_DATA, todayText);
+        result = handleGetRandomWordCase(WORDS_DATA, todayDate);
       }
+
       setItemWithObject('dailyWordCase', result);
+      setTodayCase(result.case);
     }
-  }, [todayText, WORDS_DATA]);
+  }, [todayDate, WORDS_DATA]);
 
   return (
     <div className="content">
-      <div>{todayText}</div>
+      <div>{ todayDate }</div>
+      <div>{ todayCase.chinese }</div>
+      <div>{ todayCase.english }</div>
     </div>
   );
 };
