@@ -1,20 +1,13 @@
-import { IGapisConfig } from '../../interfaces/I_SheetData';
-
-const KEY_CONFIG = require('../../data/key.json');
-
 const initGapiClient = (handleCallback: (SHEET_ID: string) => void) => {
-  const {
-    API_KEY, CLIENT_ID, SCOPE, SHEET_ID, DISCOVERY_DOCS,
-  } : IGapisConfig = KEY_CONFIG;
-
   const handleInitial = () => {
     window.gapi.client.init({
-      apiKey: API_KEY,
-      clientId: CLIENT_ID,
-      scope: SCOPE,
-      discoveryDocs: [DISCOVERY_DOCS],
+      apiKey: process.env.API_KEY,
+      clientId: process.env.CLIENT_ID,
+      scope: process.env.SCOPE,
+      discoveryDocs: [process.env.DISCOVERY_DOCS],
     }).then(() => {
-      handleCallback(SHEET_ID);
+      const sheetId: string = process.env.SHEET_ID as string;
+      handleCallback(sheetId);
     });
   };
 
