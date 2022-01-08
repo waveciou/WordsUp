@@ -1,7 +1,6 @@
 /* eslint-disable react/no-danger */
 import * as React from 'react';
-import { useState, useEffect, useCallback } from 'react';
-import { useSpeechSynthesis } from 'react-speech-kit';
+import { useState, useEffect } from 'react';
 
 // Style
 import styles from '../styles/components/WordDetail.module.scss';
@@ -14,6 +13,8 @@ import handleGetExampleNode from '../src/functions/getExampleNode';
 import handleSetWordStatusList from '../src/functions/setWordStatusList';
 import handleGetHashId from '../src/functions/getHashId';
 import handleObjectDeepClone from '../src/functions/objectDeepClone';
+import handleGetPartsText from '../src/functions/getPartsText';
+import speechSpeakCallback from '../src/functions/speechSpeakCallback';
 
 const WordDetail: React.FC<IWordItem> = ({ word }: IWordItem) => {
   const {
@@ -23,7 +24,10 @@ const WordDetail: React.FC<IWordItem> = ({ word }: IWordItem) => {
   const [exampleList, setExampleList] = useState<IExampleListItem[]>([]);
   const [statusList, setStatusList] = useState<string[]>([]);
   const [partsText, setPartsText] = useState<string>('');
-  const { speak, speaking } = useSpeechSynthesis();
+
+  // Speech Synthesis
+
+  const handleSpeechSpeak = speechSpeakCallback();
 
   // Example List
 
@@ -37,14 +41,6 @@ const WordDetail: React.FC<IWordItem> = ({ word }: IWordItem) => {
     }
   }, [englishExample, chineseExample]);
 
-  // Speech Synthesis
-
-  const handleSpeechSpeak = useCallback((_text: string) => {
-    if (speaking === false) {
-      speak({ text: _text });
-    }
-  }, [speak, speaking]);
-
   // Status List
 
   useEffect(() => {
@@ -55,12 +51,7 @@ const WordDetail: React.FC<IWordItem> = ({ word }: IWordItem) => {
   // Parts Text
 
   useEffect(() => {
-    const result: string = parts.reduce((prevText, currentText, index) => {
-      if (index === 0) {
-        return `${currentText}`;
-      }
-      return `${prevText}、${currentText}`;
-    }, '');
+    const result: string = handleGetPartsText(parts);
     setPartsText(result);
   }, [parts]);
 

@@ -4,6 +4,7 @@ const handleSetWordStatusList = (statusList: string[]) => {
     const resultArray: string[] = splitArray.filter((itemText: string) => itemText !== '');
     return [...prevList, ...resultArray];
   }, []);
+
   return result;
 };
 

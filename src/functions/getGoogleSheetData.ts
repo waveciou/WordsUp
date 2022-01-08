@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -23,9 +24,8 @@ const HandleGetGoogleSheetData = () => {
         const sheetData = handleMergeDuplicateSheetData(_sheetData);
         await dispatch(setWordsCollection(sheetData));
         await dispatch(setLoaderControl(false));
-      }).catch((err) => {
-        // eslint-disable-next-line no-console
-        console.log(err);
+      }).catch((error) => {
+        console.log(error);
       });
     });
   }, [dispatch]);

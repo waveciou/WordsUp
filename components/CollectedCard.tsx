@@ -11,20 +11,18 @@ import WordDetail from './WordDetail';
 // Interface
 import { IWordItem } from '../src/interfaces/I_WordCase';
 
-const CollectedCard: React.FC<IWordItem> = ({ word }: IWordItem) => {
-  const [isShow, setIsShow] = useState<boolean>(false);
-  const { english, chinese, parts } = word;
+// Function
+import handleGetPartsText from '../src/functions/getPartsText';
 
-  // Parts Text
+const CollectedCard: React.FC<IWordItem> = ({ word }: IWordItem) => {
+  const { english, chinese, parts } = word;
+  const [isShow, setIsShow] = useState<boolean>(false);
   const [partsText, setPartsText] = useState<string>('');
 
+  // Parts Text
+
   useEffect(() => {
-    const result: string = parts.reduce((prevText, currentText, index) => {
-      if (index === 0) {
-        return `${currentText}`;
-      }
-      return `${prevText}、${currentText}`;
-    }, '');
+    const result: string = handleGetPartsText(parts);
     setPartsText(result);
   }, [parts]);
 
