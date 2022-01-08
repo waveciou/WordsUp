@@ -43,8 +43,8 @@ const SettingsComponent: React.FC = () => {
   const IS_MOUNTED = useSelector((state: RootState) => state.isMounted.value);
   const dispatch = useDispatch();
 
-  const [alertDeleteRecord, setAlertDeleteRecord] = useState(false);
-  const [alertClearStorage, setAlertClearStorage] = useState(false);
+  const [alertDeleteRecord, setAlertDeleteRecord] = useState<boolean>(false);
+  const [alertClearStorage, setAlertClearStorage] = useState<boolean>(false);
 
   useEffect(() => {
     if (IS_MOUNTED) {

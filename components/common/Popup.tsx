@@ -15,7 +15,7 @@ interface IPopupModal extends IProps {
 }
 
 const PopupModalComponent: React.FC<IPopupModal> = ({ children, show, onClose }) => {
-  const [isBrowser, setIsBrowser] = useState(false);
+  const [isBrowser, setIsBrowser] = useState<boolean>(false);
   const nodeRef = useRef(null);
 
   useEffect(() => {

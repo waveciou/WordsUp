@@ -25,7 +25,7 @@ const AlertModalComponent: React.FC<IAlertModal> = ({
   onConfirm = () => {},
   onCancel = () => {},
 }) => {
-  const [isBrowser, setIsBrowser] = useState(false);
+  const [isBrowser, setIsBrowser] = useState<boolean>(false);
   const nodeRef = useRef(null);
 
   useEffect(() => {

@@ -12,11 +12,11 @@ import WordDetail from './WordDetail';
 import { IWordItem } from '../src/interfaces/I_WordCase';
 
 const CollectedCard: React.FC<IWordItem> = ({ word }: IWordItem) => {
-  const [isShow, setIsShow] = useState(false);
+  const [isShow, setIsShow] = useState<boolean>(false);
   const { english, chinese, parts } = word;
 
   // Parts Text
-  const [partsText, setPartsText] = useState('');
+  const [partsText, setPartsText] = useState<string>('');
 
   useEffect(() => {
     const result: string = parts.reduce((prevText, currentText, index) => {

@@ -17,7 +17,7 @@ import { IRouteItem } from '../../src/interfaces/I_Global';
 const ROUTE = require('../../src/data/route.json');
 
 const MenuComponent: React.FC = () => {
-  const [routeLinks, setRouteLinks] = useState([]);
+  const [routeLinks, setRouteLinks] = useState<[]>([]);
   const MENU_IS_OPEN = useSelector((state: RootState) => state.menuControl.value);
   const dispatch = useDispatch();
   const router = useRouter();

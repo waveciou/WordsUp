@@ -34,11 +34,11 @@ const CollectionComponent: React.FC = () => {
   const { wordParts } = WORDPARTS;
 
   // Filter
-  const [filterBase, setFilterBase] = useState('');
+  const [filterBase, setFilterBase] = useState<string>('');
   const [filterList, setFilterList] = useState<ISelectOption[]>([]);
 
   // Sort
-  const [isSortDownAlt, setIsSortDownAlt] = useState(false);
+  const [isSortDownAlt, setIsSortDownAlt] = useState<boolean>(false);
 
   const handleGetPartList = (dataList: IWordCase[]) => {
     const allCaseName: IWordParts = wordParts.filter((part: IWordParts) => part.id === 'all')[0] || { id: 'all', name: '全部' };

@@ -22,7 +22,7 @@ const WordDetail: React.FC<IWordItem> = ({ word }: IWordItem) => {
 
   const [exampleList, setExampleList] = useState<IExampleListItem[]>([]);
   const [statusList, setStatusList] = useState<string[]>([]);
-  const [partsText, setPartsText] = useState('');
+  const [partsText, setPartsText] = useState<string>('');
   const { speak, speaking } = useSpeechSynthesis();
 
   // Example List
