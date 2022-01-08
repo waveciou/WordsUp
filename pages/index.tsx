@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 // Dayjs
@@ -11,6 +11,9 @@ import { RootState } from '../store';
 
 // Interface
 import { IWordCase } from '../src/interfaces/I_WordCase';
+
+// Component
+import WordDetail from '../components/WordDetail';
 
 // Function
 import handleGetRandomNumber from '../src/functions/getRandomNumber';
@@ -82,8 +85,7 @@ const HomeComponent: React.FC = () => {
   return (
     <div className="content">
       <div>{ todayDate }</div>
-      <div>{ todayCase.chinese }</div>
-      <div>{ todayCase.english }</div>
+      <WordDetail word={todayCase} />
     </div>
   );
 };
