@@ -1,0 +1,41 @@
+@charset 'UTF-8';
+@import '../utils/_utils.scss';
+
+$icon-size: 30px;
+
+.dailyWord__header {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+}
+
+.dailyWord__title {
+  display: flex;
+  align-items: center;
+  line-height: $icon-size;
+  font-size: map-get($font-size, md);
+  color: $color-green-dark;
+
+  &::before {
+    @include font-material;
+
+    content: '\e8ce';
+    width: $icon-size;
+    height: $icon-size;
+    margin-right: 5px;
+    display: block;
+    text-align: center;
+    line-height: $icon-size;
+  }
+}
+
+.dailyWord__date {
+  font-size: map-get($font-size, xs);
+}
+
+.dailyWord__wrap {
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px 0 rgba($color-black, 0.2);
+}

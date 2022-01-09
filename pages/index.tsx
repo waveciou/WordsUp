@@ -19,6 +19,9 @@ import WordDetail from '../components/WordDetail';
 import handleGetRandomNumber from '../src/functions/getRandomNumber';
 import { getItemWithObject, setItemWithObject } from '../src/functions/localStorage';
 
+// Style
+import styles from '../styles/components/DailyWord.module.scss';
+
 interface ILocalCase {
   date: string;
   case: IWordCase;
@@ -33,11 +36,11 @@ const caseTemplate: IWordCase = {
   status: [],
 };
 
-const handleGetRandomWordCase = (WORDS_DATA: IWordCase[], todayDate: string) => {
+const handleGetRandomWordCase = (WORDS_DATA: IWordCase[], todayId: string) => {
   const randomIndex: number = handleGetRandomNumber(0, WORDS_DATA.length - 1);
   const todayWordCase: IWordCase = WORDS_DATA[randomIndex];
   const result: ILocalCase = {
-    date: todayDate,
+    date: todayId,
     case: todayWordCase,
   };
   return result;
@@ -47,19 +50,30 @@ const HomeComponent: React.FC = () => {
   dayjs.extend(utc);
   const day = dayjs();
   const WORDS_DATA = useSelector((state: RootState) => state.wordsCollection.value);
+  const [todayId, setTodayId] = useState<string>('');
   const [todayDate, setTodayDate] = useState<string>('');
   const [todayCase, setTodayCase] = useState<IWordCase>(JSON.parse(JSON.stringify(caseTemplate)));
+
+  const formatNumber = (amount: number) => {
+    if (amount < 10) {
+      return `0${amount}`;
+    }
+    return `${amount}`;
+  };
 
   useEffect(() => {
     const year: number = day.utcOffset(8).year();
     const month: number = day.utcOffset(8).month() + 1;
     const date: number = day.utcOffset(8).date();
-    const result: string = `${year}-${month}-${date}`;
-    setTodayDate(result);
+    const id: string = `${year}-${month}-${date}`;
+    const dateText: string = `${year}年${formatNumber(month)}月${formatNumber(date)}日`;
+
+    setTodayId(id);
+    setTodayDate(dateText);
   }, [day]);
 
   useEffect(() => {
-    if (!!todayDate && WORDS_DATA.length) {
+    if (!!todayId && WORDS_DATA.length) {
       let result: ILocalCase = {
         date: '',
         case: JSON.parse(JSON.stringify(caseTemplate)),
@@ -68,24 +82,31 @@ const HomeComponent: React.FC = () => {
       if (!!getItemWithObject('dailyWordCase') === true) {
         const localWordCase: ILocalCase = getItemWithObject('dailyWordCase') as ILocalCase;
 
-        if (localWordCase.date !== todayDate) {
-          result = handleGetRandomWordCase(WORDS_DATA, todayDate);
+        if (localWordCase.date !== todayId) {
+          result = handleGetRandomWordCase(WORDS_DATA, todayId);
         } else {
           result = localWordCase;
         }
       } else {
-        result = handleGetRandomWordCase(WORDS_DATA, todayDate);
+        result = handleGetRandomWordCase(WORDS_DATA, todayId);
       }
 
       setItemWithObject('dailyWordCase', result);
       setTodayCase(result.case);
     }
-  }, [todayDate, WORDS_DATA]);
+  }, [todayId, WORDS_DATA]);
 
   return (
     <div className="content">
-      <div>{ todayDate }</div>
-      <WordDetail word={todayCase} />
+      <div className={styles.dailyWord__header}>
+        <div className={styles.dailyWord__title}>
+          今日單字
+        </div>
+        <div className={styles.dailyWord__date}>{ todayDate }</div>
+      </div>
+      <div className={styles.dailyWord__wrap}>
+        <WordDetail word={todayCase} />
+      </div>
     </div>
   );
 };
