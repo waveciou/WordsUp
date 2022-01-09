@@ -15,10 +15,20 @@
 .logo {
   padding-right: 10px;
   padding-left: 10px;
-  display: block;
+  display: flex;
+  align-items: center;
   font-size: map-get($font-size, base);
   font-weight: 700;
   color: $color-green;
+
+  &::before {
+    content: '';
+    width: 30px;
+    height: 30px;
+    display: block;
+    margin-right: 10px;
+    background: url('../../public/img/icon.svg') no-repeat center/contain;
+  }
 }
 
 .header__container {
