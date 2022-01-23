@@ -1,5 +1,5 @@
-import { ISheetDataItem, ISheetDataValue } from '../interfaces/I_SheetData';
-import { IWordCase } from '../interfaces/I_WordCase';
+import { ISheetDataItem, ISheetDataValue } from '@/Interfaces/I_SheetData';
+import { IWordCase } from '@/Interfaces/I_WordCase';
 
 const handleProcessSheetData = (sheetData: ISheetDataValue[]) => {
   const datas: ISheetDataValue[] = [...sheetData];

@@ -1,18 +1,10 @@
-import * as React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
-// Style
-import styles from '../styles/components/Collection.module.scss';
-
-// Component
-import Popup from './common/Popup';
-import WordDetail from './WordDetail';
-
-// Interface
-import { IWordItem } from '../src/interfaces/I_WordCase';
-
-// Function
-import handleGetPartsText from '../src/functions/getPartsText';
+import Popup from '@/Components/common/Popup';
+import WordDetail from '@/Components/WordDetail';
+import handleGetPartsText from '@/Functions/getPartsText';
+import { IWordItem } from '@/Interfaces/I_WordCase';
+import styles from '@/Styles/components/Collection.module.scss';
 
 const CollectedCard: React.FC<IWordItem> = ({ word }: IWordItem) => {
   const { english, chinese, parts } = word;

@@ -1,28 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable max-len */
-import * as React from 'react';
-import { useState, useEffect, useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-// Redux
-import { RootState } from '../store';
-
-// Component
-import CollectedCard from '../components/CollectedCard';
-import { Select } from '../components/common/Form';
-
-// Functions
-import handleGetHashId from '../src/functions/getHashId';
-import HandleGetGoogleSheetData from '../src/functions/getGoogleSheetData';
-
-// Style
-import stylesCollection from '../styles/components/Collection.module.scss';
-import stylesFeature from '../styles/components/Feature.module.scss';
-import stylesButton from '../styles/common/Button.module.scss';
-
-// Interface
-import { IWordCase, IWordParts } from '../src/interfaces/I_WordCase';
-import { ISelectOption } from '../src/interfaces/I_Form';
+import CollectedCard from '@/Components/CollectedCard';
+import { Select } from '@/Components/common/Form';
+import HandleGetGoogleSheetData from '@/Functions/getGoogleSheetData';
+import handleGetHashId from '@/Functions/getHashId';
+import { ISelectOption } from '@/Interfaces/I_Form';
+import { IWordCase, IWordParts } from '@/Interfaces/I_WordCase';
+import { RootState } from '@/Store/index';
+import stylesButton from '@/Styles/common/Button.module.scss';
+import stylesCollection from '@/Styles/components/Collection.module.scss';
+import stylesFeature from '@/Styles/components/Feature.module.scss';
 
 const WORDPARTS = require('../src/data/wordParts.json');
 

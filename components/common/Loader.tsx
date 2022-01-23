@@ -1,13 +1,9 @@
-import * as React from 'react';
-import { useRef } from 'react';
+import React, { useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
 
-// Style
-import styles from '../../styles/common/Loader.module.scss';
-
-// Redux
-import { RootState } from '../../store';
+import { RootState } from '@/Store/index';
+import styles from '@/Styles/common/Loader.module.scss';
 
 const LoaderComponent: React.FC = () => {
   const LOADER_IS_OPEN = useSelector((state: RootState) => state.loaderControl.value);

@@ -1,5 +1,4 @@
-// Interfaces
-import { IWordCase } from '../interfaces/I_WordCase';
+import { IWordCase } from '@/Interfaces/I_WordCase';
 
 const handleMergeDuplicateSheetData = (sheetData: IWordCase[]) => {
   const result = sheetData.reduce((prevList: IWordCase[], currentItem: IWordCase) => {

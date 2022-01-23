@@ -2,15 +2,12 @@
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
-// Functions
-import initGapiClient from './googleSheetAPI/initAPIClient';
-import makeGapiCallback from './googleSheetAPI/makeAPICallback';
-import handleProcessSheetData from './processSheetData';
-import handleMergeDuplicateSheetData from './mergeDuplicateSheetData';
-
-// Redux
-import { setLoaderControl } from '../../store/slice/loaderControlSlice';
-import { setWordsCollection } from '../../store/slice/wordsCollectionSlice';
+import initGapiClient from '@/Functions/googleSheetAPI/initAPIClient';
+import makeGapiCallback from '@/Functions/googleSheetAPI/makeAPICallback';
+import handleMergeDuplicateSheetData from '@/Functions/mergeDuplicateSheetData';
+import handleProcessSheetData from '@/Functions/processSheetData';
+import { setLoaderControl } from '@/Slice/loaderControlSlice';
+import { setWordsCollection } from '@/Slice/wordsCollectionSlice';
 
 const HandleGetGoogleSheetData = () => {
   const dispatch = useDispatch();

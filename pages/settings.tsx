@@ -1,32 +1,19 @@
-import * as React from 'react';
-import { useState, useEffect } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable comma-dangle */
+/* eslint-disable indent */
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-// Redux
-import { RootState } from '../store';
+import Alert from '@/Components/common/Alert';
+import { Checkbox } from '@/Components/common/Form';
+import HandleGetGoogleSheetData from '@/Functions/getGoogleSheetData';
+import { removeItem, setItemWithObject } from '@/Functions/localStorage';
+import { IWordCase } from '@/Interfaces/I_WordCase';
 import {
-  setOptionSaveWords,
-  setOptionSaveRecord,
-  setOptionUpdateInstall,
-  setOptionSaveOption,
-} from '../store/slice/settingsOptionSlice';
-
-// Functions
-import HandleGetGoogleSheetData from '../src/functions/getGoogleSheetData';
-import {
-  setItemWithObject,
-  removeItem,
-} from '../src/functions/localStorage';
-
-// Component
-import { Checkbox } from '../components/common/Form';
-import Alert from '../components/common/Alert';
-
-// Style
-import styles from '../styles/components/Settings.module.scss';
-
-// Interface
-import { IWordCase } from '../src/interfaces/I_WordCase';
+    setOptionSaveOption, setOptionSaveRecord, setOptionSaveWords, setOptionUpdateInstall
+} from '@/Slice/settingsOptionSlice';
+import { RootState } from '@/Store/index';
+import styles from '@/Styles/components/Settings.module.scss';
 
 const list: string = 'settings-list';
 const section: string = 'settings-section';
@@ -56,7 +43,6 @@ const SettingsComponent: React.FC = () => {
       }
       dispatch(setOptionUpdateInstall(true));
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, saveWords]);
 
   const handleClearLocalStorage = () => {

@@ -1,12 +1,9 @@
-import * as React from 'react';
-import { useDispatch } from 'react-redux';
 import Link from 'next/link';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 
-// Style
-import styles from '../../styles/common/Header.module.scss';
-
-// Redux
-import { setMenuControl } from '../../store/slice/menuControlSlice';
+import { setMenuControl } from '@/Slice/menuControlSlice';
+import styles from '@/Styles/common/Header.module.scss';
 
 const HeaderComponent: React.FC = () => {
   const dispatch = useDispatch();

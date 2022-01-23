@@ -1,7 +1,6 @@
+/* eslint-disable import/order */
+import { IWordCase } from '@/Interfaces/I_WordCase';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-// Interface
-import { IWordCase } from '../../src/interfaces/I_WordCase';
 
 const initialState: { value: IWordCase[] } = {
   value: [],

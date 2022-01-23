@@ -1,26 +1,14 @@
-import * as React from 'react';
-import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-
-// Dayjs
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
-// Redux
-import { RootState } from '../store';
-
-// Interface
-import { IWordCase } from '../src/interfaces/I_WordCase';
-
-// Component
-import WordDetail from '../components/WordDetail';
-
-// Function
-import handleGetRandomNumber from '../src/functions/getRandomNumber';
-import { getItemWithObject, setItemWithObject } from '../src/functions/localStorage';
-
-// Style
-import styles from '../styles/components/DailyWord.module.scss';
+import WordDetail from '@/Components/WordDetail';
+import handleGetRandomNumber from '@/Functions/getRandomNumber';
+import { getItemWithObject, setItemWithObject } from '@/Functions/localStorage';
+import { IWordCase } from '@/Interfaces/I_WordCase';
+import { RootState } from '@/Store/index';
+import styles from '@/Styles/components/DailyWord.module.scss';
 
 interface ILocalCase {
   date: string;

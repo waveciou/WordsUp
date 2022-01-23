@@ -1,13 +1,12 @@
+/* eslint-disable import/order */
+import isMountedSliceReducer from '@/Slice/isMountedSlice';
+import loaderControlReducer from '@/Slice/loaderControlSlice';
+import menuControlReducer from '@/Slice/menuControlSlice';
+import screenWidthReducer from '@/Slice/screenWidthSlice';
+import scrollValueReducer from '@/Slice/scrollValueSlice';
+import settingsOptionReducer from '@/Slice/settingsOptionSlice';
+import wordsCollectionReducer from '@/Slice/wordsCollectionSlice';
 import { configureStore } from '@reduxjs/toolkit';
-
-// Slice (Reducer)
-import screenWidthReducer from './slice/screenWidthSlice';
-import scrollValueReducer from './slice/scrollValueSlice';
-import menuControlReducer from './slice/menuControlSlice';
-import loaderControlReducer from './slice/loaderControlSlice';
-import wordsCollectionReducer from './slice/wordsCollectionSlice';
-import settingsOptionReducer from './slice/settingsOptionSlice';
-import isMountedSliceReducer from './slice/isMountedSlice';
 
 export const store = configureStore({
   reducer: {

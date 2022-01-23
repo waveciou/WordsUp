@@ -1,20 +1,14 @@
 /* eslint-disable react/no-danger */
-import * as React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
-// Style
-import styles from '../styles/components/WordDetail.module.scss';
-
-// Interface
-import { IWordItem, IWordCase, IExampleListItem } from '../src/interfaces/I_WordCase';
-
-// Function
-import handleGetExampleNode from '../src/functions/getExampleNode';
-import handleSetWordStatusList from '../src/functions/setWordStatusList';
-import handleGetHashId from '../src/functions/getHashId';
-import handleObjectDeepClone from '../src/functions/objectDeepClone';
-import handleGetPartsText from '../src/functions/getPartsText';
-import speechSpeakCallback from '../src/functions/speechSpeakCallback';
+import handleGetExampleNode from '@/Functions/getExampleNode';
+import handleGetHashId from '@/Functions/getHashId';
+import handleGetPartsText from '@/Functions/getPartsText';
+import handleObjectDeepClone from '@/Functions/objectDeepClone';
+import handleSetWordStatusList from '@/Functions/setWordStatusList';
+import speechSpeakCallback from '@/Functions/speechSpeakCallback';
+import { IExampleListItem, IWordCase, IWordItem } from '@/Interfaces/I_WordCase';
+import styles from '@/Styles/components/WordDetail.module.scss';
 
 const WordDetail: React.FC<IWordItem> = ({ word }: IWordItem) => {
   const {

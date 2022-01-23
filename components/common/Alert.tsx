@@ -1,10 +1,8 @@
-import * as React from 'react';
-import { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { CSSTransition } from 'react-transition-group';
 
-// Style
-import styles from '../../styles/common/Alert.module.scss';
+import styles from '@/Styles/common/Alert.module.scss';
 
 interface IAlertModal {
   show: boolean;

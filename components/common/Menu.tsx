@@ -1,18 +1,12 @@
-import * as React from 'react';
-import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-// Style
-import styles from '../../styles/common/Menu.module.scss';
-
-// Redux
-import { RootState } from '../../store';
-import { setMenuControl } from '../../store/slice/menuControlSlice';
-
-// Interface
-import { IRouteItem } from '../../src/interfaces/I_Global';
+import { IRouteItem } from '@/Interfaces/I_Global';
+import { setMenuControl } from '@/Slice/menuControlSlice';
+import { RootState } from '@/Store/index';
+import styles from '@/Styles/common/Menu.module.scss';
 
 const ROUTE = require('../../src/data/route.json');
 

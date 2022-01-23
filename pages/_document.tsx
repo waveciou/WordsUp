@@ -1,7 +1,6 @@
-import * as React from 'react';
-import Document, {
-  Html, Head, Main, NextScript,
-} from 'next/document';
+/* eslint-disable object-curly-newline */
+import Document, { Head, Html, Main, NextScript } from 'next/document';
+import React from 'react';
 
 class DocumentComponent extends Document {
   render() {

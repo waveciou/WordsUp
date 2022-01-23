@@ -1,39 +1,25 @@
-import * as React from 'react';
-import { useEffect, useCallback } from 'react';
 import { useRouter } from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import React, { useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-// Component
-import Meta from '../common/Meta';
-import Menu from '../common/Menu';
-import Header from '../common/Header';
-import Loader from '../common/Loader';
-
-// Style
-import styles from '../../styles/common/Layout.module.scss';
-
-// Redux
-import { RootState } from '../../store';
-import { setScreenWidth } from '../../store/slice/screenWidthSlice';
-import { setScrollValue } from '../../store/slice/scrollValueSlice';
-import { setMenuControl } from '../../store/slice/menuControlSlice';
-import { setSettingsOption } from '../../store/slice/settingsOptionSlice';
-import { setIsMounted } from '../../store/slice/isMountedSlice';
-import { setLoaderControl } from '../../store/slice/loaderControlSlice';
-import { setWordsCollection } from '../../store/slice/wordsCollectionSlice';
-
-// Functions
-import loadGapiScrpit from '../../src/functions/googleSheetAPI/loadAPIScrpit';
-import HandleGetGoogleSheetData from '../../src/functions/getGoogleSheetData';
-import {
-  getItemWithObject,
-  setItemWithObject,
-  removeItem,
-} from '../../src/functions/localStorage';
-
-// Interface
-import { IProps } from '../../src/interfaces/I_Global';
+import Header from '@/Components/common/Header';
+import Loader from '@/Components/common/Loader';
+import Menu from '@/Components/common/Menu';
+import Meta from '@/Components/common/Meta';
+import HandleGetGoogleSheetData from '@/Functions/getGoogleSheetData';
+import loadGapiScrpit from '@/Functions/googleSheetAPI/loadAPIScrpit';
+import { getItemWithObject, removeItem, setItemWithObject } from '@/Functions/localStorage';
+import { IProps } from '@/Interfaces/I_Global';
+import { setIsMounted } from '@/Slice/isMountedSlice';
+import { setLoaderControl } from '@/Slice/loaderControlSlice';
+import { setMenuControl } from '@/Slice/menuControlSlice';
+import { setScreenWidth } from '@/Slice/screenWidthSlice';
+import { setScrollValue } from '@/Slice/scrollValueSlice';
+import { setSettingsOption } from '@/Slice/settingsOptionSlice';
+import { setWordsCollection } from '@/Slice/wordsCollectionSlice';
+import { RootState } from '@/Store/index';
+import styles from '@/Styles/common/Layout.module.scss';
 
 declare global {
   interface Window {

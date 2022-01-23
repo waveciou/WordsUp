@@ -1,13 +1,9 @@
-import * as React from 'react';
-import { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { CSSTransition } from 'react-transition-group';
 
-// Style
-import styles from '../../styles/common/Popup.module.scss';
-
-// Interface
-import { IProps } from '../../src/interfaces/I_Global';
+import { IProps } from '@/Interfaces/I_Global';
+import styles from '@/Styles/common/Popup.module.scss';
 
 interface IPopupModal extends IProps {
   show: boolean;
