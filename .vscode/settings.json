@@ -3,4 +3,6 @@
     "source.fixAll.eslint": true,
     "source.fixAll.stylelint": true
   },
+  "editor.formatOnSave": true,
+  "importSorter.generalConfiguration.sortOnBeforeSave": true,
 }

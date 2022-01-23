@@ -20,7 +20,20 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "node",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/Src/*": ["src/*"],
+      "@/Data/*": ["src/data/*"],
+      "@/Functions/*": ["src/functions/*"],
+      "@/Interfaces/*": ["src/interfaces/*"],
+      "@/Components/*": ["components/*"],
+      "@/Pages/*": ["pages/*"],
+      "@/Public/*": ["public/*"],
+      "@/Store/*": ["store/*"],
+      "@/Slice/*": ["store/slice/*"],
+      "@/Styles/*": ["styles/*"],
+    }
   },
   "include": [
     "next-env.d.ts",
