@@ -5,4 +5,18 @@
   },
   "editor.formatOnSave": true,
   "importSorter.generalConfiguration.sortOnBeforeSave": true,
+  "stylelint.snippet": [
+    "css",
+    "less",
+    "postcss",
+    "sass",
+    "scss"
+  ],
+  "stylelint.validate": [
+    "css",
+    "less",
+    "postcss",
+    "sass",
+    "scss"
+  ],
 }
