@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import React, { useCallback, useEffect } from 'react';
@@ -7,18 +8,15 @@ import Header from '@/Components/common/Header';
 import Loader from '@/Components/common/Loader';
 import Menu from '@/Components/common/Menu';
 import Meta from '@/Components/common/Meta';
-import HandleGetGoogleSheetData from '@/Functions/getGoogleSheetData';
 import loadGapiScrpit from '@/Functions/googleSheetAPI/loadAPIScrpit';
-import { getItemWithObject, removeItem, setItemWithObject } from '@/Functions/localStorage';
+import useGetSheetData from '@/Hook/useGetSheetData';
 import { IProps } from '@/Interfaces/I_Global';
-import { setIsMounted } from '@/Slice/isMountedSlice';
-import { setLoaderControl } from '@/Slice/loaderControlSlice';
-import { setMenuControl } from '@/Slice/menuControlSlice';
-import { setScreenWidth } from '@/Slice/screenWidthSlice';
-import { setScrollValue } from '@/Slice/scrollValueSlice';
+import {
+    setIsLoading, setIsMenuOpen, setIsMounted, setScreenWidth, setScrollValue
+} from '@/Slice/common';
 import { setSettingsOption } from '@/Slice/settingsOptionSlice';
-import { setWordsCollection } from '@/Slice/wordsCollectionSlice';
 import { RootState } from '@/Store/index';
+import { setWordsCollection } from '@/Store/slice/collection';
 import styles from '@/Styles/common/Layout.module.scss';
 
 declare global {
@@ -29,11 +27,19 @@ declare global {
 
 const LayoutComponent: React.FC<IProps> = ({ children }) => {
   const SETTINGS_OPTION = useSelector((state: RootState) => state.settingsOption.value);
-  const MENU_IS_OPEN = useSelector((state: RootState) => state.menuControl.value);
-  const IS_MOUNTED = useSelector((state: RootState) => state.isMounted.value);
+
+  const {
+    isMounted,
+    isLoading,
+    isMenuOpen,
+    screenWidth,
+    scrollValue
+  } = useSelector((state: RootState) => state.common);
+
+
   const dispatch = useDispatch();
   const router = useRouter();
-  const handleGetData = HandleGetGoogleSheetData();
+  const handleGetData = useGetSheetData();
 
   // Get browser screen width
   const handleGetScreenWidth = useCallback(() => {
@@ -54,19 +60,23 @@ const LayoutComponent: React.FC<IProps> = ({ children }) => {
     dispatch(setScrollValue(value));
   }, [dispatch]);
 
-  // Get LocalStorage Data
-  const handleGetLocalStorageData = useCallback(async () => {
-    const options = getItemWithObject('settingsOption');
-    if ((typeof options === 'object') && (options instanceof Array === false)) {
-      await dispatch(setSettingsOption(options));
-    }
+  // // Get LocalStorage Data
+  // const handleGetLocalStorageData = useCallback(async () => {
+  //   const options = getItemWithObject('settingsOption');
+  //   if ((typeof options === 'object') && (options instanceof Array === false)) {
+  //     await dispatch(setSettingsOption(options));
+  //   }
+  //   dispatch(setIsMounted(true));
+  // }, [dispatch]);
+
+  // // Set initialization settings option
+  // useEffect(() => {
+  //   handleGetLocalStorageData();
+  // }, [handleGetLocalStorageData]);
+
+  useEffect(() => {
     dispatch(setIsMounted(true));
   }, [dispatch]);
-
-  // Set initialization settings option
-  useEffect(() => {
-    handleGetLocalStorageData();
-  }, [handleGetLocalStorageData]);
 
   // Get initialization data flow
   useEffect(() => {
@@ -83,51 +93,38 @@ const LayoutComponent: React.FC<IProps> = ({ children }) => {
 
   // Close menu when router change
   useEffect(() => {
-    dispatch(setMenuControl(false));
+    dispatch(setIsMenuOpen(false));
   }, [dispatch, router]);
 
   // Layout fixed when menu opening
   useEffect(() => {
-    if (MENU_IS_OPEN === true) {
+    if (isMenuOpen === true) {
       document.documentElement.classList.add('is-fixed');
     } else {
       document.documentElement.classList.remove('is-fixed');
     }
-  }, [MENU_IS_OPEN]);
+  }, [isMenuOpen]);
 
   // Set settings option in localStorage
-  useEffect(() => {
-    const { saveOption } = SETTINGS_OPTION;
-    if (saveOption === true) {
-      setItemWithObject('settingsOption', SETTINGS_OPTION);
-    } else {
-      removeItem('settingsOption');
-    }
-  }, [SETTINGS_OPTION]);
+  // useEffect(() => {
+  //   const { saveOption } = SETTINGS_OPTION;
+  //   if (saveOption === true) {
+  //     setItemWithObject('settingsOption', SETTINGS_OPTION);
+  //   } else {
+  //     removeItem('settingsOption');
+  //   }
+  // }, [SETTINGS_OPTION]);
 
   useEffect(() => {
-    if (IS_MOUNTED === true) {
-      const { updateInstall } = SETTINGS_OPTION;
-      const wordsCollection: any = getItemWithObject('wordsCollection');
-
+    if (isMounted) {
       // 載入 Google Sheet API
       loadGapiScrpit(() => {
         window.gapi.load('client:auth2', () => {
-          if (updateInstall === false && Array.isArray(wordsCollection) === true) {
-            (async () => {
-              await dispatch(setWordsCollection(wordsCollection));
-              await dispatch(setLoaderControl(false));
-            })();
-          } else {
-            handleGetData();
-          }
+          handleGetData();
         });
       });
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [IS_MOUNTED]);
-
-  const ClassHandleOverlay = () => `${styles.overlay} ${MENU_IS_OPEN === true ? styles['is-active'] : ''}`;
+  }, [isMounted]);
 
   return (
     <>
@@ -136,9 +133,9 @@ const LayoutComponent: React.FC<IProps> = ({ children }) => {
         <Header />
         <main className={styles.main}>{ children }</main>
         <div
-          onClick={() => { dispatch(setMenuControl(false)); }}
           aria-hidden="true"
-          className={ClassHandleOverlay()}
+          onClick={() => { dispatch(setIsMenuOpen(false)); }}
+          className={`${styles.overlay} ${isMenuOpen ? styles['is-active'] : ''}`}
         />
         <Menu />
       </div>

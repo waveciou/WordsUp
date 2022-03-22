@@ -7,7 +7,7 @@ const initialState: { value: IWordCase[] } = {
 };
 
 export const wordsCollectionSlice = createSlice({
-  name: 'wordsCollection',
+  name: 'collection',
   initialState,
   reducers: {
     setWordsCollection: (state, action: PayloadAction<IWordCase[]>) => {

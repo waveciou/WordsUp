@@ -5,13 +5,13 @@ import { CSSTransition } from 'react-transition-group';
 import { RootState } from '@/Store/index';
 import styles from '@/Styles/common/Loader.module.scss';
 
-const LoaderComponent: React.FC = () => {
-  const LOADER_IS_OPEN = useSelector((state: RootState) => state.loaderControl.value);
+const Loader: React.FC = () => {
+  const { isLoading } = useSelector((state: RootState) => state.common);
   const nodeRef = useRef(null);
 
   return (
     <CSSTransition
-      in={LOADER_IS_OPEN}
+      in={isLoading}
       timeout={400}
       classNames="fade"
       nodeRef={nodeRef}
@@ -32,4 +32,4 @@ const LoaderComponent: React.FC = () => {
   );
 };
 
-export default LoaderComponent;
+export default Loader;

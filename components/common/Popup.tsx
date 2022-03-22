@@ -10,7 +10,7 @@ interface IPopupModal extends IProps {
   onClose: () => void;
 }
 
-const PopupModalComponent: React.FC<IPopupModal> = ({ children, show, onClose }) => {
+const PopupModal: React.FC<IPopupModal> = ({ children, show, onClose }) => {
   const [isBrowser, setIsBrowser] = useState<boolean>(false);
   const nodeRef = useRef(null);
 
@@ -26,7 +26,7 @@ const PopupModalComponent: React.FC<IPopupModal> = ({ children, show, onClose })
     }
   }, [show]);
 
-  const handleClosePopup = (e: { preventDefault: () => void; }) => {
+  const handleClosePopup = (e: React.MouseEvent<HTMLDivElement | HTMLButtonElement>) => {
     e.preventDefault();
     onClose();
   };
@@ -77,4 +77,4 @@ const PopupModalComponent: React.FC<IPopupModal> = ({ children, show, onClose })
   return null;
 };
 
-export default PopupModalComponent;
+export default PopupModal;

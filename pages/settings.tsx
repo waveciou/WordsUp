@@ -4,59 +4,63 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Alert from '@/Components/common/Alert';
-import { Checkbox } from '@/Components/common/Form';
-import HandleGetGoogleSheetData from '@/Functions/getGoogleSheetData';
-import { removeItem, setItemWithObject } from '@/Functions/localStorage';
-import { IWordCase } from '@/Interfaces/I_WordCase';
-import {
-    setOptionSaveOption, setOptionSaveRecord, setOptionSaveWords, setOptionUpdateInstall
-} from '@/Slice/settingsOptionSlice';
-import { RootState } from '@/Store/index';
-import styles from '@/Styles/components/Settings.module.scss';
+// import Alert from '@/Components/common/Alert';
+// import { Checkbox } from '@/Components/common/Form';
+// import HandleGetGoogleSheetData from '@/Functions/getGoogleSheetData';
+// import { removeItem, setItemWithObject } from '@/Functions/localStorage';
+// import { IWordCase } from '@/Interfaces/I_WordCase';
+// import {
+//     setOptionSaveOption, setOptionSaveRecord, setOptionSaveWords, setOptionUpdateInstall
+// } from '@/Slice/settingsOptionSlice';
+// import { RootState } from '@/Store/index';
+// import styles from '@/Styles/components/Settings.module.scss';
 
-const list: string = 'settings-list';
-const section: string = 'settings-section';
+// const list: string = 'settings-list';
+// const section: string = 'settings-section';
 
 const SettingsComponent: React.FC = () => {
-  const handleGetData = HandleGetGoogleSheetData();
-  const {
-    saveWords = false,
-    saveRecord = false,
-    updateInstall = true,
-    saveOption = true,
-  } = useSelector((state: RootState) => state.settingsOption.value);
-  const WORDS_DATA = useSelector((state: RootState) => state.wordsCollection.value);
-  const IS_MOUNTED = useSelector((state: RootState) => state.isMounted.value);
-  const dispatch = useDispatch();
+  const a = 1;
+  // const handleGetData = HandleGetGoogleSheetData();
+  // const {
+  //   saveWords = false,
+  //   saveRecord = false,
+  //   updateInstall = true,
+  //   saveOption = true,
+  // } = useSelector((state: RootState) => state.settingsOption.value);
+  // const WORDS_DATA = useSelector((state: RootState) => state.wordsCollection.value);
+  // const IS_MOUNTED = useSelector((state: RootState) => state.isMounted.value);
+  // const dispatch = useDispatch();
 
-  const [alertDeleteRecord, setAlertDeleteRecord] = useState<boolean>(false);
-  const [alertClearStorage, setAlertClearStorage] = useState<boolean>(false);
+  // const [alertDeleteRecord, setAlertDeleteRecord] = useState<boolean>(false);
+  // const [alertClearStorage, setAlertClearStorage] = useState<boolean>(false);
 
-  useEffect(() => {
-    if (IS_MOUNTED) {
-      if (saveWords === true) {
-        const words: IWordCase[] = [...WORDS_DATA];
-        setItemWithObject('wordsCollection', words);
-      } else {
-        removeItem('wordsCollection');
-      }
-      dispatch(setOptionUpdateInstall(true));
-    }
-  }, [dispatch, saveWords]);
+  // useEffect(() => {
+  //   if (IS_MOUNTED) {
+  //     if (saveWords === true) {
+  //       const words: IWordCase[] = [...WORDS_DATA];
+  //       setItemWithObject('wordsCollection', words);
+  //     } else {
+  //       removeItem('wordsCollection');
+  //     }
+  //     dispatch(setOptionUpdateInstall(true));
+  //   }
+  // }, [dispatch, saveWords]);
 
-  const handleClearLocalStorage = () => {
-    removeItem('settingsOption');
-    removeItem('wordsCollection');
-    dispatch(setOptionSaveWords(false));
-    dispatch(setOptionUpdateInstall(true));
-    dispatch(setOptionSaveRecord(false));
-    dispatch(setOptionSaveOption(false));
-  };
+  // const handleClearLocalStorage = () => {
+  //   removeItem('settingsOption');
+  //   removeItem('wordsCollection');
+  //   dispatch(setOptionSaveWords(false));
+  //   dispatch(setOptionUpdateInstall(true));
+  //   dispatch(setOptionSaveRecord(false));
+  //   dispatch(setOptionSaveOption(false));
+  // };
 
   return (
     <>
-      <h1 className="title">SETTINGS</h1>
+      <div className="content">
+        <div>SETTING</div>
+      </div>
+      {/* <h1 className="title">SETTINGS</h1>
       <div className="content size-small">
         <ul className={styles[`${list}`]}>
           <li>
@@ -190,7 +194,7 @@ const SettingsComponent: React.FC = () => {
         onCancel={() => {
           setAlertClearStorage(false);
         }}
-      />
+      /> */}
     </>
   );
 };

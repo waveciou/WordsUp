@@ -2,10 +2,10 @@ import Link from 'next/link';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { setMenuControl } from '@/Slice/menuControlSlice';
+import { setIsMenuOpen } from '@/Slice/common';
 import styles from '@/Styles/common/Header.module.scss';
 
-const HeaderComponent: React.FC = () => {
+const Header: React.FC = () => {
   const dispatch = useDispatch();
 
   return (
@@ -20,11 +20,11 @@ const HeaderComponent: React.FC = () => {
           type="button"
           aria-label="open-menu"
           className={styles['header__menu-btn']}
-          onClick={() => { dispatch(setMenuControl(true)); }}
+          onClick={() => { dispatch(setIsMenuOpen(true)); }}
         />
       </div>
     </header>
   );
 };
 
-export default HeaderComponent;
+export default Header;

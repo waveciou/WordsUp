@@ -4,15 +4,15 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { IRouteItem } from '@/Interfaces/I_Global';
-import { setMenuControl } from '@/Slice/menuControlSlice';
+import { setIsMenuOpen } from '@/Slice/common';
 import { RootState } from '@/Store/index';
 import styles from '@/Styles/common/Menu.module.scss';
 
 const ROUTE = require('../../src/data/route.json');
 
-const MenuComponent: React.FC = () => {
+const Menu: React.FC = () => {
   const [routeLinks, setRouteLinks] = useState<[]>([]);
-  const MENU_IS_OPEN = useSelector((state: RootState) => state.menuControl.value);
+  const { isMenuOpen } = useSelector((state: RootState) => state.common);
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -21,7 +21,7 @@ const MenuComponent: React.FC = () => {
     setRouteLinks(route);
   }, []);
 
-  const ClassHandleMenu = () => `${MENU_IS_OPEN === true ? styles['is-active'] : ''}`;
+  const ClassHandleMenu = () => `${isMenuOpen === true ? styles['is-active'] : ''}`;
   const ClassHandleLink = (path: string, id: string) => `${styles.menu__item} ${styles[`icon-${id}`]} ${router.asPath === path ? styles.current : ''}`;
 
   return (
@@ -31,7 +31,7 @@ const MenuComponent: React.FC = () => {
           type="button"
           aria-label="close-menu"
           className={styles['menu__close-btn']}
-          onClick={() => { dispatch(setMenuControl(false)); }}
+          onClick={() => { dispatch(setIsMenuOpen(false)); }}
         />
       </div>
       <div className={styles.menu__body}>
@@ -56,4 +56,4 @@ const MenuComponent: React.FC = () => {
   );
 };
 
-export default MenuComponent;
+export default Menu;
