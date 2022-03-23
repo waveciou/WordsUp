@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-newline */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
@@ -11,12 +12,8 @@ import Meta from '@/Components/common/Meta';
 import loadGapiScrpit from '@/Functions/googleSheetAPI/loadAPIScrpit';
 import useGetSheetData from '@/Hook/useGetSheetData';
 import { IProps } from '@/Interfaces/I_Global';
-import {
-    setIsLoading, setIsMenuOpen, setIsMounted, setScreenWidth, setScrollValue
-} from '@/Slice/common';
-import { setSettingsOption } from '@/Slice/settingsOptionSlice';
+import { setIsMenuOpen, setIsMounted, setScreenWidth, setScrollValue } from '@/Slice/common';
 import { RootState } from '@/Store/index';
-import { setWordsCollection } from '@/Store/slice/collection';
 import styles from '@/Styles/common/Layout.module.scss';
 
 declare global {
@@ -26,16 +23,7 @@ declare global {
 }
 
 const LayoutComponent: React.FC<IProps> = ({ children }) => {
-  const SETTINGS_OPTION = useSelector((state: RootState) => state.settingsOption.value);
-
-  const {
-    isMounted,
-    isLoading,
-    isMenuOpen,
-    screenWidth,
-    scrollValue
-  } = useSelector((state: RootState) => state.common);
-
+  const { isMounted, isMenuOpen } = useSelector((state: RootState) => state.common);
 
   const dispatch = useDispatch();
   const router = useRouter();

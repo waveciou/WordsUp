@@ -1,14 +1,14 @@
 /* eslint-disable import/order */
 import commonReducer from '@/Slice/common';
-import settingsOptionReducer from '@/Slice/settingsOptionSlice';
 import collectionReducer from '@/Store/slice/collection';
+import settingReducer from '@/Store/slice/setting';
 import { configureStore } from '@reduxjs/toolkit';
 
 export const store = configureStore({
   reducer: {
     common: commonReducer,
     collection: collectionReducer,
-    settingsOption: settingsOptionReducer,
+    setting: settingReducer,
   },
 });
 

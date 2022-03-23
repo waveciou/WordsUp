@@ -2,21 +2,23 @@
 import { IWordCase } from '@/Interfaces/I_WordCase';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState: { value: IWordCase[] } = {
-  value: [],
+const initialState: {
+  vocabulary: IWordCase[]
+} = {
+  vocabulary: [],
 };
 
-export const wordsCollectionSlice = createSlice({
+export const collectionSlice = createSlice({
   name: 'collection',
   initialState,
   reducers: {
-    setWordsCollection: (state, action: PayloadAction<IWordCase[]>) => {
-      const _state = state;
-      _state.value = [...action.payload];
+    setVocabulary: (state, action: PayloadAction<IWordCase[]>) => {
+      const asignState = state;
+      asignState.vocabulary = [...action.payload];
     },
   },
 });
 
-export const { setWordsCollection } = wordsCollectionSlice.actions;
+export const { setVocabulary } = collectionSlice.actions;
 
-export default wordsCollectionSlice.reducer;
+export default collectionSlice.reducer;
