@@ -6,7 +6,7 @@ import handleGetHashId from '@/Functions/getHashId';
 import handleGetPartsText from '@/Functions/getPartsText';
 import handleObjectDeepClone from '@/Functions/objectDeepClone';
 import handleSetWordStatusList from '@/Functions/setWordStatusList';
-import speechSpeakCallback from '@/Functions/speechSpeakCallback';
+import useSpeechSpeak from '@/Hook/useSpeechSpeak';
 import { IExampleListItem, IWordCase, IWordItem } from '@/Interfaces/I_WordCase';
 import styles from '@/Styles/components/WordDetail.module.scss';
 
@@ -21,7 +21,7 @@ const WordDetail: React.FC<IWordItem> = ({ word }: IWordItem) => {
 
   // Speech Synthesis
 
-  const handleSpeechSpeak = speechSpeakCallback();
+  const handleSpeechSpeak = useSpeechSpeak();
 
   // Example List
 

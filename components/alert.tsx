@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { CSSTransition } from 'react-transition-group';
 
-import styles from '@/Styles/common/Alert.module.scss';
+import styles from '@/Styles/alert.module.scss';
 
 interface IAlertModal {
   show: boolean;
@@ -14,7 +14,7 @@ interface IAlertModal {
   onCancel?: () => void;
 }
 
-const AlertModalComponent: React.FC<IAlertModal> = ({
+const Alert: React.FC<IAlertModal> = ({
   show,
   title,
   content,
@@ -77,4 +77,4 @@ const AlertModalComponent: React.FC<IAlertModal> = ({
   return null;
 };
 
-export default AlertModalComponent;
+export default Alert;

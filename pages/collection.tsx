@@ -4,13 +4,13 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 // import CollectedCard from '@/Components/CollectedCard';
-// import { Select } from '@/Components/common/Form';
+// import { Select } from '@/Components/form';
 // import HandleGetGoogleSheetData from '@/Functions/getGoogleSheetData';
 // import handleGetHashId from '@/Functions/getHashId';
 // import { ISelectOption } from '@/Interfaces/I_Form';
 // import { IWordCase, IWordParts } from '@/Interfaces/I_WordCase';
 // import { RootState } from '@/Store/index';
-// import stylesButton from '@/Styles/common/Button.module.scss';
+// import stylesButton from '@/Styles/button.module.scss';
 // import stylesCollection from '@/Styles/components/Collection.module.scss';
 // import stylesFeature from '@/Styles/components/Feature.module.scss';
 

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
 
 import { RootState } from '@/Store/index';
-import styles from '@/Styles/common/Loader.module.scss';
+import styles from '@/Styles/loader.module.scss';
 
 const Loader: React.FC = () => {
   const { isLoading } = useSelector((state: RootState) => state.common);

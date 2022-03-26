@@ -6,9 +6,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IRouteItem } from '@/Interfaces/I_Global';
 import { setIsMenuOpen } from '@/Slice/common';
 import { RootState } from '@/Store/index';
-import styles from '@/Styles/common/Menu.module.scss';
+import styles from '@/Styles/menu.module.scss';
 
-const ROUTE = require('../../src/data/route.json');
+const ROUTE = require('../src/data/route.json');
 
 const Menu: React.FC = () => {
   const [routeLinks, setRouteLinks] = useState<[]>([]);

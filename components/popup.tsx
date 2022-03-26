@@ -2,15 +2,15 @@ import React, { useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { CSSTransition } from 'react-transition-group';
 
-import { IProps } from '@/Interfaces/I_Global';
-import styles from '@/Styles/common/Popup.module.scss';
+import styles from '@/Styles/popup.module.scss';
 
-interface IPopupModal extends IProps {
+interface IPopupModal {
+  children: React.ReactNode,
   show: boolean;
   onClose: () => void;
 }
 
-const PopupModal: React.FC<IPopupModal> = ({ children, show, onClose }) => {
+const Popup: React.FC<IPopupModal> = ({ children, show, onClose }) => {
   const [isBrowser, setIsBrowser] = useState<boolean>(false);
   const nodeRef = useRef(null);
 
@@ -77,4 +77,4 @@ const PopupModal: React.FC<IPopupModal> = ({ children, show, onClose }) => {
   return null;
 };
 
-export default PopupModal;
+export default Popup;

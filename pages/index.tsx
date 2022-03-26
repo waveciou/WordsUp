@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 // import handleGetRandomNumber from '@/Functions/randomNumber';
 // import { IWordCase } from '@/Interfaces/I_WordCase';
 // import { RootState } from '@/Store/index';
-import styles from '@/Styles/components/DailyWord.module.scss';
+// import styles from '@/Styles/components/DailyWord.module.scss';
 
 // interface ILocalCase {
 //   date: string;

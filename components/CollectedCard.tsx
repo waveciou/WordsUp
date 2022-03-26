@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import Popup from '@/Components/common/Popup';
+import Popup from '@/Components/popup';
 import WordDetail from '@/Components/WordDetail';
 import handleGetPartsText from '@/Functions/getPartsText';
 import { IWordItem } from '@/Interfaces/I_WordCase';

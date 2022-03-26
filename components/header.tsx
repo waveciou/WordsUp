@@ -3,7 +3,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 
 import { setIsMenuOpen } from '@/Slice/common';
-import styles from '@/Styles/common/Header.module.scss';
+import styles from '@/Styles/header.module.scss';
 
 const Header: React.FC = () => {
   const dispatch = useDispatch();

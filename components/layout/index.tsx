@@ -5,16 +5,16 @@ import PropTypes from 'prop-types';
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Header from '@/Components/common/Header';
-import Loader from '@/Components/common/Loader';
-import Menu from '@/Components/common/Menu';
-import Meta from '@/Components/common/Meta';
+import Header from '@/Components/header';
+import Loader from '@/Components/loader';
+import Menu from '@/Components/menu';
+import Meta from '@/Components/meta';
 import loadGapiScrpit from '@/Functions/googleSheetAPI/loadAPIScrpit';
 import useGetSheetData from '@/Hook/useGetSheetData';
 import { IProps } from '@/Interfaces/I_Global';
 import { setIsMenuOpen, setIsMounted, setScreenWidth, setScrollValue } from '@/Slice/common';
 import { RootState } from '@/Store/index';
-import styles from '@/Styles/common/Layout.module.scss';
+import styles from '@/Styles/layout.module.scss';
 
 declare global {
   interface Window {

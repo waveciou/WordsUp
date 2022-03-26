@@ -2,7 +2,7 @@
 import { useCallback } from 'react';
 import { useSpeechSynthesis } from 'react-speech-kit';
 
-const speechSpeakCallback = () => {
+const useSpeechSpeak = () => {
   const { speak, speaking } = useSpeechSynthesis();
 
   return useCallback((_text: string) => {
@@ -12,4 +12,4 @@ const speechSpeakCallback = () => {
   }, [speak, speaking]);
 };
 
-export default speechSpeakCallback;
+export default useSpeechSpeak;

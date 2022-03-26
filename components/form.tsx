@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 
 import { ICheckbox, ISelect } from '@/Interfaces/I_Form';
-import styles from '@/Styles/common/Form.module.scss';
+import styles from '@/Styles/form.module.scss';
 
 // * Select
 export const Select: React.FC<ISelect> = ({ options, onChange }: ISelect) => {

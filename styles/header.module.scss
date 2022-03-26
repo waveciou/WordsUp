@@ -1,3 +1,4 @@
+/* stylelint-disable function-no-unknown */
 @charset 'UTF-8';
 @import '@/Styles/utils/_utils.scss';
 
@@ -25,8 +26,8 @@
     content: '';
     width: 30px;
     height: 30px;
-    display: block;
     margin-right: 10px;
+    display: block;
     background: url('../../public/img/icon.svg') no-repeat center/contain;
   }
 }

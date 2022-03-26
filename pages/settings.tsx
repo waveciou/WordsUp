@@ -4,8 +4,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-// import Alert from '@/Components/common/Alert';
-// import { Checkbox } from '@/Components/common/Form';
+// import Alert from '@/Components/alert';
+// import { Checkbox } from '@/Components/form';
 // import HandleGetGoogleSheetData from '@/Functions/getGoogleSheetData';
 // import { removeItem, setItemWithObject } from '@/Functions/localStorage';
 // import { IWordCase } from '@/Interfaces/I_WordCase';
