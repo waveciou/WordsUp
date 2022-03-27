@@ -1,13 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: {
-  isMounted: boolean,
+  isAppMounted: boolean,
   isLoading: boolean,
   isMenuOpen: boolean,
   screenWidth: number,
   scrollValue: number
 } = {
-  isMounted: false,
+  isAppMounted: false,
   isLoading: true,
   isMenuOpen: false,
   screenWidth: 0,
@@ -18,9 +18,9 @@ export const commonSlice = createSlice({
   name: 'common',
   initialState,
   reducers: {
-    setIsMounted: (state, action: PayloadAction<boolean>) => {
+    setIsAppMounted: (state, action: PayloadAction<boolean>) => {
       const asignState = state;
-      asignState.isMounted = action.payload;
+      asignState.isAppMounted = action.payload;
     },
     setIsLoading: (state, action: PayloadAction<boolean>) => {
       const asignState = state;
@@ -42,7 +42,7 @@ export const commonSlice = createSlice({
 });
 
 export const {
-  setIsMounted,
+  setIsAppMounted,
   setIsLoading,
   setIsMenuOpen,
   setScreenWidth,

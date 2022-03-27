@@ -1,7 +1,6 @@
 /* eslint-disable object-curly-newline */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from 'next/router';
-import PropTypes from 'prop-types';
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -12,7 +11,7 @@ import Meta from '@/Components/meta';
 import loadGapiScrpit from '@/Functions/googleSheetAPI/loadAPIScrpit';
 import useGetSheetData from '@/Hook/useGetSheetData';
 import { IProps } from '@/Interfaces/global';
-import { setIsMenuOpen, setIsMounted, setScreenWidth, setScrollValue } from '@/Slice/common';
+import { setIsAppMounted, setIsMenuOpen, setScreenWidth, setScrollValue } from '@/Slice/common';
 import { RootState } from '@/Store/index';
 import styles from '@/Styles/layout.module.scss';
 
@@ -22,8 +21,8 @@ declare global {
   }
 }
 
-const LayoutComponent: React.FC<IProps> = ({ children }) => {
-  const { isMounted, isMenuOpen } = useSelector((state: RootState) => state.common);
+const Layout: React.FC<IProps> = ({ children }) => {
+  const { isAppMounted, isMenuOpen } = useSelector((state: RootState) => state.common);
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -63,7 +62,7 @@ const LayoutComponent: React.FC<IProps> = ({ children }) => {
   // }, [handleGetLocalStorageData]);
 
   useEffect(() => {
-    dispatch(setIsMounted(true));
+    dispatch(setIsAppMounted(true));
   }, [dispatch]);
 
   // Get initialization data flow
@@ -104,7 +103,7 @@ const LayoutComponent: React.FC<IProps> = ({ children }) => {
   // }, [SETTINGS_OPTION]);
 
   useEffect(() => {
-    if (isMounted) {
+    if (isAppMounted) {
       // 載入 Google Sheet API
       loadGapiScrpit(() => {
         window.gapi.load('client:auth2', () => {
@@ -112,7 +111,7 @@ const LayoutComponent: React.FC<IProps> = ({ children }) => {
         });
       });
     }
-  }, [isMounted]);
+  }, [isAppMounted]);
 
   return (
     <>
@@ -132,8 +131,4 @@ const LayoutComponent: React.FC<IProps> = ({ children }) => {
   );
 };
 
-LayoutComponent.propTypes = {
-  children: PropTypes.node.isRequired,
-};
-
-export default LayoutComponent;
+export default Layout;

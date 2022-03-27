@@ -2,6 +2,12 @@
 /* eslint-disable max-len */
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
+
+import Card from '@/Components/card';
+import { IWordItem } from '@/Interfaces/word';
+import { RootState } from '@/Store/index';
+import styles from '@/Styles/collection.module.scss';
 
 // import CollectedCard from '@/Components/CollectedCard';
 // import { Select } from '@/Components/form';
@@ -9,27 +15,41 @@ import { useSelector } from 'react-redux';
 // import handleGetHashId from '@/Functions/getHashId';
 // import { ISelectOption } from '@/Interfaces/I_Form';
 // import { IWordCase, IWordParts } from '@/Interfaces/I_WordCase';
-// import { RootState } from '@/Store/index';
 // import stylesButton from '@/Styles/button.module.scss';
-// import stylesCollection from '@/Styles/components/Collection.module.scss';
+
 // import stylesFeature from '@/Styles/components/Feature.module.scss';
 
 // const WORDPARTS = require('../src/data/wordParts.json');
 
-const CollectionComponent: React.FC = () => {
-  const a = 1;
-  // const WORDS_DATA = useSelector((state: RootState) => state.wordsCollection.value);
-  // const [isMounted, setIsMounted] = useState<Boolean>(false);
-  // const [words, setWords] = useState<IWordCase[]>([]);
+const Collection: React.FC = () => {
+  const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
+  const [words, setWords] = useState<IWordItem[]>([]);
+  const [isMounted, setIsMounted] = useState<Boolean>(false);
+
+  // Filter
+  const [filterBase, setFilterBase] = useState<string>('');
+
+  // Sort
+  const [isSortDownAlt, setIsSortDownAlt] = useState<boolean>(false);
+
+  const processWordsCallback = useCallback(() => {
+    const wordsData: IWordItem[] = [...WORDS_DATA];
+    setWords(wordsData);
+  }, [WORDS_DATA]);
+
+  useEffect(() => {
+    setIsMounted(true);
+    return () => setIsMounted(false);
+  }, []);
+
+  useEffect(() => {
+    if (isMounted) {
+      processWordsCallback();
+    }
+  }, [isMounted, WORDS_DATA, processWordsCallback]);
+
   // const handleGetData = HandleGetGoogleSheetData();
   // const { wordParts } = WORDPARTS;
-
-  // // Filter
-  // const [filterBase, setFilterBase] = useState<string>('');
-  // const [filterList, setFilterList] = useState<ISelectOption[]>([]);
-
-  // // Sort
-  // const [isSortDownAlt, setIsSortDownAlt] = useState<boolean>(false);
 
   // const handleGetPartList = (dataList: IWordCase[]) => {
   //   const allCaseName: IWordParts = wordParts.filter((part: IWordParts) => part.id === 'all')[0] || { id: 'all', name: '全部' };
@@ -92,13 +112,6 @@ const CollectionComponent: React.FC = () => {
   // }, [WORDS_DATA, filterBase, isSortDownAlt]);
 
   // useEffect(() => {
-  //   setIsMounted(true);
-  //   return () => {
-  //     setIsMounted(false);
-  //   };
-  // }, []);
-
-  // useEffect(() => {
   //   const wordsData: IWordCase[] = [...WORDS_DATA];
   //   const partList: ISelectOption[] = handleGetPartList(wordsData);
 
@@ -106,17 +119,18 @@ const CollectionComponent: React.FC = () => {
   //   setFilterBase('all');
   // }, [WORDS_DATA]);
 
-  // useEffect(() => {
-  //   if (isMounted === true) {
-  //     callbackProcessWords();
-  //   }
-  // }, [WORDS_DATA, filterBase, isSortDownAlt, callbackProcessWords]);
-
   return (
     <>
-      <div className="content">
-        <div>COLLECTION</div>
+      <h1 className="title">ALL OF THE WORDS</h1>
+      <div className="content size-large">
+        <ul className={styles.list}>
+          { words.map(({ en, zh, parts }) => {
+            const key = uuidv4();
+            return <li key={key}><Card en={en} zh={zh} parts={parts} /></li>;
+          })}
+        </ul>
       </div>
+
       {/* <h1 className="title">ALL OF THE WORDS</h1>
       <div className="content size-large theme-transparent">
         <div className={`${stylesFeature.feature} ${stylesFeature['is-flex-end']}`}>
@@ -168,4 +182,4 @@ const CollectionComponent: React.FC = () => {
   );
 };
 
-export default CollectionComponent;
+export default Collection;

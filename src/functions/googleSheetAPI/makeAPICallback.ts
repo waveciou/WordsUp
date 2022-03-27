@@ -17,7 +17,7 @@ const makeApiCall = (sheetId: string) => {
           en: sheetData.values[0].formattedValue,
           zh: zhItemData.split('%').map((itemText) => {
             const name: string[] = itemText.split('$');
-            return `${name[1]}${name[0]}`;
+            return `${name[0]}`;
           }),
           parts: zhItemData.match(/(?<=【)([a-z]{1,})/gi) ?? [],
         };
