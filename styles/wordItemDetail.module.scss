@@ -5,7 +5,7 @@
 $sentence-interval--sm: 12px;
 $sentence-interval--lg: 1rem;
 
-.wordDetail {
+.wordItemDetail {
   font-size: map-get($font-size, sm);
 
   &__title {

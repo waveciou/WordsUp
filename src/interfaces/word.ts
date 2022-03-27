@@ -30,4 +30,5 @@ export interface IWordItem {
   en: string,
   zh: string[],
   parts: string[]
+  alphabet: string
 }

@@ -12,9 +12,12 @@ const makeApiCall = (sheetId: string) => {
     request.then((response: any) => {
       const sheetRowData: ISheetData[] = response.result.sheets[0].data[0].rowData;
       const result: IWordItem[] = sheetRowData.map((sheetData: ISheetData) => {
+        const enItemData: string = sheetData.values[0].formattedValue;
         const zhItemData: string = sheetData.values[1].formattedValue;
+        const alphabet: string = enItemData.slice(0, 1).toLowerCase();
         return {
-          en: sheetData.values[0].formattedValue,
+          alphabet,
+          en: enItemData,
           zh: zhItemData.split('%').map((itemText) => {
             const name: string[] = itemText.split('$');
             return `${name[0]}`;

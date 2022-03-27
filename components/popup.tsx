@@ -4,13 +4,13 @@ import { CSSTransition } from 'react-transition-group';
 
 import styles from '@/Styles/popup.module.scss';
 
-interface IPopupModal {
+interface IPopupProps {
   children: React.ReactNode,
   show: boolean;
   onClose: () => void;
 }
 
-const Popup: React.FC<IPopupModal> = ({ children, show, onClose }) => {
+const Popup: React.FC<IPopupProps> = ({ children, show, onClose }) => {
   const [isBrowser, setIsBrowser] = useState<boolean>(false);
   const nodeRef = useRef(null);
 
