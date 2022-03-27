@@ -2,12 +2,10 @@
 import React, { useEffect, useState } from 'react';
 
 import handleGetExampleNode from '@/Functions/getExampleNode';
-import handleGetHashId from '@/Functions/getHashId';
 import handleGetPartsText from '@/Functions/getPartsText';
-import handleObjectDeepClone from '@/Functions/objectDeepClone';
 import handleSetWordStatusList from '@/Functions/setWordStatusList';
 import useSpeechSpeak from '@/Hook/useSpeechSpeak';
-import { IExampleListItem, IWordCase, IWordItem } from '@/Interfaces/I_WordCase';
+import { IWordItem } from '@/Interfaces/word';
 import styles from '@/Styles/components/WordDetail.module.scss';
 
 const WordDetail: React.FC<IWordItem> = ({ word }: IWordItem) => {

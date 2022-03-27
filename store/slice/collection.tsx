@@ -1,24 +1,24 @@
 /* eslint-disable import/order */
-import { IWordCase } from '@/Interfaces/I_WordCase';
+import { IWordItem } from '@/Interfaces/word';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: {
-  vocabulary: IWordCase[]
+  words: IWordItem[]
 } = {
-  vocabulary: [],
+  words: [],
 };
 
 export const collectionSlice = createSlice({
   name: 'collection',
   initialState,
   reducers: {
-    setVocabulary: (state, action: PayloadAction<IWordCase[]>) => {
+    setWordItems: (state, action: PayloadAction<IWordItem[]>) => {
       const asignState = state;
-      asignState.vocabulary = [...action.payload];
+      asignState.words = [...action.payload];
     },
   },
 });
 
-export const { setVocabulary } = collectionSlice.actions;
+export const { setWordItems } = collectionSlice.actions;
 
 export default collectionSlice.reducer;

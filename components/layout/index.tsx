@@ -11,7 +11,7 @@ import Menu from '@/Components/menu';
 import Meta from '@/Components/meta';
 import loadGapiScrpit from '@/Functions/googleSheetAPI/loadAPIScrpit';
 import useGetSheetData from '@/Hook/useGetSheetData';
-import { IProps } from '@/Interfaces/I_Global';
+import { IProps } from '@/Interfaces/global';
 import { setIsMenuOpen, setIsMounted, setScreenWidth, setScrollValue } from '@/Slice/common';
 import { RootState } from '@/Store/index';
 import styles from '@/Styles/layout.module.scss';

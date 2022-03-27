@@ -1,21 +1,29 @@
-import { ISheetDataValue } from '@/Interfaces/I_SheetData';
+import { ISheetData } from '@/Interfaces/sheetData';
+import { IWordItem } from '@/Interfaces/word';
 
 const makeApiCall = (sheetId: string) => {
-  const params = {
+  const request = window.gapi.client.sheets.spreadsheets.get({
     spreadsheetId: sheetId,
-    ranges: [],
+    ranges: 'Sheet1!2:1036',
     includeGridData: true,
-  };
-
-  const request = window.gapi.client.sheets.spreadsheets.get(params);
+  });
 
   return new Promise((resolve, reject) => {
     request.then((response: any) => {
-      const result: ISheetDataValue[] = response.result.sheets[0].data[0].rowData;
+      const sheetRowData: ISheetData[] = response.result.sheets[0].data[0].rowData;
+      const result: IWordItem[] = sheetRowData.map((sheetData: ISheetData) => {
+        const zhItemData: string = sheetData.values[1].formattedValue;
+        return {
+          en: sheetData.values[0].formattedValue,
+          zh: zhItemData.split('%').map((itemText) => {
+            const name: string[] = itemText.split('$');
+            return `${name[1]}${name[0]}`;
+          }),
+          parts: zhItemData.match(/(?<=【)([a-z]{1,})/gi) ?? [],
+        };
+      });
       resolve(result);
-    }, (response: any) => {
-      reject(response);
-    });
+    }, (response: any) => reject(response));
   });
 };
 

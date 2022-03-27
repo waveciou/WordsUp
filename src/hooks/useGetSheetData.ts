@@ -4,11 +4,9 @@ import { useDispatch } from 'react-redux';
 
 import initGapiClient from '@/Functions/googleSheetAPI/initAPIClient';
 import makeGapiCallback from '@/Functions/googleSheetAPI/makeAPICallback';
-// import handleMergeDuplicateSheetData from '@/Functions/mergeDuplicateSheetData';
-// import handleProcessSheetData from '@/Functions/processSheetData';
+import { IWordItem } from '@/Interfaces/word';
+import { setWordItems } from '@/Slice/collection';
 import { setIsLoading } from '@/Slice/common';
-
-// import { setWordsCollection } from '@/Slice/wordsCollectionSlice';
 
 const useGetSheetData = () => {
   const dispatch = useDispatch();
@@ -17,8 +15,8 @@ const useGetSheetData = () => {
     dispatch(setIsLoading(true));
 
     initGapiClient((SHEET_ID) => {
-      makeGapiCallback(SHEET_ID).then(async (response: any) => {
-        console.log(response);
+      makeGapiCallback(SHEET_ID).then(async (response) => {
+        await dispatch(setWordItems(response as IWordItem[]));
         await dispatch(setIsLoading(false));
       }).catch((error) => {
         console.log(error);

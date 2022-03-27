@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { IRouteItem } from '@/Interfaces/I_Global';
+import { IRouteItem } from '@/Interfaces/global';
 import { setIsMenuOpen } from '@/Slice/common';
 import { RootState } from '@/Store/index';
 import styles from '@/Styles/menu.module.scss';
