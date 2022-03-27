@@ -125,8 +125,8 @@ const Collection: React.FC = () => {
       <div className="content size-large">
         <ul className={styles.list}>
           { words.map(({ en, zh, parts }) => {
-            const key = uuidv4();
-            return <li key={key}><Card en={en} zh={zh} parts={parts} /></li>;
+            const key: string = uuidv4();
+            return <li key={key}><Card id={key} en={en} zh={zh} parts={parts} /></li>;
           })}
         </ul>
       </div>
