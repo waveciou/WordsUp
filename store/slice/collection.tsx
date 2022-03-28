@@ -1,12 +1,9 @@
 /* eslint-disable import/order */
+import { IGapiResponse } from '@/Interfaces/sheetData';
 import { IWordItem } from '@/Interfaces/word';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState: {
-  words: IWordItem[]
-} = {
-  words: [],
-};
+const initialState: IGapiResponse = { words: [], parts: [] };
 
 export const collectionSlice = createSlice({
   name: 'collection',
@@ -16,9 +13,13 @@ export const collectionSlice = createSlice({
       const asignState = state;
       asignState.words = [...action.payload];
     },
+    setPartItems: (state, action: PayloadAction<string[]>) => {
+      const asignState = state;
+      asignState.parts = [...action.payload];
+    },
   },
 });
 
-export const { setWordItems } = collectionSlice.actions;
+export const { setWordItems, setPartItems } = collectionSlice.actions;
 
 export default collectionSlice.reducer;
