@@ -8,6 +8,7 @@ import Header from '@/Components/header';
 import Loader from '@/Components/loader';
 import Menu from '@/Components/menu';
 import Meta from '@/Components/meta';
+import debounce from '@/Functions/debounce';
 import loadGapiScrpit from '@/Functions/googleSheetAPI/loadAPIScrpit';
 import useGetSheetData from '@/Hook/useGetSheetData';
 import { IProps } from '@/Interfaces/global';
@@ -34,7 +35,7 @@ const Layout: React.FC<IProps> = ({ children }) => {
     dispatch(setScreenWidth(value));
   }, [dispatch]);
 
-  // Get Scroll Value
+  // Get Scroll Value (>= 1025)
   const handleGetScrollValue = useCallback(() => {
     const value: number = window.pageYOffset
     || document.documentElement.scrollTop
@@ -42,6 +43,7 @@ const Layout: React.FC<IProps> = ({ children }) => {
     dispatch(setScrollValue(value));
   }, [dispatch]);
 
+  // Get Scroll Value (<= 1024)
   const handleGetLayoutScrollValue = useCallback((e) => {
     const value: number = e.target.scrollTop;
     dispatch(setScrollValue(value));
@@ -67,13 +69,16 @@ const Layout: React.FC<IProps> = ({ children }) => {
 
   // Get initialization data flow
   useEffect(() => {
-    window.addEventListener('resize', handleGetScreenWidth);
+    const handleResize = debounce(() => handleGetScreenWidth(), 400);
+
+    window.addEventListener('resize', handleResize);
     window.addEventListener('scroll', handleGetScrollValue);
     handleGetScreenWidth();
     handleGetScrollValue();
 
     return () => {
-      window.removeEventListener('resize', handleGetScreenWidth);
+      handleResize.clear();
+      window.removeEventListener('resize', handleResize);
       window.removeEventListener('scroll', handleGetScrollValue);
     };
   }, [dispatch, handleGetScreenWidth, handleGetScrollValue]);
