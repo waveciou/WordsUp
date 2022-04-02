@@ -11,7 +11,7 @@ import { ISelectOption } from '@/Interfaces/form';
 import { IWordItem } from '@/Interfaces/word';
 import { RootState } from '@/Store/index';
 import stylesButton from '@/Styles/button.module.scss';
-import styles from '@/Styles/collection.module.scss';
+import stylesCollection from '@/Styles/collection.module.scss';
 import stylesFeature from '@/Styles/feature.module.scss';
 
 interface IOptionsData {
@@ -32,18 +32,27 @@ const Collection: React.FC = () => {
   const [isMounted, setIsMounted] = useState<Boolean>(false);
 
   // Filter
-  const [filterPart, setFilterPart] = useState<string>('');
+  const [filterPart, setFilterPart] = useState<string>('all');
   const [filterPartOption, setFilterPartOption] = useState<ISelectOption[]>([]);
 
-  const [filterAlphabet, setFilterAlphabet] = useState<string>('');
+  const [filterAlphabet, setFilterAlphabet] = useState<string>('all');
   const [filterAlphabetOption, setFilterAlphabetOption] = useState<ISelectOption[]>([]);
 
   // Sort
-  // const [isSortDownAlt, setIsSortDownAlt] = useState<boolean>(false);
+  const [isSortDownAlt, setIsSortDownAlt] = useState<boolean>(false);
 
+  // Class Name
+  const ClassHandleSortDownBtn = () => `
+    ${stylesButton['fab-btn']}
+    ${stylesButton['fab__sort-down-btn']} 
+    ${isSortDownAlt ? stylesButton['is-down-alt'] : ''}
+  `;
+
+  // Process Words Data
   const processWordsCallback = useCallback(() => {
     const wordsData: IWordItem[] = [...WORDS_DATA];
-    const result: IWordItem[] = wordsData.filter(({ alphabet, parts }) => {
+
+    const filterListResult: IWordItem[] = wordsData.filter(({ alphabet, parts }) => {
       if (filterAlphabet === 'all' && filterPart === 'all') {
         return true;
       }
@@ -55,8 +64,23 @@ const Collection: React.FC = () => {
       }
       return alphabet === filterAlphabet && parts.includes(filterPart);
     });
-    setWords(result);
-  }, [WORDS_DATA, filterPart, filterAlphabet]);
+
+    const sortListResult: IWordItem[] = filterListResult.sort((a, b) => {
+      const aText: string = a.en.toLocaleLowerCase();
+      const bText: string = b.en.toLocaleLowerCase();
+
+      if (aText > bText) {
+        return isSortDownAlt === false ? 1 : -1;
+      }
+
+      if (aText < bText) {
+        return isSortDownAlt === false ? -1 : 1;
+      }
+      return 0;
+    });
+
+    setWords(sortListResult);
+  }, [WORDS_DATA, filterPart, filterAlphabet, isSortDownAlt]);
 
   useEffect(() => {
     setIsMounted(true);
@@ -83,78 +107,7 @@ const Collection: React.FC = () => {
     if (isMounted) {
       processWordsCallback();
     }
-  }, [isMounted, processWordsCallback, WORDS_DATA, filterPart, filterAlphabet]);
-
-  // const handleGetData = HandleGetGoogleSheetData();
-  // const { wordParts } = WORDPARTS;
-
-  // const handleGetPartList = (dataList: IWordCase[]) => {
-  //   const allCaseName: IWordParts = wordParts.filter((part: IWordParts) => part.id === 'all')[0] || { id: 'all', name: '全部' };
-
-  //   const result = dataList.reduce<ISelectOption[]>((reduceList, word) => {
-  //     const { parts } = word;
-  //     const reduceFlatList: string[] = reduceList.map((item) => item.value);
-
-  //     const subtractionList : string[] = parts.filter((partItem: string) => {
-  //       const _result: boolean = partItem === '' ? true : reduceFlatList.includes(partItem);
-  //       return _result === false;
-  //     });
-
-  //     const partItemList: ISelectOption[] = subtractionList.map((partItem: string) => {
-  //       const partNameFilter: IWordParts = wordParts.filter((part: IWordParts) => part.id === partItem)[0] || {
-  //         id: partItem,
-  //         name: partItem.toLocaleUpperCase(),
-  //       };
-
-  //       return {
-  //         value: partItem,
-  //         name: partNameFilter.name,
-  //       };
-  //     });
-
-  //     return [...reduceList, ...partItemList];
-  //   }, [{ value: 'all', name: allCaseName.name }]);
-
-  //   return result;
-  // };
-
-  // // Class Name
-  // const ClassHandleSortDownBtn = () => `
-  //   ${stylesButton['fab-btn']}
-  //   ${stylesButton['fab__sort-down-btn']}
-  //   ${isSortDownAlt === true ? stylesButton['is-down-alt'] : ''}
-  // `;
-
-  // // Words list setting process
-  // const callbackProcessWords = useCallback(() => {
-  //   const wordsData: IWordCase[] = [...WORDS_DATA];
-  //   // eslint-disable-next-line max-len
-  //   const filterListResult: IWordCase[] = filterBase === 'all' ? wordsData : wordsData.filter((word) => word.parts.includes(filterBase));
-
-  //   const sortListResult: IWordCase[] = filterListResult.sort((a, b) => {
-  //     const aText: string = a.english.toLocaleLowerCase();
-  //     const bText: string = b.english.toLocaleLowerCase();
-
-  //     if (aText > bText) {
-  //       return isSortDownAlt === false ? 1 : -1;
-  //     }
-
-  //     if (aText < bText) {
-  //       return isSortDownAlt === false ? -1 : 1;
-  //     }
-  //     return 0;
-  //   });
-
-  //   setWords(sortListResult);
-  // }, [WORDS_DATA, filterBase, isSortDownAlt]);
-
-  // useEffect(() => {
-  //   const wordsData: IWordCase[] = [...WORDS_DATA];
-  //   const partList: ISelectOption[] = handleGetPartList(wordsData);
-
-  //   setFilterList(partList);
-  //   setFilterBase('all');
-  // }, [WORDS_DATA]);
+  }, [isMounted, processWordsCallback, WORDS_DATA, filterPart, filterAlphabet, isSortDownAlt]);
 
   return (
     <>
@@ -176,6 +129,14 @@ const Collection: React.FC = () => {
           <div className={stylesFeature.fieldset}>
             <button
               type="button"
+              className={ClassHandleSortDownBtn()}
+              aria-label="sort-alpha-button"
+              onClick={() => setIsSortDownAlt(!isSortDownAlt)}
+            />
+          </div>
+          <div className={stylesFeature.fieldset}>
+            <button
+              type="button"
               className={`
                 ${stylesButton['fab-btn']}
                 ${stylesButton['fab__update-btn']}
@@ -187,61 +148,13 @@ const Collection: React.FC = () => {
         </div>
       </div>
       <div className="content size-large">
-        <ul className={styles.list}>
+        <ul className={stylesCollection.list}>
           { words.map((wordData) => {
             const key: string = uuidv4();
             return <li key={key}><Card id={key} wordData={wordData} /></li>;
           })}
         </ul>
       </div>
-
-      {/* <h1 className="title">ALL OF THE WORDS</h1>
-      <div className="content size-large theme-transparent">
-        <div className={`${stylesFeature.feature} ${stylesFeature['is-flex-end']}`}>
-          <div className={stylesFeature.fieldset}>
-            <Select
-              options={filterList}
-              onChange={(event) => { setFilterBase(event.target.value); }}
-            />
-          </div>
-          <div className={stylesFeature.fieldset}>
-            <button
-              type="button"
-              className={ClassHandleSortDownBtn()}
-              aria-label="sort-alpha-button"
-              onClick={() => {
-                const result: boolean = !isSortDownAlt;
-                setIsSortDownAlt(result);
-              }}
-            />
-          </div>
-          <div className={stylesFeature.fieldset}>
-            <button
-              type="button"
-              className={`
-                ${stylesButton['fab-btn']}
-                ${stylesButton['fab__update-btn']}
-              `}
-              aria-label="data-update-button"
-              onClick={handleGetData}
-            />
-          </div>
-        </div>
-      </div>
-      <div className="content size-large">
-        <ul className={stylesCollection.collectedList}>
-          {
-            words.map((word: IWordCase, index: number) => {
-              const id: string = handleGetHashId(index, word.english);
-              return (
-                <li key={id}>
-                  <CollectedCard word={word} />
-                </li>
-              );
-            })
-          }
-        </ul>
-      </div> */}
     </>
   );
 };
