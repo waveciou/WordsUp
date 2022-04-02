@@ -4,101 +4,91 @@ import utc from 'dayjs/plugin/utc';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-// import WordDetail from '@/Components/WordDetail';
-// import { getItemWithObject, setItemWithObject } from '@/Functions/localStorage';
-// import handleGetRandomNumber from '@/Functions/randomNumber';
-// import { IWordCase } from '@/Interfaces/I_WordCase';
-// import { RootState } from '@/Store/index';
-// import styles from '@/Styles/components/DailyWord.module.scss';
+import WordItemDaily from '@/Components/wordItemDaily';
+import formatNumber from '@/Functions/formatNumber';
+import randomNumber from '@/Functions/randomNumber';
+import { IWordItem } from '@/Interfaces/word';
+import { RootState } from '@/Store/index';
 
-// interface ILocalCase {
-//   date: string;
-//   case: IWordCase;
-// }
+interface ICasesWord {
+  id: string,
+  date: string,
+  word: IWordItem
+}
 
-// const caseTemplate: IWordCase = {
-//   chinese: '',
-//   chineseExample: [],
-//   english: '',
-//   englishExample: [],
-//   parts: [],
-//   status: [],
-// };
+const wordTemplate: IWordItem = {
+  id: '',
+  en: '',
+  zh: [],
+  parts: [],
+  alphabet: '',
+};
 
-// const handleGetRandomWordCase = (WORDS_DATA: IWordCase[], todayId: string) => {
-//   const randomIndex: number = handleGetRandomNumber(0, WORDS_DATA.length - 1);
-//   const todayWordCase: IWordCase = WORDS_DATA[randomIndex];
-//   const result: ILocalCase = {
-//     date: todayId,
-//     case: todayWordCase,
-//   };
-//   return result;
-// };
+const getRandomWord = (wordsData: IWordItem[], date: string): ICasesWord => {
+  const randomIndex: number = randomNumber(0, wordsData.length - 1);
+  const getterItem: IWordItem = wordsData[randomIndex];
+  return {
+    id: getterItem.id,
+    date,
+    word: getterItem,
+  };
+};
 
-const HomeComponent: React.FC = () => {
+const Home: React.FC = () => {
   dayjs.extend(utc);
   const day = dayjs();
-  // const WORDS_DATA = useSelector((state: RootState) => state.wordsCollection.value);
-  // const [todayId, setTodayId] = useState<string>('');
-  // const [todayDate, setTodayDate] = useState<string>('');
-  // const [todayCase, setTodayCase] = useState<IWordCase>(JSON.parse(JSON.stringify(caseTemplate)));
+  const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
 
-  // const formatNumber = (amount: number) => {
-  //   if (amount < 10) {
-  //     return `0${amount}`;
-  //   }
-  //   return `${amount}`;
-  // };
+  const [dateId, setDateId] = useState<string>('');
+  const [dateCaption, setDateCaption] = useState<string>('');
+  const [dailyWord, setDailyWord] = useState<IWordItem>(JSON.parse(JSON.stringify(wordTemplate)));
 
-  // useEffect(() => {
-  //   const year: number = day.utcOffset(8).year();
-  //   const month: number = day.utcOffset(8).month() + 1;
-  //   const date: number = day.utcOffset(8).date();
-  //   const id: string = `${year}-${month}-${date}`;
-  //   const dateText: string = `${year}年${formatNumber(month)}月${formatNumber(date)}日`;
+  useEffect(() => {
+    const year: number = day.utcOffset(8).year();
+    const month: number = day.utcOffset(8).month() + 1;
+    const date: number = day.utcOffset(8).date();
 
-  //   setTodayId(id);
-  //   setTodayDate(dateText);
-  // }, [day]);
+    setDateId(`${year}-${month}-${date}`);
+    setDateCaption(`${year}年${formatNumber(month)}月${formatNumber(date)}日`);
+  }, [day]);
 
-  // useEffect(() => {
-  //   if (!!todayId && WORDS_DATA.length) {
-  //     let result: ILocalCase = {
-  //       date: '',
-  //       case: JSON.parse(JSON.stringify(caseTemplate)),
-  //     };
+  useEffect(() => {
+    if (!!dateId && WORDS_DATA.length > 0) {
+      const localData: string = localStorage.getItem('dailyWord') || '';
 
-  //     if (!!getItemWithObject('dailyWordCase') === true) {
-  //       const localWordCase: ILocalCase = getItemWithObject('dailyWordCase') as ILocalCase;
+      let result: ICasesWord = {
+        id: '',
+        date: '',
+        word: JSON.parse(JSON.stringify(wordTemplate)),
+      };
 
-  //       if (localWordCase.date !== todayId) {
-  //         result = handleGetRandomWordCase(WORDS_DATA, todayId);
-  //       } else {
-  //         result = localWordCase;
-  //       }
-  //     } else {
-  //       result = handleGetRandomWordCase(WORDS_DATA, todayId);
-  //     }
+      if (!!localStorage.getItem('dailyWord') === true) {
+        const { id, date } : {
+          id: string,
+          date: string
+        } = JSON.parse(localData);
 
-  //     setItemWithObject('dailyWordCase', result);
-  //     setTodayCase(result.case);
-  //   }
-  // }, [todayId, WORDS_DATA]);
+        if (date === dateId) {
+          result = { id, date, word: WORDS_DATA.filter((item) => item.id === id)[0] };
+        } else {
+          result = getRandomWord(WORDS_DATA, dateId);
+        }
+      } else {
+        result = getRandomWord(WORDS_DATA, dateId);
+      }
+
+      const { id, date, word } = result;
+
+      setDailyWord(word);
+      localStorage.setItem('dailyWord', JSON.stringify({ id, date }));
+    }
+  }, [dateId, WORDS_DATA]);
 
   return (
     <div className="content">
-      <div>HOME</div>
-      {/* <div className={styles.dailyWord__header}>
-        <div className={styles.dailyWord__title}>
-          今日單字
-        </div>
-        <div className={styles.dailyWord__date}>{ todayDate }</div>
-      </div>
-      <div className={styles.dailyWord__wrap}>
-        <WordDetail word={todayCase} />
-      </div> */}
+      <WordItemDaily caption={dateCaption} wordData={dailyWord} />
     </div>
   );
 };
 
-export default HomeComponent;
+export default Home;

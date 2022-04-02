@@ -4,14 +4,14 @@
 
 $icon-size: 30px;
 
-.dailyWord__header {
+.wordItemDaily__header {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   margin-bottom: 15px;
 }
 
-.dailyWord__title {
+.wordItemDaily__title {
   display: flex;
   align-items: center;
   line-height: $icon-size;
@@ -31,11 +31,11 @@ $icon-size: 30px;
   }
 }
 
-.dailyWord__date {
+.wordItemDaily__date {
   font-size: map-get($font-size, xs);
 }
 
-.dailyWord__wrap {
+.wordItemDaily__wrap {
   padding: 10px;
   border-radius: 10px;
   box-shadow: 0 1px 3px 0 rgba($color-black, 0.2);

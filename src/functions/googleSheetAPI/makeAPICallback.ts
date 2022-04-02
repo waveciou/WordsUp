@@ -14,7 +14,7 @@ const makeApiCall = (sheetId: string) => {
 
       const result: IGapiResponse = { parts: [], words: [] };
 
-      const wordsData: IWordItem[] = sheetRowData.map((sheetData: ISheetData) => {
+      const wordsData: IWordItem[] = sheetRowData.map((sheetData: ISheetData, index: number) => {
         const enItemData: string = sheetData.values[0].formattedValue;
         const zhItemData: string = sheetData.values[1].formattedValue;
         const alphabet: string = enItemData.slice(0, 1).toLowerCase();
@@ -25,6 +25,7 @@ const makeApiCall = (sheetId: string) => {
         result.parts = [...partsToSet];
 
         return {
+          id: `${index}`,
           alphabet,
           parts,
           en: enItemData,

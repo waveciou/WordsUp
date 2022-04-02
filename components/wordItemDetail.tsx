@@ -10,7 +10,7 @@ interface IWordItemDetailProps {
   wordData: IWordItem
 }
 
-const wordItemDetail: React.FC<IWordItemDetailProps> = ({ id, wordData }) => {
+const WordItemDetail: React.FC<IWordItemDetailProps> = ({ id, wordData }) => {
   // Speech Synthesis
   const handleSpeechSpeak = useSpeechSpeak();
   const { en, zh, parts } = wordData;
@@ -41,4 +41,4 @@ const wordItemDetail: React.FC<IWordItemDetailProps> = ({ id, wordData }) => {
   );
 };
 
-export default wordItemDetail;
+export default WordItemDetail;
