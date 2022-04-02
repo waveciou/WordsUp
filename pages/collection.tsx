@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable max-len */
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -101,7 +100,7 @@ const Collection: React.FC = () => {
       setFilterPartOption(partsData);
       setFilterAlphabetOption(alphabetData);
     }
-  }, [isMounted, PARTS_DATA]);
+  }, [isMounted, PARTS_DATA, alphabetOptionsData, partsOptionsData]);
 
   useEffect(() => {
     if (isMounted) {

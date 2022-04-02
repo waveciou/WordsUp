@@ -1,4 +1,3 @@
-/* eslint-disable import/order */
 import commonReducer from '@/Slice/common';
 import collectionReducer from '@/Store/slice/collection';
 import settingReducer from '@/Store/slice/setting';

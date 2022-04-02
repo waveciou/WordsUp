@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react';
 
 import useSpeechSpeak from '@/Hook/useSpeechSpeak';

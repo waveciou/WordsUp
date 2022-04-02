@@ -1,5 +1,4 @@
 /* eslint-disable object-curly-newline */
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -116,7 +115,7 @@ const Layout: React.FC<IProps> = ({ children }) => {
         });
       });
     }
-  }, [isAppMounted]);
+  }, [handleGetData, isAppMounted]);
 
   return (
     <>
