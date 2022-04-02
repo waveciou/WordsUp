@@ -6,21 +6,13 @@ import { v4 as uuidv4 } from 'uuid';
 
 import Card from '@/Components/card';
 import { Select } from '@/Components/form';
+import useGetSheetData from '@/Hook/useGetSheetData';
 import { ISelectOption } from '@/Interfaces/form';
 import { IWordItem } from '@/Interfaces/word';
 import { RootState } from '@/Store/index';
+import stylesButton from '@/Styles/button.module.scss';
 import styles from '@/Styles/collection.module.scss';
 import stylesFeature from '@/Styles/feature.module.scss';
-
-// import HandleGetGoogleSheetData from '@/Functions/getGoogleSheetData';
-// import handleGetHashId from '@/Functions/getHashId';
-// import { ISelectOption } from '@/Interfaces/I_Form';
-// import { IWordCase, IWordParts } from '@/Interfaces/I_WordCase';
-// import stylesButton from '@/Styles/button.module.scss';
-
-// import stylesFeature from '@/Styles/components/Feature.module.scss';
-
-// const WORDPARTS = require('../src/data/wordParts.json');
 
 interface IOptionsData {
   id: string,
@@ -33,35 +25,38 @@ const ALPHABET = require('../src/data/alphabet.json');
 const Collection: React.FC = () => {
   const { partsOptionsData } = PARTS;
   const { alphabetOptionsData } = ALPHABET;
+  const handleGetData = useGetSheetData();
   const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
   const PARTS_DATA = useSelector((state: RootState) => state.collection.parts);
   const [words, setWords] = useState<IWordItem[]>([]);
   const [isMounted, setIsMounted] = useState<Boolean>(false);
 
   // Filter
-  const [filterAlphabet, setFilterAlphabet] = useState<string>('');
-  const [filterAlphabetOption, setFilterAlphabetOption] = useState<ISelectOption[]>([]);
-
   const [filterPart, setFilterPart] = useState<string>('');
   const [filterPartOption, setFilterPartOption] = useState<ISelectOption[]>([]);
+
+  const [filterAlphabet, setFilterAlphabet] = useState<string>('');
+  const [filterAlphabetOption, setFilterAlphabetOption] = useState<ISelectOption[]>([]);
 
   // Sort
   // const [isSortDownAlt, setIsSortDownAlt] = useState<boolean>(false);
 
-  const processDataCallback = useCallback(() => {
+  const processWordsCallback = useCallback(() => {
     const wordsData: IWordItem[] = [...WORDS_DATA];
-
-    const partsData: ISelectOption[] = ['all', ...PARTS_DATA].map((part) => {
-      const { name }: ISelectOption = partsOptionsData.filter(({ id }: IOptionsData) => id === part)[0];
-      return { name: name || part, value: part };
+    const result: IWordItem[] = wordsData.filter(({ alphabet, parts }) => {
+      if (filterAlphabet === 'all' && filterPart === 'all') {
+        return true;
+      }
+      if (filterAlphabet === 'all') {
+        return parts.includes(filterPart);
+      }
+      if (filterPart === 'all') {
+        return alphabet === filterAlphabet;
+      }
+      return alphabet === filterAlphabet && parts.includes(filterPart);
     });
-
-    const alphabetData: ISelectOption[] = alphabetOptionsData.map(({ id, name }: IOptionsData) => ({ name, value: id }));
-
-    setWords(wordsData);
-    setFilterPartOption(partsData);
-    setFilterAlphabetOption(alphabetData);
-  }, [WORDS_DATA, PARTS_DATA]);
+    setWords(result);
+  }, [WORDS_DATA, filterPart, filterAlphabet]);
 
   useEffect(() => {
     setIsMounted(true);
@@ -70,9 +65,25 @@ const Collection: React.FC = () => {
 
   useEffect(() => {
     if (isMounted) {
-      processDataCallback();
+      const partsData: ISelectOption[] = ['all', ...PARTS_DATA].map((part) => {
+        const { name }: ISelectOption = partsOptionsData.filter(({ id }: IOptionsData) => id === part)[0];
+        return { name: name || part, value: part };
+      });
+
+      const alphabetData: ISelectOption[] = alphabetOptionsData.map(({ id, name }: IOptionsData) => ({ name, value: id }));
+
+      setFilterPart('all');
+      setFilterAlphabet('all');
+      setFilterPartOption(partsData);
+      setFilterAlphabetOption(alphabetData);
     }
-  }, [isMounted, processDataCallback, WORDS_DATA, PARTS_DATA]);
+  }, [isMounted, PARTS_DATA]);
+
+  useEffect(() => {
+    if (isMounted) {
+      processWordsCallback();
+    }
+  }, [isMounted, processWordsCallback, WORDS_DATA, filterPart, filterAlphabet]);
 
   // const handleGetData = HandleGetGoogleSheetData();
   // const { wordParts } = WORDPARTS;
@@ -160,6 +171,17 @@ const Collection: React.FC = () => {
             <Select
               options={filterPartOption}
               onChange={(event) => { setFilterPart(event.target.value); }}
+            />
+          </div>
+          <div className={stylesFeature.fieldset}>
+            <button
+              type="button"
+              className={`
+                ${stylesButton['fab-btn']}
+                ${stylesButton['fab__update-btn']}
+              `}
+              aria-label="data-update-button"
+              onClick={handleGetData}
             />
           </div>
         </div>
