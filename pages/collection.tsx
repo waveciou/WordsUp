@@ -114,13 +114,13 @@ const Collection: React.FC = () => {
       <h1 className="title">ALL OF THE WORDS</h1>
       <div className="content size-large theme-transparent">
         <div className={`${stylesFeature.feature} ${stylesFeature['is-flex-end']}`}>
-          <div className={stylesFeature.fieldset}>
+          <div className={`${stylesFeature.fieldset} ${stylesFeature['is-mobile-full']}`}>
             <Select
               options={filterAlphabetOption}
               onChange={(event) => { setFilterAlphabet(event.target.value); }}
             />
           </div>
-          <div className={stylesFeature.fieldset}>
+          <div className={`${stylesFeature.fieldset} ${stylesFeature['is-mobile-full']}`}>
             <Select
               options={filterPartOption}
               onChange={(event) => { setFilterPart(event.target.value); }}
