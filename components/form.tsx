@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 
-import { ICheckbox, ISelect } from '@/Interfaces/I_Form';
+import { ICheckbox, ISelect } from '@/Interfaces/form';
 import styles from '@/Styles/form.module.scss';
 
 // * Select

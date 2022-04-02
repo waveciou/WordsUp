@@ -1,6 +1,5 @@
 {
-  "route": [
-    {
+  "route": [{
       "id": "home",
       "name": "今日單字",
       "path": "/"

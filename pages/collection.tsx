@@ -5,12 +5,13 @@ import { useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 
 import Card from '@/Components/card';
+import { Select } from '@/Components/form';
+import { ISelectOption } from '@/Interfaces/form';
 import { IWordItem } from '@/Interfaces/word';
 import { RootState } from '@/Store/index';
 import styles from '@/Styles/collection.module.scss';
+import stylesFeature from '@/Styles/feature.module.scss';
 
-// import CollectedCard from '@/Components/CollectedCard';
-// import { Select } from '@/Components/form';
 // import HandleGetGoogleSheetData from '@/Functions/getGoogleSheetData';
 // import handleGetHashId from '@/Functions/getHashId';
 // import { ISelectOption } from '@/Interfaces/I_Form';
@@ -21,21 +22,46 @@ import styles from '@/Styles/collection.module.scss';
 
 // const WORDPARTS = require('../src/data/wordParts.json');
 
+interface IOptionsData {
+  id: string,
+  name: string
+}
+
+const PARTS = require('../src/data/parts.json');
+const ALPHABET = require('../src/data/alphabet.json');
+
 const Collection: React.FC = () => {
+  const { partsOptionsData } = PARTS;
+  const { alphabetOptionsData } = ALPHABET;
   const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
+  const PARTS_DATA = useSelector((state: RootState) => state.collection.parts);
   const [words, setWords] = useState<IWordItem[]>([]);
   const [isMounted, setIsMounted] = useState<Boolean>(false);
 
   // Filter
-  const [filterBase, setFilterBase] = useState<string>('');
+  const [filterAlphabet, setFilterAlphabet] = useState<string>('');
+  const [filterAlphabetOption, setFilterAlphabetOption] = useState<ISelectOption[]>([]);
+
+  const [filterPart, setFilterPart] = useState<string>('');
+  const [filterPartOption, setFilterPartOption] = useState<ISelectOption[]>([]);
 
   // Sort
-  const [isSortDownAlt, setIsSortDownAlt] = useState<boolean>(false);
+  // const [isSortDownAlt, setIsSortDownAlt] = useState<boolean>(false);
 
-  const processWordsCallback = useCallback(() => {
+  const processDataCallback = useCallback(() => {
     const wordsData: IWordItem[] = [...WORDS_DATA];
+
+    const partsData: ISelectOption[] = ['all', ...PARTS_DATA].map((part) => {
+      const { name }: ISelectOption = partsOptionsData.filter(({ id }: IOptionsData) => id === part)[0];
+      return { name: name || part, value: part };
+    });
+
+    const alphabetData: ISelectOption[] = alphabetOptionsData.map(({ id, name }: IOptionsData) => ({ name, value: id }));
+
     setWords(wordsData);
-  }, [WORDS_DATA]);
+    setFilterPartOption(partsData);
+    setFilterAlphabetOption(alphabetData);
+  }, [WORDS_DATA, PARTS_DATA]);
 
   useEffect(() => {
     setIsMounted(true);
@@ -44,9 +70,9 @@ const Collection: React.FC = () => {
 
   useEffect(() => {
     if (isMounted) {
-      processWordsCallback();
+      processDataCallback();
     }
-  }, [isMounted, WORDS_DATA, processWordsCallback]);
+  }, [isMounted, processDataCallback, WORDS_DATA, PARTS_DATA]);
 
   // const handleGetData = HandleGetGoogleSheetData();
   // const { wordParts } = WORDPARTS;
@@ -122,7 +148,22 @@ const Collection: React.FC = () => {
   return (
     <>
       <h1 className="title">ALL OF THE WORDS</h1>
-      <div className="content size-large theme-transparent" />
+      <div className="content size-large theme-transparent">
+        <div className={`${stylesFeature.feature} ${stylesFeature['is-flex-end']}`}>
+          <div className={stylesFeature.fieldset}>
+            <Select
+              options={filterAlphabetOption}
+              onChange={(event) => { setFilterAlphabet(event.target.value); }}
+            />
+          </div>
+          <div className={stylesFeature.fieldset}>
+            <Select
+              options={filterPartOption}
+              onChange={(event) => { setFilterPart(event.target.value); }}
+            />
+          </div>
+        </div>
+      </div>
       <div className="content size-large">
         <ul className={styles.list}>
           { words.map((wordData) => {
