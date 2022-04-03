@@ -23,12 +23,12 @@ declare global {
 }
 
 const Layout: React.FC<IProps> = ({ children }) => {
-  const { isAppMounted, isMenuOpen } = useSelector((state: RootState) => state.common);
-  const { isExamTesting } = useSelector((state: RootState) => state.examination);
-
   const dispatch = useDispatch();
   const router = useRouter();
   const handleGetData = useGetSheetData();
+
+  const { isAppMounted, isMenuOpen, scrollValue } = useSelector((state: RootState) => state.common);
+  const { isExamTesting } = useSelector((state: RootState) => state.examination);
 
   // Get browser screen width
   const handleGetScreenWidth = useCallback(() => {
@@ -104,6 +104,10 @@ const Layout: React.FC<IProps> = ({ children }) => {
       dispatch(setQuestions([]));
     }
   }, [dispatch, isExamTesting]);
+
+  useEffect(() => {
+    console.log(scrollValue);
+  }, [scrollValue]);
 
   // Set settings option in localStorage
   // useEffect(() => {

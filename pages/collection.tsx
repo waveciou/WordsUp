@@ -1,7 +1,7 @@
+/* eslint-disable object-curly-newline */
 /* eslint-disable max-len */
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
 
 import Card from '@/Components/card';
 import { Select } from '@/Components/form';
@@ -27,6 +27,7 @@ const Collection: React.FC = () => {
   const handleGetData = useGetSheetData();
   const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
   const PARTS_DATA = useSelector((state: RootState) => state.collection.parts);
+  const { scrollValue } = useSelector((state: RootState) => state.common);
   const [words, setWords] = useState<IWordItem[]>([]);
   const [isMounted, setIsMounted] = useState<Boolean>(false);
 
@@ -108,6 +109,14 @@ const Collection: React.FC = () => {
     }
   }, [isMounted, processWordsCallback, WORDS_DATA, filterPart, filterAlphabet, isSortDownAlt]);
 
+  const wordListMemo = useMemo(() => {
+    const result = [];
+    return words.map((wordData) => {
+      const { id } = wordData;
+      return <li key={id}><Card wordData={wordData} /></li>;
+    });
+  }, [words]);
+
   return (
     <>
       <h1 className="title">Collection</h1>
@@ -148,10 +157,7 @@ const Collection: React.FC = () => {
       </div>
       <div className="content size-large">
         <ul className={stylesCollection.list}>
-          { words.map((wordData) => {
-            const key: string = uuidv4();
-            return <li key={key}><Card id={key} wordData={wordData} /></li>;
-          })}
+          { wordListMemo }
         </ul>
       </div>
     </>

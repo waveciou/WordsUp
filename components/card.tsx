@@ -7,13 +7,14 @@ import { IWordItem } from '@/Interfaces/word';
 import styles from '@/Styles/card.module.scss';
 
 interface ICardProps {
-  id: string,
   wordData: IWordItem
 }
 
-const Card: React.FC<ICardProps> = ({ id, wordData }) => {
-  const { en, zh, parts } = wordData;
+const Card: React.FC<ICardProps> = ({ wordData }) => {
   const [isShow, setIsShow] = useState<boolean>(false);
+  const {
+    id, en, zh, parts,
+  } = wordData;
 
   return (
     <>
