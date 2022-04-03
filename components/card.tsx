@@ -18,17 +18,17 @@ const Card: React.FC<ICardProps> = ({ id, wordData }) => {
   return (
     <>
       <div
-        className={styles.card}
+        className={styles.roof}
         aria-hidden="true"
         onClick={() => setIsShow(true)}
       >
-        <div className={styles.card__title}>{ en }</div>
-        <div className={styles.card__subtitle}>
+        <div className={styles.title}>{ en }</div>
+        <div className={styles.subtitle}>
           { zh.map((textItem, index) => {
             const key: string = `${id}_zh-${index}`;
             return (
               <div key={key}>
-                <span className={styles.card__part}>{ parts[index] }</span>
+                <span className={styles.part}>{ parts[index] }</span>
                 <span>{ textItem }</span>
               </div>
             );

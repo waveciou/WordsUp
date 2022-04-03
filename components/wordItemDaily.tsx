@@ -20,15 +20,15 @@ const WordItemDaily: React.FC<IWordItemDailyProps> = ({ dateCaption, wordData })
 
   return (
     <>
-      <div className={styles.wordItemDaily__header}>
-        <h1 className={styles.wordItemDaily__title}>
+      <div className={styles.header}>
+        <h1 className={styles.title}>
           今日單字
         </h1>
-        <div className={styles.wordItemDaily__date}>{ dateCaption }</div>
+        <div className={styles.date}>{ dateCaption }</div>
       </div>
-      <div className={styles.wordItemDaily__body}>
-        <div className={styles.wordItemDaily__caption}>{ en }</div>
-        <div className={styles.wordItemDaily__feature}>
+      <div className={styles.body}>
+        <div className={styles.caption}>{ en }</div>
+        <div className={styles.feature}>
           <button
             type="button"
             aria-label="speech"
@@ -40,8 +40,8 @@ const WordItemDaily: React.FC<IWordItemDailyProps> = ({ dateCaption, wordData })
           zh.map((textItem, index) => {
             const key: string = `${id}_zh-${index}`;
             return (
-              <div className={styles.wordItemDaily__subtitle} key={key}>
-                <span className={styles.wordItemDaily__part}>{ parts[index] }</span>
+              <div className={styles.subtitle} key={key}>
+                <span className={styles.part}>{ parts[index] }</span>
                 <span>{ textItem }</span>
               </div>
             );

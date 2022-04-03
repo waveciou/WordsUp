@@ -19,13 +19,13 @@ const Loader: React.FC = () => {
       appear
     >
       <div ref={nodeRef} className={styles['loader-desktop']}>
-        <div className={styles.loader__container}>
-          <div className={styles.loader__bouncing}>
+        <div className={styles.container}>
+          <div className={styles.bouncing}>
             <span />
             <span />
             <span />
           </div>
-          <strong className={styles.loader__captain}>資料載入中</strong>
+          <strong className={styles.captain}>資料載入中</strong>
         </div>
       </div>
     </CSSTransition>

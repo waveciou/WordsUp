@@ -47,20 +47,20 @@ const Popup: React.FC<IPopupProps> = ({ children, show, onClose }) => {
         onClick={handleClosePopup}
       >
         <div
-          className={styles.popup__wrapper}
+          className={styles.roof}
           aria-hidden="true"
           onClick={(e) => { e.stopPropagation(); }}
         >
           <button
             type="button"
             aria-label="close-popup"
-            className={styles['popup__close-btn']}
+            className={styles['close-btn']}
             onClick={handleClosePopup}
           >
             <span />
             <span />
           </button>
-          <div className={styles.popup__content}>
+          <div className={styles.content}>
             { children }
           </div>
         </div>

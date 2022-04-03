@@ -4,74 +4,72 @@
 
 $icon-size: 30px;
 
-.wordItemDaily {
-  &__header {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    margin-bottom: 15px;
-  }
+.header {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+}
 
-  &__title {
-    display: flex;
-    align-items: center;
+.title {
+  display: flex;
+  align-items: center;
+  line-height: $icon-size;
+  font-size: map-get($font-size, md);
+  color: $color-green-dark;
+
+  &::before {
+    @include font-material;
+
+    content: '\e8ce';
+    width: $icon-size;
+    height: $icon-size;
+    margin-right: 5px;
+    display: block;
+    text-align: center;
     line-height: $icon-size;
-    font-size: map-get($font-size, md);
-    color: $color-green-dark;
+  }
+}
 
-    &::before {
-      @include font-material;
+.date {
+  font-size: map-get($font-size, xs);
+}
 
-      content: '\e8ce';
-      width: $icon-size;
-      height: $icon-size;
-      margin-right: 5px;
-      display: block;
-      text-align: center;
-      line-height: $icon-size;
-    }
+.body {
+  padding: 50px 15px;
+  border: 2px $color-green solid;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px 0 rgba($color-black, 0.2);
+}
+
+.caption {
+  font-size: map-get($font-size, xl);
+  text-align: center;
+  line-height: 1.6em;
+  color: $color-wine;
+  word-break: break-all;
+}
+
+.feature {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.subtitle {
+  font-size: map-get($font-size, base);
+  text-align: center;
+  color: $color-black;
+}
+
+.part {
+  margin-right: 10px;
+  font-weight: 700;
+
+  &::before {
+    content: '(';
   }
 
-  &__date {
-    font-size: map-get($font-size, xs);
-  }
-
-  &__body {
-    padding: 50px 15px;
-    border: 2px $color-green solid;
-    border-radius: 10px;
-    box-shadow: 0 1px 3px 0 rgba($color-black, 0.2);
-  }
-
-  &__caption {
-    font-size: map-get($font-size, xl);
-    text-align: center;
-    line-height: 1.6em;
-    color: $color-wine;
-    word-break: break-all;
-  }
-
-  &__feature {
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  &__subtitle {
-    font-size: map-get($font-size, base);
-    text-align: center;
-    color: $color-black;
-  }
-
-  &__part {
-    margin-right: 10px;
-    font-weight: 700;
-
-    &::before {
-      content: '(';
-    }
-
-    &::after {
-      content: '.)';
-    }
+  &::after {
+    content: '.)';
   }
 }

@@ -32,14 +32,14 @@
   }
 }
 
-.header__container {
+.container {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.header__menu-btn {
+.menu-btn {
   width: $header-height;
   height: $header-height;
   display: flex;

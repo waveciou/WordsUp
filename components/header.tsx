@@ -10,7 +10,7 @@ const Header: React.FC = () => {
 
   return (
     <header id={styles.header}>
-      <div className={styles.header__container}>
+      <div className={styles.container}>
         <Link href="/" passHref>
           <a href="replace" className={styles.logo}>
             <span>Words Up</span>
@@ -19,7 +19,7 @@ const Header: React.FC = () => {
         <button
           type="button"
           aria-label="open-menu"
-          className={styles['header__menu-btn']}
+          className={styles['menu-btn']}
           onClick={() => { dispatch(setIsMenuOpen(true)); }}
         />
       </div>

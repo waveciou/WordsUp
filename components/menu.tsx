@@ -22,11 +22,11 @@ const Menu: React.FC = () => {
   }, []);
 
   const ClassHandleMenu = () => `${isMenuOpen === true ? styles['is-active'] : ''}`;
-  const ClassHandleLink = (path: string, id: string) => `${styles.menu__item} ${styles[`icon-${id}`]} ${router.asPath === path ? styles.current : ''}`;
+  const ClassHandleLink = (path: string, id: string) => `${styles.item} ${styles[`icon-${id}`]} ${router.asPath === path ? styles.current : ''}`;
 
   return (
     <nav id={styles.menu} className={ClassHandleMenu()}>
-      <div className={styles.menu__header}>
+      <div className={styles.header}>
         <button
           type="button"
           aria-label="close-menu"
@@ -34,9 +34,9 @@ const Menu: React.FC = () => {
           onClick={() => { dispatch(setIsMenuOpen(false)); }}
         />
       </div>
-      <div className={styles.menu__body}>
-        <div className={styles.menu__content}>
-          <ul className={styles.menu__list}>
+      <div className={styles.body}>
+        <div className={styles.content}>
+          <ul className={styles.list}>
             {
               routeLinks.map((route: IRouteItem) => {
                 const { id, path, name } = route;
