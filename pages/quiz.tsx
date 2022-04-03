@@ -50,13 +50,14 @@ const Quiz: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    // eslint-disable-next-line no-console
     console.log(answerState);
   }, [answerState]);
 
   return (
     <>
       <h1 className="title">Examination</h1>
-      <div className="content">
+      <div className="content size-small">
         {
           isExamTesting
             ? (

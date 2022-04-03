@@ -14,6 +14,7 @@
     font-size: map-get($font-size, base);
     color: $color-wine;
     line-height: 1.6em;
+    word-break: break-all;
   }
 
   &__subtitle {

@@ -2,6 +2,7 @@ import React from 'react';
 
 import useSpeechSpeak from '@/Hook/useSpeechSpeak';
 import { IWordItem } from '@/Interfaces/word';
+import stylesButton from '@/Styles/button.module.scss';
 import styles from '@/Styles/wordItemDetail.module.scss';
 
 interface IWordItemDetailProps {
@@ -12,23 +13,26 @@ interface IWordItemDetailProps {
 const WordItemDetail: React.FC<IWordItemDetailProps> = ({ id, wordData }) => {
   // Speech Synthesis
   const handleSpeechSpeak = useSpeechSpeak();
+
   const { en, zh, parts } = wordData;
 
   return (
     <div className={styles.wordItemDetail}>
       <div className={styles.wordItemDetail__title}>{ en }</div>
-      <div className={styles.wordItemDetail__subtitle}>
-        <button
-          type="button"
-          aria-label="speech"
-          className={styles['speech-btn']}
-          onClick={() => handleSpeechSpeak(en)}
-        />
+      <div className={styles.wordItemDetail__body}>
+        <div className={styles.wordItemDetail__feature}>
+          <button
+            type="button"
+            aria-label="speech"
+            className={stylesButton['speech-btn']}
+            onClick={() => handleSpeechSpeak(en)}
+          />
+        </div>
         {
           zh.map((textItem, index) => {
             const key: string = `${id}_zh-${index}`;
             return (
-              <div key={key}>
+              <div className={styles.wordItemDetail__subtitle} key={key}>
                 <span className={styles.wordItemDetail__part}>{ parts[index] }</span>
                 <span>{ textItem }</span>
               </div>

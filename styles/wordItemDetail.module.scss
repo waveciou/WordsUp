@@ -11,12 +11,10 @@ $sentence-interval--lg: 1rem;
   &__title {
     font-size: map-get($font-size, lg);
     color: $color-wine;
+    line-height: 1.6em;
   }
 
-  &__subtitle {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
+  &__body {
     color: $color-black;
   }
 
@@ -69,20 +67,4 @@ $sentence-interval--lg: 1rem;
   //     padding-bottom: $sentence-interval--lg;
   //   }
   // }
-}
-
-.speech-btn {
-  margin-right: 5px;
-  display: block;
-
-  &::before {
-    @include font-material;
-
-    content: '\e050';
-    width: 24px;
-    height: 24px;
-    display: block;
-    text-align: center;
-    line-height: 24px;
-  }
 }
