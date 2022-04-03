@@ -84,7 +84,7 @@ const Home: React.FC = () => {
   }, [dateId, WORDS_DATA]);
 
   return (
-    <div className="content">
+    <div className="content size-small">
       <WordItemDaily caption={dateCaption} wordData={dailyWord} />
     </div>
   );

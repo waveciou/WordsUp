@@ -12,6 +12,7 @@ import loadGapiScrpit from '@/Functions/googleSheetAPI/loadAPIScrpit';
 import useGetSheetData from '@/Hook/useGetSheetData';
 import { IProps } from '@/Interfaces/global';
 import { setIsAppMounted, setIsMenuOpen, setScreenWidth, setScrollValue } from '@/Slice/common';
+import { setQuestions } from '@/Slice/examination';
 import { RootState } from '@/Store/index';
 import styles from '@/Styles/layout.module.scss';
 
@@ -23,6 +24,7 @@ declare global {
 
 const Layout: React.FC<IProps> = ({ children }) => {
   const { isAppMounted, isMenuOpen } = useSelector((state: RootState) => state.common);
+  const { isExamTesting } = useSelector((state: RootState) => state.examination);
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -95,6 +97,13 @@ const Layout: React.FC<IProps> = ({ children }) => {
       document.documentElement.classList.remove('is-fixed');
     }
   }, [isMenuOpen]);
+
+  // If it's not testing, it will clear question items.
+  useEffect(() => {
+    if (isExamTesting === false) {
+      dispatch(setQuestions([]));
+    }
+  }, [dispatch, isExamTesting]);
 
   // Set settings option in localStorage
   // useEffect(() => {
