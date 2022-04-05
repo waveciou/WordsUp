@@ -1,5 +1,6 @@
 module.exports = {
   basePath: '/words-up',
+  trailingSlash: true,
   reactStrictMode: false,
   env: {
     BASE_PATH: '/words-up',
