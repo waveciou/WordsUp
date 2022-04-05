@@ -11,9 +11,7 @@ interface IWordItemDetailProps {
 }
 
 const WordItemDetail: React.FC<IWordItemDetailProps> = ({ id, wordData }) => {
-  // Speech Synthesis
   const handleSpeechSpeak = useSpeechSpeak();
-
   const { en, zh, parts } = wordData;
 
   return (
@@ -32,7 +30,7 @@ const WordItemDetail: React.FC<IWordItemDetailProps> = ({ id, wordData }) => {
           zh.map((textItem, index) => {
             const key: string = `${id}_zh-${index}`;
             return (
-              <div className={styles.subtitle} key={key}>
+              <div key={key}>
                 <span className={styles.part}>{ parts[index] }</span>
                 <span>{ textItem }</span>
               </div>

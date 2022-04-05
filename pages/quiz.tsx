@@ -8,6 +8,7 @@ import randomCollection from '@/Functions/randomCollection';
 import { IAnswerItem } from '@/Interfaces/examination';
 import { setIsExamTesting, setQuestions } from '@/Slice/examination';
 import { RootState } from '@/Store/index';
+import styles from '@/Styles/examination.module.scss';
 
 const Quiz: React.FC = () => {
   const dispatch = useDispatch();
@@ -49,25 +50,28 @@ const Quiz: React.FC = () => {
     dispatch(setIsExamTesting(false));
   }, []);
 
-  useEffect(() => {
-    // eslint-disable-next-line no-console
-    console.log(answerState);
-  }, [answerState]);
-
   return (
     <>
-      <h1 className="title">Examination</h1>
+      <h1 className="title">單字測驗</h1>
       <div className="content size-small">
         {
           isExamTesting
             ? (
               <ExamCard
+                currentTopic={currentTopic}
                 wordData={questions[currentTopic]}
                 onNext={handleToNextQuestion}
                 setAnswer={handleSetAnswer}
               />
             )
-            : (<button type="button" onClick={handleExamStart}>開始測驗</button>)
+            : (
+              <div>
+                <div>共10題填空題</div>
+                <div className={`${styles.footer}`}>
+                  <button type="button" className={`${styles.button}`} onClick={handleExamStart}>開始測驗</button>
+                </div>
+              </div>
+            )
         }
       </div>
     </>

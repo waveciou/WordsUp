@@ -1,0 +1,75 @@
+/* stylelint-disable function-no-unknown */
+@charset 'UTF-8';
+@import '@/Styles/utils/_utils.scss';
+
+.title {
+  font-size: map-get($font-size, md);
+  color: $color-wine;
+  line-height: 1.6em;
+  margin-bottom: 10px;
+}
+
+.button {
+  min-width: 105px;
+  padding: 7px 20px;
+  margin-right: 5px;
+  margin-left: 5px;
+  display: inline-block;
+  font-size: map-get($font-size, sm);
+  text-align: center;
+  color: $color-white;
+  background-color: $color-green;
+  border-radius: 7px;
+  line-height: 1.4em;
+
+  @include min-width(1025px) {
+    &:hover {
+      background-color: $color-green-dark;
+    }
+  }
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+}
+
+.textInput {
+  margin-bottom: 1rem;
+
+  input {
+    width: 100%;
+    height: 40px;
+    padding: 12px 15px;
+    display: block;
+    font-size: map-get($font-size, xs);
+    line-height: 16px;
+    background-color: $color-gray-light;
+    border-radius: 7px;
+  }
+}
+
+.descriptionArea {
+  padding-left: 30px;
+  position: relative;
+  overflow: hidden;
+  font-size: map-get($font-size, sm);
+  color: $color-black;
+  line-height: 30px;
+  margin-bottom: 1rem;
+}
+
+.speechBtn {
+  position: absolute;
+  top: 3px;
+  left: 0;
+}
+
+.part {
+  margin-right: 10px;
+  font-weight: 700;
+
+  &::after {
+    content: '.';
+  }
+}

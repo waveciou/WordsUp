@@ -30,7 +30,7 @@ const Menu: React.FC = () => {
         <button
           type="button"
           aria-label="close-menu"
-          className={styles['menu__close-btn']}
+          className={styles['close-btn']}
           onClick={() => { dispatch(setIsMenuOpen(false)); }}
         />
       </div>

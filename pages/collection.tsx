@@ -119,7 +119,7 @@ const Collection: React.FC = () => {
 
   return (
     <>
-      <h1 className="title">Collection</h1>
+      <h1 className="title">單字列表</h1>
       <div className="content size-large theme-transparent">
         <div className={`${stylesFeature.feature} ${stylesFeature['is-flex-end']}`}>
           <div className={`${stylesFeature.fieldset} ${stylesFeature['is-mobile-full']}`}>

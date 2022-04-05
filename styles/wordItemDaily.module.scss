@@ -47,17 +47,21 @@ $icon-size: 30px;
   line-height: 1.6em;
   color: $color-wine;
   word-break: break-all;
+  margin-bottom: 10px;
 }
 
-.feature {
+.description {
   display: flex;
-  justify-content: flex-end;
-}
-
-.subtitle {
+  align-items: center;
+  justify-content: center;
   font-size: map-get($font-size, base);
   text-align: center;
   color: $color-black;
+  line-height: 35px;
+}
+
+.speechBtn {
+  display: inline-block;
 }
 
 .part {

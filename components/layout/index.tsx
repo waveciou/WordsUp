@@ -105,10 +105,6 @@ const Layout: React.FC<IProps> = ({ children }) => {
     }
   }, [dispatch, isExamTesting]);
 
-  useEffect(() => {
-    console.log(scrollValue);
-  }, [scrollValue]);
-
   // Set settings option in localStorage
   // useEffect(() => {
   //   const { saveOption } = SETTINGS_OPTION;

@@ -24,17 +24,15 @@ const Card: React.FC<ICardProps> = ({ wordData }) => {
         onClick={() => setIsShow(true)}
       >
         <div className={styles.title}>{ en }</div>
-        <div className={styles.subtitle}>
-          { zh.map((textItem, index) => {
-            const key: string = `${id}_zh-${index}`;
-            return (
-              <div key={key}>
-                <span className={styles.part}>{ parts[index] }</span>
-                <span>{ textItem }</span>
-              </div>
-            );
-          })}
-        </div>
+        { zh.map((textItem, index) => {
+          const key: string = `${id}_zh-${index}`;
+          return (
+            <div className={styles.description} key={key}>
+              <span className={styles.part}>{ parts[index] }</span>
+              <span>{ textItem }</span>
+            </div>
+          );
+        })}
       </div>
       <Popup show={isShow} onClose={() => setIsShow(false)}>
         <WordItemDetail id={uuidv4()} wordData={wordData} />
