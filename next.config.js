@@ -1,6 +1,9 @@
 module.exports = {
+  basePath: '/WordsUp',
+  trailingSlash: true,
   reactStrictMode: false,
   env: {
+    BASE_PATH: '/WordsUp',
     API_KEY: 'AIzaSyBqwYzbJZjQZggrAYBkiUgUNhxnTI695oI',
     CLIENT_ID: '',
     SCOPE: 'https://www.googleapis.com/auth/spreadsheets.readonly',
