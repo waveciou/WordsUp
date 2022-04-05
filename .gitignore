@@ -12,7 +12,7 @@ yarn.lock
 
 # next.js
 /.next/
-/out/
+# /out/
 
 # production
 /build
