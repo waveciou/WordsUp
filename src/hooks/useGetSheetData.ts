@@ -29,9 +29,6 @@ const useGetSheetData = () => {
         await dispatch(setIsLoading(false));
       }).catch((error) => {
         console.log(error);
-        // eslint-disable-next-line no-alert
-        window.alert(error);
-        dispatch(setIsLoading(false));
       });
     });
   }, [dispatch]);

@@ -19,7 +19,8 @@ const makeApiCall = (sheetId: string) => {
         const zhItemData: string = sheetData.values[1].formattedValue;
         const alphabet: string = enItemData.slice(0, 1).toLowerCase();
 
-        const parts: string[] = zhItemData.match(/(?<=【)([a-z]{1,})/gi) ?? [];
+        const _parts: string[] = zhItemData.match(/【[a-z]{1,}】/g) ?? [];
+        const parts: string[] = _parts.map((str) => str.slice(1, -1));
         const partsToSet = new Set([...result.parts, ...parts]);
 
         result.parts = [...partsToSet];
