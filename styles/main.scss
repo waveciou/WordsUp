@@ -1,6 +1,11 @@
+/* stylelint-disable scss/at-rule-no-unknown */
 @charset 'UTF-8';
 @import '@/Styles/utils/_utils.scss';
 @import '@/Styles/_font.scss';
 @import '@/Styles/_reset.scss';
 @import '@/Styles/_content.scss';
 @import '@/Styles/_animate.scss';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

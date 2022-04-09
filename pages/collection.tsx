@@ -10,8 +10,6 @@ import { ISelectOption } from '@/Interfaces/form';
 import { IWordItem } from '@/Interfaces/word';
 import { RootState } from '@/Store/index';
 import stylesButton from '@/Styles/button.module.scss';
-import stylesCollection from '@/Styles/collection.module.scss';
-import stylesFeature from '@/Styles/feature.module.scss';
 
 interface IOptionsData {
   id: string,
@@ -111,30 +109,47 @@ const Collection: React.FC = () => {
 
   const wordListMemo = useMemo(() => {
     const result = [];
-    return words.map((wordData) => {
+    return words.map((wordData: IWordItem, index: number) => {
       const { id } = wordData;
-      return <li key={id}><Card wordData={wordData} /></li>;
+      const isEven: boolean = !!(index % 2 === 1);
+      const isThirChid: boolean = !!((index + 1) % 3 === 0);
+      return (
+        <li
+          key={id}
+          className={`
+            tw-w-full
+            tw-mb-3
+            tablet:tw-w-[calc((100%-0.75rem)/2)]
+            tablet:tw-mr-3
+            develop:tw-w-[calc((100%-1.5rem)/3)]
+            ${isEven ? 'tablet:tw-mr-0 develop:tw-mr-3' : ''}
+            ${isThirChid ? 'develop:tw-mr-0' : ''}
+          `}
+        >
+          <Card wordData={wordData} />
+        </li>
+      );
     });
   }, [words]);
 
   return (
     <>
       <h1 className="title">單字列表</h1>
-      <div className="content size-large theme-transparent">
-        <div className={`${stylesFeature.feature} ${stylesFeature['is-flex-end']}`}>
-          <div className={`${stylesFeature.fieldset} ${stylesFeature['is-mobile-full']}`}>
+      <div className="content size-large tw-p-0 tw-rounded-none tw-bg-transparent">
+        <div className="tw-flex tw-items-center tw-flex-wrap tw-justify-end">
+          <div className="tw-w-full tw-mr-0 tw-mb-2.5 tw-leading-none tablet:tw-w-auto tablet:tw-mr-2.5 tablet:tw-mb-0">
             <Select
               options={filterAlphabetOption}
               onChange={(event) => { setFilterAlphabet(event.target.value); }}
             />
           </div>
-          <div className={`${stylesFeature.fieldset} ${stylesFeature['is-mobile-full']}`}>
+          <div className="tw-w-full tw-mr-0 tw-mb-2.5 tw-leading-none tablet:tw-w-auto tablet:tw-mr-2.5 tablet:tw-mb-0">
             <Select
               options={filterPartOption}
               onChange={(event) => { setFilterPart(event.target.value); }}
             />
           </div>
-          <div className={stylesFeature.fieldset}>
+          <div className="tw-mr-2.5 tw-mb-2.5 tw-leading-none tablet:tw-mb-0">
             <button
               type="button"
               className={ClassHandleSortDownBtn()}
@@ -142,7 +157,7 @@ const Collection: React.FC = () => {
               onClick={() => setIsSortDownAlt(!isSortDownAlt)}
             />
           </div>
-          <div className={stylesFeature.fieldset}>
+          <div className="tw-mr-0 tw-mb-2.5 tw-leading-none tablet:tw-mb-0">
             <button
               type="button"
               className={`
@@ -156,7 +171,7 @@ const Collection: React.FC = () => {
         </div>
       </div>
       <div className="content size-large">
-        <ul className={stylesCollection.list}>
+        <ul className="tw-flex tw-flex-wrap">
           { wordListMemo }
         </ul>
       </div>

@@ -1,9 +1,12 @@
+const isDevEnv = process.env.NODE_ENV === 'development';
+const productionPath = '/words-up';
+
 module.exports = {
-  basePath: '/words-up',
+  basePath: isDevEnv ? '' : productionPath,
   trailingSlash: true,
   reactStrictMode: false,
   env: {
-    BASE_PATH: '/words-up',
+    BASE_PATH: isDevEnv ? '' : productionPath,
     API_KEY: 'AIzaSyBqwYzbJZjQZggrAYBkiUgUNhxnTI695oI',
     CLIENT_ID: '',
     SCOPE: 'https://www.googleapis.com/auth/spreadsheets.readonly',

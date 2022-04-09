@@ -46,23 +46,18 @@ html {
 }
 
 .title {
+  margin-top: 1.5rem;
   font-size: map-get($font-size, xl);
   font-weight: 500;
   text-align: center;
-  line-height: 1.2em;
   color: $color-yellow;
+  line-height: 1.2em;
+  margin-bottom: 1.5rem;
 
   @include min-width(1025px) {
-    margin: {
-      top: 3rem;
-      bottom: 1.8rem;
-    };
+    margin-top: 3rem;
+    margin-bottom: 1.8rem;
   }
-
-  margin: {
-    top: 1.5rem;
-    bottom: 1.5rem;
-  };
 }
 
 .content {
@@ -87,12 +82,6 @@ html {
     @include min-width(480px + 30px) {
       max-width: 480px;
     }
-  }
-
-  &.theme-transparent {
-    padding: 0;
-    background-color: transparent;
-    border-radius: 0;
   }
 
   &.theme-f-home {
