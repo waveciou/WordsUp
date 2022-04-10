@@ -2,13 +2,6 @@
 @charset 'UTF-8';
 @import '@/Styles/utils/_utils.scss';
 
-.title {
-  font-size: map-get($font-size, md);
-  color: $color-wine;
-  line-height: 1.6em;
-  margin-bottom: 10px;
-}
-
 .button {
   min-width: 105px;
   padding: 7px 20px;
@@ -27,11 +20,6 @@
       background-color: $color-green-dark;
     }
   }
-}
-
-.footer {
-  display: flex;
-  justify-content: center;
 }
 
 .textInput {
