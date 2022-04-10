@@ -26,7 +26,7 @@ const ExamCard: React.FC<IExamCardProps> = ({
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const result: string = e.target.value;
-    setInputValue(result);
+    setInputValue(result.toLowerCase());
   };
 
   const handleSubmit = () => {
@@ -56,7 +56,7 @@ const ExamCard: React.FC<IExamCardProps> = ({
   return (
     <>
       <div>
-        <div className={styles.title}>
+        <div className="tw-text-md tw-text-wine tw-leading-7 tw-mb-2.5">
           第
           {' '}
           {currentTopic + 1}
@@ -94,9 +94,9 @@ const ExamCard: React.FC<IExamCardProps> = ({
           })}
         </div>
 
-        <div className={`${styles.footer}`}>
-          <button type="button" className={`${styles.button}`} onClick={handleSubmit}>確定</button>
-          <button type="button" className={`${styles.button}`} onClick={handleNextQuestion}>下一題</button>
+        <div className="tw-flex tw-justify-center">
+          <button type="button" className={`${styles.button}`} onClick={handleSubmit}>送出</button>
+          <button type="button" className={`${styles.button}`} onClick={handleNextQuestion}>略過</button>
         </div>
       </div>
     </>

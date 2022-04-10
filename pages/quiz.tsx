@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ExamCard from '@/Components/examCard';
+import ScoreTable from '@/Components/scoreTable';
 import randomCollection from '@/Functions/randomCollection';
 import { IAnswerItem } from '@/Interfaces/examination';
 import { setIsExamTesting, setQuestions } from '@/Slice/examination';
@@ -73,6 +74,7 @@ const Quiz: React.FC = () => {
               </div>
             )
         }
+        <ScoreTable scoreList={answerState} />
       </div>
     </>
   );
