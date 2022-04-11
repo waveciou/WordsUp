@@ -18,6 +18,7 @@ module.exports = {
       develop_space: `${1024 + 30}px`,
     },
     colors: {
+      transparent: 'transparent',
       white: '#ffffff',
       black: '#333333',
       gray: '#c8c9cc',

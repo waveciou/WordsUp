@@ -49,30 +49,3 @@ $icon-size: 30px;
   word-break: break-all;
   margin-bottom: 10px;
 }
-
-.description {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: map-get($font-size, base);
-  text-align: center;
-  color: $color-black;
-  line-height: 35px;
-}
-
-.speechBtn {
-  display: inline-block;
-}
-
-.part {
-  margin-right: 10px;
-  font-weight: 700;
-
-  &::before {
-    content: '(';
-  }
-
-  &::after {
-    content: '.)';
-  }
-}

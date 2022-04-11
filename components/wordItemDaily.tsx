@@ -1,8 +1,8 @@
 import React from 'react';
 
+import WordsCaption from '@/Components/wordsCaption';
 import useSpeechSpeak from '@/Hook/useSpeechSpeak';
 import { IWordItem } from '@/Interfaces/word';
-import stylesButton from '@/Styles/button.module.scss';
 import styles from '@/Styles/wordItemDaily.module.scss';
 
 interface IWordItemDailyProps {
@@ -27,29 +27,15 @@ const WordItemDaily: React.FC<IWordItemDailyProps> = ({ dateCaption, wordData })
       </div>
       <div className={styles.body}>
         <div className={styles.caption}>{ en }</div>
-        {
-          zh.map((textItem, index) => {
-            const key: string = `${id}_zh-${index}`;
-            return (
-              <div className={styles.description} key={key}>
-                {
-                  index === 0 && (
-                    <div className={styles.speechBtn}>
-                      <button
-                        type="button"
-                        aria-label="speech"
-                        className={stylesButton['speech-btn']}
-                        onClick={() => handleSpeechSpeak(en)}
-                      />
-                    </div>
-                  )
-                }
-                <span className={styles.part}>{ parts[index] }</span>
-                <span>{ textItem }</span>
-              </div>
-            );
-          })
-        }
+        <WordsCaption
+          id={id}
+          wordsList={zh}
+          partsList={parts}
+          hasBrackets
+          hasTextCenter
+          hasSpeechButton
+          handleSpeech={() => { handleSpeechSpeak(en); }}
+        />
       </div>
     </>
   );

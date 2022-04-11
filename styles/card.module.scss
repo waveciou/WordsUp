@@ -23,12 +23,3 @@
   color: $color-black;
   line-height: 1.4em;
 }
-
-.part {
-  margin-right: 10px;
-  font-weight: 700;
-
-  &::after {
-    content: '.';
-  }
-}

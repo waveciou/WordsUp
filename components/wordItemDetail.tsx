@@ -1,5 +1,6 @@
 import React from 'react';
 
+import WordsCaption from '@/Components/wordsCaption';
 import useSpeechSpeak from '@/Hook/useSpeechSpeak';
 import { IWordItem } from '@/Interfaces/word';
 import stylesButton from '@/Styles/button.module.scss';
@@ -26,17 +27,7 @@ const WordItemDetail: React.FC<IWordItemDetailProps> = ({ id, wordData }) => {
             onClick={() => handleSpeechSpeak(en)}
           />
         </div>
-        {
-          zh.map((textItem, index) => {
-            const key: string = `${id}_zh-${index}`;
-            return (
-              <div key={key}>
-                <span className={styles.part}>{ parts[index] }</span>
-                <span>{ textItem }</span>
-              </div>
-            );
-          })
-        }
+        <WordsCaption id={id} wordsList={zh} partsList={parts} hasBrackets />
       </div>
     </div>
   );

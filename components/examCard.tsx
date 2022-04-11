@@ -1,6 +1,7 @@
 /* eslint-disable import/no-cycle */
 import React, { useEffect, useState } from 'react';
 
+import WordsCaption from '@/Components/wordsCaption';
 import useSpeechSpeak from '@/Hook/useSpeechSpeak';
 import { IAnswerItem } from '@/Interfaces/examination';
 import { IWordItem } from '@/Interfaces/word';
@@ -83,15 +84,7 @@ const ExamCard: React.FC<IExamCardProps> = ({
             />
           </div>
 
-          { zh.map((textItem, index) => {
-            const key: string = `${id}_zh-${index}`;
-            return (
-              <div key={key}>
-                <span className={styles.part}>{ parts[index] }</span>
-                <span>{ textItem }</span>
-              </div>
-            );
-          })}
+          <WordsCaption id={id} wordsList={zh} partsList={parts} />
         </div>
 
         <div className="tw-flex tw-justify-center">

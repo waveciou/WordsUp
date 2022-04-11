@@ -52,12 +52,3 @@
   top: 3px;
   left: 0;
 }
-
-.part {
-  margin-right: 10px;
-  font-weight: 700;
-
-  &::after {
-    content: '.';
-  }
-}
