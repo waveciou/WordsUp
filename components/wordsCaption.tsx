@@ -25,7 +25,10 @@ const wordsCaption: React.FC<IWordsCaptionProps> = ({
     {wordsList.map((textItem: string, index: number) => {
       const key: string = `${id}_zh-${index}`;
       return (
-        <div key={key} className={`tw-flex tw-items-center ${hasTextCenter && 'tw-justify-center'}`}>
+        <div
+          key={key}
+          className={`${hasTextCenter && 'tw-flex tw-items-center tw-justify-center'}`}
+        >
           {
             hasSpeechButton && index === 0 && (
               <div className="tw-inline-block">

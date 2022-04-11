@@ -4,7 +4,6 @@ import WordsCaption from '@/Components/wordsCaption';
 import useSpeechSpeak from '@/Hook/useSpeechSpeak';
 import { IWordItem } from '@/Interfaces/word';
 import stylesButton from '@/Styles/button.module.scss';
-import styles from '@/Styles/wordItemDetail.module.scss';
 
 interface IWordItemDetailProps {
   id: string,
@@ -16,10 +15,10 @@ const WordItemDetail: React.FC<IWordItemDetailProps> = ({ id, wordData }) => {
   const { en, zh, parts } = wordData;
 
   return (
-    <div className={styles.roof}>
-      <div className={styles.title}>{ en }</div>
-      <div className={styles.body}>
-        <div className={styles.feature}>
+    <div className="tw-text-sm">
+      <div className="tw-text-lg tw-text-wine tw-leading-7">{ en }</div>
+      <div className="tw-leading-7">
+        <div>
           <button
             type="button"
             aria-label="speech"
