@@ -27,7 +27,7 @@ const wordsCaption: React.FC<IWordsCaptionProps> = ({
       return (
         <div
           key={key}
-          className={`${hasTextCenter && 'tw-flex tw-items-center tw-justify-center'}`}
+          className={`${hasTextCenter ? 'tw-flex tw-items-center tw-justify-center' : ''}`}
         >
           {
             hasSpeechButton && index === 0 && (

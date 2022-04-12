@@ -31,13 +31,16 @@ const ExamCard: React.FC<IExamCardProps> = ({
   };
 
   const handleSubmit = () => {
-    const result: boolean = !!(inputValue === en);
-    setAnswer({
-      id,
-      anwser: inputValue.trim(),
-      solution: en,
-      result,
-    });
+    const inputAnswer: string = inputValue.trim();
+    if (inputAnswer !== '') {
+      const result: boolean = !!(inputValue === en);
+      setAnswer({
+        id,
+        anwser: inputAnswer,
+        solution: en,
+        result,
+      });
+    }
   };
 
   const handleNextQuestion = () => {
@@ -75,7 +78,7 @@ const ExamCard: React.FC<IExamCardProps> = ({
         </div>
 
         <div className={styles.descriptionArea}>
-          <div className={styles.speechBtn}>
+          <div className="tw-absolute tw-top-0.5 tw-left-0">
             <button
               type="button"
               aria-label="speech"
@@ -88,8 +91,17 @@ const ExamCard: React.FC<IExamCardProps> = ({
         </div>
 
         <div className="tw-flex tw-justify-center">
-          <button type="button" className={`${styles.button}`} onClick={handleSubmit}>送出</button>
-          <button type="button" className={`${styles.button}`} onClick={handleNextQuestion}>略過</button>
+          <button
+            type="button"
+            className={`
+              ${styles.button}
+              ${inputValue.trim() === '' ? styles['is-disabled'] : ''}
+            `}
+            onClick={handleSubmit}
+          >
+            送出
+          </button>
+          <button type="button" className={styles.button} onClick={handleNextQuestion}>略過</button>
         </div>
       </div>
     </>
