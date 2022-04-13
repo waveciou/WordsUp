@@ -43,7 +43,7 @@ module.exports = {
       xxs: '14px',
     },
     minWidth: {
-      sm: '200px',
+      200: '200px',
     },
     extend: {},
   },
