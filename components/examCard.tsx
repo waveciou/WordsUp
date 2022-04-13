@@ -1,6 +1,7 @@
 /* eslint-disable import/no-cycle */
 import React, { useEffect, useState } from 'react';
 
+import WordsCaption from '@/Components/wordsCaption';
 import useSpeechSpeak from '@/Hook/useSpeechSpeak';
 import { IAnswerItem } from '@/Interfaces/examination';
 import { IWordItem } from '@/Interfaces/word';
@@ -30,13 +31,16 @@ const ExamCard: React.FC<IExamCardProps> = ({
   };
 
   const handleSubmit = () => {
-    const result: boolean = !!(inputValue === en);
-    setAnswer({
-      id,
-      anwser: inputValue.trim(),
-      solution: en,
-      result,
-    });
+    const inputAnswer: string = inputValue.trim();
+    if (inputAnswer !== '') {
+      const result: boolean = !!(inputValue === en);
+      setAnswer({
+        id,
+        anwser: inputAnswer,
+        solution: en,
+        result,
+      });
+    }
   };
 
   const handleNextQuestion = () => {
@@ -56,7 +60,7 @@ const ExamCard: React.FC<IExamCardProps> = ({
   return (
     <>
       <div>
-        <div className="tw-text-md tw-text-wine tw-leading-7 tw-mb-2.5">
+        <div className="tw-text-md tw-text-wine tw-leading-7 tw-mb-4">
           第
           {' '}
           {currentTopic + 1}
@@ -74,7 +78,7 @@ const ExamCard: React.FC<IExamCardProps> = ({
         </div>
 
         <div className={styles.descriptionArea}>
-          <div className={styles.speechBtn}>
+          <div className="tw-absolute tw-top-0.5 tw-left-0">
             <button
               type="button"
               aria-label="speech"
@@ -83,20 +87,21 @@ const ExamCard: React.FC<IExamCardProps> = ({
             />
           </div>
 
-          { zh.map((textItem, index) => {
-            const key: string = `${id}_zh-${index}`;
-            return (
-              <div key={key}>
-                <span className={styles.part}>{ parts[index] }</span>
-                <span>{ textItem }</span>
-              </div>
-            );
-          })}
+          <WordsCaption id={id} wordsList={zh} partsList={parts} />
         </div>
 
         <div className="tw-flex tw-justify-center">
-          <button type="button" className={`${styles.button}`} onClick={handleSubmit}>送出</button>
-          <button type="button" className={`${styles.button}`} onClick={handleNextQuestion}>略過</button>
+          <button
+            type="button"
+            className={`
+              ${styles.button}
+              ${inputValue.trim() === '' ? styles['is-disabled'] : ''}
+            `}
+            onClick={handleSubmit}
+          >
+            送出
+          </button>
+          <button type="button" className={styles.button} onClick={handleNextQuestion}>略過</button>
         </div>
       </div>
     </>

@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import Popup from '@/Components/popup';
 import WordItemDetail from '@/Components/wordItemDetail';
+import WordsCaption from '@/Components/wordsCaption';
 import { IWordItem } from '@/Interfaces/word';
 import styles from '@/Styles/card.module.scss';
 
@@ -24,15 +25,9 @@ const Card: React.FC<ICardProps> = ({ wordData }) => {
         onClick={() => setIsShow(true)}
       >
         <div className={styles.title}>{ en }</div>
-        { zh.map((textItem, index) => {
-          const key: string = `${id}_zh-${index}`;
-          return (
-            <div className={styles.description} key={key}>
-              <span className={styles.part}>{ parts[index] }</span>
-              <span>{ textItem }</span>
-            </div>
-          );
-        })}
+        <div className={styles.description}>
+          <WordsCaption id={id} wordsList={zh} partsList={parts} />
+        </div>
       </div>
       <Popup show={isShow} onClose={() => setIsShow(false)}>
         <WordItemDetail id={uuidv4()} wordData={wordData} />

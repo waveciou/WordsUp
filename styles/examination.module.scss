@@ -20,6 +20,12 @@
       background-color: $color-green-dark;
     }
   }
+
+  &.is-disabled {
+    background-color: $color-black;
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
 }
 
 .textInput {
@@ -45,19 +51,4 @@
   color: $color-black;
   line-height: 30px;
   margin-bottom: 1rem;
-}
-
-.speechBtn {
-  position: absolute;
-  top: 3px;
-  left: 0;
-}
-
-.part {
-  margin-right: 10px;
-  font-weight: 700;
-
-  &::after {
-    content: '.';
-  }
 }
