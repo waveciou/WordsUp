@@ -30,6 +30,8 @@ module.exports = {
       orange: '#f58f29',
       yellow: '#ffe464',
       'yellow-light': '#fcf8e3',
+      'mark-red': '#f87171',
+      'mark-green': '#4caf50',
     },
     fontSize: {
       xl: '32px',
@@ -39,6 +41,9 @@ module.exports = {
       sm: '18px',
       xs: '16px',
       xxs: '14px',
+    },
+    minWidth: {
+      sm: '200px',
     },
     extend: {},
   },

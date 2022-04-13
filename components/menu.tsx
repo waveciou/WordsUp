@@ -33,7 +33,7 @@ const Menu: React.FC = () => {
     return routeLinks.map((route: IRouteItem) => {
       const { id, path, name } = route;
       return (
-        <li key={id}>
+        <li key={id} className="tw-px-4 tw-mb-2.5">
           <Link href={path} passHref>
             <a href="replace" className={ClassHandle(path, id)}>{name}</a>
           </Link>
@@ -44,17 +44,17 @@ const Menu: React.FC = () => {
 
   return (
     <nav id={styles.menu} className={ClassHandleMenu()}>
-      <div className={styles.header}>
+      <div className="tw-flex tw-items-start tw-justify-end tw-basis-12">
         <button
           type="button"
           aria-label="close-menu"
-          className={styles['close-btn']}
+          className="tw-w-12 tw-h-12 tw-flex tw-items-center tw-justify-center tw-text-center before-font-material before:tw-content-['\e5cd'] before:tw-w-6 before:tw-h-6 before:tw-leading-6 before:tw-block before:tw-m-auto before:tw-text-black"
           onClick={() => { dispatch(setIsMenuOpen(false)); }}
         />
       </div>
-      <div className={styles.body}>
-        <div className={styles.content}>
-          <ul className={styles.list}>
+      <div className="tw-relative tw-overflow-hidden tw-grow">
+        <div className="tw-w-full tw-h-full tw-absolute tw-top-0 tw-left-0 tw-overflow-x-hidden tw-overflow-y-auto">
+          <ul>
             { routeLinksMemo }
           </ul>
         </div>

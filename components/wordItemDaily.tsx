@@ -23,7 +23,7 @@ const WordItemDaily: React.FC<IWordItemDailyProps> = ({ dateCaption, wordData })
         <h1 className={styles.title}>
           今日單字
         </h1>
-        <div className={styles.date}>{ dateCaption }</div>
+        <div className="tw-text-xs">{ dateCaption }</div>
       </div>
       <div className={styles.body}>
         <div className={styles.caption}>{ en }</div>

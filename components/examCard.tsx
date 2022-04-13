@@ -60,7 +60,7 @@ const ExamCard: React.FC<IExamCardProps> = ({
   return (
     <>
       <div>
-        <div className="tw-text-md tw-text-wine tw-leading-7 tw-mb-2.5">
+        <div className="tw-text-md tw-text-wine tw-leading-7 tw-mb-4">
           第
           {' '}
           {currentTopic + 1}

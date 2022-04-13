@@ -9,3 +9,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.before-font-material::before {
+  @include font-material;
+}
+
+.after-font-material::after {
+  @include font-material;
+}
+
+.before-font-awesome::before {
+  @include font-awesome;
+}
+
+.after-font-awesome::after {
+  @include font-awesome;
+}
