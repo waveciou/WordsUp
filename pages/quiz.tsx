@@ -84,7 +84,7 @@ const Quiz: React.FC = () => {
                   isExamFinish ? (
                     <>
                       <div className="tw-text-wine/80 tw-my-8 tw-text-md tw-text-center">
-                        我的成績：
+                        我的分數：
                         {score}
                         分
                       </div>
