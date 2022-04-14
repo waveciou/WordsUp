@@ -17,13 +17,9 @@ export const examSlice = createSlice({
       const asignState = state;
       asignState.isExamTesting = action.payload;
     },
-    setQuestions: (state, action: PayloadAction<IWordItem[]>) => {
-      const asignState = state;
-      asignState.questions = [...action.payload];
-    },
   },
 });
 
-export const { setIsExamTesting, setQuestions } = examSlice.actions;
+export const { setIsExamTesting } = examSlice.actions;
 
 export default examSlice.reducer;

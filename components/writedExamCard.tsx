@@ -1,4 +1,4 @@
-/* eslint-disable import/no-cycle */
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect, useState } from 'react';
 
 import WordsCaption from '@/Components/wordsCaption';
@@ -12,10 +12,10 @@ interface IExamCardProps {
   currentTopic: number,
   wordData: IWordItem,
   onNext: () => void,
-  setAnswer: (anwserItem: IAnswerItem) => void
+  setAnswer: (answerItem: IAnswerItem) => void
 }
 
-const ExamCard: React.FC<IExamCardProps> = ({
+const writedExamCard: React.FC<IExamCardProps> = ({
   currentTopic, wordData, onNext, setAnswer,
 }) => {
   const handleSpeechSpeak = useSpeechSpeak();
@@ -31,12 +31,12 @@ const ExamCard: React.FC<IExamCardProps> = ({
   };
 
   const handleSubmit = () => {
-    const inputAnswer: string = inputValue.trim();
-    if (inputAnswer !== '') {
-      const result: boolean = !!(inputValue === en);
+    const answer: string = inputValue.trim();
+    if (answer !== '') {
+      const result: boolean = !!(answer === en);
       setAnswer({
         id,
-        anwser: inputAnswer,
+        answer,
         solution: en,
         result,
       });
@@ -46,7 +46,7 @@ const ExamCard: React.FC<IExamCardProps> = ({
   const handleNextQuestion = () => {
     setAnswer({
       id,
-      anwser: '',
+      answer: '',
       solution: en,
       result: false,
     });
@@ -108,4 +108,4 @@ const ExamCard: React.FC<IExamCardProps> = ({
   );
 };
 
-export default ExamCard;
+export default writedExamCard;
