@@ -84,7 +84,7 @@ const Home: React.FC = () => {
   }, [dateId, WORDS_DATA]);
 
   return (
-    <div className="content size-small theme-f-home">
+    <div className="content size-small tw-py-5">
       <WordItemDaily dateCaption={dateCaption} wordData={dailyWord} />
     </div>
   );

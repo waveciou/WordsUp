@@ -92,7 +92,7 @@ const Quiz: React.FC = () => {
                     </>
                   ) : (
                     <div className="tw-text-wine/80 tw-my-8 tw-text-md tw-text-center">
-                      填空測驗（
+                      單字填空測驗（
                       {quantity}
                       題）
                     </div>
