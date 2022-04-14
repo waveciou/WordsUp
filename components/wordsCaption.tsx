@@ -9,7 +9,7 @@ interface IWordsCaptionProps {
   hasBrackets?: boolean,
   hasTextCenter?: boolean,
   hasSpeechButton?: boolean,
-  handleSpeech?: () => void
+  onSpeech?: () => void
 }
 
 const wordsCaption: React.FC<IWordsCaptionProps> = ({
@@ -19,7 +19,7 @@ const wordsCaption: React.FC<IWordsCaptionProps> = ({
   hasBrackets = false,
   hasTextCenter = false,
   hasSpeechButton = false,
-  handleSpeech = () => {},
+  onSpeech = () => {},
 }) => (
   <>
     {wordsList.map((textItem: string, index: number) => {
@@ -36,7 +36,7 @@ const wordsCaption: React.FC<IWordsCaptionProps> = ({
                   type="button"
                   aria-label="speech"
                   className={stylesButton['speech-btn']}
-                  onClick={handleSpeech}
+                  onClick={onSpeech}
                 />
               </div>
             )
