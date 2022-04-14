@@ -1,6 +1,6 @@
 export interface IAnswerItem {
   id: string,
-  anwser: string,
+  answer: string,
   solution: string,
   result: boolean,
 }

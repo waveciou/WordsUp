@@ -17,7 +17,7 @@ const scoreTable: React.FC<IScoreTableProps> = ({ scoreList = [] }) => {
   const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
 
   const scoreListMemo = useMemo(() => scoreList.map(({
-    id, anwser, solution, result,
+    id, answer, solution, result,
   }) => {
     const word: IWordItem = WORDS_DATA.filter((item) => item.id === id)[0];
     return (
@@ -36,7 +36,7 @@ const scoreTable: React.FC<IScoreTableProps> = ({ scoreList = [] }) => {
             <WordsCaption id={word.id} wordsList={word.zh} partsList={word.parts} />
           </div>
         </td>
-        <td className={classDefines}>{ anwser === '' ? '-' : anwser }</td>
+        <td className={classDefines}>{ answer === '' ? '-' : answer }</td>
         <td className={classDefines}>{ solution }</td>
       </tr>
     );

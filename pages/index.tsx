@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import WordItemDaily from '@/Components/wordItemDaily';
@@ -42,6 +42,25 @@ const Home: React.FC = () => {
   const [dateCaption, setDateCaption] = useState<string>('');
   const [dailyWord, setDailyWord] = useState<IWordItem>(JSON.parse(JSON.stringify(wordTemplate)));
 
+  const handleSetDailyWord = ({ id, date, word }: ICasesWord) => {
+    setDailyWord(word);
+    localStorage.setItem('dailyWord', JSON.stringify({ id, date }));
+  };
+
+  const handleRefresh = useCallback(() => {
+    let result: ICasesWord = {
+      id: dailyWord.id,
+      date: dateId,
+      word: JSON.parse(JSON.stringify(dailyWord)),
+    };
+
+    while (result.id === dailyWord.id) {
+      result = getRandomWord(WORDS_DATA, dateId);
+    }
+
+    handleSetDailyWord(result);
+  }, [dailyWord, dateId, WORDS_DATA]);
+
   useEffect(() => {
     const year: number = day.utcOffset(8).year();
     const month: number = day.utcOffset(8).month() + 1;
@@ -76,16 +95,17 @@ const Home: React.FC = () => {
         result = getRandomWord(WORDS_DATA, dateId);
       }
 
-      const { id, date, word } = result;
-
-      setDailyWord(word);
-      localStorage.setItem('dailyWord', JSON.stringify({ id, date }));
+      handleSetDailyWord(result);
     }
   }, [dateId, WORDS_DATA]);
 
   return (
-    <div className="content size-small theme-f-home">
-      <WordItemDaily dateCaption={dateCaption} wordData={dailyWord} />
+    <div className="content size-small tw-py-5">
+      <WordItemDaily
+        dateCaption={dateCaption}
+        wordData={dailyWord}
+        onFresh={handleRefresh}
+      />
     </div>
   );
 };
