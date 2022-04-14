@@ -27,18 +27,16 @@ const wordsCaption: React.FC<IWordsCaptionProps> = ({
       return (
         <div
           key={key}
-          className={`${hasTextCenter ? 'tw-flex tw-items-center tw-justify-center' : ''}`}
+          className={`${hasTextCenter ? 'tw-flex tw-justify-center tw-items-start' : ''}`}
         >
           {
             hasSpeechButton && index === 0 && (
-              <div className="tw-inline-block">
-                <button
-                  type="button"
-                  aria-label="speech"
-                  className={stylesButton['speech-btn']}
-                  onClick={onSpeech}
-                />
-              </div>
+              <button
+                type="button"
+                aria-label="speech"
+                className="tw-inline-block tw-align-top tw-mr-1 tw-leading-8 before-font-material before:tw-content-['\e050'] before:tw-w-8 before:tw-h-8 before:tw-block before:tw-leading-8 before:tw-text-center"
+                onClick={onSpeech}
+              />
             )
           }
           <span className="tw-mr-2.5 tw-font-bold">

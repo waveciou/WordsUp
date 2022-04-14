@@ -10,7 +10,7 @@ const Header: React.FC = () => {
 
   return (
     <header id={styles.header}>
-      <div className={styles.container}>
+      <div className="tw-w-full tw-flex tw-items-center tw-justify-between">
         <Link href="/" passHref>
           <a href="replace" className={styles.logo}>
             <span>Words Up</span>

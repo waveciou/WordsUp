@@ -31,15 +31,17 @@ const WordItemDaily: React.FC<IWordItemDailyProps> = ({
       </div>
       <div className="tw-py-14 tw-px-4 tw-rounded-lg tw-shadow-[0_1px_3px_0_rgba(51,51,51,0.4)]">
         <div className="tw-text-xl tw-text-center tw-leading-10 tw-text-wine tw-break-all tw-mb-2.5">{ en }</div>
-        <WordsCaption
-          id={id}
-          wordsList={zh}
-          partsList={parts}
-          hasBrackets
-          hasTextCenter
-          hasSpeechButton
-          onSpeech={() => { handleSpeechSpeak(en); }}
-        />
+        <div className="tw-leading-8">
+          <WordsCaption
+            id={id}
+            wordsList={zh}
+            partsList={parts}
+            hasBrackets
+            hasTextCenter
+            hasSpeechButton
+            onSpeech={() => { handleSpeechSpeak(en); }}
+          />
+        </div>
       </div>
       <div className="tw-text-xs tw-text-center tw-pt-4">{ dateCaption }</div>
     </>
