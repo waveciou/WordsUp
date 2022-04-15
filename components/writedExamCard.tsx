@@ -6,7 +6,6 @@ import useSpeechSpeak from '@/Hook/useSpeechSpeak';
 import { IAnswerItem } from '@/Interfaces/examination';
 import { IWordItem } from '@/Interfaces/word';
 import stylesButton from '@/Styles/button.module.scss';
-import styles from '@/Styles/examination.module.scss';
 
 interface IExamCardProps {
   currentTopic: number,
@@ -68,40 +67,48 @@ const writedExamCard: React.FC<IExamCardProps> = ({
           題
         </div>
 
-        <div className={styles.textInput}>
+        <div className="tw-mb-4">
           <input
             type="text"
+            className="tw-w-full tw-h-10 tw-block tw-py-3 tw-px-4 tw-leading-4 tw-rounded-md tw-text-xs tw-bg-gray-light"
             value={inputValue}
             onChange={handleChange}
             placeholder="請輸入正確的英文單字"
           />
         </div>
 
-        <div className={styles.descriptionArea}>
-          <div className="tw-absolute tw-top-0.5 tw-left-0">
+        <div className="tw-pl-8 tw-relative tw-overflow-hidden tw-leading-7 tw-mb-4 tw-text-sm tw-text-black">
+          <div className="tw-absolute tw-top-0 tw-left-0">
             <button
               type="button"
               aria-label="speech"
-              className={stylesButton['speech-btn']}
+              className="tw-inline-block tw-align-top tw-leading-7 before-font-material before:tw-content-['\e050'] before:tw-w-7 before:tw-h-7 before:tw-block before:tw-leading-7 before:tw-text-center"
               onClick={() => handleSpeechSpeak(en)}
             />
           </div>
-
-          <WordsCaption id={id} wordsList={zh} partsList={parts} />
+          <div className="tw-leading-7">
+            <WordsCaption id={id} wordsList={zh} partsList={parts} />
+          </div>
         </div>
 
         <div className="tw-flex tw-justify-center">
           <button
             type="button"
             className={`
-              ${styles.button}
-              ${inputValue.trim() === '' ? styles['is-disabled'] : ''}
+              ${stylesButton['basic-btn']}
+              ${inputValue.trim() === '' ? stylesButton['is-disabled'] : ''}
             `}
             onClick={handleSubmit}
           >
             送出
           </button>
-          <button type="button" className={styles.button} onClick={handleNextQuestion}>略過</button>
+          <button
+            type="button"
+            className={stylesButton['basic-btn']}
+            onClick={handleNextQuestion}
+          >
+            略過
+          </button>
         </div>
       </div>
     </>

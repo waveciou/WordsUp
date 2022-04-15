@@ -4,9 +4,9 @@ import { useSpeechSynthesis } from 'react-speech-kit';
 const useSpeechSpeak = () => {
   const { speak, speaking } = useSpeechSynthesis();
 
-  return useCallback((_text: string) => {
+  return useCallback((text: string) => {
     if (speaking === false) {
-      speak({ text: _text });
+      speak({ text });
     }
   }, [speak, speaking]);
 };

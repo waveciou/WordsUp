@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 
 import WordsCaption from '@/Components/wordsCaption';
 import { IAnswerItem } from '@/Interfaces/examination';
@@ -19,9 +20,10 @@ const scoreTable: React.FC<IScoreTableProps> = ({ scoreList = [] }) => {
   const scoreListMemo = useMemo(() => scoreList.map(({
     id, answer, solution, result,
   }) => {
+    const key: string = uuidv4();
     const word: IWordItem = WORDS_DATA.filter((item) => item.id === id)[0];
     return (
-      <tr className="tw-bg-white">
+      <tr key={key} className="tw-bg-white">
         <td className={classDefines}>
           {
             result ? (

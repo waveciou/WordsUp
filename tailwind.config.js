@@ -45,7 +45,19 @@ module.exports = {
     minWidth: {
       200: '200px',
     },
-    extend: {},
+    extend: {
+      spacing: {
+        'header-height': '50px',
+      },
+      zIndex: {
+        3000: '3000',
+        4000: '4000',
+        4500: '4500',
+        5000: '5000',
+        6000: '6000',
+        7000: '7000',
+      },
+    },
   },
   plugins: [],
 };

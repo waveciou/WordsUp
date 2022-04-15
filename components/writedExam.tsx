@@ -10,7 +10,7 @@ import { IAnswerItem } from '@/Interfaces/examination';
 import { setIsExamTesting } from '@/Slice/examination';
 import { IWordItem } from '@/Src/interfaces/word';
 import { RootState } from '@/Store/index';
-import styles from '@/Styles/examination.module.scss';
+import stylesButton from '@/Styles/button.module.scss';
 
 interface IWritedExamProps {
   quantity: number;
@@ -100,14 +100,14 @@ const writedExam: React.FC<IWritedExamProps> = ({
             <div className="tw-my-5 tw-flex tw-justify-center">
               <button
                 type="button"
-                className={styles.button}
+                className={stylesButton['basic-btn']}
                 onClick={handleExamStart}
               >
                 再次測驗
               </button>
               <button
                 type="button"
-                className={styles.button}
+                className={stylesButton['basic-btn']}
                 onClick={onCancelExam}
               >
                 返回主頁

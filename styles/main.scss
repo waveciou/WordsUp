@@ -10,18 +10,13 @@
 @tailwind components;
 @tailwind utilities;
 
-.before-font-material::before {
-  @include font-material;
-}
-
+.before-font-material::before,
 .after-font-material::after {
   @include font-material;
 }
 
-.before-font-awesome::before {
-  @include font-awesome;
-}
-
+.before-font-awesome::before,
 .after-font-awesome::after {
   @include font-awesome;
 }
+
