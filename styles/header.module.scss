@@ -2,17 +2,6 @@
 @charset 'UTF-8';
 @import '@/Styles/utils/_utils.scss';
 
-#header {
-  width: 100%;
-  height: $header-height;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: $color-white;
-  z-index: 3000;
-  box-shadow: 0 1px 3px 0 rgba($color-black, 0.1);
-}
-
 .logo {
   padding-right: 10px;
   padding-left: 10px;
@@ -29,26 +18,5 @@
     margin-right: 10px;
     display: block;
     background: url('../public/img/icon.svg') no-repeat center/contain;
-  }
-}
-
-.menu-btn {
-  width: $header-height;
-  height: $header-height;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-
-  &::before {
-    @include font-material;
-
-    content: '\e5d2';
-    width: 25px;
-    height: 25px;
-    margin: auto;
-    display: block;
-    line-height: 25px;
-    color: $color-green;
   }
 }

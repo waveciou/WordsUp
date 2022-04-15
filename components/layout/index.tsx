@@ -13,7 +13,6 @@ import useGetSheetData from '@/Hook/useGetSheetData';
 import { IProps } from '@/Interfaces/global';
 import { setIsAppMounted, setIsMenuOpen, setScreenWidth, setScrollValue } from '@/Slice/common';
 import { RootState } from '@/Store/index';
-import styles from '@/Styles/layout.module.scss';
 
 declare global {
   interface Window {
@@ -27,7 +26,6 @@ const Layout: React.FC<IProps> = ({ children }) => {
   const handleGetData = useGetSheetData();
 
   const { isAppMounted, isMenuOpen, scrollValue } = useSelector((state: RootState) => state.common);
-  const { isExamTesting } = useSelector((state: RootState) => state.examination);
 
   // Get browser screen width
   const handleGetScreenWidth = useCallback(() => {
@@ -123,11 +121,11 @@ const Layout: React.FC<IProps> = ({ children }) => {
       <Meta />
       <div id="__layout" onScroll={handleGetLayoutScrollValue}>
         <Header />
-        <main className={styles.main}>{ children }</main>
+        <main className="tw-pt-header-height">{ children }</main>
         <div
           aria-hidden="true"
           onClick={() => dispatch(setIsMenuOpen(false))}
-          className={`${styles.overlay} ${isMenuOpen ? styles['is-active'] : ''}`}
+          className={`tw-w-full tw-h-full tw-fixed tw-top-0 tw-left-0 tw-z-4000 tw-bg-black/70 tw-transition-opacity ${isMenuOpen ? 'tw-opacity-100 tw-visible tw-pointer-events-auto' : 'tw-opacity-0 tw-invisible tw-pointer-events-none'}`}
         />
         <Menu />
       </div>
