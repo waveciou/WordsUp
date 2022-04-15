@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 /* eslint-disable max-len */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable object-curly-newline */
@@ -48,13 +49,6 @@ const Collection: React.FC = () => {
 
   // Sort
   const [isSortDownAlt, setIsSortDownAlt] = useState<boolean>(false);
-
-  // Class Name
-  const ClassHandleSortDownBtn = () => `
-    ${stylesButton['fab-btn']}
-    ${stylesButton['fab__sort-down-btn']} 
-    ${isSortDownAlt ? stylesButton['is-down-alt'] : ''}
-  `;
 
   // Process Words Data
   const processWordsCallback = useCallback(() => {
@@ -183,7 +177,7 @@ const Collection: React.FC = () => {
           <div className="tw-mr-2.5 tw-mb-2.5 tw-leading-none tablet:tw-mb-0">
             <button
               type="button"
-              className={ClassHandleSortDownBtn()}
+              className={`tw-w-10 tw-h-10 tw-bg-white tw-rounded-lg tw-flex tw-justify-center tw-items-center before:tw-w-6 before:tw-h-6 before:tw-block tw-bg-contain ${isSortDownAlt ? "before:tw-bg-[url('../public/img/alphabet_z_to_a.svg')]" : "before:tw-bg-[url('../public/img/alphabet_a_to_z.svg')]"}`}
               aria-label="sort-alpha-button"
               onClick={() => setIsSortDownAlt(!isSortDownAlt)}
             />
@@ -191,10 +185,7 @@ const Collection: React.FC = () => {
           <div className="tw-mr-0 tw-mb-2.5 tw-leading-none tablet:tw-mb-0">
             <button
               type="button"
-              className={`
-                ${stylesButton['fab-btn']}
-                ${stylesButton['fab__update-btn']}
-              `}
+              className="tw-w-10 tw-h-10 tw-bg-white tw-rounded-lg before-font-material before:tw-content-['\e5d5'] before:tw-text-center before:tw-leading-10 before:tw-text-black"
               aria-label="data-update-button"
               onClick={handleGetData}
             />
