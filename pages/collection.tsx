@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import Card from '@/Components/card';
 import { Select } from '@/Components/form';
 import useGetSheetData from '@/Hook/useGetSheetData';
+import useScrollToTop from '@/Hook/useScrollToTop';
 import { ISelectOption } from '@/Interfaces/form';
 import { IWordItem } from '@/Interfaces/word';
 import { RootState } from '@/Store/index';
@@ -23,6 +24,7 @@ const Collection: React.FC = () => {
   const { partsOptionsData } = PARTS;
   const { alphabetOptionsData } = ALPHABET;
   const handleGetData = useGetSheetData();
+  const handleScrollToTop = useScrollToTop();
   const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
   const PARTS_DATA = useSelector((state: RootState) => state.collection.parts);
   const { scrollValue } = useSelector((state: RootState) => state.common);

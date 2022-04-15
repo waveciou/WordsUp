@@ -126,7 +126,7 @@ const Layout: React.FC<IProps> = ({ children }) => {
         <main className={styles.main}>{ children }</main>
         <div
           aria-hidden="true"
-          onClick={() => { dispatch(setIsMenuOpen(false)); }}
+          onClick={() => dispatch(setIsMenuOpen(false))}
           className={`${styles.overlay} ${isMenuOpen ? styles['is-active'] : ''}`}
         />
         <Menu />
