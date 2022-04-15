@@ -213,6 +213,16 @@ const Collection: React.FC = () => {
             )
         }
       </div>
+      {
+        scrollValue > 0 && (
+          <button
+            type="button"
+            aria-label="scroll-to-top-button"
+            className="tw-w-10 tw-h-10 tw-block tw-fixed tw-right-5 tw-bottom-12 tw-bg-green-dark/60 tw-rounded-full before-font-material before:tw-content-['\e5d8'] before:tw-leading-10 before:tw-text-yellow"
+            onClick={handleScrollToTop}
+          />
+        )
+      }
     </>
   );
 };
