@@ -2,42 +2,6 @@
 @charset 'UTF-8';
 @import '@/Styles/utils/_utils.scss';
 
-// * Fab Button
-
-$fab-btn--size: 40px;
-$fab-btn--radius: 8px;
-
-.fab-btn {
-  width: $fab-btn--size;
-  height: $fab-btn--size;
-  background-color: $color-white;
-  border-radius: $fab-btn--radius;
-
-  &::before {
-    @include font-material;
-
-    text-align: center;
-    line-height: $fab-btn--size;
-    color: $color-black;
-  }
-}
-
-.fab__sort-down-btn {
-  &::before {
-    content: '\e164';
-  }
-
-  &.is-down-alt::before {
-    color: $color-green;
-  }
-}
-
-.fab__update-btn {
-  &::before {
-    content: '\e5d5';
-  }
-}
-
 // * Speech Button
 
 .speech-btn {
