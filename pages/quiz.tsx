@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 
 import WritedExam from '@/Components/writedExam';
 import { setIsExamTesting } from '@/Slice/examination';
-import styles from '@/Styles/examination.module.scss';
+import stylesButton from '@/Styles/button.module.scss';
 
 const Quiz: React.FC = () => {
   const dispatch = useDispatch();
@@ -29,7 +29,7 @@ const Quiz: React.FC = () => {
               <div className="tw-my-5 tw-flex tw-justify-center">
                 <button
                   type="button"
-                  className={styles.button}
+                  className={stylesButton['basic-btn']}
                   onClick={() => setCurrentExam('writedExam')}
                 >
                   開始測驗
