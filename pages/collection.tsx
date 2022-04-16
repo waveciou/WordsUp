@@ -162,27 +162,27 @@ const Collection: React.FC = () => {
       <h1 className="title">單字列表</h1>
       <div className="content size-large tw-p-0 tw-rounded-none tw-bg-transparent">
         <div className="tw-flex tw-items-center tw-flex-wrap tw-justify-end">
-          <div className="tw-w-full tw-mr-0 tw-mb-2.5 tw-leading-none tablet:tw-w-auto tablet:tw-mr-2.5 tablet:tw-mb-0">
+          <div className="tw-w-6/12 tw-pr-1 tw-mb-2.5 tw-leading-none tablet:tw-w-auto tablet:tw-mr-2.5 tablet:tw-mb-0 tablet:tw-pr-0">
             <Select
               options={filterAlphabetOption}
               onChange={(event) => { setFilterAlphabet(event.target.value); }}
             />
           </div>
-          <div className="tw-w-full tw-mr-0 tw-mb-2.5 tw-leading-none tablet:tw-w-auto tablet:tw-mr-2.5 tablet:tw-mb-0">
+          <div className="tw-w-6/12 tw-pl-1 tw-mb-2.5 tw-leading-none tablet:tw-w-auto tablet:tw-mr-2.5 tablet:tw-mb-0 tablet:tw-pl-0">
             <Select
               options={filterPartOption}
               onChange={(event) => { setFilterPart(event.target.value); }}
             />
           </div>
-          <div className="tw-mr-2.5 tw-mb-2.5 tw-leading-none tablet:tw-mb-0">
+          <div className="tw-mr-2.5 tw-leading-none tablet:tw-mb-0">
             <button
               type="button"
-              className={`tw-w-10 tw-h-10 tw-bg-white tw-rounded-lg tw-flex tw-justify-center tw-items-center before:tw-w-5 before:tw-h-5 before:tw-block before:tw-bg-contain ${isSortDownAlt ? "before:tw-bg-[url('../public/img/alphabet_z_to_a.svg')]" : "before:tw-bg-[url('../public/img/alphabet_a_to_z.svg')]"}`}
+              className={`tw-w-10 tw-h-10 tw-bg-white tw-rounded-lg tw-flex tw-justify-center tw-items-center before:tw-w-5 before:tw-h-5 before:tw-block before:bg-no-repeat before:tw-bg-center before:tw-bg-contain ${isSortDownAlt ? "before:tw-bg-[url('../public/img/alphabet_z_to_a.svg')]" : "before:tw-bg-[url('../public/img/alphabet_a_to_z.svg')]"}`}
               aria-label="sort-alpha-button"
               onClick={() => setIsSortDownAlt(!isSortDownAlt)}
             />
           </div>
-          <div className="tw-mr-0 tw-mb-2.5 tw-leading-none tablet:tw-mb-0">
+          <div className="tw-mr-0 tw-leading-none tablet:tw-mb-0">
             <button
               type="button"
               className="tw-w-10 tw-h-10 tw-bg-white tw-rounded-lg before-font-material before:tw-content-['\e5d5'] before:tw-text-center before:tw-leading-10 before:tw-text-black"
