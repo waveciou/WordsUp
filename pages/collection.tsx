@@ -12,7 +12,6 @@ import useScrollToTop from '@/Hook/useScrollToTop';
 import { ISelectOption } from '@/Interfaces/form';
 import { IWordItem } from '@/Interfaces/word';
 import { RootState } from '@/Store/index';
-import stylesButton from '@/Styles/button.module.scss';
 
 interface IOptionsData {
   id: string,
@@ -178,7 +177,7 @@ const Collection: React.FC = () => {
           <div className="tw-mr-2.5 tw-mb-2.5 tw-leading-none tablet:tw-mb-0">
             <button
               type="button"
-              className={`tw-w-10 tw-h-10 tw-bg-white tw-rounded-lg tw-flex tw-justify-center tw-items-center before:tw-w-6 before:tw-h-6 before:tw-block tw-bg-contain ${isSortDownAlt ? "before:tw-bg-[url('../public/img/alphabet_z_to_a.svg')]" : "before:tw-bg-[url('../public/img/alphabet_a_to_z.svg')]"}`}
+              className={`tw-w-10 tw-h-10 tw-bg-white tw-rounded-lg tw-flex tw-justify-center tw-items-center before:tw-w-5 before:tw-h-5 before:tw-block before:tw-bg-contain ${isSortDownAlt ? "before:tw-bg-[url('../public/img/alphabet_z_to_a.svg')]" : "before:tw-bg-[url('../public/img/alphabet_a_to_z.svg')]"}`}
               aria-label="sort-alpha-button"
               onClick={() => setIsSortDownAlt(!isSortDownAlt)}
             />
