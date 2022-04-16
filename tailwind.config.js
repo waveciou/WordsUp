@@ -13,8 +13,8 @@ module.exports = {
       mobile_space: `${480 + 30}px`,
       tablet: '768px',
       tablet_space: `${768 + 30}px`,
-      develop: '1025px',
-      develop_space: `${1024 + 30}px`,
+      desktop: '1025px',
+      desktop_space: `${1024 + 30}px`,
     },
     colors: {
       transparent: 'transparent',
@@ -43,6 +43,9 @@ module.exports = {
     },
     minWidth: {
       200: '200px',
+    },
+    minHeight: {
+      300: '300px',
     },
     extend: {
       spacing: {
