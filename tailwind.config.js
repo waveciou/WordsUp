@@ -10,6 +10,7 @@ module.exports = {
   },
   theme: {
     screens: {
+      mini: '370px',
       mobile: '480px',
       mobile_space: `${480 + 30}px`,
       tablet: '768px',
