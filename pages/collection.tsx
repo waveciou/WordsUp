@@ -30,7 +30,7 @@ const Collection: React.FC = () => {
   const handleScrollToTop = useScrollToTop();
   const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
   const PARTS_DATA = useSelector((state: RootState) => state.collection.parts);
-  const { scrollValue } = useSelector((state: RootState) => state.common);
+  const { scrollValue, screenWidth } = useSelector((state: RootState) => state.common);
   const [isMounted, setIsMounted] = useState<Boolean>(false);
   const [words, setWords] = useState<IWordItem[]>([]);
   const [confirmWords, setConfirmWords] = useState<IWordItem[]>([]);
@@ -104,6 +104,15 @@ const Collection: React.FC = () => {
     );
   }), [confirmWords]);
 
+  // Words Total
+  const wordsTotalMemo = useMemo(() => (
+    <div className="tw-text-yellow tw-text-xs">
+      共
+      <span className="tw-mx-1">{ words.length }</span>
+      個單字
+    </div>
+  ), [words]);
+
   useEffect(() => {
     setIsMounted(true);
     return () => setIsMounted(false);
@@ -134,16 +143,26 @@ const Collection: React.FC = () => {
   useEffect(() => {
     const browserHeight: number = window.innerHeight;
 
-    if (scrollValue + browserHeight >= document.body.clientHeight - (browserHeight / 2)) {
-      const index: number = loadIndex + 1;
-      if (index <= loadTotal) {
+    const contentHeight: number = (() => {
+      if (screenWidth < 1025) {
+        const element: HTMLElement | null = document.getElementById('__main');
+        if (element !== null) {
+          return element.offsetHeight;
+        }
+      }
+      return document.body.clientHeight;
+    })();
+
+    if (scrollValue + browserHeight >= contentHeight - (browserHeight / 2)) {
+      if (loadIndex < loadTotal) {
+        const index: number = loadIndex + 1;
         setLoadIndex(index);
       }
     }
-  }, [scrollValue]);
+  }, [scrollValue, screenWidth]);
 
   useEffect(() => {
-    if (loadIndex > 0) {
+    if (loadIndex > 0 && words.length) {
       const sliceBegin: number = (loadIndex - 1) * LOAD_AMOUNT;
       const sliceEnd: number = loadIndex * LOAD_AMOUNT;
       const capture: IWordItem[] = words.slice(sliceBegin, sliceEnd);
@@ -161,34 +180,42 @@ const Collection: React.FC = () => {
     <>
       <h1 className="title">單字列表</h1>
       <div className="content size-large tw-p-0 tw-rounded-none tw-bg-transparent">
-        <div className="tw-flex tw-items-center tw-flex-wrap tw-justify-end">
-          <div className="tw-w-6/12 tw-pr-1 tw-mb-2.5 tw-leading-none tablet:tw-w-auto tablet:tw-mr-2.5 tablet:tw-mb-0 tablet:tw-pr-0">
-            <Select
-              options={filterAlphabetOption}
-              onChange={(event) => { setFilterAlphabet(event.target.value); }}
-            />
-          </div>
-          <div className="tw-w-6/12 tw-pl-1 tw-mb-2.5 tw-leading-none tablet:tw-w-auto tablet:tw-mr-2.5 tablet:tw-mb-0 tablet:tw-pl-0">
-            <Select
-              options={filterPartOption}
-              onChange={(event) => { setFilterPart(event.target.value); }}
-            />
-          </div>
-          <div className="tw-mr-2.5 tw-leading-none tablet:tw-mb-0">
-            <button
-              type="button"
-              className={`tw-w-10 tw-h-10 tw-bg-white tw-rounded-lg tw-flex tw-justify-center tw-items-center before:tw-w-5 before:tw-h-5 before:tw-block before:bg-no-repeat before:tw-bg-center before:tw-bg-contain ${isSortDownAlt ? "before:tw-bg-[url('../public/img/alphabet_z_to_a.svg')]" : "before:tw-bg-[url('../public/img/alphabet_a_to_z.svg')]"}`}
-              aria-label="sort-alpha-button"
-              onClick={() => setIsSortDownAlt(!isSortDownAlt)}
-            />
-          </div>
-          <div className="tw-mr-0 tw-leading-none tablet:tw-mb-0">
-            <button
-              type="button"
-              className="tw-w-10 tw-h-10 tw-bg-white tw-rounded-lg before-font-material before:tw-content-['\e5d5'] before:tw-text-center before:tw-leading-10 before:tw-text-black"
-              aria-label="data-update-button"
-              onClick={handleGetData}
-            />
+        <div className="tablet:tw-flex tablet:tw-items-center tablet:tw-justify-between">
+          { screenWidth > 767 && wordsTotalMemo }
+          <div className="tw-flex tw-items-center tw-flex-wrap tw-justify-end">
+            <div className="tw-w-6/12 tw-pr-1 tw-mb-2.5 tw-leading-none tablet:tw-w-auto tablet:tw-mr-2.5 tablet:tw-mb-0 tablet:tw-pr-0">
+              <Select
+                options={filterAlphabetOption}
+                onChange={(event) => { setFilterAlphabet(event.target.value); }}
+              />
+            </div>
+            <div className="tw-w-6/12 tw-pl-1 tw-mb-2.5 tw-leading-none tablet:tw-w-auto tablet:tw-mr-2.5 tablet:tw-mb-0 tablet:tw-pl-0">
+              <Select
+                options={filterPartOption}
+                onChange={(event) => { setFilterPart(event.target.value); }}
+              />
+            </div>
+            <div className="tw-w-full tw-flex tw-items-center tw-justify-between tablet:tw-justify-start tablet:tw-w-auto">
+              { screenWidth < 768 && wordsTotalMemo }
+              <div className="tw-flex tw-items-center tablet:tw-justify-start">
+                <div className="tw-mr-2.5 tw-leading-none tablet:tw-mb-0">
+                  <button
+                    type="button"
+                    className={`tw-w-10 tw-h-10 tw-bg-white tw-rounded-lg tw-flex tw-justify-center tw-items-center before:tw-w-5 before:tw-h-5 before:tw-block before:bg-no-repeat before:tw-bg-center before:tw-bg-contain ${isSortDownAlt ? "before:tw-bg-[url('../public/img/alphabet_z_to_a.svg')]" : "before:tw-bg-[url('../public/img/alphabet_a_to_z.svg')]"}`}
+                    aria-label="sort-alpha-button"
+                    onClick={() => setIsSortDownAlt(!isSortDownAlt)}
+                  />
+                </div>
+                <div className="tw-mr-0 tw-leading-none tablet:tw-mb-0">
+                  <button
+                    type="button"
+                    className="tw-w-10 tw-h-10 tw-bg-white tw-rounded-lg before-font-material before:tw-content-['\e5d5'] before:tw-text-center before:tw-leading-10 before:tw-text-black"
+                    aria-label="data-update-button"
+                    onClick={handleGetData}
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
