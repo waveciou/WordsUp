@@ -33,6 +33,8 @@ const getRandomWord = (wordsData: IWordItem[], date: string): ICasesWord => {
   };
 };
 
+const deepCloneObj = (obj: object) => JSON.parse(JSON.stringify(obj));
+
 const Home: React.FC = () => {
   dayjs.extend(utc);
   const day = dayjs();
@@ -40,7 +42,7 @@ const Home: React.FC = () => {
 
   const [dateId, setDateId] = useState<string>('');
   const [dateCaption, setDateCaption] = useState<string>('');
-  const [dailyWord, setDailyWord] = useState<IWordItem>(JSON.parse(JSON.stringify(wordTemplate)));
+  const [dailyWord, setDailyWord] = useState<IWordItem>(deepCloneObj(wordTemplate));
 
   const handleSetDailyWord = ({ id, date, word }: ICasesWord) => {
     setDailyWord(word);
@@ -51,7 +53,7 @@ const Home: React.FC = () => {
     let result: ICasesWord = {
       id: dailyWord.id,
       date: dateId,
-      word: JSON.parse(JSON.stringify(dailyWord)),
+      word: deepCloneObj(dailyWord),
     };
 
     while (result.id === dailyWord.id) {
@@ -77,7 +79,7 @@ const Home: React.FC = () => {
       let result: ICasesWord = {
         id: '',
         date: '',
-        word: JSON.parse(JSON.stringify(wordTemplate)),
+        word: deepCloneObj(wordTemplate),
       };
 
       if (!!localStorage.getItem('dailyWord') === true) {

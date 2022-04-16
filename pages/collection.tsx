@@ -51,7 +51,7 @@ const Collection: React.FC = () => {
   const [isSortDownAlt, setIsSortDownAlt] = useState<boolean>(false);
 
   // Process Words Data
-  const processWordsCallback = useCallback(() => {
+  const processWordsList = useCallback(() => {
     handleScrollToTop();
 
     const wordsData: IWordItem[] = [...WORDS_DATA];
@@ -90,6 +90,21 @@ const Collection: React.FC = () => {
     setLoadTotal(Math.floor(total / LOAD_AMOUNT) + ((total % LOAD_AMOUNT) > 0 ? 1 : 0));
   }, [WORDS_DATA, filterPart, filterAlphabet, isSortDownAlt]);
 
+  // List Memo
+  const wordListMemo = useMemo(() => confirmWords.map((wordData: IWordItem, index: number) => {
+    const { id } = wordData;
+    const isEven: boolean = !!(index % 2 === 1);
+    const isThirChid: boolean = !!((index + 1) % 3 === 0);
+    return (
+      <li
+        key={id}
+        className={`tw-w-full tw-mb-3 tablet:tw-w-[calc((100%-0.75rem)/2)] tablet:tw-mr-3 develop:tw-w-[calc((100%-1.5rem)/3)] ${isEven ? 'tablet:tw-mr-0 develop:tw-mr-3' : ''} ${isThirChid ? 'develop:tw-mr-0' : ''}`}
+      >
+        <Card wordData={wordData} />
+      </li>
+    );
+  }), [confirmWords]);
+
   useEffect(() => {
     setIsMounted(true);
     return () => setIsMounted(false);
@@ -113,9 +128,9 @@ const Collection: React.FC = () => {
 
   useEffect(() => {
     if (isMounted) {
-      processWordsCallback();
+      processWordsList();
     }
-  }, [isMounted, processWordsCallback, WORDS_DATA, filterPart, filterAlphabet, isSortDownAlt]);
+  }, [isMounted, processWordsList, WORDS_DATA, filterPart, filterAlphabet, isSortDownAlt]);
 
   useEffect(() => {
     const browserHeight: number = window.innerHeight;
@@ -142,20 +157,6 @@ const Collection: React.FC = () => {
       }
     }
   }, [loadIndex, words]);
-
-  const wordListMemo = useMemo(() => confirmWords.map((wordData: IWordItem, index: number) => {
-    const { id } = wordData;
-    const isEven: boolean = !!(index % 2 === 1);
-    const isThirChid: boolean = !!((index + 1) % 3 === 0);
-    return (
-      <li
-        key={id}
-        className={`tw-w-full tw-mb-3 tablet:tw-w-[calc((100%-0.75rem)/2)] tablet:tw-mr-3 develop:tw-w-[calc((100%-1.5rem)/3)] ${isEven ? 'tablet:tw-mr-0 develop:tw-mr-3' : ''} ${isThirChid ? 'develop:tw-mr-0' : ''}`}
-      >
-        <Card wordData={wordData} />
-      </li>
-    );
-  }), [confirmWords]);
 
   return (
     <>
