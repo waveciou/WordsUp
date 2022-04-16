@@ -4,7 +4,7 @@ import { IWordItem } from '@/Interfaces/word';
 const makeApiCall = (sheetId: string) => {
   const request = window.gapi.client.sheets.spreadsheets.get({
     spreadsheetId: sheetId,
-    ranges: 'Sheet1!2:1247',
+    ranges: 'Sheet1!2:1241',
     includeGridData: true,
   });
 

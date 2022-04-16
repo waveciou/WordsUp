@@ -25,7 +25,7 @@ const Layout: React.FC<IProps> = ({ children }) => {
   const router = useRouter();
   const handleGetData = useGetSheetData();
 
-  const { isAppMounted, isMenuOpen, scrollValue } = useSelector((state: RootState) => state.common);
+  const { isAppMounted, isMenuOpen } = useSelector((state: RootState) => state.common);
 
   // Get browser screen width
   const handleGetScreenWidth = useCallback(() => {
@@ -121,7 +121,7 @@ const Layout: React.FC<IProps> = ({ children }) => {
       <Meta />
       <div id="__layout" onScroll={handleGetLayoutScrollValue}>
         <Header />
-        <main className="tw-pt-header-height">{ children }</main>
+        <main id="__main" className="tw-pt-header-height">{ children }</main>
         <div
           aria-hidden="true"
           onClick={() => dispatch(setIsMenuOpen(false))}
