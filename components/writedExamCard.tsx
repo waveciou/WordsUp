@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/rules-of-hooks */
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 
+import Alert from '@/Components/alert';
 import WordsCaption from '@/Components/wordsCaption';
 import useSpeechSpeak from '@/Hook/useSpeechSpeak';
 import { IAnswerItem } from '@/Interfaces/examination';
@@ -11,14 +13,16 @@ interface IExamCardProps {
   currentTopic: number,
   wordData: IWordItem,
   onNext: () => void,
-  setAnswer: (answerItem: IAnswerItem) => void
+  setAnswer: (answerItem: IAnswerItem) => void,
 }
 
 const writedExamCard: React.FC<IExamCardProps> = ({
   currentTopic, wordData, onNext, setAnswer,
 }) => {
+  const router = useRouter();
   const handleSpeechSpeak = useSpeechSpeak();
   const [inputValue, setInputValue] = useState<string>('');
+  const [isLeaveAlertOpen, setIsLeaveAlertOpen] = useState<boolean>(false);
 
   const {
     en, zh, parts, id,
@@ -59,12 +63,21 @@ const writedExamCard: React.FC<IExamCardProps> = ({
   return (
     <>
       <div>
-        <div className="tw-text-md tw-text-wine tw-leading-7 tw-mb-4">
-          第
-          {' '}
-          {currentTopic + 1}
-          {' '}
-          題
+        <div className="tw-flex tw-items-center tw-justify-between tw-mb-4">
+          <div className="tw-text-md tw-text-wine tw-leading-7">
+            第
+            {' '}
+            {currentTopic + 1}
+            {' '}
+            題
+          </div>
+          <button
+            type="button"
+            onClick={() => setIsLeaveAlertOpen(true)}
+            className="tw-flex tw-items-center tw-text-xs tw-text-green-dark hover:tw-text-green before-font-material before:tw-content-['\e15e'] before:tw-block before:tw-mr-1"
+          >
+            離開測驗
+          </button>
         </div>
 
         <div className="tw-mb-4">
@@ -86,12 +99,12 @@ const writedExamCard: React.FC<IExamCardProps> = ({
               onClick={() => handleSpeechSpeak(en)}
             />
           </div>
-          <div className="tw-leading-7">
+          <div className="tw-leading-7 tw-text-xs tablet:tw-text-sm">
             <WordsCaption id={id} wordsList={zh} partsList={parts} />
           </div>
         </div>
 
-        <div className="tw-flex tw-justify-center">
+        <div className="tw-flex tw-justify-center tw-mt-6">
           <button
             type="button"
             className={`
@@ -111,6 +124,15 @@ const writedExamCard: React.FC<IExamCardProps> = ({
           </button>
         </div>
       </div>
+      <Alert
+        show={isLeaveAlertOpen}
+        title="確定要離開測驗？"
+        content="測驗紀錄將不會保存"
+        confirmText="確定"
+        cancelText="取消"
+        onConfirm={() => router.push('/quiz')}
+        onCancel={() => setIsLeaveAlertOpen(false)}
+      />
     </>
   );
 };

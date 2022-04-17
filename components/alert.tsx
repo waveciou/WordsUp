@@ -2,9 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { CSSTransition } from 'react-transition-group';
 
-import styles from '@/Styles/alert.module.scss';
-
-interface IAlertModal {
+interface IAlertModalProps {
   show: boolean;
   title: string;
   content: string;
@@ -14,7 +12,7 @@ interface IAlertModal {
   onCancel?: () => void;
 }
 
-const Alert: React.FC<IAlertModal> = ({
+const Alert: React.FC<IAlertModalProps> = ({
   show,
   title,
   content,
@@ -49,19 +47,33 @@ const Alert: React.FC<IAlertModal> = ({
     >
       <div
         ref={nodeRef}
-        className={styles['alert-desktop']}
+        className="tw-w-full tw-h-full tw-flex tw-items-center tw-justify-center tw-fixed tw-top-0 tw-left-0 tw-z-6000 tw-bg-black/90"
       >
-        <div className={styles.alert__wrapper}>
-          <div className={styles.alert__container}>
-            <div className={styles.alert__title}>{ title }</div>
-            <div className={styles.alert__content}>{ content }</div>
+        <div className="tw-w-72 tw-relative tw-overflow-hidden tw-rounded-lg tw-bg-white">
+          <div className="tw-p-4 tw-text-center">
+            <div className="tw-text-sm tw-leading-7">{ title }</div>
+            <div className="tw-text-xxs tw-leading-7">{ content }</div>
           </div>
-          <div className={styles.alert__footer}>
+          <div className="tw-flex tw-border-t tw-border-gray tw-border-solid">
+            <button
+              type="button"
+              className="tw-px-1 tw-py-2 tw-grow tw-text-sm"
+              onClick={onConfirm}
+            >
+              {confirmText}
+            </button>
             {
               cancelText && onCancel
-              && (<button type="button" onClick={onCancel}>{cancelText}</button>)
+              && (
+                <button
+                  type="button"
+                  className="tw-px-1 tw-py-2 tw-grow tw-text-sm tw-border-l tw-border-t-0 tw-border-r-0 tw-border-b-0 tw-border-gray tw-border-solid"
+                  onClick={onCancel}
+                >
+                  {cancelText}
+                </button>
+              )
             }
-            <button type="button" onClick={onConfirm}>{confirmText}</button>
           </div>
         </div>
       </div>
