@@ -47,20 +47,6 @@ const Layout: React.FC<IProps> = ({ children }) => {
     dispatch(setScrollValue(value));
   }, [dispatch]);
 
-  // // Get LocalStorage Data
-  // const handleGetLocalStorageData = useCallback(async () => {
-  //   const options = getItemWithObject('settingsOption');
-  //   if ((typeof options === 'object') && (options instanceof Array === false)) {
-  //     await dispatch(setSettingsOption(options));
-  //   }
-  //   dispatch(setIsMounted(true));
-  // }, [dispatch]);
-
-  // // Set initialization settings option
-  // useEffect(() => {
-  //   handleGetLocalStorageData();
-  // }, [handleGetLocalStorageData]);
-
   useEffect(() => {
     dispatch(setIsAppMounted(true));
   }, [dispatch]);
@@ -94,16 +80,6 @@ const Layout: React.FC<IProps> = ({ children }) => {
       document.documentElement.classList.remove('is-fixed');
     }
   }, [isMenuOpen]);
-
-  // Set settings option in localStorage
-  // useEffect(() => {
-  //   const { saveOption } = SETTINGS_OPTION;
-  //   if (saveOption === true) {
-  //     setItemWithObject('settingsOption', SETTINGS_OPTION);
-  //   } else {
-  //     removeItem('settingsOption');
-  //   }
-  // }, [SETTINGS_OPTION]);
 
   useEffect(() => {
     if (isAppMounted) {

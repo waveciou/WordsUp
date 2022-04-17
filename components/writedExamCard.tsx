@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 
 import Alert from '@/Components/alert';
@@ -12,13 +13,13 @@ interface IExamCardProps {
   currentTopic: number,
   wordData: IWordItem,
   onNext: () => void,
-  onCancelExam: () => void,
   setAnswer: (answerItem: IAnswerItem) => void,
 }
 
 const writedExamCard: React.FC<IExamCardProps> = ({
-  currentTopic, wordData, onNext, onCancelExam, setAnswer,
+  currentTopic, wordData, onNext, setAnswer,
 }) => {
+  const router = useRouter();
   const handleSpeechSpeak = useSpeechSpeak();
   const [inputValue, setInputValue] = useState<string>('');
   const [isLeaveAlertOpen, setIsLeaveAlertOpen] = useState<boolean>(false);
@@ -129,7 +130,7 @@ const writedExamCard: React.FC<IExamCardProps> = ({
         content="測驗紀錄將不會保存"
         confirmText="確定"
         cancelText="取消"
-        onConfirm={onCancelExam}
+        onConfirm={() => router.push('/quiz')}
         onCancel={() => setIsLeaveAlertOpen(false)}
       />
     </>

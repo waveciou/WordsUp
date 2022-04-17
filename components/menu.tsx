@@ -24,11 +24,15 @@ const Menu: React.FC = () => {
   const ClassHandleMenu = () => `${isMenuOpen === true ? styles['is-active'] : ''}`;
 
   const routeLinksMemo = useMemo(() => {
-    const ClassHandle = (path: string, id: string) => `
-      ${styles.item}
-      ${styles[`icon-${id}`]}
-      ${router.pathname === path ? styles.current : ''}
-    `;
+    const ClassHandle = (path: string, id: string): string => {
+      const routePath: string = `/${router.pathname.split('/')[1]}`;
+      const isCurrent: boolean = !!(routePath === path);
+      return `
+        ${styles.item}
+        ${styles[`icon-${id}`]}
+        ${isCurrent ? styles.current : ''}
+      `;
+    };
 
     return routeLinks.map((route: IRouteItem) => {
       const { id, path, name } = route;
