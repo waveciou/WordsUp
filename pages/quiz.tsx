@@ -28,7 +28,7 @@ const Quiz: React.FC = () => {
     default:
       return (
         <div className="tw-py-5 tw-px-4 tw-rounded-lg tw-shadow-[0_1px_3px_0_rgba(51,51,51,0.4)]">
-          <div className="tw-text-wine/80 tw-my-5 tw-text-md tw-text-center">
+          <div className="tw-text-wine/80 tw-my-5 tw-text-md tw-text-center tw-leading-9 before-font-material before:tw-content-['\e0f0'] before:tw-leading-9 before:tw-align-top">
             單字填空測驗 (10題)
           </div>
           <div className="tw-my-5 tw-flex tw-justify-center">

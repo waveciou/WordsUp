@@ -83,6 +83,7 @@ const writedExam: React.FC<IWritedExamProps> = ({
             currentTopic={currentTopic}
             wordData={questions[currentTopic]}
             onNext={handleToNextQuestion}
+            onCancelExam={onCancelExam}
             setAnswer={handleSetAnswer}
           />
         )
