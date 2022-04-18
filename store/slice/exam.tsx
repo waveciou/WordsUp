@@ -2,15 +2,13 @@ import { IWordItem } from '@/Interfaces/word';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: {
-  isExamTesting: boolean,
-  questions: IWordItem[],
+  isExamTesting: boolean
 } = {
   isExamTesting: false,
-  questions: [],
 };
 
 export const examSlice = createSlice({
-  name: 'examination',
+  name: 'exam',
   initialState,
   reducers: {
     setIsExamTesting: (state, action: PayloadAction<boolean>) => {

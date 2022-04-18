@@ -6,7 +6,7 @@ import Alert from '@/Components/alert';
 import { InputText, PrimaryButton } from '@/Components/form';
 import WordsCaption from '@/Components/wordsCaption';
 import useSpeechSpeak from '@/Hook/useSpeechSpeak';
-import { IAnswerItem } from '@/Interfaces/examination';
+import { IAnswerItem } from '@/Interfaces/exam';
 import { IWordItem } from '@/Interfaces/word';
 
 interface IExamCardProps {

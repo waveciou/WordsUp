@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 
 import WordsCaption from '@/Components/wordsCaption';
-import { IAnswerItem } from '@/Interfaces/examination';
+import { IAnswerItem } from '@/Interfaces/exam';
 import { IWordItem } from '@/Interfaces/word';
 import { RootState } from '@/Store/index';
 

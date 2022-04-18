@@ -6,7 +6,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 
 import { PrimaryButton } from '@/Components/form';
-import { setIsExamTesting } from '@/Slice/examination';
+import { setIsExamTesting } from '@/Slice/exam';
 
 const Quiz: React.FC = () => {
   const router = useRouter();

@@ -8,7 +8,7 @@ import { PrimaryButton } from '@/Components/form';
 import ScoreTable from '@/Components/scoreTable';
 import WritedExamCard from '@/Components/writedExamCard';
 import randomCollection from '@/Functions/randomCollection';
-import { IAnswerItem } from '@/Interfaces/examination';
+import { IAnswerItem } from '@/Interfaces/exam';
 import { IWordItem } from '@/Src/interfaces/word';
 import { RootState } from '@/Store/index';
 
