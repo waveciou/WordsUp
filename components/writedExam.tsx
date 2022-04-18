@@ -4,13 +4,13 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
+import { PrimaryButton } from '@/Components/form';
 import ScoreTable from '@/Components/scoreTable';
 import WritedExamCard from '@/Components/writedExamCard';
 import randomCollection from '@/Functions/randomCollection';
 import { IAnswerItem } from '@/Interfaces/examination';
 import { IWordItem } from '@/Src/interfaces/word';
 import { RootState } from '@/Store/index';
-import stylesButton from '@/Styles/button.module.scss';
 
 interface IWritedExamProps {
   quantity: number;
@@ -91,20 +91,8 @@ const writedExam: React.FC<IWritedExamProps> = ({ quantity = 10 }) => {
             </div>
             <ScoreTable scoreList={answerState} />
             <div className="tw-my-5 tw-flex tw-justify-center">
-              <button
-                type="button"
-                className={stylesButton['basic-btn']}
-                onClick={handleExamStart}
-              >
-                再次測驗
-              </button>
-              <button
-                type="button"
-                className={stylesButton['basic-btn']}
-                onClick={() => router.push('/quiz')}
-              >
-                返回主頁
-              </button>
+              <PrimaryButton text="再次測驗" onClick={handleExamStart} />
+              <PrimaryButton text="返回主頁" onClick={() => router.push('/quiz')} />
             </div>
           </>
         )
