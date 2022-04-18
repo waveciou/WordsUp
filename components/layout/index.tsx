@@ -1,4 +1,6 @@
 /* eslint-disable object-curly-newline */
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,10 +10,14 @@ import Loader from '@/Components/loader';
 import Menu from '@/Components/menu';
 import Meta from '@/Components/meta';
 import debounce from '@/Functions/debounce';
+import formatNumber from '@/Functions/formatNumber';
 import loadGapiScrpit from '@/Functions/googleSheetAPI/loadAPIScrpit';
+import randomCollection from '@/Functions/randomCollection';
+import randomNumber from '@/Functions/randomNumber';
 import useGetSheetData from '@/Hook/useGetSheetData';
 import { IProps } from '@/Interfaces/global';
 import { setIsAppMounted, setIsMenuOpen, setScreenWidth, setScrollValue } from '@/Slice/common';
+import { setDailyWords, setDateCaption, setDateId } from '@/Slice/daily';
 import { RootState } from '@/Store/index';
 
 declare global {
@@ -20,12 +26,22 @@ declare global {
   }
 }
 
+interface IDailyCasesWord {
+  date: string;
+  words: number[];
+}
+
 const Layout: React.FC<IProps> = ({ children }) => {
+  dayjs.extend(utc);
+
+  const day = dayjs();
   const dispatch = useDispatch();
   const router = useRouter();
   const handleGetData = useGetSheetData();
 
   const { isAppMounted, isMenuOpen } = useSelector((state: RootState) => state.common);
+  const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
+  const { dateId } = useSelector((state: RootState) => state.daily);
 
   // Get browser screen width
   const handleGetScreenWidth = useCallback(() => {
@@ -33,7 +49,7 @@ const Layout: React.FC<IProps> = ({ children }) => {
     dispatch(setScreenWidth(value));
   }, [dispatch]);
 
-  // Get Scroll Value (>= 1025)
+  // Get Scroll Value (Desktop, >= 1025)
   const handleGetScrollValue = useCallback(() => {
     const value: number = window.pageYOffset
     || document.documentElement.scrollTop
@@ -41,7 +57,7 @@ const Layout: React.FC<IProps> = ({ children }) => {
     dispatch(setScrollValue(value));
   }, [dispatch]);
 
-  // Get Scroll Value (<= 1024)
+  // Get Scroll Value (Tablet, Mobile, <= 1024)
   const handleGetLayoutScrollValue = useCallback((e) => {
     const value: number = e.target.scrollTop;
     dispatch(setScrollValue(value));
@@ -81,9 +97,51 @@ const Layout: React.FC<IProps> = ({ children }) => {
     }
   }, [isMenuOpen]);
 
+  // Get Date & Set Date Caption
+  useEffect(() => {
+    const year: number = day.utcOffset(8).year();
+    const month: number = day.utcOffset(8).month() + 1;
+    const date: number = day.utcOffset(8).date();
+
+    dispatch(setDateId(`${year}-${month}-${date}`));
+    dispatch(setDateCaption(`${year}年${formatNumber(month)}月${formatNumber(date)}日`));
+  }, [day, dispatch]);
+
+  useEffect(() => {
+    if (!!dateId && WORDS_DATA.length > 0) {
+      const localData: string = localStorage.getItem('dailyWord') || '';
+
+      let result: IDailyCasesWord = {
+        date: '',
+        words: [],
+      };
+
+      if (!!localStorage.getItem('dailyWord') === true) {
+        const { date = '', words = [] }: IDailyCasesWord = JSON.parse(localData);
+
+        if (date === dateId && words.length === 10) {
+          result = { date, words };
+        } else {
+          result = {
+            date: dateId,
+            words: randomCollection(10, WORDS_DATA.length),
+          };
+        }
+      } else {
+        result = {
+          date: dateId,
+          words: randomCollection(10, WORDS_DATA.length),
+        };
+      }
+
+      // console.log(result);
+      localStorage.setItem('dailyWord', JSON.stringify(result));
+    }
+  }, [dateId, WORDS_DATA]);
+
+  // Import Google Sheet API
   useEffect(() => {
     if (isAppMounted) {
-      // 載入 Google Sheet API
       loadGapiScrpit(() => {
         window.gapi.load('client:auth2', () => {
           handleGetData();
