@@ -173,6 +173,8 @@ const Collection: React.FC = () => {
       } else {
         setConfirmWords(result);
       }
+    } else {
+      setConfirmWords([]);
     }
   }, [loadIndex, words]);
 
@@ -186,13 +188,13 @@ const Collection: React.FC = () => {
             <div className="tw-w-6/12 tw-pr-1 tw-mb-2.5 tw-leading-none tablet:tw-w-auto tablet:tw-mr-2.5 tablet:tw-mb-0 tablet:tw-pr-0">
               <Select
                 options={filterAlphabetOption}
-                onChange={(event) => { setFilterAlphabet(event.target.value); }}
+                onChange={(event) => setFilterAlphabet(event.target.value)}
               />
             </div>
             <div className="tw-w-6/12 tw-pl-1 tw-mb-2.5 tw-leading-none tablet:tw-w-auto tablet:tw-mr-2.5 tablet:tw-mb-0 tablet:tw-pl-0">
               <Select
                 options={filterPartOption}
-                onChange={(event) => { setFilterPart(event.target.value); }}
+                onChange={(event) => setFilterPart(event.target.value)}
               />
             </div>
             <div className="tw-w-full tw-flex tw-items-center tw-justify-between tablet:tw-justify-start tablet:tw-w-auto">

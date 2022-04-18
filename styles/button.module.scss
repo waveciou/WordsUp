@@ -20,31 +20,3 @@
     color: $color-black;
   }
 }
-
-// * Basic Button
-
-.basic-btn {
-  min-width: 105px;
-  padding: 7px 20px;
-  margin-right: 5px;
-  margin-left: 5px;
-  display: inline-block;
-  font-size: map-get($font-size, sm);
-  text-align: center;
-  color: $color-white;
-  background-color: $color-green;
-  border-radius: 7px;
-  line-height: 1.4em;
-
-  @include min-width(1025px) {
-    &:hover {
-      background-color: $color-green-dark;
-    }
-  }
-
-  &.is-disabled {
-    background-color: $color-black;
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
-}

@@ -10,6 +10,18 @@ export interface ISelect {
   onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
 }
 
+export interface IInputText {
+  defaultValue: string;
+  placeholder?: string;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+}
+
+export interface IPrimaryButton {
+  text: string;
+  isDisabled?: boolean;
+  onClick: () => void;
+}
+
 export interface ICheckbox {
   id: string;
   title: string;

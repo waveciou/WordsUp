@@ -1,6 +1,7 @@
 import collectionReducer from '@/Slice/collection';
 import commonReducer from '@/Slice/common';
-import examinationReducer from '@/Slice/examination';
+import dailyReducer from '@/Slice/daily';
+import examReducer from '@/Slice/exam';
 import settingReducer from '@/Slice/setting';
 import { configureStore } from '@reduxjs/toolkit';
 
@@ -8,7 +9,8 @@ export const store = configureStore({
   reducer: {
     common: commonReducer,
     collection: collectionReducer,
-    examination: examinationReducer,
+    daily: dailyReducer,
+    exam: examReducer,
     setting: settingReducer,
   },
 });

@@ -5,8 +5,8 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { setIsExamTesting } from '@/Slice/examination';
-import stylesButton from '@/Styles/button.module.scss';
+import { PrimaryButton } from '@/Components/form';
+import { setIsExamTesting } from '@/Slice/exam';
 
 const Quiz: React.FC = () => {
   const router = useRouter();
@@ -21,16 +21,13 @@ const Quiz: React.FC = () => {
             單字填空測驗 (10題)
           </div>
           <div className="tw-my-5 tw-flex tw-justify-center">
-            <button
-              type="button"
-              className={stylesButton['basic-btn']}
+            <PrimaryButton
+              text="開始測驗"
               onClick={async () => {
                 await dispatch(setIsExamTesting(true));
                 await router.push('/quiz/writedExam');
               }}
-            >
-              開始測驗
-            </button>
+            />
           </div>
         </div>
       </div>

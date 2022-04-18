@@ -3,11 +3,11 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 
 import Alert from '@/Components/alert';
+import { InputText, PrimaryButton } from '@/Components/form';
 import WordsCaption from '@/Components/wordsCaption';
 import useSpeechSpeak from '@/Hook/useSpeechSpeak';
-import { IAnswerItem } from '@/Interfaces/examination';
+import { IAnswerItem } from '@/Interfaces/exam';
 import { IWordItem } from '@/Interfaces/word';
-import stylesButton from '@/Styles/button.module.scss';
 
 interface IExamCardProps {
   currentTopic: number,
@@ -81,10 +81,8 @@ const writedExamCard: React.FC<IExamCardProps> = ({
         </div>
 
         <div className="tw-mb-4">
-          <input
-            type="text"
-            className="tw-w-full tw-h-10 tw-block tw-py-3 tw-px-4 tw-leading-4 tw-rounded-md tw-text-xs tw-bg-gray-light"
-            value={inputValue}
+          <InputText
+            defaultValue={inputValue}
             onChange={handleChange}
             placeholder="請輸入正確的英文單字"
           />
@@ -105,23 +103,15 @@ const writedExamCard: React.FC<IExamCardProps> = ({
         </div>
 
         <div className="tw-flex tw-justify-center tw-mt-6">
-          <button
-            type="button"
-            className={`
-              ${stylesButton['basic-btn']}
-              ${inputValue.trim() === '' ? stylesButton['is-disabled'] : ''}
-            `}
+          <PrimaryButton
+            text="送出"
+            isDisabled={!!(inputValue.trim() === '')}
             onClick={handleSubmit}
-          >
-            送出
-          </button>
-          <button
-            type="button"
-            className={stylesButton['basic-btn']}
+          />
+          <PrimaryButton
+            text="略過"
             onClick={handleNextQuestion}
-          >
-            略過
-          </button>
+          />
         </div>
       </div>
       <Alert
