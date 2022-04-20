@@ -1,16 +1,17 @@
-/* eslint-disable no-useless-escape */
+/* eslint-disable react-hooks/exhaustive-deps */
 import 'swiper/swiper-bundle.css';
 
-// Swiper issues
-// https://github.com/nolimits4web/swiper/issues/3855
-//
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { v4 as uuidv4 } from 'uuid';
 
+import { PrimaryButton } from '@/Components/form';
 import WordsCaption from '@/Components/wordsCaption';
 import useSpeechSpeak from '@/Hook/useSpeechSpeak';
 import { IWordItem } from '@/Interfaces/word';
+import { setIsShowTestingGuide } from '@/Slice/daily';
+import { RootState } from '@/Store/index';
 
 interface IWordItemDailyProps {
   dateCaption: string,
@@ -21,9 +22,20 @@ const WordItemDaily: React.FC<IWordItemDailyProps> = ({
   dateCaption = '',
   wordsData = [],
 }) => {
+  const dispatch = useDispatch();
   const handleSpeechSpeak = useSpeechSpeak();
   const [swipe, setSwipe] = useState<any>(null);
   const [swipeIndex, setSwipeIndex] = useState<number>(0);
+  const { isShowTestingGuide } = useSelector((state: RootState) => state.daily);
+
+  useEffect(() => {
+    if (swipeIndex === wordsData.length - 1) {
+      dispatch(setIsShowTestingGuide(true));
+    }
+  }, [swipeIndex]);
+
+  // The solution for install swiper issues.
+  // https://github.com/nolimits4web/swiper/issues/3855
 
   return (
     <>
@@ -82,7 +94,20 @@ const WordItemDaily: React.FC<IWordItemDailyProps> = ({
           className={`carousel-next-button tw-w-7 tw-h-7 tw-text-center tw-block tw-absolute tw-right-0 tw-top-2/4 tw--translate-y-2/4 tw-z-50 before-font-material before:tw-block before:tw-m-auto ${swipeIndex === wordsData.length - 1 ? 'before:tw-text-gray before:tw-cursor-not-allowed' : 'before:tw-text-black'}`}
           onClick={() => swipe?.slideNext()}
         />
+        <div className="tw-absolute tw-right-3 tw-top-2 tw-z-50">
+          <span className="tw-text-orange tw-text-xs">
+            {swipeIndex + 1}
+            /
+            {wordsData.length}
+          </span>
+        </div>
       </div>
+
+      { isShowTestingGuide && (
+        <div className="tw-flex tw-justify-center tw-mt-3">
+          <PrimaryButton text="測驗今日單字" onClick={() => {}} />
+        </div>
+      )}
     </>
   );
 };

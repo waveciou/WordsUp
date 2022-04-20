@@ -4,11 +4,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 const initialState: {
   dateId: string;
   dateCaption: string;
-  dailyWords: IWordItem[]
+  dailyWords: IWordItem[];
+  isShowTestingGuide: boolean;
 } = {
   dateId: '',
   dateCaption: '',
   dailyWords: [],
+  isShowTestingGuide: false,
 };
 
 export const dailySlice = createSlice({
@@ -27,9 +29,15 @@ export const dailySlice = createSlice({
       const asignState = state;
       asignState.dailyWords = [...action.payload];
     },
+    setIsShowTestingGuide: (state, action: PayloadAction<boolean>) => {
+      const asignState = state;
+      asignState.isShowTestingGuide = action.payload;
+    },
   },
 });
 
-export const { setDateId, setDateCaption, setDailyWords } = dailySlice.actions;
+export const {
+  setDateId, setDateCaption, setDailyWords, setIsShowTestingGuide,
+} = dailySlice.actions;
 
 export default dailySlice.reducer;
