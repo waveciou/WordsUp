@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable object-curly-newline */
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
@@ -18,6 +19,7 @@ import useGetSheetData from '@/Hook/useGetSheetData';
 import { IProps } from '@/Interfaces/global';
 import { setIsAppMounted, setIsMenuOpen, setScreenWidth, setScrollValue } from '@/Slice/common';
 import { setDailyWords, setDateCaption, setDateId } from '@/Slice/daily';
+import { IWordItem } from '@/Src/interfaces/word';
 import { RootState } from '@/Store/index';
 
 declare global {
@@ -26,7 +28,7 @@ declare global {
   }
 }
 
-interface IDailyCasesWord {
+interface IDailyCases {
   date: string;
   words: number[];
 }
@@ -105,37 +107,48 @@ const Layout: React.FC<IProps> = ({ children }) => {
 
     dispatch(setDateId(`${year}-${month}-${date}`));
     dispatch(setDateCaption(`${year}年${formatNumber(month)}月${formatNumber(date)}日`));
-  }, [day, dispatch]);
+  }, []);
 
   useEffect(() => {
-    if (!!dateId && WORDS_DATA.length > 0) {
-      const localData: string = localStorage.getItem('dailyWord') || '';
+    if (!!dateId && WORDS_DATA.length > 10) {
+      const localData: string = localStorage.getItem('dailyWords') || '';
+      const dailyCases: IDailyCases = { date: dateId, words: [] };
 
-      let result: IDailyCasesWord = {
-        date: '',
-        words: [],
-      };
+      let hasLocalData: boolean = false;
 
-      if (!!localStorage.getItem('dailyWord') === true) {
-        const { date = '', words = [] }: IDailyCasesWord = JSON.parse(localData);
+      if (localData) {
+        const { date = '', words = [] }: IDailyCases = JSON.parse(localData);
+        const wordsNumberToSet: Set<number> = new Set(words);
 
-        if (date === dateId && words.length === 10) {
-          result = { date, words };
-        } else {
-          result = {
-            date: dateId,
-            words: randomCollection(10, WORDS_DATA.length),
-          };
+        if (date === dateId && wordsNumberToSet.size === 10) {
+          const cleanedWords: number[] = [...wordsNumberToSet];
+
+          const isConfirm: boolean = cleanedWords.every((item: number) => {
+            const parsedItem: number = parseInt(item as unknown as string, 10);
+            const isNotNaN: boolean = !Number.isNaN(parsedItem);
+            const isValided: boolean = WORDS_DATA.findIndex(({ id }) => id === `${parsedItem}`) >= 0;
+            return isNotNaN && isValided;
+          });
+
+          if (isConfirm) {
+            hasLocalData = true;
+            dailyCases.words = [...cleanedWords];
+          }
         }
-      } else {
-        result = {
-          date: dateId,
-          words: randomCollection(10, WORDS_DATA.length),
-        };
       }
 
-      // console.log(result);
-      localStorage.setItem('dailyWord', JSON.stringify(result));
+      if (hasLocalData === false) {
+        dailyCases.words = randomCollection(10, WORDS_DATA.length);
+      }
+
+      const result: IWordItem[] = dailyCases.words.reduce((prev, current) => {
+        const index: number = WORDS_DATA.findIndex(({ id }) => id === `${current}`);
+        return [...prev, WORDS_DATA[index]];
+      }, [] as IWordItem[]);
+
+      dispatch(setDailyWords(result));
+
+      localStorage.setItem('dailyWords', JSON.stringify(dailyCases));
     }
   }, [dateId, WORDS_DATA]);
 

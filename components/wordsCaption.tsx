@@ -35,7 +35,11 @@ const wordsCaption: React.FC<IWordsCaptionProps> = ({
                   type="button"
                   aria-label="speech"
                   className="tw-inline-block tw-align-top tw-mr-1 tw-leading-8 before-font-material before:tw-content-['\e050'] before:tw-w-8 before:tw-h-8 before:tw-block before:tw-leading-8 before:tw-text-center"
-                  onClick={onSpeech}
+                  onClick={(e: React.MouseEvent<HTMLDivElement | HTMLButtonElement>) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    onSpeech();
+                  }}
                 />
               )
             }
