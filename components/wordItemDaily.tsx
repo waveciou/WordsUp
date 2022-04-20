@@ -37,22 +37,12 @@ const WordItemDaily: React.FC<IWordItemDailyProps> = ({
       </div>
 
       <div className="carousel tw-relative tw-overflow-hidden">
-        {
-          swipeIndex === 0 ? (
-            <button
-              type="button"
-              aria-label="carousel-prev-button"
-              className="tw-w-7 tw-h-7 tw-text-center tw-block tw-absolute tw-left-0 tw-top-2/4 tw--translate-y-2/4 tw-z-50 before-font-material before:tw-content-['\e2ea'] before:tw-block before:tw-m-auto before:tw-text-gray before:tw-cursor-not-allowed"
-            />
-          ) : (
-            <button
-              type="button"
-              aria-label="carousel-prev-button"
-              className="tw-w-7 tw-h-7 tw-text-center tw-block tw-absolute tw-left-0 tw-top-2/4 tw--translate-y-2/4 tw-z-50 before-font-material before:tw-content-['\e2ea'] before:tw-block before:tw-m-auto before:tw-text-black"
-              onClick={() => swipe?.slidePrev()}
-            />
-          )
-        }
+        <button
+          type="button"
+          aria-label="carousel-prev-button"
+          className={`carousel-prev-button tw-w-7 tw-h-7 tw-text-center tw-block tw-absolute tw-left-0 tw-top-2/4 tw--translate-y-2/4 tw-z-50 before-font-material before:tw-block before:tw-m-auto ${swipeIndex === 0 ? 'before:tw-text-gray before:tw-cursor-not-allowed' : 'before:tw-text-black'}`}
+          onClick={() => swipe?.slidePrev()}
+        />
         <Swiper
           spaceBetween={10}
           slidesPerView={1}
@@ -65,18 +55,20 @@ const WordItemDaily: React.FC<IWordItemDailyProps> = ({
             }: IWordItem) => (
               <SwiperSlide key={uuidv4()}>
                 <div className="tw-w-full tw-h-full tw-p-1">
-                  <div className="tw-w-full tw-h-full tw-py-16 tw-px-6 tw-rounded-lg tw-shadow-[0_1px_3px_0_rgba(51,51,51,0.4)]">
-                    <div className="tw-text-xl tw-text-center tw-leading-relaxed tw-text-wine tw-break-all tw-mb-2.5">{ en }</div>
-                    <div className="tw-leading-8 tw-text-xs mini:tw-text-sm">
-                      <WordsCaption
-                        id={id}
-                        wordsList={zh}
-                        partsList={parts}
-                        hasBrackets
-                        hasTextCenter
-                        hasSpeechButton
-                        onSpeech={() => handleSpeechSpeak(en)}
-                      />
+                  <div className="tw-w-full tw-h-full tw-py-16 tw-px-6 tw-flex tw-justify-center tw-items-center tw-rounded-lg tw-shadow-[0_1px_3px_0_rgba(51,51,51,0.4)]">
+                    <div className="tw-w-full">
+                      <div className="tw-text-xl tw-text-center tw-leading-relaxed tw-text-wine tw-break-all tw-mb-2.5">{ en }</div>
+                      <div className="tw-leading-8 tw-text-xs mini:tw-text-sm">
+                        <WordsCaption
+                          id={id}
+                          wordsList={zh}
+                          partsList={parts}
+                          hasBrackets
+                          hasTextCenter
+                          hasSpeechButton
+                          onSpeech={() => handleSpeechSpeak(en)}
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -84,23 +76,12 @@ const WordItemDaily: React.FC<IWordItemDailyProps> = ({
             ))
           }
         </Swiper>
-        {
-          swipeIndex === wordsData.length - 1
-            ? (
-              <button
-                type="button"
-                aria-label="carousel-prev-button"
-                className="tw-w-7 tw-h-7 tw-text-center tw-block tw-absolute tw-right-0 tw-top-2/4 tw--translate-y-2/4 tw-z-50 before-font-material before:tw-content-['\e5e1'] before:tw-block before:tw-m-auto before:tw-text-gray before:tw-cursor-not-allowed"
-              />
-            ) : (
-              <button
-                type="button"
-                aria-label="carousel-prev-button"
-                className="tw-w-7 tw-h-7 tw-text-center tw-block tw-absolute tw-right-0 tw-top-2/4 tw--translate-y-2/4 tw-z-50 before-font-material before:tw-content-['\e5e1'] before:tw-block before:tw-m-auto before:tw-text-black"
-                onClick={() => swipe?.slideNext()}
-              />
-            )
-        }
+        <button
+          type="button"
+          aria-label="carousel-next-button"
+          className={`carousel-next-button tw-w-7 tw-h-7 tw-text-center tw-block tw-absolute tw-right-0 tw-top-2/4 tw--translate-y-2/4 tw-z-50 before-font-material before:tw-block before:tw-m-auto ${swipeIndex === wordsData.length - 1 ? 'before:tw-text-gray before:tw-cursor-not-allowed' : 'before:tw-text-black'}`}
+          onClick={() => swipe?.slideNext()}
+        />
       </div>
     </>
   );

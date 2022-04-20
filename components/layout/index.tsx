@@ -107,6 +107,8 @@ const Layout: React.FC<IProps> = ({ children }) => {
 
     dispatch(setDateId(`${year}-${month}-${date}`));
     dispatch(setDateCaption(`${year}年${formatNumber(month)}月${formatNumber(date)}日`));
+
+    localStorage.removeItem('dailyWord');
   }, []);
 
   useEffect(() => {

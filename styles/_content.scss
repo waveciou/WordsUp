@@ -84,3 +84,19 @@ html {
     }
   }
 }
+
+// * Swiper Carousel
+
+.carousel {
+  .swiper-slide {
+    height: auto;
+  }
+
+  .carousel-prev-button::before {
+    content: '\e2ea';
+  }
+
+  .carousel-next-button::before {
+    content: '\e5e1';
+  }
+}
