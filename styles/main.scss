@@ -19,8 +19,3 @@
 .after-font-awesome::after {
   @include font-awesome;
 }
-
-// Swiper
-.carousel .swiper-slide {
-  height: auto;
-}

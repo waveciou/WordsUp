@@ -6,7 +6,16 @@ const useSpeechSpeak = () => {
 
   return useCallback((text: string) => {
     if (speaking === false) {
-      speak({ text });
+      speak({
+        text,
+        voices: {
+          default: true,
+          lang: 'en',
+          localService: true,
+          name: 'Karen',
+          voiceURI: 'Karen',
+        },
+      });
     }
   }, [speak, speaking]);
 };

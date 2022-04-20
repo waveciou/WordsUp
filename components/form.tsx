@@ -54,6 +54,7 @@ export const PrimaryButton: React.FC<IPrimaryButton> = ({
     type="button"
     className={`tw-min-w-105 tw-py-2 tw-px-5 tw-mx-1.5 tw-inline-block tw-text-sm tw-text-center tw-text-white tw-rounded-lg tw-leading-6 ${isDisabled ? 'tw-bg-black tw-opacity-60 tw-cursor-not-allowed' : 'tw-bg-green desktop:hover:tw-bg-green-dark'}`}
     onClick={onClick}
+    title={text}
   >
     {text}
   </button>

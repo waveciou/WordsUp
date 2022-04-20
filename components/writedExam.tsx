@@ -1,7 +1,8 @@
+/* eslint-disable max-len */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { PrimaryButton } from '@/Components/form';
@@ -13,12 +14,14 @@ import { IWordItem } from '@/Src/interfaces/word';
 import { RootState } from '@/Store/index';
 
 interface IWritedExamProps {
+  type?: 'writed-exam' | 'daily-writed-exam';
   quantity: number;
 }
 
-const writedExam: React.FC<IWritedExamProps> = ({ quantity = 10 }) => {
+const writedExam: React.FC<IWritedExamProps> = ({ type = 'writed-exam', quantity = 10 }) => {
   const router = useRouter();
   const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
+  const { dailyWords } = useSelector((state: RootState) => state.daily);
   const [isTexting, setIsTexting] = useState<boolean>(false);
   const [isExamFinish, setIsExamFinish] = useState<boolean>(false);
   const [questions, setQuestions] = useState<IWordItem[]>([]);
@@ -26,14 +29,21 @@ const writedExam: React.FC<IWritedExamProps> = ({ quantity = 10 }) => {
   const [answerState, setAnswerState] = useState<IAnswerItem[]>([]);
   const [score, setScore] = useState<number>(0);
 
-  const handleExamStart = () => {
-    const randomNumbers: number[] = randomCollection(quantity, WORDS_DATA.length);
+  const handleExamStart = useCallback(() => {
     setIsExamFinish(false);
     setCurrentTopic(0);
     setAnswerState([]);
-    setQuestions(randomNumbers.map((num: number) => WORDS_DATA[num]));
+
+    if (type === 'daily-writed-exam') {
+      const randomSortData: IWordItem[] = [...dailyWords].sort(() => (Math.random() > 0.5 ? -1 : 1));
+      setQuestions(randomSortData);
+    } else {
+      const randomNumbers: number[] = randomCollection(quantity, WORDS_DATA.length);
+      setQuestions(randomNumbers.map((num: number) => WORDS_DATA[num]));
+    }
+
     setIsTexting(true);
-  };
+  }, [quantity, WORDS_DATA, dailyWords]);
 
   const handleExamFinish = () => {
     setIsExamFinish(true);
