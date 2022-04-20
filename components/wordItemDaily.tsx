@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import 'swiper/swiper-bundle.css';
 
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -11,6 +12,7 @@ import WordsCaption from '@/Components/wordsCaption';
 import useSpeechSpeak from '@/Hook/useSpeechSpeak';
 import { IWordItem } from '@/Interfaces/word';
 import { setIsShowTestingGuide } from '@/Slice/daily';
+import { setIsExamTesting } from '@/Slice/exam';
 import { RootState } from '@/Store/index';
 
 interface IWordItemDailyProps {
@@ -22,6 +24,7 @@ const WordItemDaily: React.FC<IWordItemDailyProps> = ({
   dateCaption = '',
   wordsData = [],
 }) => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const handleSpeechSpeak = useSpeechSpeak();
   const [swipe, setSwipe] = useState<any>(null);
@@ -95,7 +98,7 @@ const WordItemDaily: React.FC<IWordItemDailyProps> = ({
           onClick={() => swipe?.slideNext()}
         />
         <div className="tw-absolute tw-right-3 tw-top-2 tw-z-50">
-          <span className="tw-text-orange tw-text-xs">
+          <span className="tw-text-green-dark tw-text-xs">
             {swipeIndex + 1}
             /
             {wordsData.length}
@@ -105,7 +108,13 @@ const WordItemDaily: React.FC<IWordItemDailyProps> = ({
 
       { isShowTestingGuide && (
         <div className="tw-flex tw-justify-center tw-mt-3">
-          <PrimaryButton text="測驗今日單字" onClick={() => {}} />
+          <PrimaryButton
+            text="測驗今日單字"
+            onClick={async () => {
+              await dispatch(setIsExamTesting(true));
+              await router.push('/quiz/daily-writed-exam');
+            }}
+          />
         </div>
       )}
     </>

@@ -2,34 +2,59 @@
 /* eslint-disable import/no-cycle */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from 'next/router';
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { PrimaryButton } from '@/Components/form';
+import { IQuizTypes } from '@/Interfaces/exam';
 import { setIsExamTesting } from '@/Slice/exam';
+import { RootState } from '@/Store/index';
 
 const Quiz: React.FC = () => {
+  interface IQuizCollection {
+    title: string;
+    path: IQuizTypes;
+  }
+
   const router = useRouter();
   const dispatch = useDispatch();
+  const [quizCollection, setQuizCollection] = useState<IQuizCollection[]>([]);
+
+  useEffect(() => {
+    setQuizCollection([
+      {
+        title: '單字填空測驗',
+        path: 'writed-exam',
+      },
+      {
+        title: '今日單字填空測驗',
+        path: 'daily-writed-exam',
+      },
+    ]);
+  }, []);
 
   return (
     <>
       <h1 className="title">單字測驗</h1>
       <div className="content">
-        <div className="tw-py-5 tw-px-4 tw-rounded-lg tw-shadow-[0_1px_3px_0_rgba(51,51,51,0.4)]">
-          <div className="tw-text-wine/80 tw-my-5 tw-text-md tw-text-center tw-leading-9 before-font-material before:tw-content-['\e0f0'] before:tw-leading-9 before:tw-align-top">
-            單字填空測驗 (10題)
-          </div>
-          <div className="tw-my-5 tw-flex tw-justify-center">
-            <PrimaryButton
-              text="開始測驗"
-              onClick={async () => {
-                await dispatch(setIsExamTesting(true));
-                await router.push('/quiz/writedExam');
-              }}
-            />
-          </div>
-        </div>
+        {
+          quizCollection.map(({ title, path }: IQuizCollection, index: number) => (
+            <div className={`tw-py-5 tw-px-4 tw-rounded-lg tw-shadow-[0_1px_3px_0_rgba(51,51,51,0.4)] ${index + 1 === quizCollection.length ? '' : 'tw-mb-4'}`}>
+              <div className="tw-text-wine/80 tw-my-5 tw-text-md tw-text-center tw-leading-9 before-font-material">
+                { title }
+              </div>
+              <div className="tw-my-5 tw-flex tw-justify-center">
+                <PrimaryButton
+                  text="開始測驗"
+                  onClick={async () => {
+                    await dispatch(setIsExamTesting(true));
+                    await router.push(`/quiz/${path}`);
+                  }}
+                />
+              </div>
+            </div>
+          ))
+        }
       </div>
     </>
   );
