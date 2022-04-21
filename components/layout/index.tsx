@@ -11,7 +11,6 @@ import Loader from '@/Components/loader';
 import Menu from '@/Components/menu';
 import Meta from '@/Components/meta';
 import debounce from '@/Functions/debounce';
-import formatNumber from '@/Functions/formatNumber';
 import loadGapiScrpit from '@/Functions/googleSheetAPI/loadAPIScrpit';
 import randomCollection from '@/Functions/randomCollection';
 import useGetSheetData from '@/Hook/useGetSheetData';
@@ -36,7 +35,6 @@ interface IDailyCases {
 const Layout: React.FC<IProps> = ({ children }) => {
   dayjs.extend(utc);
 
-  const day = dayjs();
   const dispatch = useDispatch();
   const router = useRouter();
   const handleGetData = useGetSheetData();
@@ -102,12 +100,10 @@ const Layout: React.FC<IProps> = ({ children }) => {
 
   // Get Date & Set Date Caption
   useEffect(() => {
-    const year: number = day.utcOffset(8).year();
-    const month: number = day.utcOffset(8).month() + 1;
-    const date: number = day.utcOffset(8).date();
+    const now: number = dayjs().valueOf();
 
-    dispatch(setDateId(`${year}-${month}-${date}`));
-    dispatch(setDateCaption(`${year}年${formatNumber(month)}月${formatNumber(date)}日`));
+    dispatch(setDateId(dayjs(now).utcOffset(8).format('YYYY-MM-DD')));
+    dispatch(setDateCaption(dayjs(now).utcOffset(8).format('YYYY年MM月DD日')));
 
     localStorage.removeItem('dailyWord');
   }, []);

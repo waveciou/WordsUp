@@ -2,7 +2,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-hooks/rules-of-hooks */
 import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,8 +21,6 @@ interface IWritedExamProps {
 }
 
 const WritedExam: React.FC<IWritedExamProps> = ({ type = 'writed-exam', quantity = 10 }) => {
-  dayjs.extend(utc);
-
   const day = dayjs();
   const router = useRouter();
   const dispatch = useDispatch();
@@ -60,7 +57,7 @@ const WritedExam: React.FC<IWritedExamProps> = ({ type = 'writed-exam', quantity
     }
     }
 
-    setStartTime(day.utcOffset(8).unix());
+    setStartTime(day.valueOf());
     dispatch(setIsExamTesting(true));
   }, [quantity, WORDS_DATA, DAILY_WORDS]);
 
@@ -68,7 +65,7 @@ const WritedExam: React.FC<IWritedExamProps> = ({ type = 'writed-exam', quantity
     const recordData: IRecordItem[] = [...recordCollection, {
       type,
       startTime,
-      finishTime: day.utcOffset(8).unix(),
+      finishTime: day.valueOf(),
       score,
       answerState: [...answerState],
     }];
