@@ -97,7 +97,7 @@ const Collection: React.FC = () => {
     return (
       <li
         key={id}
-        className={`tw-w-full tw-mb-3 tablet:tw-w-[calc((100%-0.75rem)/2)] tablet:tw-mr-3 desktop:tw-w-[calc((100%-1.5rem)/3)] ${isEven ? 'tablet:tw-mr-0 desktop:tw-mr-3' : ''} ${isThirChid ? 'desktop:tw-mr-0' : ''}`}
+        className={`tw-w-full tablet:tw-w-[calc((100%-0.75rem)/2)] tablet:tw-mr-3 desktop:tw-w-[calc((100%-1.5rem)/3)] ${index + 1 < confirmWords.length ? 'tw-mb-3' : ''} ${isEven ? 'tablet:tw-mr-0 desktop:tw-mr-3' : ''} ${isThirChid ? 'desktop:tw-mr-0' : ''}`}
       >
         <Card wordData={wordData} />
       </li>
@@ -233,16 +233,6 @@ const Collection: React.FC = () => {
             )
         }
       </div>
-      {
-        scrollValue > 0 && (
-          <button
-            type="button"
-            aria-label="scroll-to-top-button"
-            className="tw-w-10 tw-h-10 tw-block tw-fixed tw-right-5 tw-bottom-12 tw-bg-green-dark/60 tw-rounded-full before-font-material before:tw-content-['\e5d8'] before:tw-leading-10 before:tw-text-yellow"
-            onClick={handleScrollToTop}
-          />
-        )
-      }
     </>
   );
 };

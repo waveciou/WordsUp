@@ -14,8 +14,8 @@ import debounce from '@/Functions/debounce';
 import formatNumber from '@/Functions/formatNumber';
 import loadGapiScrpit from '@/Functions/googleSheetAPI/loadAPIScrpit';
 import randomCollection from '@/Functions/randomCollection';
-import randomNumber from '@/Functions/randomNumber';
 import useGetSheetData from '@/Hook/useGetSheetData';
+import useScrollToTop from '@/Hook/useScrollToTop';
 import { IProps } from '@/Interfaces/global';
 import { setIsAppMounted, setIsMenuOpen, setScreenWidth, setScrollValue } from '@/Slice/common';
 import { setDailyWords, setDateCaption, setDateId } from '@/Slice/daily';
@@ -40,9 +40,10 @@ const Layout: React.FC<IProps> = ({ children }) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const handleGetData = useGetSheetData();
+  const handleScrollToTop = useScrollToTop();
 
-  const { isAppMounted, isMenuOpen } = useSelector((state: RootState) => state.common);
   const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
+  const { isAppMounted, isMenuOpen, scrollValue } = useSelector((state: RootState) => state.common);
   const { dateId } = useSelector((state: RootState) => state.daily);
 
   // Get browser screen width
@@ -171,6 +172,16 @@ const Layout: React.FC<IProps> = ({ children }) => {
       <div id="__layout" onScroll={handleGetLayoutScrollValue}>
         <Header />
         <main id="__main" className="tw-pt-header-height">{ children }</main>
+        {
+          scrollValue > 0 && (
+            <button
+              type="button"
+              aria-label="scroll-to-top-button"
+              className="tw-w-10 tw-h-10 tw-block tw-fixed tw-right-5 tw-bottom-12 tw-bg-green-dark/60 tw-rounded-full before-font-material before:tw-content-['\e5d8'] before:tw-leading-10 before:tw-text-yellow"
+              onClick={handleScrollToTop}
+            />
+          )
+        }
         <div
           aria-hidden="true"
           onClick={() => dispatch(setIsMenuOpen(false))}
