@@ -3,13 +3,14 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { PrimaryButton } from '@/Components/form';
 import ScoreTable from '@/Components/scoreTable';
 import WritedExamCard from '@/Components/writedExamCard';
 import randomCollection from '@/Functions/randomCollection';
 import { IAnswerItem } from '@/Interfaces/exam';
+import { setIsExamTesting } from '@/Slice/exam';
 import { IWordItem } from '@/Src/interfaces/word';
 import { RootState } from '@/Store/index';
 
@@ -20,9 +21,10 @@ interface IWritedExamProps {
 
 const writedExam: React.FC<IWritedExamProps> = ({ type = 'writed-exam', quantity = 10 }) => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
   const { dailyWords } = useSelector((state: RootState) => state.daily);
-  const [isTexting, setIsTexting] = useState<boolean>(false);
+  const { isExamTesting } = useSelector((state: RootState) => state.exam);
   const [isExamFinish, setIsExamFinish] = useState<boolean>(false);
   const [questions, setQuestions] = useState<IWordItem[]>([]);
   const [currentTopic, setCurrentTopic] = useState<number>(0);
@@ -30,6 +32,8 @@ const writedExam: React.FC<IWritedExamProps> = ({ type = 'writed-exam', quantity
   const [score, setScore] = useState<number>(0);
 
   const handleExamStart = useCallback(() => {
+    dispatch(setIsExamTesting(false));
+
     setIsExamFinish(false);
     setCurrentTopic(0);
     setAnswerState([]);
@@ -42,14 +46,14 @@ const writedExam: React.FC<IWritedExamProps> = ({ type = 'writed-exam', quantity
       setQuestions(randomNumbers.map((num: number) => WORDS_DATA[num]));
     }
 
-    setIsTexting(true);
+    dispatch(setIsExamTesting(true));
   }, [quantity, WORDS_DATA, dailyWords]);
 
   const handleExamFinish = () => {
     setIsExamFinish(true);
     setCurrentTopic(0);
     setQuestions([]);
-    setIsTexting(false);
+    dispatch(setIsExamTesting(false));
   };
 
   const handleToNextQuestion = () => {
@@ -68,6 +72,9 @@ const writedExam: React.FC<IWritedExamProps> = ({ type = 'writed-exam', quantity
 
   useEffect(() => {
     handleExamStart();
+    return () => {
+      dispatch(setIsExamTesting(false));
+    };
   }, []);
 
   useEffect(() => {
@@ -81,7 +88,7 @@ const writedExam: React.FC<IWritedExamProps> = ({ type = 'writed-exam', quantity
   return (
     <div>
       {
-        isTexting && (
+        isExamTesting && (
           <WritedExamCard
             currentTopic={currentTopic}
             wordData={questions[currentTopic]}
@@ -91,7 +98,7 @@ const writedExam: React.FC<IWritedExamProps> = ({ type = 'writed-exam', quantity
         )
       }
       {
-        !isTexting && isExamFinish
+        !isExamTesting && isExamFinish
         && (
           <>
             <div className="tw-text-wine/80 tw-my-8 tw-text-md tw-text-center">

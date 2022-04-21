@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { PrimaryButton } from '@/Components/form';
 import { IQuizTypes } from '@/Interfaces/exam';
-import { setIsExamTesting } from '@/Slice/exam';
+import { setIsExamAction } from '@/Slice/exam';
 import { RootState } from '@/Store/index';
 
 const Quiz: React.FC = () => {
@@ -47,7 +47,7 @@ const Quiz: React.FC = () => {
                 <PrimaryButton
                   text="開始測驗"
                   onClick={async () => {
-                    await dispatch(setIsExamTesting(true));
+                    await dispatch(setIsExamAction(true));
                     await router.push(`/quiz/${path}`);
                   }}
                 />

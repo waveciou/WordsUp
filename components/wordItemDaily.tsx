@@ -12,7 +12,7 @@ import WordsCaption from '@/Components/wordsCaption';
 import useSpeechSpeak from '@/Hook/useSpeechSpeak';
 import { IWordItem } from '@/Interfaces/word';
 import { setIsShowTestingGuide } from '@/Slice/daily';
-import { setIsExamTesting } from '@/Slice/exam';
+import { setIsExamAction } from '@/Slice/exam';
 import { RootState } from '@/Store/index';
 
 interface IWordItemDailyProps {
@@ -111,7 +111,7 @@ const WordItemDaily: React.FC<IWordItemDailyProps> = ({
           <PrimaryButton
             text="測驗今日單字"
             onClick={async () => {
-              await dispatch(setIsExamTesting(true));
+              await dispatch(setIsExamAction(true));
               await router.push('/quiz/daily-writed-exam');
             }}
           />
