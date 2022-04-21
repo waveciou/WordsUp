@@ -96,7 +96,7 @@ const WordItemDaily: React.FC<IWordItemDailyProps> = ({
           onClick={() => swipe?.slideNext()}
         />
         <div className="tw-absolute tw-right-4 tw-top-3 tw-z-50">
-          <span className="tw-text-black/60 tw-text-xs tw-font-bold">
+          <span className="tw-text-brown/80 tw-text-xs tw-font-bold">
             {swipeIndex + 1}
             /
             {wordsData.length}

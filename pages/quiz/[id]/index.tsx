@@ -14,8 +14,8 @@ const Quiz: React.FC = () => {
   const router = useRouter();
   const { id } = router.query;
   const dispatch = useDispatch();
-  const { words } = useSelector((state: RootState) => state.collection);
-  const { dailyWords } = useSelector((state: RootState) => state.daily);
+  const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
+  const DAILY_WORDS = useSelector((state: RootState) => state.daily.dailyWords);
   const { isExamAction } = useSelector((state: RootState) => state.exam);
 
   useEffect(() => () => {
@@ -30,19 +30,19 @@ const Quiz: React.FC = () => {
 
   const FailedDataCaption: React.FC = () => <div className="tw-py-8 tw-my-4 tw-text-center tw-text-gray">DATA ERROR</div>;
 
-  const examProvider = useMemo(() => {
-    if (isExamAction && words.length) {
+  const examProviderMemo = useMemo(() => {
+    if (isExamAction && WORDS_DATA.length) {
       switch (id as IQuizTypes) {
       case 'writed-exam':
         // 單字填空測驗
-        if (words.length >= 10) {
+        if (WORDS_DATA.length >= 10) {
           return <WritedExam quantity={10} />;
         }
         return <FailedDataCaption />;
       case 'daily-writed-exam':
         // 今日單字填空測驗
-        if (dailyWords.length) {
-          return <WritedExam quantity={dailyWords.length} type="daily-writed-exam" />;
+        if (DAILY_WORDS.length) {
+          return <WritedExam quantity={DAILY_WORDS.length} type="daily-writed-exam" />;
         }
         return <FailedDataCaption />;
       default:
@@ -50,13 +50,13 @@ const Quiz: React.FC = () => {
       }
     }
     return <FailedDataCaption />;
-  }, [id, words, isExamAction, dailyWords]);
+  }, [id, isExamAction, WORDS_DATA, DAILY_WORDS]);
 
   return (
     <>
       <h1 className="title">單字測驗</h1>
       <div className="content">
-        { examProvider }
+        { examProviderMemo }
       </div>
     </>
   );

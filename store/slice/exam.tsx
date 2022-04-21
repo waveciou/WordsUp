@@ -23,9 +23,9 @@ export const examSlice = createSlice({
       const asignState = state;
       asignState.isExamTesting = action.payload;
     },
-    setRecordCollection: (state, action: PayloadAction<IRecordItem>) => {
+    setRecordCollection: (state, action: PayloadAction<IRecordItem[]>) => {
       const asignState = state;
-      asignState.recordCollection.push(action.payload);
+      asignState.recordCollection = [...action.payload];
     },
   },
 });

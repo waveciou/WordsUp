@@ -11,7 +11,7 @@ import { PrimaryButton } from '@/Components/form';
 import ScoreTable from '@/Components/scoreTable';
 import WritedExamCard from '@/Components/writedExamCard';
 import randomCollection from '@/Functions/randomCollection';
-import { IAnswerItem } from '@/Interfaces/exam';
+import { IAnswerItem, IRecordItem } from '@/Interfaces/exam';
 import { IWordItem } from '@/Interfaces/word';
 import { setIsExamTesting, setRecordCollection } from '@/Slice/exam';
 import { RootState } from '@/Store/index';
@@ -29,7 +29,7 @@ const writedExam: React.FC<IWritedExamProps> = ({ type = 'writed-exam', quantity
   const dispatch = useDispatch();
   const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
   const DAILY_WORDS = useSelector((state: RootState) => state.daily.dailyWords);
-  const { isExamTesting } = useSelector((state: RootState) => state.exam);
+  const { isExamTesting, recordCollection } = useSelector((state: RootState) => state.exam);
 
   const [questions, setQuestions] = useState<IWordItem[]>([]);
   const [answerState, setAnswerState] = useState<IAnswerItem[]>([]);
@@ -64,20 +64,22 @@ const writedExam: React.FC<IWritedExamProps> = ({ type = 'writed-exam', quantity
     dispatch(setIsExamTesting(true));
   }, [quantity, WORDS_DATA, DAILY_WORDS]);
 
-  const handleExamFinish = () => {
-    dispatch(setRecordCollection({
+  const handleExamFinish = useCallback(() => {
+    const recordData: IRecordItem[] = [...recordCollection, {
       type,
       startTime,
       finishTime: day.utcOffset(8).unix(),
       score,
       answerState: [...answerState],
-    }));
+    }];
 
     setCurrentTopic(0);
     setQuestions([]);
     setIsFinish(true);
+
+    dispatch(setRecordCollection(recordData));
     dispatch(setIsExamTesting(false));
-  };
+  }, [type, startTime, score, answerState, recordCollection]);
 
   const handleToNextQuestion = () => {
     const nextNumber: number = currentTopic + 1;
