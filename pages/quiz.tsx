@@ -3,12 +3,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { PrimaryButton } from '@/Components/form';
 import { IQuizTypes } from '@/Interfaces/exam';
 import { setIsExamAction } from '@/Slice/exam';
-import { RootState } from '@/Store/index';
 
 const Quiz: React.FC = () => {
   interface IQuizCollection {
@@ -39,7 +38,10 @@ const Quiz: React.FC = () => {
       <div className="content">
         {
           quizCollection.map(({ title, path }: IQuizCollection, index: number) => (
-            <div className={`tw-py-5 tw-px-4 tw-rounded-lg tw-shadow-[0_1px_3px_0_rgba(51,51,51,0.4)] ${index + 1 === quizCollection.length ? '' : 'tw-mb-4'}`}>
+            <div
+              key={path}
+              className={`tw-py-5 tw-px-4 tw-rounded-lg tw-shadow-[0_1px_3px_0_rgba(51,51,51,0.4)] ${index + 1 === quizCollection.length ? '' : 'tw-mb-4'}`}
+            >
               <div className="tw-text-wine/80 tw-my-5 tw-text-md tw-text-center tw-leading-9 before-font-material">
                 { title }
               </div>

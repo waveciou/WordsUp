@@ -6,3 +6,11 @@ export interface IAnswerItem {
   solution: string,
   result: boolean,
 }
+
+export interface IRecordItem {
+  type: IQuizTypes;
+  startTime: number;
+  finishTime: number;
+  score: number;
+  answerState: IAnswerItem[]
+}

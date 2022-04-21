@@ -1,6 +1,8 @@
 /* eslint-disable max-len */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-hooks/rules-of-hooks */
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,8 +12,8 @@ import ScoreTable from '@/Components/scoreTable';
 import WritedExamCard from '@/Components/writedExamCard';
 import randomCollection from '@/Functions/randomCollection';
 import { IAnswerItem } from '@/Interfaces/exam';
-import { setIsExamTesting } from '@/Slice/exam';
-import { IWordItem } from '@/Src/interfaces/word';
+import { IWordItem } from '@/Interfaces/word';
+import { setIsExamTesting, setRecordCollection } from '@/Slice/exam';
 import { RootState } from '@/Store/index';
 
 interface IWritedExamProps {
@@ -20,39 +22,60 @@ interface IWritedExamProps {
 }
 
 const writedExam: React.FC<IWritedExamProps> = ({ type = 'writed-exam', quantity = 10 }) => {
+  dayjs.extend(utc);
+
+  const day = dayjs();
   const router = useRouter();
   const dispatch = useDispatch();
   const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
-  const { dailyWords } = useSelector((state: RootState) => state.daily);
+  const DAILY_WORDS = useSelector((state: RootState) => state.daily.dailyWords);
   const { isExamTesting } = useSelector((state: RootState) => state.exam);
-  const [isExamFinish, setIsExamFinish] = useState<boolean>(false);
+
   const [questions, setQuestions] = useState<IWordItem[]>([]);
-  const [currentTopic, setCurrentTopic] = useState<number>(0);
   const [answerState, setAnswerState] = useState<IAnswerItem[]>([]);
+  const [isFinish, setIsFinish] = useState<boolean>(false);
+  const [currentTopic, setCurrentTopic] = useState<number>(0);
   const [score, setScore] = useState<number>(0);
+  const [startTime, setStartTime] = useState<number>(0);
 
   const handleExamStart = useCallback(() => {
     dispatch(setIsExamTesting(false));
 
-    setIsExamFinish(false);
+    setIsFinish(false);
     setCurrentTopic(0);
     setAnswerState([]);
 
-    if (type === 'daily-writed-exam') {
-      const randomSortData: IWordItem[] = [...dailyWords].sort(() => (Math.random() > 0.5 ? -1 : 1));
+    switch (type) {
+    case 'daily-writed-exam': {
+      // 今日單字填空測驗
+      const randomSortData: IWordItem[] = [...DAILY_WORDS].sort(() => (Math.random() > 0.5 ? -1 : 1));
       setQuestions(randomSortData);
-    } else {
+      break;
+    }
+    default: {
+      // 單字填空測驗
       const randomNumbers: number[] = randomCollection(quantity, WORDS_DATA.length);
       setQuestions(randomNumbers.map((num: number) => WORDS_DATA[num]));
+      break;
+    }
     }
 
+    setStartTime(day.utcOffset(8).unix());
     dispatch(setIsExamTesting(true));
-  }, [quantity, WORDS_DATA, dailyWords]);
+  }, [quantity, WORDS_DATA, DAILY_WORDS]);
 
   const handleExamFinish = () => {
-    setIsExamFinish(true);
+    dispatch(setRecordCollection({
+      type,
+      startTime,
+      finishTime: day.utcOffset(8).unix(),
+      score,
+      answerState: [...answerState],
+    }));
+
     setCurrentTopic(0);
     setQuestions([]);
+    setIsFinish(true);
     dispatch(setIsExamTesting(false));
   };
 
@@ -92,13 +115,12 @@ const writedExam: React.FC<IWritedExamProps> = ({ type = 'writed-exam', quantity
           <WritedExamCard
             currentTopic={currentTopic}
             wordData={questions[currentTopic]}
-            onNext={handleToNextQuestion}
             setAnswer={handleSetAnswer}
           />
         )
       }
       {
-        !isExamTesting && isExamFinish
+        !isExamTesting && isFinish
         && (
           <>
             <div className="tw-text-wine/80 tw-my-8 tw-text-md tw-text-center">

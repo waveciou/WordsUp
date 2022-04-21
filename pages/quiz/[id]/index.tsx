@@ -34,11 +34,13 @@ const Quiz: React.FC = () => {
     if (isExamAction && words.length) {
       switch (id as IQuizTypes) {
       case 'writed-exam':
+        // 單字填空測驗
         if (words.length >= 10) {
           return <WritedExam quantity={10} />;
         }
         return <FailedDataCaption />;
       case 'daily-writed-exam':
+        // 今日單字填空測驗
         if (dailyWords.length) {
           return <WritedExam quantity={dailyWords.length} type="daily-writed-exam" />;
         }

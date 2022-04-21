@@ -5,12 +5,12 @@ const initialState: {
   dateId: string;
   dateCaption: string;
   dailyWords: IWordItem[];
-  isShowTestingGuide: boolean;
+  isShowGuideButton: boolean;
 } = {
   dateId: '',
   dateCaption: '',
   dailyWords: [],
-  isShowTestingGuide: false,
+  isShowGuideButton: false,
 };
 
 export const dailySlice = createSlice({
@@ -29,15 +29,15 @@ export const dailySlice = createSlice({
       const asignState = state;
       asignState.dailyWords = [...action.payload];
     },
-    setIsShowTestingGuide: (state, action: PayloadAction<boolean>) => {
+    setIsShowGuideButton: (state, action: PayloadAction<boolean>) => {
       const asignState = state;
-      asignState.isShowTestingGuide = action.payload;
+      asignState.isShowGuideButton = action.payload;
     },
   },
 });
 
 export const {
-  setDateId, setDateCaption, setDailyWords, setIsShowTestingGuide,
+  setDateId, setDateCaption, setDailyWords, setIsShowGuideButton,
 } = dailySlice.actions;
 
 export default dailySlice.reducer;

@@ -11,7 +11,7 @@ import { PrimaryButton } from '@/Components/form';
 import WordsCaption from '@/Components/wordsCaption';
 import useSpeechSpeak from '@/Hook/useSpeechSpeak';
 import { IWordItem } from '@/Interfaces/word';
-import { setIsShowTestingGuide } from '@/Slice/daily';
+import { setIsShowGuideButton } from '@/Slice/daily';
 import { setIsExamAction } from '@/Slice/exam';
 import { RootState } from '@/Store/index';
 
@@ -29,11 +29,11 @@ const WordItemDaily: React.FC<IWordItemDailyProps> = ({
   const handleSpeechSpeak = useSpeechSpeak();
   const [swipe, setSwipe] = useState<any>(null);
   const [swipeIndex, setSwipeIndex] = useState<number>(0);
-  const { isShowTestingGuide } = useSelector((state: RootState) => state.daily);
+  const { isShowGuideButton } = useSelector((state: RootState) => state.daily);
 
   useEffect(() => {
     if (swipeIndex === wordsData.length - 1) {
-      dispatch(setIsShowTestingGuide(true));
+      dispatch(setIsShowGuideButton(true));
     }
   }, [swipeIndex]);
 
@@ -46,9 +46,7 @@ const WordItemDaily: React.FC<IWordItemDailyProps> = ({
         <h1 className="tw-flex tw-items-center tw-leading-8 tw-text-sm mini:tw-text-md tw-text-green-dark before-font-material before:tw-content-['\e8ce'] before:tw-w-8 before:tw-h-8 before:tw-leading-8 before:tw-block before:tw-text-center">
           今日單字
         </h1>
-        <div className="tw-flex tw-items-center tw-justify-start">
-          <div className="tw-text-xs">{ dateCaption }</div>
-        </div>
+        <div className="tw-flex tw-items-center tw-justify-start tw-text-xs">{ dateCaption }</div>
       </div>
 
       <div className="carousel tw-relative tw-overflow-hidden">
@@ -97,8 +95,8 @@ const WordItemDaily: React.FC<IWordItemDailyProps> = ({
           className={`carousel-next-button tw-w-7 tw-h-7 tw-text-center tw-block tw-absolute tw-right-0 tw-top-2/4 tw--translate-y-2/4 tw-z-50 before-font-material before:tw-block before:tw-m-auto ${swipeIndex === wordsData.length - 1 ? 'before:tw-text-gray before:tw-cursor-not-allowed' : 'before:tw-text-black'}`}
           onClick={() => swipe?.slideNext()}
         />
-        <div className="tw-absolute tw-right-3 tw-top-2 tw-z-50">
-          <span className="tw-text-green-dark tw-text-xs">
+        <div className="tw-absolute tw-right-4 tw-top-3 tw-z-50">
+          <span className="tw-text-black/60 tw-text-xs tw-font-bold">
             {swipeIndex + 1}
             /
             {wordsData.length}
@@ -106,7 +104,7 @@ const WordItemDaily: React.FC<IWordItemDailyProps> = ({
         </div>
       </div>
 
-      { isShowTestingGuide && (
+      { isShowGuideButton && (
         <div className="tw-flex tw-justify-center tw-mt-3">
           <PrimaryButton
             text="測驗今日單字"

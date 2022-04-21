@@ -12,12 +12,11 @@ import { IWordItem } from '@/Interfaces/word';
 interface IExamCardProps {
   currentTopic: number,
   wordData: IWordItem,
-  onNext: () => void,
   setAnswer: (answerItem: IAnswerItem) => void,
 }
 
 const writedExamCard: React.FC<IExamCardProps> = ({
-  currentTopic, wordData, onNext, setAnswer,
+  currentTopic, wordData, setAnswer,
 }) => {
   const router = useRouter();
   const handleSpeechSpeak = useSpeechSpeak();
@@ -53,7 +52,6 @@ const writedExamCard: React.FC<IExamCardProps> = ({
       solution: en,
       result: false,
     });
-    onNext();
   };
 
   useEffect(() => {
