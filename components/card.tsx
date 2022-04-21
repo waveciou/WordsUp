@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import Popup from '@/Components/popup';
-import WordItemDetail from '@/Components/wordItemDetail';
 import WordsCaption from '@/Components/wordsCaption';
+import WordsDetails from '@/Components/wordsDetails';
 import { IWordItem } from '@/Interfaces/word';
 
 interface ICardProps {
@@ -29,7 +29,7 @@ const Card: React.FC<ICardProps> = ({ wordData }) => {
         </div>
       </div>
       <Popup show={isShow} onClose={() => setIsShow(false)}>
-        <WordItemDetail id={uuidv4()} wordData={wordData} />
+        <WordsDetails id={uuidv4()} wordData={wordData} />
       </Popup>
     </>
   );

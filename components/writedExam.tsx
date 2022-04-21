@@ -17,11 +17,11 @@ import { setIsExamTesting, setRecordCollection } from '@/Slice/exam';
 import { RootState } from '@/Store/index';
 
 interface IWritedExamProps {
-  type?: 'writed-exam' | 'daily-writed-exam';
+  type: 'writed-exam' | 'daily-writed-exam';
   quantity: number;
 }
 
-const writedExam: React.FC<IWritedExamProps> = ({ type = 'writed-exam', quantity = 10 }) => {
+const WritedExam: React.FC<IWritedExamProps> = ({ type = 'writed-exam', quantity = 10 }) => {
   dayjs.extend(utc);
 
   const day = dayjs();
@@ -142,4 +142,4 @@ const writedExam: React.FC<IWritedExamProps> = ({ type = 'writed-exam', quantity
   );
 };
 
-export default writedExam;
+export default WritedExam;

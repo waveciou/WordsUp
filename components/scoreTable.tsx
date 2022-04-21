@@ -14,7 +14,7 @@ interface IScoreTableProps {
 
 const classDefines: string = 'tw-py-2.5 tw-px-4 tw-leading-relaxed tw-align-middle tw-text-center tw-border tw-border-gray-light tw-border-solid tw-text-xs';
 
-const scoreTable: React.FC<IScoreTableProps> = ({ scoreList = [] }) => {
+const ScoreTable: React.FC<IScoreTableProps> = ({ scoreList = [] }) => {
   const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
 
   const scoreListMemo = useMemo(() => scoreList.map(({
@@ -63,4 +63,4 @@ const scoreTable: React.FC<IScoreTableProps> = ({ scoreList = [] }) => {
   );
 };
 
-export default scoreTable;
+export default ScoreTable;

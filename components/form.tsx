@@ -59,36 +59,3 @@ export const PrimaryButton: React.FC<IPrimaryButton> = ({
     {text}
   </button>
 );
-
-// * Checkbox
-// export const Checkbox: React.FC<ICheckbox> = ({
-//   id, title, status, onChange, disabled = false,
-// }: ICheckbox) => {
-//   const ClassHandle = (name: string) => styles[`checkbox__${name}`];
-
-//   const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
-//     if (disabled === false) {
-//       onChange(event);
-//     }
-//   };
-
-//   return (
-//     <label
-//       htmlFor={id}
-//       className={`
-//         ${styles.checkbox}
-//         ${disabled === true ? styles['is-disabled'] : ''}
-//       `}
-//     >
-//       <input
-//         id={id}
-//         type="checkbox"
-//         checked={status}
-//         onChange={handleOnChange}
-//       />
-//       <div className={ClassHandle('content')}>
-//         <span className={ClassHandle('title')}>{title}</span>
-//       </div>
-//     </label>
-//   );
-// };

@@ -36,13 +36,13 @@ const Quiz: React.FC = () => {
       case 'writed-exam':
         // 單字填空測驗
         if (WORDS_DATA.length >= 10) {
-          return <WritedExam quantity={10} />;
+          return <WritedExam type="writed-exam" quantity={10} />;
         }
         return <FailedDataCaption />;
       case 'daily-writed-exam':
         // 今日單字填空測驗
         if (DAILY_WORDS.length) {
-          return <WritedExam quantity={DAILY_WORDS.length} type="daily-writed-exam" />;
+          return <WritedExam type="daily-writed-exam" quantity={DAILY_WORDS.length} />;
         }
         return <FailedDataCaption />;
       default:

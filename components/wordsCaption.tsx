@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 /* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react';
 
@@ -11,7 +12,7 @@ interface IWordsCaptionProps {
   onSpeech?: () => void
 }
 
-const wordsCaption: React.FC<IWordsCaptionProps> = ({
+const WordsCaption: React.FC<IWordsCaptionProps> = ({
   id,
   wordsList,
   partsList,
@@ -57,4 +58,4 @@ const wordsCaption: React.FC<IWordsCaptionProps> = ({
   </>
 );
 
-export default wordsCaption;
+export default WordsCaption;

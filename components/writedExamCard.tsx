@@ -9,13 +9,13 @@ import useSpeechSpeak from '@/Hook/useSpeechSpeak';
 import { IAnswerItem } from '@/Interfaces/exam';
 import { IWordItem } from '@/Interfaces/word';
 
-interface IExamCardProps {
+interface IWritedExamCardProps {
   currentTopic: number,
   wordData: IWordItem,
   setAnswer: (answerItem: IAnswerItem) => void,
 }
 
-const writedExamCard: React.FC<IExamCardProps> = ({
+const WritedExamCard: React.FC<IWritedExamCardProps> = ({
   currentTopic, wordData, setAnswer,
 }) => {
   const router = useRouter();
@@ -125,4 +125,4 @@ const writedExamCard: React.FC<IExamCardProps> = ({
   );
 };
 
-export default writedExamCard;
+export default WritedExamCard;
