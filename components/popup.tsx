@@ -58,7 +58,7 @@ const Popup: React.FC<IPopupProps> = ({ children, show, onClose }) => {
             <span className="tw-w-0.5 tw-h-5 tw-ml-2 tw-block tw-absolute tw-top-0 tw-bg-gray tw-rotate-45" />
             <span className="tw-w-0.5 tw-h-5 tw-ml-2 tw-block tw-absolute tw-top-0 tw-bg-gray tw--rotate-45" />
           </button>
-          <div className="tw-w-full tw-h-full tw-overflow-x-hidden tw-overflow-y-auto">
+          <div className="tw-w-full tw-h-full tw-max-h-[calc(100vh-200px)] tw-overflow-x-hidden tw-overflow-y-auto">
             { children }
           </div>
         </div>

@@ -11,15 +11,16 @@ import Loader from '@/Components/loader';
 import Menu from '@/Components/menu';
 import Meta from '@/Components/meta';
 import debounce from '@/Functions/debounce';
-import formatNumber from '@/Functions/formatNumber';
 import loadGapiScrpit from '@/Functions/googleSheetAPI/loadAPIScrpit';
 import randomCollection from '@/Functions/randomCollection';
 import useGetSheetData from '@/Hook/useGetSheetData';
 import useScrollToTop from '@/Hook/useScrollToTop';
+import { IRecordItem } from '@/Interfaces/exam';
 import { IProps } from '@/Interfaces/global';
+import { IWordItem } from '@/Interfaces/word';
 import { setIsAppMounted, setIsMenuOpen, setScreenWidth, setScrollValue } from '@/Slice/common';
 import { setDailyWords, setDateCaption, setDateId } from '@/Slice/daily';
-import { IWordItem } from '@/Src/interfaces/word';
+import { setRecordCollection } from '@/Slice/exam';
 import { RootState } from '@/Store/index';
 
 declare global {
@@ -36,7 +37,6 @@ interface IDailyCases {
 const Layout: React.FC<IProps> = ({ children }) => {
   dayjs.extend(utc);
 
-  const day = dayjs();
   const dispatch = useDispatch();
   const router = useRouter();
   const handleGetData = useGetSheetData();
@@ -100,21 +100,17 @@ const Layout: React.FC<IProps> = ({ children }) => {
     }
   }, [isMenuOpen]);
 
-  // Get Date & Set Date Caption
+  // Get date and set date caption
   useEffect(() => {
-    const year: number = day.utcOffset(8).year();
-    const month: number = day.utcOffset(8).month() + 1;
-    const date: number = day.utcOffset(8).date();
+    const now: number = dayjs().valueOf();
 
-    dispatch(setDateId(`${year}-${month}-${date}`));
-    dispatch(setDateCaption(`${year}年${formatNumber(month)}月${formatNumber(date)}日`));
-
-    localStorage.removeItem('dailyWord');
+    dispatch(setDateId(dayjs(now).utcOffset(8).format('YYYY-MM-DD')));
+    dispatch(setDateCaption(dayjs(now).utcOffset(8).format('YYYY年MM月DD日')));
   }, []);
 
   useEffect(() => {
     if (!!dateId && WORDS_DATA.length > 10) {
-      const localData: string = localStorage.getItem('dailyWords') || '';
+      const localData: string = localStorage.getItem('daily') || '';
       const dailyCases: IDailyCases = { date: dateId, words: [] };
 
       let hasLocalData: boolean = false;
@@ -151,9 +147,19 @@ const Layout: React.FC<IProps> = ({ children }) => {
 
       dispatch(setDailyWords(result));
 
-      localStorage.setItem('dailyWords', JSON.stringify(dailyCases));
+      localStorage.setItem('daily', JSON.stringify(dailyCases));
     }
   }, [dateId, WORDS_DATA]);
+
+  // Get record and set record collection
+  useEffect(() => {
+    const recordData: string = localStorage.getItem('record') || '';
+
+    if (recordData !== '') {
+      const data: IRecordItem[] = JSON.parse(recordData);
+      dispatch(setRecordCollection(data));
+    }
+  }, [dispatch]);
 
   // Import Google Sheet API
   useEffect(() => {

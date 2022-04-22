@@ -22,6 +22,7 @@ const ScoreTable: React.FC<IScoreTableProps> = ({ scoreList = [] }) => {
   }) => {
     const key: string = uuidv4();
     const word: IWordItem = WORDS_DATA.filter((item) => item.id === id)[0];
+
     return (
       <tr key={key} className="tw-bg-white">
         <td className={classDefines}>

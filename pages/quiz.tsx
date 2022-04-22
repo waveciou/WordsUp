@@ -6,14 +6,15 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { PrimaryButton } from '@/Components/form';
-import { IQuizTypes } from '@/Interfaces/exam';
+import getExamName from '@/Functions/examName';
+import { IExamId } from '@/Interfaces/exam';
 import { setIsExamAction } from '@/Slice/exam';
 
 const Quiz: React.FC = () => {
   interface IQuizCollection {
     title: string;
     description: string;
-    path: IQuizTypes;
+    path: IExamId;
   }
 
   const router = useRouter();
@@ -23,12 +24,12 @@ const Quiz: React.FC = () => {
   useEffect(() => {
     setQuizCollection([
       {
-        title: '單字填空測驗',
+        title: getExamName('writed-exam'),
         description: '從單字資料庫隨機取得10個單字來進行填空測驗',
         path: 'writed-exam',
       },
       {
-        title: '今日單字填空測驗',
+        title: getExamName('daily-writed-exam'),
         description: '使用「今日單字」進行填空測驗',
         path: 'daily-writed-exam',
       },

@@ -6,7 +6,7 @@ import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import WritedExam from '@/Components/writedExam';
-import { IQuizTypes } from '@/Interfaces/exam';
+import { IExamId } from '@/Interfaces/exam';
 import { setIsExamAction } from '@/Slice/exam';
 import { RootState } from '@/Store/index';
 
@@ -32,17 +32,17 @@ const Quiz: React.FC = () => {
 
   const examProviderMemo = useMemo(() => {
     if (isExamAction && WORDS_DATA.length) {
-      switch (id as IQuizTypes) {
+      switch (id as IExamId) {
       case 'writed-exam':
         // 單字填空測驗
         if (WORDS_DATA.length >= 10) {
-          return <WritedExam type="writed-exam" quantity={10} />;
+          return <WritedExam id="writed-exam" quantity={10} />;
         }
         return <FailedDataCaption />;
       case 'daily-writed-exam':
         // 今日單字填空測驗
         if (DAILY_WORDS.length) {
-          return <WritedExam type="daily-writed-exam" quantity={DAILY_WORDS.length} />;
+          return <WritedExam id="daily-writed-exam" quantity={DAILY_WORDS.length} />;
         }
         return <FailedDataCaption />;
       default:
