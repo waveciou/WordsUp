@@ -1,13 +1,17 @@
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import utc from 'dayjs/plugin/utc';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
+import { PrimaryButton } from '@/Components/form';
 import Popup from '@/Components/popup';
 import ScoreTable from '@/Components/scoreTable';
 import getExamName from '@/Functions/examName';
 import getExamScore from '@/Functions/examScore';
 import { IRecordItem } from '@/Interfaces/exam';
+import { setIsExamAction } from '@/Slice/exam';
 
 interface IRecordCardProps {
   recordData: IRecordItem
@@ -17,6 +21,8 @@ const RecordCard: React.FC<IRecordCardProps> = ({ recordData }) => {
   dayjs.extend(utc);
   dayjs.extend(duration);
 
+  const router = useRouter();
+  const dispatch = useDispatch();
   const [isShow, setIsShow] = useState<boolean>(false);
   const [testTime, setTestTime] = useState<string>('');
   const [durationTime, setDurationTime] = useState<string>('');
@@ -41,7 +47,7 @@ const RecordCard: React.FC<IRecordCardProps> = ({ recordData }) => {
   return (
     <>
       <div
-        className="tw-w-full tw-flex tw-items-center tw-p-3 tw-rounded-lg tw-cursor-pointer tw-shadow-[0_1px_3px_0_rgba(51,51,51,0.2)]"
+        className="tw-w-full tw-flex tw-items-center tw-py-3 tw-px-4 tw-rounded-lg tw-cursor-pointer tw-shadow-[0_1px_3px_0_rgba(51,51,51,0.2)]"
         aria-hidden="true"
         onClick={() => setIsShow(true)}
       >
@@ -56,32 +62,48 @@ const RecordCard: React.FC<IRecordCardProps> = ({ recordData }) => {
       </div>
       <Popup show={isShow} onClose={() => setIsShow(false)}>
         <div>
-          <div className="tw-w-full tw-text-center tw-text-wine tw-text-base tablet:tw-text-lg tw-leading-relaxed tw-pb-4">{ getExamName(id) }</div>
-          <div className="tw-text-xs tablet:tw-text-sm tw-pb-4">
+          <div className="tw-w-full tw-text-center tw-text-wine tw-text-base tablet:tw-text-lg tw-leading-relaxed tw-mb-4">{ getExamName(id) }</div>
+
+          <div className="tw-text-xs tablet:tw-text-xs tw-p-2 tablet:tw-p-4 tw-mb-4 tw-border tw-border-gray-light tw-border-solid tw-rounded-lg">
             <dl className="tw-flex tw-items-center tw-flex-wrap tw-mb-2">
-              <dt>分數：</dt>
+              <dt className="tw-flex tw-items-center before-font-material before:tw-content-['\e8e8'] before:tw-block before:tw-mr-2">
+                分數：
+              </dt>
               <dd>
                 { getExamScore(answerState) }
+                {' '}
                 分
               </dd>
             </dl>
             <dl className="tw-flex tw-items-center tw-flex-wrap tw-mb-2">
-              <dt>題數：</dt>
+              <dt className="tw-flex tw-items-center before-font-material before:tw-content-['\f045'] before:tw-block before:tw-mr-2">題數：</dt>
               <dd>
                 { answerState.length }
+                {' '}
                 題
               </dd>
             </dl>
             <dl className="tw-flex tw-items-center tw-flex-wrap tw-mb-2">
-              <dt>測驗時間：</dt>
+              <dt className="tw-flex tw-items-center before-font-material before:tw-content-['\e924'] before:tw-block before:tw-mr-2">測驗時間：</dt>
               <dd>{ testTime }</dd>
             </dl>
-            <dl className="tw-flex tw-items-center tw-flex-wrap tw-mb-2">
-              <dt>作答時間：</dt>
+            <dl className="tw-flex tw-items-center tw-flex-wrap">
+              <dt className="tw-flex tw-items-center before-font-material before:tw-content-['\e425'] before:tw-block before:tw-mr-2">作答時間：</dt>
               <dd>{ durationTime }</dd>
             </dl>
           </div>
+
           <ScoreTable scoreList={answerState} />
+
+          <div className="tw-my-5 tw-flex tw-justify-center">
+            <PrimaryButton
+              text="重新測驗"
+              onClick={async () => {
+                await dispatch(setIsExamAction(true));
+                await router.push(`/quiz/${id}`);
+              }}
+            />
+          </div>
         </div>
       </Popup>
     </>

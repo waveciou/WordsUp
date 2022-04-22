@@ -104,6 +104,7 @@ const WritedExam: React.FC<IWritedExamProps> = ({ id = 'writed-exam', quantity =
         answerState: [...answerState],
       }];
 
+      localStorage.setItem('record', JSON.stringify(result));
       dispatch(setRecordCollection(result));
     }
   }, [answerState, isFinish]);
