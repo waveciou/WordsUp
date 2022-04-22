@@ -1,4 +1,4 @@
-export type IQuizTypes = '' | 'writed-exam' | 'daily-writed-exam';
+export type IExamId = '' | 'writed-exam' | 'daily-writed-exam';
 
 export interface IAnswerItem {
   id: string,
@@ -8,9 +8,8 @@ export interface IAnswerItem {
 }
 
 export interface IRecordItem {
-  type: IQuizTypes;
+  id: IExamId;
   startTime: number;
   finishTime: number;
-  score: number;
   answerState: IAnswerItem[]
 }

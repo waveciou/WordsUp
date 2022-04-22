@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { PrimaryButton } from '@/Components/form';
 import ScoreTable from '@/Components/scoreTable';
 import WritedExamCard from '@/Components/writedExamCard';
+import getExamScore from '@/Functions/examScore';
 import randomCollection from '@/Functions/randomCollection';
 import { IAnswerItem, IRecordItem } from '@/Interfaces/exam';
 import { IWordItem } from '@/Interfaces/word';
@@ -16,11 +17,11 @@ import { setIsExamTesting, setRecordCollection } from '@/Slice/exam';
 import { RootState } from '@/Store/index';
 
 interface IWritedExamProps {
-  type: 'writed-exam' | 'daily-writed-exam';
+  id: 'writed-exam' | 'daily-writed-exam';
   quantity: number;
 }
 
-const WritedExam: React.FC<IWritedExamProps> = ({ type = 'writed-exam', quantity = 10 }) => {
+const WritedExam: React.FC<IWritedExamProps> = ({ id = 'writed-exam', quantity = 10 }) => {
   const day = dayjs();
   const router = useRouter();
   const dispatch = useDispatch();
@@ -42,7 +43,7 @@ const WritedExam: React.FC<IWritedExamProps> = ({ type = 'writed-exam', quantity
     setCurrentTopic(0);
     setAnswerState([]);
 
-    switch (type) {
+    switch (id) {
     case 'daily-writed-exam': {
       // 今日單字填空測驗
       const randomSortData: IWordItem[] = [...DAILY_WORDS].sort(() => (Math.random() > 0.5 ? -1 : 1));
@@ -62,21 +63,12 @@ const WritedExam: React.FC<IWritedExamProps> = ({ type = 'writed-exam', quantity
   }, [quantity, WORDS_DATA, DAILY_WORDS]);
 
   const handleExamFinish = useCallback(() => {
-    const recordData: IRecordItem[] = [...recordCollection, {
-      type,
-      startTime,
-      finishTime: day.valueOf(),
-      score,
-      answerState: [...answerState],
-    }];
-
     setCurrentTopic(0);
     setQuestions([]);
     setIsFinish(true);
 
-    dispatch(setRecordCollection(recordData));
     dispatch(setIsExamTesting(false));
-  }, [type, startTime, score, answerState, recordCollection]);
+  }, [id, startTime, score, answerState, recordCollection]);
 
   const handleToNextQuestion = () => {
     const nextNumber: number = currentTopic + 1;
@@ -100,12 +92,21 @@ const WritedExam: React.FC<IWritedExamProps> = ({ type = 'writed-exam', quantity
   }, []);
 
   useEffect(() => {
-    const correctItems: IAnswerItem[] = answerState.filter(({ result }) => result === true);
-    const correctNumber: number = correctItems.length / answerState.length;
-    const amount: number = Number.isNaN(correctNumber) ? 0 : correctNumber;
-    const result: number = Math.floor(amount * 100);
-    setScore(result);
+    setScore(getExamScore(answerState));
   }, [answerState]);
+
+  useEffect(() => {
+    if (isFinish === true && answerState.length === quantity) {
+      const result: IRecordItem[] = [...recordCollection, {
+        id,
+        startTime,
+        finishTime: day.valueOf(),
+        answerState: [...answerState],
+      }];
+
+      dispatch(setRecordCollection(result));
+    }
+  }, [answerState, isFinish]);
 
   return (
     <div>
