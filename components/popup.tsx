@@ -52,12 +52,9 @@ const Popup: React.FC<IPopupProps> = ({ children, show, onClose }) => {
           <button
             type="button"
             aria-label="close-popup"
-            className="tw-w-5 tw-h-5 tw-absolute tw-overflow-hidden tw-top-2.5 tw-right-2.5"
+            className="tw-w-5 tw-h-5 tw-absolute tw-overflow-hidden tw-top-2.5 tw-right-2.5 tw-flex tw-items-center tw-justify-center tw-text-center before-font-material before:tw-content-['\e5cd'] before:tw-w-6 before:tw-h-6 before:tw-leading-6 before:tw-block before:tw-m-auto before:tw-text-black"
             onClick={handleClosePopup}
-          >
-            <span className="tw-w-0.5 tw-h-5 tw-ml-2 tw-block tw-absolute tw-top-0 tw-bg-gray tw-rotate-45" />
-            <span className="tw-w-0.5 tw-h-5 tw-ml-2 tw-block tw-absolute tw-top-0 tw-bg-gray tw--rotate-45" />
-          </button>
+          />
           <div className="tw-w-full tw-h-full tw-max-h-[calc(100vh-200px)] tw-overflow-x-hidden tw-overflow-y-auto">
             { children }
           </div>
