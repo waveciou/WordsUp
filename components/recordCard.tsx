@@ -5,13 +5,14 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
+import Alert from '@/Components/alert';
 import { PrimaryButton } from '@/Components/form';
 import Popup from '@/Components/popup';
 import ScoreTable from '@/Components/scoreTable';
 import getExamName from '@/Functions/examName';
 import getExamScore from '@/Functions/examScore';
 import { IRecordItem } from '@/Interfaces/exam';
-import { setIsExamAction } from '@/Slice/exam';
+import { deleteRecordItem, setIsExamAction } from '@/Slice/exam';
 
 interface IRecordCardProps {
   recordData: IRecordItem
@@ -24,6 +25,7 @@ const RecordCard: React.FC<IRecordCardProps> = ({ recordData }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [isShow, setIsShow] = useState<boolean>(false);
+  const [isShowDeleteAlert, setIsShowDeleteAlert] = useState<boolean>(false);
   const [testTime, setTestTime] = useState<string>('');
   const [durationTime, setDurationTime] = useState<string>('');
 
@@ -60,6 +62,7 @@ const RecordCard: React.FC<IRecordCardProps> = ({ recordData }) => {
           <div className="tw-truncate tw-leading-relaxed tw-text-xxs tablet:tw-text-xs tw-text-black">{ testTime }</div>
         </div>
       </div>
+
       <Popup show={isShow} onClose={() => setIsShow(false)}>
         <div>
           <div className="tw-w-full tw-text-center tw-text-wine tw-text-base tablet:tw-text-lg tw-leading-relaxed tw-mb-4">{ getExamName(id) }</div>
@@ -95,7 +98,7 @@ const RecordCard: React.FC<IRecordCardProps> = ({ recordData }) => {
 
           <ScoreTable scoreList={answerState} />
 
-          <div className="tw-my-5 tw-flex tw-justify-center">
+          <div className="tw-mt-5 tw-flex tw-justify-center">
             <PrimaryButton
               text="重新測驗"
               onClick={async () => {
@@ -103,9 +106,26 @@ const RecordCard: React.FC<IRecordCardProps> = ({ recordData }) => {
                 await router.push(`/quiz/${id}`);
               }}
             />
+            <PrimaryButton
+              text="刪除紀錄"
+              colorStyle="red"
+              onClick={() => setIsShowDeleteAlert(true)}
+            />
           </div>
         </div>
       </Popup>
+
+      <Alert
+        show={isShowDeleteAlert}
+        title="確定要刪除這筆紀錄？"
+        confirmText="確定"
+        cancelText="取消"
+        onConfirm={() => {
+          setIsShow(false);
+          dispatch(deleteRecordItem(startTime));
+        }}
+        onCancel={() => setIsShowDeleteAlert(false)}
+      />
     </>
   );
 };

@@ -97,14 +97,13 @@ const WritedExam: React.FC<IWritedExamProps> = ({ id = 'writed-exam', quantity =
 
   useEffect(() => {
     if (isFinish === true && answerState.length === quantity) {
-      const result: IRecordItem[] = [...recordCollection, {
+      const result: IRecordItem[] = [{
         id,
         startTime,
         finishTime: day.valueOf(),
         answerState: [...answerState],
-      }];
+      }, ...recordCollection];
 
-      localStorage.setItem('record', JSON.stringify(result));
       dispatch(setRecordCollection(result));
     }
   }, [answerState, isFinish]);
