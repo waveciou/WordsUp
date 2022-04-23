@@ -112,6 +112,7 @@ const WritedExamCard: React.FC<IWritedExamCardProps> = ({
           />
         </div>
       </div>
+
       <Alert
         show={isLeaveAlertOpen}
         title="確定要離開測驗？"

@@ -5,7 +5,7 @@ import { CSSTransition } from 'react-transition-group';
 interface IAlertModalProps {
   show: boolean;
   title: string;
-  content: string;
+  content?: string;
   confirmText: string;
   cancelText?: string;
   onConfirm: () => void;
@@ -15,7 +15,7 @@ interface IAlertModalProps {
 const Alert: React.FC<IAlertModalProps> = ({
   show,
   title,
-  content,
+  content = '',
   confirmText,
   cancelText,
   onConfirm = () => {},

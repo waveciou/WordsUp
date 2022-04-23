@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { PrimaryButton } from '@/Components/form';
 import ScoreTable from '@/Components/scoreTable';
 import WritedExamCard from '@/Components/writedExamCard';
+import getExamName from '@/Functions/examName';
 import getExamScore from '@/Functions/examScore';
 import randomCollection from '@/Functions/randomCollection';
 import { IAnswerItem, IRecordItem } from '@/Interfaces/exam';
@@ -96,15 +97,14 @@ const WritedExam: React.FC<IWritedExamProps> = ({ id = 'writed-exam', quantity =
   }, [answerState]);
 
   useEffect(() => {
-    if (isFinish === true && answerState.length === quantity) {
-      const result: IRecordItem[] = [...recordCollection, {
+    if (isFinish && answerState.length === quantity) {
+      const result: IRecordItem[] = [{
         id,
         startTime,
         finishTime: day.valueOf(),
         answerState: [...answerState],
-      }];
+      }, ...recordCollection];
 
-      localStorage.setItem('record', JSON.stringify(result));
       dispatch(setRecordCollection(result));
     }
   }, [answerState, isFinish]);
@@ -124,7 +124,10 @@ const WritedExam: React.FC<IWritedExamProps> = ({ id = 'writed-exam', quantity =
         !isExamTesting && isFinish
         && (
           <>
-            <div className="tw-text-wine/80 tw-my-8 tw-text-md tw-text-center">
+            <div className="tw-text-wine/80 tw-my-6 tw-text-md tw-text-center">
+              {getExamName(id)}
+            </div>
+            <div className="tw-w-full tw-mb-8 tw-text-base tw-text-green-dark tw-text-center tw-flex tw-items-center tw-justify-center before-font-material before:tw-content-['\e8e8'] before:tw-block before:tw-mr-2">
               我的分數：
               {score}
               分

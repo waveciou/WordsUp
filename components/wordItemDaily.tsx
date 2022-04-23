@@ -53,7 +53,7 @@ const WordItemDaily: React.FC<IWordItemDailyProps> = ({
         <button
           type="button"
           aria-label="carousel-prev-button"
-          className={`carousel-prev-button tw-w-7 tw-h-7 tw-text-center tw-block tw-absolute tw-left-0 tw-top-2/4 tw--translate-y-2/4 tw-z-50 before-font-material before:tw-block before:tw-m-auto ${swipeIndex === 0 ? 'before:tw-text-gray before:tw-cursor-not-allowed' : 'before:tw-text-black'}`}
+          className={`carousel-prev-button tw-w-6 tw-h-6 tw-text-center tw-block tw-absolute tw-left-1 tw-top-2/4 tw--translate-y-2/4 tw-z-50 before-font-material before:tw-block before:tw-m-auto ${swipeIndex === 0 ? 'before:tw-text-gray before:tw-cursor-not-allowed' : 'before:tw-text-black'}`}
           onClick={() => swipe?.slidePrev()}
         />
         <Swiper
@@ -92,7 +92,7 @@ const WordItemDaily: React.FC<IWordItemDailyProps> = ({
         <button
           type="button"
           aria-label="carousel-next-button"
-          className={`carousel-next-button tw-w-7 tw-h-7 tw-text-center tw-block tw-absolute tw-right-0 tw-top-2/4 tw--translate-y-2/4 tw-z-50 before-font-material before:tw-block before:tw-m-auto ${swipeIndex === wordsData.length - 1 ? 'before:tw-text-gray before:tw-cursor-not-allowed' : 'before:tw-text-black'}`}
+          className={`carousel-next-button tw-w-6 tw-h-6 tw-text-center tw-block tw-absolute tw-right-1 tw-top-2/4 tw--translate-y-2/4 tw-z-50 before-font-material before:tw-block before:tw-m-auto ${swipeIndex === wordsData.length - 1 ? 'before:tw-text-gray before:tw-cursor-not-allowed' : 'before:tw-text-black'}`}
           onClick={() => swipe?.slideNext()}
         />
         <div className="tw-absolute tw-right-4 tw-top-3 tw-z-50">
