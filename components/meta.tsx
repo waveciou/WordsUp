@@ -22,7 +22,7 @@ const MetaData: React.FC = () => (
     <link rel="icon" type="image/png" sizes="32x32" href={`${process.env.BASE_PATH}/favicon/favicon-32x32.png`} />
     <link rel="icon" type="image/png" sizes="96x96" href={`${process.env.BASE_PATH}/favicon/favicon-96x96.png`} />
     <link rel="icon" type="image/png" sizes="16x16" href={`${process.env.BASE_PATH}/favicon/favicon-16x16.png`} />
-    <link rel="manifest" href={`${process.env.BASE_PATH}/favicon/manifest.json`} />
+    <link rel="manifest" href="https://waveciou.github.io/words-up/manifest.json" />
     <meta name="msapplication-TileColor" content="#ffffff" />
     <meta name="msapplication-TileImage" content={`${process.env.BASE_PATH}/favicon/ms-icon-144x144.png`} />
     <meta name="theme-color" content="#ffffff" />
