@@ -5,26 +5,6 @@
 $icon-size: 1.6em;
 $icons: ('home': '\e8ce', 'quiz': '\f04c', 'collection': '\e241', 'record': '\e85d', 'settings': '\e8b8');
 
-#menu {
-  width: 80%;
-  height: 100%;
-  min-width: 140px;
-  max-width: 400px;
-  display: flex;
-  position: fixed;
-  top: 0;
-  right: 0;
-  background-color: $color-white;
-  z-index: 4500;
-  transition: transform 0.3s;
-  transform: translateX(100%);
-  flex-direction: column;
-
-  &.is-active {
-    transform: translateX(0);
-  }
-}
-
 .item {
   display: flex;
   align-items: center;

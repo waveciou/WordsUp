@@ -43,7 +43,11 @@ module.exports = {
     },
     minWidth: {
       105: '105px',
+      140: '140px',
       200: '200px',
+    },
+    maxWidth: {
+      400: '400px',
     },
     minHeight: {
       300: '300px',
@@ -51,6 +55,7 @@ module.exports = {
     extend: {
       spacing: {
         'header-height': '50px',
+        'menu-width': '80%',
       },
       zIndex: {
         3000: '3000',

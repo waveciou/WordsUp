@@ -107,7 +107,7 @@ const WordItemDaily: React.FC<IWordItemDailyProps> = ({
       { isShowGuideButton && (
         <div className="tw-flex tw-justify-center tw-mt-3">
           <PrimaryButton
-            text="測驗今日單字"
+            text="開始測驗今日單字"
             onClick={async () => {
               await dispatch(setIsExamAction(true));
               await router.push('/quiz/daily-writed-exam');

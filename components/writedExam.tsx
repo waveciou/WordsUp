@@ -135,7 +135,7 @@ const WritedExam: React.FC<IWritedExamProps> = ({ id = 'writed-exam', quantity =
             <ScoreTable scoreList={answerState} />
             <div className="tw-my-5 tw-flex tw-justify-center">
               <PrimaryButton text="再次測驗" onClick={handleExamStart} />
-              <PrimaryButton text="返回主頁" onClick={() => router.push('/quiz')} />
+              <PrimaryButton text="返回" onClick={() => router.push('/quiz')} />
             </div>
           </>
         )

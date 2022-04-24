@@ -47,13 +47,15 @@ const Menu: React.FC = () => {
   }, [routeLinks, router]);
 
   return (
-    <nav id={styles.menu} className={ClassHandleMenu()}>
+    <nav
+      className={`tw-w-menu-width tw-min-w-140 tw-max-w-400 tw-h-full tw-flex tw-fixed tw-top-0 tw-right-0 tw-bg-white tw-z-4500 tw-transition-transform tw-duration-300 tw-translate-x-full tw-flex-col ${isMenuOpen === true ? 'tw-translate-x-0' : ''}`}
+    >
       <div className="tw-flex tw-items-start tw-justify-end tw-basis-12">
         <button
           type="button"
           aria-label="close-menu"
           className="tw-w-12 tw-h-12 tw-flex tw-items-center tw-justify-center tw-text-center before-font-material before:tw-content-['\e5cd'] before:tw-w-6 before:tw-h-6 before:tw-leading-6 before:tw-block before:tw-m-auto before:tw-text-black"
-          onClick={() => { dispatch(setIsMenuOpen(false)); }}
+          onClick={() => dispatch(setIsMenuOpen(false))}
         />
       </div>
       <div className="tw-relative tw-overflow-hidden tw-grow">
