@@ -19,7 +19,7 @@ export interface IInputText {
 export interface IPrimaryButton {
   text: string;
   isDisabled?: boolean;
-  colorStyle?: 'green' | 'red';
+  colorStyle?: 'green' | 'red' | 'green-dark';
   onClick: () => void;
 }
 

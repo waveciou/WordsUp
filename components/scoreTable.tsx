@@ -28,9 +28,9 @@ const ScoreTable: React.FC<IScoreTableProps> = ({ scoreList = [] }) => {
         <td className={classDefines}>
           {
             result ? (
-              <div className="tw-text-center before-font-material before:tw-w-6 before:tw-h-6 before:tw-leading-6 before:tw-block before:tw-m-auto before:tw-content-['\e86c'] before:tw-text-mark-green" />
+              <div className="tw-text-center before-font-material before:tw-w-6 before:tw-h-6 before:tw-leading-6 before:tw-block before:tw-m-auto before:tw-content-['\e86c'] before:tw-text-green-light" />
             ) : (
-              <div className="tw-text-center before-font-material before:tw-w-6 before:tw-h-6 before:tw-leading-6 before:tw-block before:tw-m-auto before:tw-content-['\e5c9'] before:tw-text-mark-red" />
+              <div className="tw-text-center before-font-material before:tw-w-6 before:tw-h-6 before:tw-leading-6 before:tw-block before:tw-m-auto before:tw-content-['\e5c9'] before:tw-text-red" />
             )
           }
         </td>

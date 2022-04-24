@@ -2,7 +2,7 @@
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 import React from 'react';
 
-class DocumentComponent extends Document {
+class CustomDocument extends Document {
   render() {
     return (
       <Html lang="en">
@@ -18,4 +18,4 @@ class DocumentComponent extends Document {
   }
 }
 
-export default DocumentComponent;
+export default CustomDocument;
