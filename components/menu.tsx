@@ -1,8 +1,10 @@
-import Link from 'next/link';
+/* eslint-disable object-curly-newline */
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from 'next/router';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import Alert from '@/Components/alert';
 import { IRouteItem } from '@/Interfaces/global';
 import { setIsMenuOpen } from '@/Slice/common';
 import { RootState } from '@/Store/index';
@@ -11,17 +13,26 @@ import styles from '@/Styles/menu.module.scss';
 const ROUTE = require('../src/data/route.json');
 
 const Menu: React.FC = () => {
-  const [routeLinks, setRouteLinks] = useState<IRouteItem[]>([]);
-  const { isMenuOpen } = useSelector((state: RootState) => state.common);
-  const dispatch = useDispatch();
   const router = useRouter();
+  const dispatch = useDispatch();
+  const { isMenuOpen } = useSelector((state: RootState) => state.common);
+  const { isExamTesting } = useSelector((state: RootState) => state.exam);
+  const [routeList, setRouteList] = useState<IRouteItem[]>([]);
+  const [isShowLeaveExamAlert, setIsShowLeaveExamAlert] = useState<boolean>(false);
+  const [pathTarget, setPathTarget] = useState<string>('');
 
   useEffect(() => {
     const { route } = ROUTE;
-    setRouteLinks(route);
+    setRouteList(route);
   }, []);
 
-  const routeLinksMemo = useMemo(() => {
+  useEffect(() => {
+    if (isShowLeaveExamAlert === false) {
+      setPathTarget('');
+    }
+  }, [isShowLeaveExamAlert]);
+
+  const routeListMemo = useMemo(() => {
     const ClassHandle = (path: string, id: string): string => {
       const routePath: string = `/${router.pathname.split('/')[1]}`;
       const isCurrent: boolean = !!(routePath === path);
@@ -32,38 +43,69 @@ const Menu: React.FC = () => {
       `;
     };
 
-    return routeLinks.map((route: IRouteItem) => {
+    return routeList.map((route: IRouteItem) => {
       const { id, path, name } = route;
       return (
         <li key={id} className="tw-px-4 tw-mb-2.5">
-          <Link href={path} passHref>
-            <a href="replace" className={ClassHandle(path, id)}>{name}</a>
-          </Link>
+          <button
+            type="button"
+            className={ClassHandle(path, id)}
+            onClick={() => {
+              if (isExamTesting) {
+                setPathTarget(path);
+                setIsShowLeaveExamAlert(true);
+              } else {
+                router.push(path);
+              }
+            }}
+          >
+            {name}
+          </button>
         </li>
       );
     });
-  }, [routeLinks, router]);
+  }, [routeList, router, isExamTesting]);
+
+  const handlePushRoute = useCallback(() => {
+    const path: string = pathTarget !== '' ? pathTarget : '/';
+    router.push(path);
+    setIsShowLeaveExamAlert(false);
+  }, [pathTarget]);
 
   return (
-    <nav
-      className={`tw-w-menu-width tw-min-w-140 tw-max-w-400 tw-h-full tw-flex tw-fixed tw-top-0 tw-right-0 tw-bg-white tw-z-4500 tw-transition-transform tw-duration-300 tw-translate-x-full tw-flex-col ${isMenuOpen === true ? 'tw-translate-x-0' : ''}`}
-    >
-      <div className="tw-flex tw-items-start tw-justify-end tw-basis-12">
-        <button
-          type="button"
-          aria-label="close-menu"
-          className="tw-w-12 tw-h-12 tw-flex tw-items-center tw-justify-center tw-text-center before-font-material before:tw-content-['\e5cd'] before:tw-w-6 before:tw-h-6 before:tw-leading-6 before:tw-block before:tw-m-auto before:tw-text-black"
-          onClick={() => dispatch(setIsMenuOpen(false))}
-        />
-      </div>
-      <div className="tw-relative tw-overflow-hidden tw-grow">
-        <div className="tw-w-full tw-h-full tw-absolute tw-top-0 tw-left-0 tw-overflow-x-hidden tw-overflow-y-auto">
-          <ul>
-            { routeLinksMemo }
-          </ul>
+    <>
+      <nav
+        className={`tw-w-menu-width tw-min-w-140 tw-max-w-400 tw-h-full tw-flex tw-fixed tw-top-0 tw-right-0 tw-bg-white tw-z-4500 tw-transition-transform tw-duration-300 tw-translate-x-full tw-flex-col ${isMenuOpen === true ? 'tw-translate-x-0' : ''}`}
+      >
+        <div className="tw-flex tw-items-start tw-justify-end tw-basis-12">
+          <button
+            type="button"
+            aria-label="close-menu"
+            className="tw-w-12 tw-h-12 tw-flex tw-items-center tw-justify-center tw-text-center before-font-material before:tw-content-['\e5cd'] before:tw-w-6 before:tw-h-6 before:tw-leading-6 before:tw-block before:tw-m-auto before:tw-text-black"
+            onClick={() => dispatch(setIsMenuOpen(false))}
+          />
         </div>
-      </div>
-    </nav>
+        <div className="tw-relative tw-overflow-hidden tw-grow">
+          <div className="tw-w-full tw-h-full tw-absolute tw-top-0 tw-left-0 tw-overflow-x-hidden tw-overflow-y-auto">
+            <ul>
+              { routeListMemo }
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <Alert
+        show={isShowLeaveExamAlert}
+        title="確定要離開測驗？"
+        content="測驗紀錄將不會被保存"
+        confirmText="確定"
+        cancelText="取消"
+        onConfirm={handlePushRoute}
+        onCancel={() => {
+          setIsShowLeaveExamAlert(false);
+          dispatch(setIsMenuOpen(false));
+        }}
+      />
+    </>
   );
 };
 

@@ -109,7 +109,7 @@ const Collection: React.FC = () => {
     <div className="tw-text-yellow tw-text-xs">
       共
       <span className="tw-mx-1">{ words.length }</span>
-      個單字
+      筆資料
     </div>
   ), [words]);
 
@@ -229,7 +229,7 @@ const Collection: React.FC = () => {
                 { wordListMemo }
               </ul>
             ) : (
-              <div className="tw-flex tw-justify-center tw-text-gray tw-py-8">目前沒有資料</div>
+              <div className="tw-text-center tw-text-gray tw-py-8">目前沒有資料</div>
             )
         }
       </div>

@@ -53,7 +53,7 @@ const Record: React.FC = () => {
           ? (
             <ul>{ recordListMemo }</ul>
           ) : (
-            <div className="tw-flex tw-justify-center tw-text-gray tw-py-8">目前沒有任何測驗紀錄</div>
+            <div className="tw-text-center tw-text-gray tw-py-8">目前沒有任何測驗紀錄</div>
           )}
       </div>
 

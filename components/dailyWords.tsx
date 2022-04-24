@@ -15,12 +15,12 @@ import { setIsShowGuideButton } from '@/Slice/daily';
 import { setIsExamAction } from '@/Slice/exam';
 import { RootState } from '@/Store/index';
 
-interface IWordItemDailyProps {
+interface IDailyWordsProps {
   dateCaption: string,
   wordsData: IWordItem[]
 }
 
-const WordItemDaily: React.FC<IWordItemDailyProps> = ({
+const DailyWords: React.FC<IDailyWordsProps> = ({
   dateCaption = '',
   wordsData = [],
 }) => {
@@ -107,7 +107,7 @@ const WordItemDaily: React.FC<IWordItemDailyProps> = ({
       { isShowGuideButton && (
         <div className="tw-flex tw-justify-center tw-mt-3">
           <PrimaryButton
-            text="開始測驗今日單字"
+            text="測驗今日單字"
             onClick={async () => {
               await dispatch(setIsExamAction(true));
               await router.push('/quiz/daily-writed-exam');
@@ -119,4 +119,4 @@ const WordItemDaily: React.FC<IWordItemDailyProps> = ({
   );
 };
 
-export default WordItemDaily;
+export default DailyWords;

@@ -32,39 +32,42 @@ const WritedExam: React.FC<IWritedExamProps> = ({ id = 'writed-exam', quantity =
 
   const [questions, setQuestions] = useState<IWordItem[]>([]);
   const [answerState, setAnswerState] = useState<IAnswerItem[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isFinish, setIsFinish] = useState<boolean>(false);
-  const [currentTopic, setCurrentTopic] = useState<number>(0);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [score, setScore] = useState<number>(0);
   const [startTime, setStartTime] = useState<number>(0);
 
   const handleExamStart = useCallback(() => {
     dispatch(setIsExamTesting(false));
 
+    setIsLoading(true);
     setIsFinish(false);
-    setCurrentTopic(0);
+    setCurrentIndex(0);
     setAnswerState([]);
 
     switch (id) {
-    case 'daily-writed-exam': {
-      // 今日單字填空測驗
-      const randomSortData: IWordItem[] = [...DAILY_WORDS].sort(() => (Math.random() > 0.5 ? -1 : 1));
-      setQuestions(randomSortData);
-      break;
-    }
-    default: {
-      // 單字填空測驗
-      const randomNumbers: number[] = randomCollection(quantity, WORDS_DATA.length);
-      setQuestions(randomNumbers.map((num: number) => WORDS_DATA[num]));
-      break;
-    }
+      case 'daily-writed-exam': {
+        // 今日單字填空測驗
+        const randomSortData: IWordItem[] = [...DAILY_WORDS].sort(() => (Math.random() > 0.5 ? -1 : 1));
+        setQuestions(randomSortData);
+        break;
+      }
+      default: {
+        // 單字填空測驗
+        const randomNumbers: number[] = randomCollection(quantity, WORDS_DATA.length);
+        setQuestions(randomNumbers.map((num: number) => WORDS_DATA[num]));
+        break;
+      }
     }
 
     setStartTime(day.valueOf());
+    setIsLoading(false);
     dispatch(setIsExamTesting(true));
   }, [quantity, WORDS_DATA, DAILY_WORDS]);
 
   const handleExamFinish = useCallback(() => {
-    setCurrentTopic(0);
+    setCurrentIndex(0);
     setQuestions([]);
     setIsFinish(true);
 
@@ -72,11 +75,11 @@ const WritedExam: React.FC<IWritedExamProps> = ({ id = 'writed-exam', quantity =
   }, [id, startTime, score, answerState, recordCollection]);
 
   const handleToNextQuestion = () => {
-    const nextNumber: number = currentTopic + 1;
+    const nextNumber: number = currentIndex + 1;
     if (nextNumber > (quantity - 1)) {
       handleExamFinish();
     } else {
-      setCurrentTopic(nextNumber);
+      setCurrentIndex(nextNumber);
     }
   };
 
@@ -112,16 +115,19 @@ const WritedExam: React.FC<IWritedExamProps> = ({ id = 'writed-exam', quantity =
   return (
     <div>
       {
-        isExamTesting && (
+        isLoading && <div className="tw-text-center tw-text-green tw-py-8">資料載入中...</div>
+      }
+      {
+        !isLoading && isExamTesting && (
           <WritedExamCard
-            currentTopic={currentTopic}
-            wordData={questions[currentTopic]}
+            currentIndex={currentIndex}
+            wordData={questions[currentIndex]}
             setAnswer={handleSetAnswer}
           />
         )
       }
       {
-        !isExamTesting && isFinish
+        !isLoading && !isExamTesting && isFinish
         && (
           <>
             <div className="tw-text-wine/80 tw-my-6 tw-text-md tw-text-center">
@@ -135,7 +141,7 @@ const WritedExam: React.FC<IWritedExamProps> = ({ id = 'writed-exam', quantity =
             <ScoreTable scoreList={answerState} />
             <div className="tw-my-5 tw-flex tw-justify-center">
               <PrimaryButton text="再次測驗" onClick={handleExamStart} />
-              <PrimaryButton text="返回" onClick={() => router.push('/quiz')} />
+              <PrimaryButton text="離開測驗" onClick={() => router.back()} />
             </div>
           </>
         )

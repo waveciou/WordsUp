@@ -77,7 +77,7 @@ const Info: React.FC = () => {
       <Alert
         show={isShowClearAlert}
         title="確定要清空 LocalStorage？"
-        content="此動作將會清除所有測驗紀錄以及重置今日單字資料"
+        content="此動作將無法復原"
         confirmText="確定"
         cancelText="取消"
         onConfirm={() => {
