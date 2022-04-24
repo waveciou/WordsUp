@@ -109,7 +109,7 @@ const Collection: React.FC = () => {
     <div className="tw-text-yellow tw-text-xs">
       共
       <span className="tw-mx-1">{ words.length }</span>
-      個單字
+      筆資料
     </div>
   ), [words]);
 
@@ -203,7 +203,7 @@ const Collection: React.FC = () => {
                 <div className="tw-mr-2.5 tw-leading-none tablet:tw-mb-0">
                   <button
                     type="button"
-                    className={`tw-w-10 tw-h-10 tw-bg-white tw-rounded-lg tw-flex tw-justify-center tw-items-center before:tw-w-5 before:tw-h-5 before:tw-block before:bg-no-repeat before:tw-bg-center before:tw-bg-contain ${isSortDownAlt ? "before:tw-bg-[url('../public/img/alphabet_z_to_a.svg')]" : "before:tw-bg-[url('../public/img/alphabet_a_to_z.svg')]"}`}
+                    className={`tw-w-10 tw-h-10 tw-bg-white tw-rounded-lg tw-flex tw-justify-center tw-items-center before:tw-w-5 before:tw-h-5 before:tw-block before:tw-bg-no-repeat before:tw-bg-center before:tw-bg-contain ${isSortDownAlt ? "before:tw-bg-[url('../public/img/alphabet_z_to_a.svg')]" : "before:tw-bg-[url('../public/img/alphabet_a_to_z.svg')]"}`}
                     aria-label="sort-alpha-button"
                     onClick={() => setIsSortDownAlt(!isSortDownAlt)}
                   />
@@ -229,7 +229,7 @@ const Collection: React.FC = () => {
                 { wordListMemo }
               </ul>
             ) : (
-              <div className="tw-flex tw-justify-center tw-text-gray tw-py-8">目前沒有資料</div>
+              <div className="tw-text-center tw-text-gray tw-py-8">目前沒有資料</div>
             )
         }
       </div>

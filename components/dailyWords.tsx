@@ -15,12 +15,12 @@ import { setIsShowGuideButton } from '@/Slice/daily';
 import { setIsExamAction } from '@/Slice/exam';
 import { RootState } from '@/Store/index';
 
-interface IWordItemDailyProps {
+interface IDailyWordsProps {
   dateCaption: string,
   wordsData: IWordItem[]
 }
 
-const WordItemDaily: React.FC<IWordItemDailyProps> = ({
+const DailyWords: React.FC<IDailyWordsProps> = ({
   dateCaption = '',
   wordsData = [],
 }) => {
@@ -119,4 +119,4 @@ const WordItemDaily: React.FC<IWordItemDailyProps> = ({
   );
 };
 
-export default WordItemDaily;
+export default DailyWords;

@@ -10,18 +10,18 @@ import { IAnswerItem } from '@/Interfaces/exam';
 import { IWordItem } from '@/Interfaces/word';
 
 interface IWritedExamCardProps {
-  currentTopic: number,
+  currentIndex: number,
   wordData: IWordItem,
   setAnswer: (answerItem: IAnswerItem) => void,
 }
 
 const WritedExamCard: React.FC<IWritedExamCardProps> = ({
-  currentTopic, wordData, setAnswer,
+  currentIndex, wordData, setAnswer,
 }) => {
   const router = useRouter();
   const handleSpeechSpeak = useSpeechSpeak();
   const [inputValue, setInputValue] = useState<string>('');
-  const [isLeaveAlertOpen, setIsLeaveAlertOpen] = useState<boolean>(false);
+  const [isShowLeaveExamAlert, setIsShowLeaveExamAlert] = useState<boolean>(false);
 
   const {
     en, zh, parts, id,
@@ -65,13 +65,13 @@ const WritedExamCard: React.FC<IWritedExamCardProps> = ({
           <div className="tw-text-md tw-text-wine tw-leading-7">
             第
             {' '}
-            {currentTopic + 1}
+            {currentIndex + 1}
             {' '}
             題
           </div>
           <button
             type="button"
-            onClick={() => setIsLeaveAlertOpen(true)}
+            onClick={() => setIsShowLeaveExamAlert(true)}
             className="tw-flex tw-items-center tw-text-xs tw-text-green-dark hover:tw-text-green before-font-material before:tw-content-['\e15e'] before:tw-block before:tw-mr-1"
           >
             離開測驗
@@ -114,13 +114,13 @@ const WritedExamCard: React.FC<IWritedExamCardProps> = ({
       </div>
 
       <Alert
-        show={isLeaveAlertOpen}
+        show={isShowLeaveExamAlert}
         title="確定要離開測驗？"
-        content="測驗紀錄將不會保存"
+        content="測驗紀錄將不會被保存"
         confirmText="確定"
         cancelText="取消"
-        onConfirm={() => router.push('/quiz')}
-        onCancel={() => setIsLeaveAlertOpen(false)}
+        onConfirm={() => router.back()}
+        onCancel={() => setIsShowLeaveExamAlert(false)}
       />
     </>
   );

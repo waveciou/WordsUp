@@ -16,9 +16,9 @@ const WordsDetails: React.FC<IWordItemDetailProps> = ({ id, wordData }) => {
 
   return (
     <div className="tw-text-sm">
-      <div className="tw-text-lg tw-text-wine tw-leading-7">{ en }</div>
+      <div className="tw-text-lg tw-text-wine tw-leading-9">{ en }</div>
       <div className="tw-leading-7">
-        <div>
+        <div className="tw-my-2">
           <button
             type="button"
             aria-label="speech"
