@@ -3,13 +3,21 @@ import { IRecordItem } from '@/Interfaces/exam';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: {
-  isExamAction: boolean,
-  isExamTesting: boolean,
-  recordCollection: IRecordItem[]
+  isExamAction: boolean;
+  isExamTesting: boolean;
+  recordCollection: IRecordItem[];
+  examGuardAlert: {
+    title: string;
+    content: string;
+  }
 } = {
   isExamAction: false,
   isExamTesting: false,
   recordCollection: [],
+  examGuardAlert: {
+    title: '確定要離開測驗？',
+    content: '測驗紀錄將不會被保存',
+  },
 };
 
 export const examSlice = createSlice({

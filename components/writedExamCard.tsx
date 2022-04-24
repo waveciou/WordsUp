@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import Alert from '@/Components/alert';
 import { InputText, PrimaryButton } from '@/Components/form';
@@ -8,6 +9,7 @@ import WordsCaption from '@/Components/wordsCaption';
 import useSpeechSpeak from '@/Hook/useSpeechSpeak';
 import { IAnswerItem } from '@/Interfaces/exam';
 import { IWordItem } from '@/Interfaces/word';
+import { RootState } from '@/Store/index';
 
 interface IWritedExamCardProps {
   currentIndex: number,
@@ -20,8 +22,9 @@ const WritedExamCard: React.FC<IWritedExamCardProps> = ({
 }) => {
   const router = useRouter();
   const handleSpeechSpeak = useSpeechSpeak();
+  const { examGuardAlert } = useSelector((state: RootState) => state.exam);
   const [inputValue, setInputValue] = useState<string>('');
-  const [isShowLeaveExamAlert, setIsShowLeaveExamAlert] = useState<boolean>(false);
+  const [isShowExamGuardAlert, setIsShowExamGuardAlert] = useState<boolean>(false);
 
   const {
     en, zh, parts, id,
@@ -71,7 +74,7 @@ const WritedExamCard: React.FC<IWritedExamCardProps> = ({
           </div>
           <button
             type="button"
-            onClick={() => setIsShowLeaveExamAlert(true)}
+            onClick={() => setIsShowExamGuardAlert(true)}
             className="tw-flex tw-items-center tw-text-xs tw-text-green-dark hover:tw-text-green before-font-material before:tw-content-['\e15e'] before:tw-block before:tw-mr-1"
           >
             離開測驗
@@ -114,13 +117,13 @@ const WritedExamCard: React.FC<IWritedExamCardProps> = ({
       </div>
 
       <Alert
-        show={isShowLeaveExamAlert}
-        title="確定要離開測驗？"
-        content="測驗紀錄將不會被保存"
+        show={isShowExamGuardAlert}
+        title={examGuardAlert.title}
+        content={examGuardAlert.content}
         confirmText="確定"
         cancelText="取消"
         onConfirm={() => router.back()}
-        onCancel={() => setIsShowLeaveExamAlert(false)}
+        onCancel={() => setIsShowExamGuardAlert(false)}
       />
     </>
   );

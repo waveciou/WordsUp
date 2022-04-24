@@ -43,10 +43,10 @@ const DailyWords: React.FC<IDailyWordsProps> = ({
   return (
     <>
       <div className="tw-flex tw-justify-between tw-items-center tw-flex-wrap tw-mb-4">
-        <h1 className="tw-flex tw-items-center tw-leading-8 tw-text-sm mini:tw-text-md tw-text-green-dark before-font-material before:tw-content-['\e8ce'] before:tw-w-8 before:tw-h-8 before:tw-leading-8 before:tw-block before:tw-text-center">
+        <h1 className="tw-flex tw-items-center tw-leading-8 tw-text-sm mini:tw-text-md tw-text-yellow tablet:tw-text-green-dark before-font-material before:tw-content-['\e8ce'] before:tw-w-8 before:tw-h-8 before:tw-leading-8 before:tw-block before:tw-text-center">
           今日單字
         </h1>
-        <div className="tw-flex tw-items-center tw-justify-start tw-text-xs">{ dateCaption }</div>
+        <div className="tw-flex tw-items-center tw-justify-start tw-text-xs tw-text-white tablet:tw-text-black">{ dateCaption }</div>
       </div>
 
       <div className="carousel tw-relative tw-overflow-hidden">
@@ -67,8 +67,8 @@ const DailyWords: React.FC<IDailyWordsProps> = ({
               id, en, zh, parts,
             }: IWordItem) => (
               <SwiperSlide key={uuidv4()}>
-                <div className="tw-w-full tw-h-full tw-p-1">
-                  <div className="tw-w-full tw-h-full tw-py-16 tw-px-6 tw-flex tw-justify-center tw-items-center tw-rounded-lg tw-shadow-[0_1px_3px_0_rgba(51,51,51,0.4)]">
+                <div className="tw-w-full tw-h-full tablet:tw-p-1">
+                  <div className="tw-w-full tw-h-full tw-py-16 tw-px-6 tw-flex tw-justify-center tw-items-center tw-rounded-lg tablet:tw-shadow-[0_1px_3px_0_rgba(51,51,51,0.4)] tw-bg-white">
                     <div className="tw-w-full">
                       <div className="tw-text-xl tw-text-center tw-leading-relaxed tw-text-wine tw-break-all tw-mb-2.5">{ en }</div>
                       <div className="tw-leading-8 tw-text-xs mini:tw-text-sm">
@@ -108,6 +108,7 @@ const DailyWords: React.FC<IDailyWordsProps> = ({
         <div className="tw-flex tw-justify-center tw-mt-3">
           <PrimaryButton
             text="測驗今日單字"
+            colorStyle="green-dark"
             onClick={async () => {
               await dispatch(setIsExamAction(true));
               await router.push('/quiz/daily-writed-exam');
