@@ -1,5 +1,6 @@
+/* eslint-disable object-curly-newline */
 /* eslint-disable no-nested-ternary */
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useMemo, useState } from 'react';
 
 import { IInputText, IPrimaryButton, ISelect } from '@/Interfaces/form';
 import styles from '@/Styles/form.module.scss';
@@ -51,13 +52,26 @@ export const PrimaryButton: React.FC<IPrimaryButton> = ({
   colorStyle = 'green',
   isDisabled = false,
   onClick = () => {},
-}: IPrimaryButton) => (
-  <button
-    type="button"
-    className={`tw-min-w-105 tw-py-2 tw-px-5 tw-mx-1.5 tw-inline-block tw-text-sm tw-text-center tw-text-white tw-rounded-lg tw-leading-6 ${isDisabled ? 'tw-bg-black tw-opacity-60 tw-cursor-not-allowed' : (colorStyle === 'red' ? 'tw-bg-mark-red desktop:hover:tw-bg-wine' : 'tw-bg-green desktop:hover:tw-bg-green-dark')}`}
-    onClick={onClick}
-    title={text}
-  >
-    {text}
-  </button>
-);
+}: IPrimaryButton) => {
+  const ClassColorStyle = useMemo(() => {
+    switch (colorStyle) {
+      case 'red':
+        return 'tw-bg-red desktop:hover:tw-bg-wine';
+      case 'green-dark':
+        return 'tw-bg-green-dark desktop:hover:tw-bg-orange';
+      default:
+        return 'tw-bg-green desktop:hover:tw-bg-green-dark';
+    }
+  }, [colorStyle]);
+
+  return (
+    <button
+      type="button"
+      className={`tw-min-w-105 tw-py-2 tw-px-5 tw-mx-1.5 tw-inline-block tw-text-sm tw-text-center tw-text-white tw-rounded-lg tw-leading-6 ${isDisabled ? 'tw-bg-black tw-opacity-60 tw-cursor-not-allowed' : ClassColorStyle}`}
+      onClick={onClick}
+      title={text}
+    >
+      {text}
+    </button>
+  );
+};

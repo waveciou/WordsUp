@@ -16,9 +16,9 @@ const Menu: React.FC = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { isMenuOpen } = useSelector((state: RootState) => state.common);
-  const { isExamTesting } = useSelector((state: RootState) => state.exam);
+  const { isExamTesting, examGuardAlert } = useSelector((state: RootState) => state.exam);
   const [routeList, setRouteList] = useState<IRouteItem[]>([]);
-  const [isShowLeaveExamAlert, setIsShowLeaveExamAlert] = useState<boolean>(false);
+  const [isShowExamGuardAlert, setIsShowExamGuardAlert] = useState<boolean>(false);
   const [pathTarget, setPathTarget] = useState<string>('');
 
   useEffect(() => {
@@ -27,10 +27,10 @@ const Menu: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (isShowLeaveExamAlert === false) {
+    if (isShowExamGuardAlert === false) {
       setPathTarget('');
     }
-  }, [isShowLeaveExamAlert]);
+  }, [isShowExamGuardAlert]);
 
   const routeListMemo = useMemo(() => {
     const ClassHandle = (path: string, id: string): string => {
@@ -53,7 +53,7 @@ const Menu: React.FC = () => {
             onClick={() => {
               if (isExamTesting) {
                 setPathTarget(path);
-                setIsShowLeaveExamAlert(true);
+                setIsShowExamGuardAlert(true);
               } else {
                 router.push(path);
               }
@@ -69,7 +69,7 @@ const Menu: React.FC = () => {
   const handlePushRoute = useCallback(() => {
     const path: string = pathTarget !== '' ? pathTarget : '/';
     router.push(path);
-    setIsShowLeaveExamAlert(false);
+    setIsShowExamGuardAlert(false);
   }, [pathTarget]);
 
   return (
@@ -94,14 +94,14 @@ const Menu: React.FC = () => {
         </div>
       </nav>
       <Alert
-        show={isShowLeaveExamAlert}
-        title="確定要離開測驗？"
-        content="測驗紀錄將不會被保存"
+        show={isShowExamGuardAlert}
+        title={examGuardAlert.title}
+        content={examGuardAlert.content}
         confirmText="確定"
         cancelText="取消"
         onConfirm={handlePushRoute}
         onCancel={() => {
-          setIsShowLeaveExamAlert(false);
+          setIsShowExamGuardAlert(false);
           dispatch(setIsMenuOpen(false));
         }}
       />

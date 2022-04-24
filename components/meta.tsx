@@ -26,6 +26,13 @@ const MetaData: React.FC = () => (
     <meta name="msapplication-TileColor" content="#ffffff" />
     <meta name="msapplication-TileImage" content={`${process.env.BASE_PATH}/favicon/ms-icon-144x144.png`} />
     <meta name="theme-color" content="#ffffff" />
+    <meta name="description" content="一個單字學習平台的 side project" />
+    <meta property="og:title" content="Words Up" />
+    <meta property="og:description" content="一個單字學習平台的 side project" />
+    <meta property="og:image" content="https://waveciou.github.io/words-up/img/icon.jpg" />
+    <meta name="twitter:title" content="Words Up" />
+    <meta name="twitter:description" content="一個單字學習平台的 side project" />
+    <meta name="twitter:image" content="https://waveciou.github.io/words-up/img/icon.jpg" />
   </Head>
 );
 
