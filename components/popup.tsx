@@ -45,7 +45,7 @@ const Popup: React.FC<IPopupProps> = ({ children, show, onClose }) => {
         onClick={handleClosePopup}
       >
         <div
-          className="tw-w-[calc(100%-20px)] tw-max-w-2xl tw-min-h-300 tw-max-h-[calc(100%-20px)] tw-py-8 tw-px-4 tw-relative tw-overflow-hidden tw-rounded-lg tw-bg-white desktop:tw-px-5"
+          className="tw-max-w-670 tw-w-[calc(100%-20px)] tw-min-h-300 tw-max-h-[calc(100%-20px)] tw-py-8 tw-px-4 tw-relative tw-overflow-hidden tw-rounded-lg tw-bg-white desktop:tw-px-5"
           aria-hidden="true"
           onClick={(e) => { e.stopPropagation(); }}
         >
