@@ -51,8 +51,8 @@ const Alert: React.FC<IAlertModalProps> = ({
       >
         <div className="tw-w-72 tw-relative tw-overflow-hidden tw-rounded-lg tw-bg-white">
           <div className="tw-p-4 tw-text-center">
-            <div className="tw-text-sm tw-leading-7">{ title }</div>
-            <div className="tw-text-xxs tw-leading-7">{ content }</div>
+            <div className="tw-text-sm tw-leading-7 tw-mb-2">{ title }</div>
+            <div className="tw-text-xxs tw-leading-5">{ content }</div>
           </div>
           <div className="tw-flex tw-border-t tw-border-gray tw-border-solid">
             <button

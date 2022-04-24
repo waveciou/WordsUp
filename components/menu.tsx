@@ -21,8 +21,6 @@ const Menu: React.FC = () => {
     setRouteLinks(route);
   }, []);
 
-  const ClassHandleMenu = () => `${isMenuOpen === true ? styles['is-active'] : ''}`;
-
   const routeLinksMemo = useMemo(() => {
     const ClassHandle = (path: string, id: string): string => {
       const routePath: string = `/${router.pathname.split('/')[1]}`;

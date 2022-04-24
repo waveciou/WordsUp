@@ -60,6 +60,7 @@ const Record: React.FC = () => {
       <Alert
         show={isShowDeleteAlert}
         title="確定要清除全部紀錄？"
+        content="此動作將無法復原"
         confirmText="確定"
         cancelText="取消"
         onConfirm={() => {

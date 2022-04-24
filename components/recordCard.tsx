@@ -118,6 +118,7 @@ const RecordCard: React.FC<IRecordCardProps> = ({ recordData }) => {
       <Alert
         show={isShowDeleteAlert}
         title="確定要刪除這筆紀錄？"
+        content="此動作將無法復原"
         confirmText="確定"
         cancelText="取消"
         onConfirm={() => {

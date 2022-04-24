@@ -20,9 +20,9 @@
       "path": "/record"
     },
     {
-      "id": "settings",
-      "name": "設定",
-      "path": "/settings"
+      "id": "info",
+      "name": "更多資訊",
+      "path": "/info"
     }
   ]
 }
