@@ -10,7 +10,7 @@ import { PrimaryButton } from '@/Components/form';
 import Popup from '@/Components/popup';
 import ScoreTable from '@/Components/scoreTable';
 import getExamName from '@/Functions/examName';
-import getExamScore from '@/Functions/examScore';
+import useExamScore from '@/Hooks/useExamScore';
 import { IRecordItem } from '@/Interfaces/exam';
 import { deleteRecordItem, setIsExamAction } from '@/Slice/exam';
 
@@ -24,6 +24,7 @@ const RecordCard: React.FC<IRecordCardProps> = ({ recordData }) => {
 
   const router = useRouter();
   const dispatch = useDispatch();
+  const handleGetExamScore = useExamScore();
   const [isShow, setIsShow] = useState<boolean>(false);
   const [isShowDeleteAlert, setIsShowDeleteAlert] = useState<boolean>(false);
   const [testTime, setTestTime] = useState<string>('');
@@ -54,7 +55,11 @@ const RecordCard: React.FC<IRecordCardProps> = ({ recordData }) => {
         onClick={() => setIsShow(true)}
       >
         <div className="tw-w-16 tablet:tw-w-24 tw-text-green-dark">
-          <span className="tw-leading-relaxed tw-text-lg tablet:tw-text-xl">{ getExamScore(answerState) }</span>
+          <span className="tw-leading-relaxed tw-text-lg tablet:tw-text-xl">
+            {
+              handleGetExamScore(answerState)
+            }
+          </span>
           <span className="tw-text-xs">分</span>
         </div>
         <div className="tw-w-[calc(100%-4rem)] tablet:tw-w-[calc(100%-6rem)] tw-overflow-hidden tw-pl-1">
@@ -73,7 +78,7 @@ const RecordCard: React.FC<IRecordCardProps> = ({ recordData }) => {
                 分數：
               </dt>
               <dd>
-                { getExamScore(answerState) }
+                { handleGetExamScore(answerState) }
                 {' '}
                 分
               </dd>

@@ -1,5 +1,5 @@
-/* eslint-disable max-len */
 /* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable max-len */
 /* eslint-disable react-hooks/rules-of-hooks */
 import dayjs from 'dayjs';
 import { useRouter } from 'next/router';
@@ -10,8 +10,8 @@ import { PrimaryButton } from '@/Components/form';
 import ScoreTable from '@/Components/scoreTable';
 import WritedExamCard from '@/Components/writedExamCard';
 import getExamName from '@/Functions/examName';
-import getExamScore from '@/Functions/examScore';
 import randomCollection from '@/Functions/randomCollection';
+import useExamScore from '@/Hooks/useExamScore';
 import { IAnswerItem, IRecordItem } from '@/Interfaces/exam';
 import { IWordItem } from '@/Interfaces/word';
 import { setIsExamTesting, setRecordCollection } from '@/Slice/exam';
@@ -26,6 +26,7 @@ const WritedExam: React.FC<IWritedExamProps> = ({ id = 'writed-exam', quantity =
   const day = dayjs();
   const router = useRouter();
   const dispatch = useDispatch();
+  const handleGetExamScore = useExamScore();
   const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
   const DAILY_WORDS = useSelector((state: RootState) => state.daily.dailyWords);
   const { isExamTesting, recordCollection } = useSelector((state: RootState) => state.exam);
@@ -35,7 +36,6 @@ const WritedExam: React.FC<IWritedExamProps> = ({ id = 'writed-exam', quantity =
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isFinish, setIsFinish] = useState<boolean>(false);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [score, setScore] = useState<number>(0);
   const [startTime, setStartTime] = useState<number>(0);
 
   const handleExamStart = useCallback(() => {
@@ -66,13 +66,13 @@ const WritedExam: React.FC<IWritedExamProps> = ({ id = 'writed-exam', quantity =
     dispatch(setIsExamTesting(true));
   }, [quantity, WORDS_DATA, DAILY_WORDS]);
 
-  const handleExamFinish = useCallback(() => {
+  const handleExamFinish = () => {
     setCurrentIndex(0);
     setQuestions([]);
     setIsFinish(true);
 
     dispatch(setIsExamTesting(false));
-  }, [id, startTime, score, answerState, recordCollection]);
+  };
 
   const handleToNextQuestion = () => {
     const nextNumber: number = currentIndex + 1;
@@ -94,10 +94,6 @@ const WritedExam: React.FC<IWritedExamProps> = ({ id = 'writed-exam', quantity =
       dispatch(setIsExamTesting(false));
     };
   }, []);
-
-  useEffect(() => {
-    setScore(getExamScore(answerState));
-  }, [answerState]);
 
   useEffect(() => {
     if (isFinish && answerState.length === quantity) {
@@ -135,7 +131,7 @@ const WritedExam: React.FC<IWritedExamProps> = ({ id = 'writed-exam', quantity =
             </div>
             <div className="tw-w-full tw-mb-8 tw-text-base tw-text-green-dark tw-text-center tw-flex tw-items-center tw-justify-center before-font-material before:tw-content-['\e8e8'] before:tw-block before:tw-mr-2">
               我的分數：
-              {score}
+              { handleGetExamScore(answerState) }
               分
             </div>
             <ScoreTable scoreList={answerState} />

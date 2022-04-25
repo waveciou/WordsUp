@@ -17,31 +17,42 @@ const classDefines: string = 'tw-py-2.5 tw-px-4 tw-leading-relaxed tw-align-midd
 const ScoreTable: React.FC<IScoreTableProps> = ({ scoreList = [] }) => {
   const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
 
-  const scoreListMemo = useMemo(() => scoreList.map(({
-    id, answer, solution, result,
-  }) => {
+  const scoreListMemo = useMemo(() => scoreList.map(({ id, answer }) => {
     const key: string = uuidv4();
-    const word: IWordItem = WORDS_DATA.filter((item) => item.id === id)[0];
+    const word: IWordItem | undefined = WORDS_DATA.find((item) => item.id === id);
+    const result: boolean = word ? answer === word.en : false;
 
     return (
-      <tr key={key} className="tw-bg-white">
-        <td className={classDefines}>
-          {
-            result ? (
-              <div className="tw-text-center before-font-material before:tw-w-6 before:tw-h-6 before:tw-leading-6 before:tw-block before:tw-m-auto before:tw-content-['\e86c'] before:tw-text-green-light" />
-            ) : (
-              <div className="tw-text-center before-font-material before:tw-w-6 before:tw-h-6 before:tw-leading-6 before:tw-block before:tw-m-auto before:tw-content-['\e5c9'] before:tw-text-red" />
-            )
-          }
-        </td>
-        <td className={classDefines}>
-          <div className="tw-min-w-200 tw-m-auto tw-whitespace-normal tablet:tw-min-w-0 tablet:tw-max-w-xs">
-            <WordsCaption id={word.id} wordsList={word.zh} partsList={word.parts} />
-          </div>
-        </td>
-        <td className={classDefines}>{ answer === '' ? '-' : answer }</td>
-        <td className={classDefines}>{ solution }</td>
-      </tr>
+      <>
+        {
+          word ? (
+            <tr key={key} className="tw-bg-white">
+              <td className={classDefines}>
+                {
+                  result === true ? (
+                    <div className="tw-text-center before-font-material before:tw-w-6 before:tw-h-6 before:tw-leading-6 before:tw-block before:tw-m-auto before:tw-content-['\e86c'] before:tw-text-green-light" />
+                  ) : (
+                    <div className="tw-text-center before-font-material before:tw-w-6 before:tw-h-6 before:tw-leading-6 before:tw-block before:tw-m-auto before:tw-content-['\e5c9'] before:tw-text-red" />
+                  )
+                }
+              </td>
+              <td className={classDefines}>
+                <div className="tw-min-w-200 tw-m-auto tw-whitespace-normal tablet:tw-min-w-0 tablet:tw-max-w-xs">
+                  <WordsCaption id={id} wordsList={word.zh} partsList={word.parts} />
+                </div>
+              </td>
+              <td className={classDefines}>
+                <span className={`${!result && answer ? 'tw-text-red' : ''}`}>
+                  { answer === '' ? '-' : answer }
+                </span>
+              </td>
+              <td className={classDefines}>
+                <span>{ word.en }</span>
+              </td>
+            </tr>
+          ) : <></>
+        }
+      </>
     );
   }), [scoreList, WORDS_DATA]);
 

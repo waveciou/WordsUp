@@ -38,24 +38,11 @@ const WritedExamCard: React.FC<IWritedExamCardProps> = ({
   const handleSubmit = () => {
     const answer: string = inputValue.trim();
     if (answer !== '') {
-      const result: boolean = !!(answer === en);
-      setAnswer({
-        id,
-        answer,
-        solution: en,
-        result,
-      });
+      setAnswer({ id, answer });
     }
   };
 
-  const handleNextQuestion = () => {
-    setAnswer({
-      id,
-      answer: '',
-      solution: en,
-      result: false,
-    });
-  };
+  const handleNextQuestion = () => setAnswer({ id, answer: '' });
 
   useEffect(() => {
     setInputValue('');
