@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import Alert from '@/Components/alert';
 import { InputText, PrimaryButton } from '@/Components/form';
 import WordsCaption from '@/Components/wordsCaption';
-import useSpeechSpeak from '@/Hook/useSpeechSpeak';
+import useSpeechSpeak from '@/Hooks/useSpeechSpeak';
 import { IAnswerItem } from '@/Interfaces/exam';
 import { IWordItem } from '@/Interfaces/word';
 import { RootState } from '@/Store/index';
@@ -38,24 +38,11 @@ const WritedExamCard: React.FC<IWritedExamCardProps> = ({
   const handleSubmit = () => {
     const answer: string = inputValue.trim();
     if (answer !== '') {
-      const result: boolean = !!(answer === en);
-      setAnswer({
-        id,
-        answer,
-        solution: en,
-        result,
-      });
+      setAnswer({ id, answer });
     }
   };
 
-  const handleNextQuestion = () => {
-    setAnswer({
-      id,
-      answer: '',
-      solution: en,
-      result: false,
-    });
-  };
+  const handleNextQuestion = () => setAnswer({ id, answer: '' });
 
   useEffect(() => {
     setInputValue('');

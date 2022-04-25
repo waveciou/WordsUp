@@ -13,13 +13,14 @@ import Meta from '@/Components/meta';
 import debounce from '@/Functions/debounce';
 import loadGapiScrpit from '@/Functions/googleSheetAPI/loadAPIScrpit';
 import randomCollection from '@/Functions/randomCollection';
-import useGetSheetData from '@/Hook/useGetSheetData';
-import useScrollToTop from '@/Hook/useScrollToTop';
+import useGetSheetData from '@/Hooks/useGetSheetData';
+import useScrollToTop from '@/Hooks/useScrollToTop';
+import useSetDailyWords from '@/Hooks/useSetDailyWords';
+import useSetDate from '@/Hooks/useSetDate';
 import { IRecordItem } from '@/Interfaces/exam';
 import { IProps } from '@/Interfaces/global';
-import { IWordItem } from '@/Interfaces/word';
+import { IDailyCases } from '@/Interfaces/word';
 import { setIsAppMounted, setIsMenuOpen, setScreenWidth, setScrollValue } from '@/Slice/common';
-import { setDailyWords, setDateCaption, setDateId } from '@/Slice/daily';
 import { setRecordCollection } from '@/Slice/exam';
 import { RootState } from '@/Store/index';
 
@@ -29,11 +30,6 @@ declare global {
   }
 }
 
-interface IDailyCases {
-  date: string;
-  words: number[];
-}
-
 const Layout: React.FC<IProps> = ({ children }) => {
   dayjs.extend(utc);
 
@@ -41,6 +37,8 @@ const Layout: React.FC<IProps> = ({ children }) => {
   const router = useRouter();
   const handleGetData = useGetSheetData();
   const handleScrollToTop = useScrollToTop();
+  const handleSetDate = useSetDate();
+  const handleSetDailyWords = useSetDailyWords();
 
   const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
   const { isAppMounted, isMenuOpen, scrollValue } = useSelector((state: RootState) => state.common);
@@ -102,10 +100,7 @@ const Layout: React.FC<IProps> = ({ children }) => {
 
   // Get date and set date caption
   useEffect(() => {
-    const now: number = dayjs().valueOf();
-
-    dispatch(setDateId(dayjs(now).utcOffset(8).format('YYYY-MM-DD')));
-    dispatch(setDateCaption(dayjs(now).utcOffset(8).format('YYYY年MM月DD日')));
+    handleSetDate();
   }, []);
 
   useEffect(() => {
@@ -140,14 +135,7 @@ const Layout: React.FC<IProps> = ({ children }) => {
         dailyCases.words = randomCollection(10, WORDS_DATA.length);
       }
 
-      const result: IWordItem[] = dailyCases.words.reduce((prev, current) => {
-        const index: number = WORDS_DATA.findIndex(({ id }) => id === `${current}`);
-        return [...prev, WORDS_DATA[index]];
-      }, [] as IWordItem[]);
-
-      dispatch(setDailyWords(result));
-
-      localStorage.setItem('daily', JSON.stringify(dailyCases));
+      handleSetDailyWords(dailyCases);
     }
   }, [dateId, WORDS_DATA]);
 

@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { PrimaryButton } from '@/Components/form';
 import WordsCaption from '@/Components/wordsCaption';
-import useSpeechSpeak from '@/Hook/useSpeechSpeak';
+import useSpeechSpeak from '@/Hooks/useSpeechSpeak';
 import { IWordItem } from '@/Interfaces/word';
 import { setIsShowGuideButton } from '@/Slice/daily';
 import { setIsExamAction } from '@/Slice/exam';

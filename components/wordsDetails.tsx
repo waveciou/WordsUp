@@ -1,7 +1,7 @@
 import React from 'react';
 
 import WordsCaption from '@/Components/wordsCaption';
-import useSpeechSpeak from '@/Hook/useSpeechSpeak';
+import useSpeechSpeak from '@/Hooks/useSpeechSpeak';
 import { IWordItem } from '@/Interfaces/word';
 import stylesButton from '@/Styles/button.module.scss';
 
