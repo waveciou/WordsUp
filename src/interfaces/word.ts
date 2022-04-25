@@ -5,3 +5,8 @@ export interface IWordItem {
   parts: string[]
   alphabet: string
 }
+
+export interface IDailyCases {
+  date: string;
+  words: number[];
+}

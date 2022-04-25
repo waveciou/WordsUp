@@ -1,13 +1,38 @@
-import React, { useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useCallback, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Alert from '@/Components/alert';
+import randomCollection from '@/Functions/randomCollection';
 import useGetSheetData from '@/Hook/useGetSheetData';
+import useSetDailyWords from '@/Hook/useSetDailyWords';
+import useSetDate from '@/Hook/useSetDate';
+import { setRecordCollection } from '@/Slice/exam';
+import { RootState } from '@/Store/index';
 
 import pkg from '../package.json';
 
 const Info: React.FC = () => {
+  const dispatch = useDispatch();
   const handleGetData = useGetSheetData();
+  const handleSetDate = useSetDate();
+  const handleSetDailyWords = useSetDailyWords();
+  const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
   const [isShowClearAlert, setIsShowClearAlert] = useState<boolean>(false);
+
+  const handleClearLocalStorage = useCallback(() => {
+    localStorage.clear();
+
+    const dateId: string = handleSetDate();
+
+    handleSetDailyWords({
+      date: dateId,
+      words: randomCollection(10, WORDS_DATA.length),
+    });
+
+    dispatch(setRecordCollection([]));
+    setIsShowClearAlert(false);
+  }, [WORDS_DATA]);
 
   return (
     <>
@@ -77,13 +102,10 @@ const Info: React.FC = () => {
       <Alert
         show={isShowClearAlert}
         title="確定要清空 LocalStorage？"
-        content="此動作將無法復原"
+        content="此動作將會清空測驗紀錄並重置今日單字資料"
         confirmText="確定"
         cancelText="取消"
-        onConfirm={() => {
-          setIsShowClearAlert(false);
-          localStorage.clear();
-        }}
+        onConfirm={handleClearLocalStorage}
         onCancel={() => setIsShowClearAlert(false)}
       />
     </>
