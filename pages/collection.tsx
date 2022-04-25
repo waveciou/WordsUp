@@ -7,8 +7,8 @@ import { useSelector } from 'react-redux';
 
 import Card from '@/Components/card';
 import { Select } from '@/Components/form';
-import useGetSheetData from '@/Hook/useGetSheetData';
-import useScrollToTop from '@/Hook/useScrollToTop';
+import useGetSheetData from '@/Hooks/useGetSheetData';
+import useScrollToTop from '@/Hooks/useScrollToTop';
 import { ISelectOption } from '@/Interfaces/form';
 import { IWordItem } from '@/Interfaces/word';
 import { RootState } from '@/Store/index';

@@ -26,7 +26,7 @@
       "@/Src/*": ["src/*"],
       "@/Data/*": ["src/data/*"],
       "@/Functions/*": ["src/functions/*"],
-      "@/Hook/*": ["src/hooks/*"],
+      "@/Hooks/*": ["src/hooks/*"],
       "@/Interfaces/*": ["src/interfaces/*"],
       "@/Components/*": ["components/*"],
       "@/Pages/*": ["pages/*"],

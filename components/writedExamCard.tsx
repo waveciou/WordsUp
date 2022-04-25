@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import Alert from '@/Components/alert';
 import { InputText, PrimaryButton } from '@/Components/form';
 import WordsCaption from '@/Components/wordsCaption';
-import useSpeechSpeak from '@/Hook/useSpeechSpeak';
+import useSpeechSpeak from '@/Hooks/useSpeechSpeak';
 import { IAnswerItem } from '@/Interfaces/exam';
 import { IWordItem } from '@/Interfaces/word';
 import { RootState } from '@/Store/index';

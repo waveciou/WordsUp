@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Alert from '@/Components/alert';
 import randomCollection from '@/Functions/randomCollection';
-import useGetSheetData from '@/Hook/useGetSheetData';
-import useSetDailyWords from '@/Hook/useSetDailyWords';
-import useSetDate from '@/Hook/useSetDate';
+import useGetSheetData from '@/Hooks/useGetSheetData';
+import useSetDailyWords from '@/Hooks/useSetDailyWords';
+import useSetDate from '@/Hooks/useSetDate';
 import { setRecordCollection } from '@/Slice/exam';
 import { RootState } from '@/Store/index';
 
@@ -23,10 +23,8 @@ const Info: React.FC = () => {
   const handleClearLocalStorage = useCallback(() => {
     localStorage.clear();
 
-    const dateId: string = handleSetDate();
-
     handleSetDailyWords({
-      date: dateId,
+      date: handleSetDate(),
       words: randomCollection(10, WORDS_DATA.length),
     });
 
