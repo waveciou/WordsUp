@@ -17,10 +17,11 @@ const classDefines: string = 'tw-py-2.5 tw-px-4 tw-leading-relaxed tw-align-midd
 const ScoreTable: React.FC<IScoreTableProps> = ({ scoreList = [] }) => {
   const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
 
-  const scoreListMemo = useMemo(() => scoreList.map(({ id, answer }) => {
+  const scoreListMemo = useMemo(() => scoreList.map(({
+    id, answer, solution, result,
+  }) => {
     const key: string = uuidv4();
     const word: IWordItem | undefined = WORDS_DATA.find((item) => item.id === id);
-    const result: boolean = word ? answer === word.en : false;
 
     return (
       <>
@@ -42,12 +43,12 @@ const ScoreTable: React.FC<IScoreTableProps> = ({ scoreList = [] }) => {
                 </div>
               </td>
               <td className={classDefines}>
-                <span className={`${!result && answer ? 'tw-text-red' : ''}`}>
+                <span className={!result && answer ? 'tw-text-red' : ''}>
                   { answer === '' ? '-' : answer }
                 </span>
               </td>
               <td className={classDefines}>
-                <span>{ word.en }</span>
+                <span>{ solution }</span>
               </td>
             </tr>
           ) : <></>

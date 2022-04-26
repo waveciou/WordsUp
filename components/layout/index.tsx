@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable object-curly-newline */
 import dayjs from 'dayjs';
@@ -17,9 +18,9 @@ import useGetSheetData from '@/Hooks/useGetSheetData';
 import useScrollToTop from '@/Hooks/useScrollToTop';
 import useSetDailyWords from '@/Hooks/useSetDailyWords';
 import useSetDate from '@/Hooks/useSetDate';
-import { IRecordItem } from '@/Interfaces/exam';
+import { IAnswerItem, IRecordItem, IRecordLocalItem } from '@/Interfaces/exam';
 import { IProps } from '@/Interfaces/global';
-import { IDailyCases } from '@/Interfaces/word';
+import { IDailyCases, IWordItem } from '@/Interfaces/word';
 import { setIsAppMounted, setIsMenuOpen, setScreenWidth, setScrollValue } from '@/Slice/common';
 import { setRecordCollection } from '@/Slice/exam';
 import { RootState } from '@/Store/index';
@@ -141,13 +142,44 @@ const Layout: React.FC<IProps> = ({ children }) => {
 
   // Get record and set record collection
   useEffect(() => {
-    const recordData: string = localStorage.getItem('record') || '';
+    if (WORDS_DATA.length) {
+      const recordData: string = localStorage.getItem('record') || '';
 
-    if (recordData !== '') {
-      const data: IRecordItem[] = JSON.parse(recordData);
-      dispatch(setRecordCollection(data));
+      if (recordData !== '') {
+        const data: IRecordItem[] = JSON.parse(recordData).reduce((
+          prev: IRecordItem[],
+          current: IRecordLocalItem,
+        ) => {
+          const { id, startTime, finishTime, answerState } = current;
+
+          const answerStateData: IAnswerItem[] = answerState.reduce((
+            prevAns: IAnswerItem[],
+            currentAns: { id: string, answer: string },
+          ) => {
+            const word: IWordItem | undefined = WORDS_DATA.find((item) => item.id === currentAns.id);
+            if (word) {
+              return [...prevAns, {
+                id: currentAns.id,
+                answer: currentAns.answer,
+                solution: word.en,
+                result: currentAns.answer === word.en,
+              }];
+            }
+            return [...prevAns];
+          }, []);
+
+          return [...prev, {
+            id,
+            startTime,
+            finishTime,
+            answerState: answerStateData,
+          }];
+        }, []);
+
+        dispatch(setRecordCollection(data));
+      }
     }
-  }, [dispatch]);
+  }, [WORDS_DATA]);
 
   // Import Google Sheet API
   useEffect(() => {
