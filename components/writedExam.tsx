@@ -2,6 +2,7 @@
 /* eslint-disable max-len */
 /* eslint-disable react-hooks/rules-of-hooks */
 import dayjs from 'dayjs';
+import duration from 'dayjs/plugin/duration';
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -23,6 +24,8 @@ interface IWritedExamProps {
 }
 
 const WritedExam: React.FC<IWritedExamProps> = ({ id = 'writed-exam', quantity = 10 }) => {
+  dayjs.extend(duration);
+
   const day = dayjs();
   const router = useRouter();
   const dispatch = useDispatch();
@@ -36,6 +39,7 @@ const WritedExam: React.FC<IWritedExamProps> = ({ id = 'writed-exam', quantity =
   const [isFinish, setIsFinish] = useState<boolean>(false);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [startTime, setStartTime] = useState<number>(0);
+  const [durationTime, setDurationTime] = useState<string>('');
 
   const handleExamStart = useCallback(() => {
     dispatch(setIsExamTesting(false));
@@ -61,6 +65,7 @@ const WritedExam: React.FC<IWritedExamProps> = ({ id = 'writed-exam', quantity =
     }
 
     setStartTime(day.valueOf());
+    setDurationTime('');
     setIsLoading(false);
     dispatch(setIsExamTesting(true));
   }, [quantity, WORDS_DATA, DAILY_WORDS]);
@@ -96,13 +101,16 @@ const WritedExam: React.FC<IWritedExamProps> = ({ id = 'writed-exam', quantity =
 
   useEffect(() => {
     if (isFinish && answerState.length === quantity) {
+      const finishTime: number = day.valueOf();
+
       const result: IRecordItem[] = [{
         id,
         startTime,
-        finishTime: day.valueOf(),
+        finishTime,
         answerState: [...answerState],
       }, ...recordCollection];
 
+      setDurationTime(dayjs.duration(finishTime - startTime).format('HH:mm:ss'));
       dispatch(setRecordCollection(result));
     }
   }, [answerState, isFinish]);
@@ -125,13 +133,17 @@ const WritedExam: React.FC<IWritedExamProps> = ({ id = 'writed-exam', quantity =
         !isLoading && !isExamTesting && isFinish
         && (
           <>
-            <div className="tw-text-wine/80 tw-my-6 tw-text-md tw-text-center">
+            <div className="tw-text-wine tw-my-6 tw-text-md tw-text-center">
               {getExamName(id)}
             </div>
-            <div className="tw-w-full tw-mb-8 tw-text-base tw-text-green-dark tw-text-center tw-flex tw-items-center tw-justify-center before-font-material before:tw-content-['\e8e8'] before:tw-block before:tw-mr-2">
+            <div className="tw-w-full tw-mb-2 tw-text-base tw-text-green-dark tw-text-center tw-flex tw-items-center tw-justify-center before-font-material before:tw-content-['\e8e8'] before:tw-block before:tw-mr-2">
               我的分數：
               { getExamScore(answerState) }
               分
+            </div>
+            <div className="tw-mb-8 tw-text-center tw-text-xs tw-text-gray-dark">
+              作答時間：
+              { durationTime }
             </div>
             <ScoreTable scoreList={answerState} />
             <div className="tw-my-5 tw-flex tw-justify-center">

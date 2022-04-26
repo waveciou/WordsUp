@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { IRecordItem } from '@/Interfaces/exam';
+import { IRecordItem, IRecordLocalItem } from '@/Interfaces/exam';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: {
@@ -36,7 +36,7 @@ export const examSlice = createSlice({
       const asignState = state;
       asignState.recordCollection = [...action.payload];
 
-      const savedData = [...action.payload].map(({
+      const recordLocalData: IRecordLocalItem[] = [...action.payload].map(({
         id, startTime, finishTime, answerState,
       }) => ({
         id,
@@ -48,7 +48,7 @@ export const examSlice = createSlice({
         })),
       }));
 
-      localStorage.setItem('record', JSON.stringify([...savedData]));
+      localStorage.setItem('record', JSON.stringify([...recordLocalData]));
     },
     deleteRecordItem: (state, action: PayloadAction<number>) => {
       const asignState = state;

@@ -46,7 +46,7 @@ const Quiz: React.FC = () => {
               key={path}
               className={`tw-py-5 tw-px-4 tw-rounded-lg tw-shadow-[0_1px_3px_0_rgba(51,51,51,0.4)] ${index + 1 === quizCollection.length ? '' : 'tw-mb-4'}`}
             >
-              <div className="tw-text-wine/80 tw-mb-5 tw-text-md tw-text-center tw-leading-9 before-font-material">
+              <div className="tw-text-wine tw-mb-5 tw-text-md tw-text-center tw-leading-9 before-font-material">
                 { title }
               </div>
               <p className="tw-text-center tw-text-xs tw-text-brown">{ description }</p>
