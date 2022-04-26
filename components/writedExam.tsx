@@ -10,8 +10,8 @@ import { PrimaryButton } from '@/Components/form';
 import ScoreTable from '@/Components/scoreTable';
 import WritedExamCard from '@/Components/writedExamCard';
 import getExamName from '@/Functions/examName';
+import getExamScore from '@/Functions/examScore';
 import randomCollection from '@/Functions/randomCollection';
-import useExamScore from '@/Hooks/useExamScore';
 import { IAnswerItem, IRecordItem } from '@/Interfaces/exam';
 import { IWordItem } from '@/Interfaces/word';
 import { setIsExamTesting, setRecordCollection } from '@/Slice/exam';
@@ -26,7 +26,6 @@ const WritedExam: React.FC<IWritedExamProps> = ({ id = 'writed-exam', quantity =
   const day = dayjs();
   const router = useRouter();
   const dispatch = useDispatch();
-  const handleGetExamScore = useExamScore();
   const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
   const DAILY_WORDS = useSelector((state: RootState) => state.daily.dailyWords);
   const { isExamTesting, recordCollection } = useSelector((state: RootState) => state.exam);
@@ -131,7 +130,7 @@ const WritedExam: React.FC<IWritedExamProps> = ({ id = 'writed-exam', quantity =
             </div>
             <div className="tw-w-full tw-mb-8 tw-text-base tw-text-green-dark tw-text-center tw-flex tw-items-center tw-justify-center before-font-material before:tw-content-['\e8e8'] before:tw-block before:tw-mr-2">
               我的分數：
-              { handleGetExamScore(answerState) }
+              { getExamScore(answerState) }
               分
             </div>
             <ScoreTable scoreList={answerState} />

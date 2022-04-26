@@ -35,7 +35,20 @@ export const examSlice = createSlice({
     setRecordCollection: (state, action: PayloadAction<IRecordItem[]>) => {
       const asignState = state;
       asignState.recordCollection = [...action.payload];
-      localStorage.setItem('record', JSON.stringify([...asignState.recordCollection]));
+
+      const savedData = [...action.payload].map(({
+        id, startTime, finishTime, answerState,
+      }) => ({
+        id,
+        startTime,
+        finishTime,
+        answerState: answerState.map((item) => ({
+          id: item.id,
+          answer: item.answer,
+        })),
+      }));
+
+      localStorage.setItem('record', JSON.stringify([...savedData]));
     },
     deleteRecordItem: (state, action: PayloadAction<number>) => {
       const asignState = state;

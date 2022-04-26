@@ -10,7 +10,7 @@ import { PrimaryButton } from '@/Components/form';
 import Popup from '@/Components/popup';
 import ScoreTable from '@/Components/scoreTable';
 import getExamName from '@/Functions/examName';
-import useExamScore from '@/Hooks/useExamScore';
+import getExamScore from '@/Functions/examScore';
 import { IRecordItem } from '@/Interfaces/exam';
 import { deleteRecordItem, setIsExamAction } from '@/Slice/exam';
 
@@ -24,7 +24,6 @@ const RecordCard: React.FC<IRecordCardProps> = ({ recordData }) => {
 
   const router = useRouter();
   const dispatch = useDispatch();
-  const handleGetExamScore = useExamScore();
   const [isShow, setIsShow] = useState<boolean>(false);
   const [isShowDeleteAlert, setIsShowDeleteAlert] = useState<boolean>(false);
   const [testTime, setTestTime] = useState<string>('');
@@ -56,9 +55,7 @@ const RecordCard: React.FC<IRecordCardProps> = ({ recordData }) => {
       >
         <div className="tw-w-16 tablet:tw-w-24 tw-text-green-dark">
           <span className="tw-leading-relaxed tw-text-lg tablet:tw-text-xl">
-            {
-              handleGetExamScore(answerState)
-            }
+            { getExamScore(answerState) }
           </span>
           <span className="tw-text-xs">分</span>
         </div>
@@ -78,7 +75,7 @@ const RecordCard: React.FC<IRecordCardProps> = ({ recordData }) => {
                 分數：
               </dt>
               <dd>
-                { handleGetExamScore(answerState) }
+                { getExamScore(answerState) }
                 {' '}
                 分
               </dd>
