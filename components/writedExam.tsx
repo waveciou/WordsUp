@@ -13,17 +13,17 @@ import WritedExamCard from '@/Components/writedExamCard';
 import getExamName from '@/Functions/examName';
 import getExamScore from '@/Functions/examScore';
 import useQuestions from '@/Hooks/useQuestions';
-import { IAnswerItem, IRecordItem } from '@/Interfaces/exam';
+import { IAnswerItem, IRecordItem, IWritedExamId } from '@/Interfaces/exam';
 import { IWordItem } from '@/Interfaces/word';
 import { setIsExamTesting, setRecordCollection } from '@/Slice/exam';
 import { RootState } from '@/Store/index';
 
 interface IWritedExamProps {
-  id: 'writed-exam' | 'daily-writed-exam';
+  id: IWritedExamId;
   quantity: number;
 }
 
-const WritedExam: React.FC<IWritedExamProps> = ({ id = 'writed-exam', quantity = 10 }) => {
+const WritedExam: React.FC<IWritedExamProps> = ({ id = 'writed-random', quantity = 10 }) => {
   dayjs.extend(duration);
 
   const day = dayjs();

@@ -111,7 +111,7 @@ const DailyWords: React.FC<IDailyWordsProps> = ({
             colorStyle="green-dark"
             onClick={async () => {
               await dispatch(setIsExamAction(true));
-              await router.push('/quiz/daily-writed-exam');
+              await router.push('/quiz/writed-daily');
             }}
           />
         </div>
