@@ -6,7 +6,7 @@ import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import WritedExam from '@/Components/writedExam';
-import { IExamId } from '@/Interfaces/exam';
+import { IExamId, IWritedExamId } from '@/Interfaces/exam';
 import { setIsExamAction } from '@/Slice/exam';
 import { RootState } from '@/Store/index';
 
@@ -33,16 +33,21 @@ const Quiz: React.FC = () => {
   const examProviderMemo = useMemo(() => {
     if (isExamAction && WORDS_DATA.length) {
       switch (id as IExamId) {
-        case 'writed-exam':
-        // 單字填空測驗
+        case 'writed-random':
+        case 'writed-group-1':
+        case 'writed-group-2':
+        case 'writed-group-3':
+        case 'writed-group-4':
+        case 'writed-group-5':
+          // * 單字填空測驗
           if (WORDS_DATA.length >= 10) {
-            return <WritedExam id="writed-exam" quantity={10} />;
+            return <WritedExam id={id as IWritedExamId} quantity={10} />;
           }
           return <FailedDataCaption />;
-        case 'daily-writed-exam':
-        // 今日單字填空測驗
+        case 'writed-daily':
+          // * 今日單字填空測驗
           if (DAILY_WORDS.length) {
-            return <WritedExam id="daily-writed-exam" quantity={DAILY_WORDS.length} />;
+            return <WritedExam id={id as IWritedExamId} quantity={DAILY_WORDS.length} />;
           }
           return <FailedDataCaption />;
         default:
