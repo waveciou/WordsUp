@@ -4,7 +4,7 @@
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import { useRouter } from 'next/router';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { PrimaryButton } from '@/Components/form';
@@ -12,7 +12,7 @@ import ScoreTable from '@/Components/scoreTable';
 import WritedExamCard from '@/Components/writedExamCard';
 import getExamName from '@/Functions/examName';
 import getExamScore from '@/Functions/examScore';
-import randomCollection from '@/Functions/randomCollection';
+import useQuestions from '@/Hooks/useQuestions';
 import { IAnswerItem, IRecordItem } from '@/Interfaces/exam';
 import { IWordItem } from '@/Interfaces/word';
 import { setIsExamTesting, setRecordCollection } from '@/Slice/exam';
@@ -29,8 +29,7 @@ const WritedExam: React.FC<IWritedExamProps> = ({ id = 'writed-exam', quantity =
   const day = dayjs();
   const router = useRouter();
   const dispatch = useDispatch();
-  const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
-  const DAILY_WORDS = useSelector((state: RootState) => state.daily.dailyWords);
+  const getQuestions = useQuestions();
   const { isExamTesting, recordCollection } = useSelector((state: RootState) => state.exam);
 
   const [questions, setQuestions] = useState<IWordItem[]>([]);
@@ -41,34 +40,24 @@ const WritedExam: React.FC<IWritedExamProps> = ({ id = 'writed-exam', quantity =
   const [startTime, setStartTime] = useState<number>(0);
   const [durationTime, setDurationTime] = useState<string>('');
 
-  const handleExamStart = useCallback(() => {
+  const handleExamStart = () => {
     dispatch(setIsExamTesting(false));
 
+    // Reset Setting
     setIsLoading(true);
     setIsFinish(false);
     setCurrentIndex(0);
     setAnswerState([]);
-
-    switch (id) {
-      case 'daily-writed-exam': {
-        // 今日單字填空測驗
-        const randomSortData: IWordItem[] = [...DAILY_WORDS].sort(() => (Math.random() > 0.5 ? -1 : 1));
-        setQuestions(randomSortData);
-        break;
-      }
-      default: {
-        // 單字填空測驗
-        const randomNumbers: number[] = randomCollection(quantity, WORDS_DATA.length);
-        setQuestions(randomNumbers.map((num: number) => WORDS_DATA[num]));
-        break;
-      }
-    }
-
-    setStartTime(day.valueOf());
     setDurationTime('');
+
+    // Get Questions
+    setQuestions(getQuestions(id, quantity));
+
+    // Complete
+    setStartTime(day.valueOf());
     setIsLoading(false);
     dispatch(setIsExamTesting(true));
-  }, [quantity, WORDS_DATA, DAILY_WORDS]);
+  };
 
   const handleExamFinish = () => {
     setCurrentIndex(0);
