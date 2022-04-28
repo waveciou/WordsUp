@@ -1,4 +1,9 @@
-const initGapiClient = (handleCallback: (SHEET_ID: string) => void) => {
+interface IInitGapiClient {
+  handleCallback: (SHEET_ID: string) => void,
+  handleError: () => void,
+}
+
+const initGapiClient = ({ handleCallback, handleError }: IInitGapiClient) => {
   const handleInitial = () => {
     window.gapi.client.init({
       apiKey: process.env.API_KEY,
@@ -8,7 +13,7 @@ const initGapiClient = (handleCallback: (SHEET_ID: string) => void) => {
     }).then(() => {
       const sheetId: string = process.env.SHEET_ID as string;
       handleCallback(sheetId);
-    });
+    }).catch(() => handleError());
   };
 
   const interval = setInterval(() => {

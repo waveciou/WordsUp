@@ -12,7 +12,7 @@ const App = ({ Component, pageProps }: AppProps) => {
   const { pathname } = useRouter();
 
   const pageMemo = useMemo(() => {
-    if (pathname === '/404') {
+    if (pathname === '/404' || pathname === '/error') {
       return <Component {...pageProps} />;
     }
     return (
