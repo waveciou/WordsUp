@@ -102,7 +102,7 @@ const RecordCard: React.FC<IRecordCardProps> = ({ recordData }) => {
 
           <div className="tw-mt-5 tw-flex tw-justify-center">
             <PrimaryButton
-              text="重新測驗"
+              text="重新挑戰"
               onClick={async () => {
                 await dispatch(setIsExamAction(true));
                 await router.push(`/quiz/${id}`);
