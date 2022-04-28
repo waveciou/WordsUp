@@ -33,31 +33,31 @@ const Quiz: React.FC = () => {
         description: '使用「今日單字」進行填空測驗',
         path: 'writed-daily',
       },
-      {
-        title: getExamName('writed-group-1'),
-        description: '從「ABCDE」字首的單字隨機取得10個單字來進行填空測驗',
-        path: 'writed-group-1',
-      },
-      {
-        title: getExamName('writed-group-2'),
-        description: '從「FGHIJ」字首的單字隨機取得10個單字來進行填空測驗',
-        path: 'writed-group-2',
-      },
-      {
-        title: getExamName('writed-group-3'),
-        description: '從「KLMNO」字首的單字隨機取得10個單字來進行填空測驗',
-        path: 'writed-group-3',
-      },
-      {
-        title: getExamName('writed-group-4'),
-        description: '從「PQRST」字首的單字隨機取得10個單字來進行填空測驗',
-        path: 'writed-group-4',
-      },
-      {
-        title: getExamName('writed-group-5'),
-        description: '從「UVWXYZ」字首的單字隨機取得10個單字來進行填空測驗',
-        path: 'writed-group-5',
-      },
+      // {
+      //   title: getExamName('writed-group-1'),
+      //   description: '從「ABCDE」字首的單字隨機取得10個單字來進行填空測驗',
+      //   path: 'writed-group-1',
+      // },
+      // {
+      //   title: getExamName('writed-group-2'),
+      //   description: '從「FGHIJ」字首的單字隨機取得10個單字來進行填空測驗',
+      //   path: 'writed-group-2',
+      // },
+      // {
+      //   title: getExamName('writed-group-3'),
+      //   description: '從「KLMNO」字首的單字隨機取得10個單字來進行填空測驗',
+      //   path: 'writed-group-3',
+      // },
+      // {
+      //   title: getExamName('writed-group-4'),
+      //   description: '從「PQRST」字首的單字隨機取得10個單字來進行填空測驗',
+      //   path: 'writed-group-4',
+      // },
+      // {
+      //   title: getExamName('writed-group-5'),
+      //   description: '從「UVWXYZ」字首的單字隨機取得10個單字來進行填空測驗',
+      //   path: 'writed-group-5',
+      // },
     ]);
   }, []);
 

@@ -41,7 +41,8 @@ module.exports = {
       sm: '18px',
       xs: '16px',
       xxs: '14px',
-      'error-caption': '96px',
+      'error-caption': '70px',
+      'not-found-caption': '96px',
     },
     minWidth: {
       105: '105px',

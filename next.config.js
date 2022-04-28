@@ -1,3 +1,5 @@
+const secret = require('./secret.js');
+
 const isDevEnv = process.env.NODE_ENV === 'development';
 const productionPath = '/words-up';
 
@@ -7,7 +9,7 @@ module.exports = {
   reactStrictMode: false,
   env: {
     BASE_PATH: isDevEnv ? '' : productionPath,
-    API_KEY: 'AIzaSyBqwYzbJZjQZggrAYBkiUgUNhxnTI695oI',
+    API_KEY: isDevEnv ? secret() : 'AIzaSyBqwYzbJZjQZggrAYBkiUgUNhxnTI695oI',
     CLIENT_ID: '',
     SCOPE: 'https://www.googleapis.com/auth/spreadsheets.readonly',
     SHEET_ID: '1zPtjgSkHph67f_4RxL5AzEzdmwh6XMxzdSYoJcSkJtY',
