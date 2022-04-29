@@ -124,6 +124,7 @@ const WritedExamCard: React.FC<IWritedExamCardProps> = ({
         cancelText="取消"
         onConfirm={() => router.back()}
         onCancel={() => setIsShowExamGuardAlert(false)}
+        theme="warn"
       />
     </>
   );
