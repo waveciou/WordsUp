@@ -104,6 +104,7 @@ const Menu: React.FC = () => {
           setIsShowExamGuardAlert(false);
           dispatch(setIsMenuOpen(false));
         }}
+        theme="warn"
       />
     </>
   );
