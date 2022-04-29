@@ -27,6 +27,16 @@ const WordsDetails: React.FC<IWordItemDetailProps> = ({ id, wordData }) => {
           />
         </div>
         <WordsCaption id={id} wordsList={zh} partsList={parts} hasBrackets />
+        <div className="tw-w-full tw-h-px tw-mt-4 tw-mb-3 tw-bg-gray" />
+        <a
+          href={`https://dictionary.cambridge.org/zht/詞典/英語-漢語-繁體/${en}`}
+          target="_blank"
+          rel="noreferrer"
+          title="劍橋辭典連結"
+          className="tw-inline-flex tw-items-center tw-text-xs before-font-material before:tw-content-['\ea19'] before:tw-block before:tw-mr-2 desktop:hover:tw-text-green"
+        >
+          劍橋辭典連結
+        </a>
       </div>
     </div>
   );
