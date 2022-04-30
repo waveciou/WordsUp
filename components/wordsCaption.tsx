@@ -1,5 +1,4 @@
 /* eslint-disable react/require-default-props */
-/* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react';
 
 interface IWordsCaptionProps {

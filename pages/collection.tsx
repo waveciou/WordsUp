@@ -1,4 +1,3 @@
-/* eslint-disable quotes */
 /* eslint-disable max-len */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable object-curly-newline */
@@ -203,7 +202,7 @@ const Collection: React.FC = () => {
                 <div className="tw-mr-2.5 tw-leading-none tablet:tw-mb-0">
                   <button
                     type="button"
-                    className={`tw-w-10 tw-h-10 tw-bg-white tw-rounded-lg tw-flex tw-justify-center tw-items-center before:tw-w-5 before:tw-h-5 before:tw-block before:tw-bg-no-repeat before:tw-bg-center before:tw-bg-contain ${isSortDownAlt ? "before:tw-bg-[url('../public/img/alphabet_z_to_a.svg')]" : "before:tw-bg-[url('../public/img/alphabet_a_to_z.svg')]"}`}
+                    className={`tw-w-10 tw-h-10 tw-bg-white tw-rounded-lg tw-flex tw-justify-center tw-items-center before:tw-w-5 before:tw-h-5 before:tw-block before:tw-bg-no-repeat before:tw-bg-center before:tw-bg-contain ${isSortDownAlt ? 'before:tw-bg-[url(\'../public/img/alphabet_z_to_a.svg\')]' : 'before:tw-bg-[url(\'../public/img/alphabet_a_to_z.svg\')]'}`}
                     aria-label="sort-alpha-button"
                     onClick={() => setIsSortDownAlt(!isSortDownAlt)}
                   />

@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable object-curly-newline */
+/* eslint-disable react-hooks/exhaustive-deps */
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import { useRouter } from 'next/router';
@@ -150,7 +150,9 @@ const Layout: React.FC<IProps> = ({ children }) => {
           prev: IRecordItem[],
           current: IRecordLocalItem,
         ) => {
-          const { id, startTime, finishTime, answerState } = current;
+          const {
+            id, startTime, finishTime, answerState,
+          } = current;
 
           const answerStateData: IAnswerItem[] = answerState.reduce((
             prevAns: IAnswerItem[],
