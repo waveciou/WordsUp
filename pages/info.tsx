@@ -64,7 +64,7 @@ const Info: React.FC = () => {
           <li className="tw-mb-3">
             <a
               className="tw-w-full tw-flex tw-items-center tw-text-xs tw-text-left tw-p-3 tw-rounded-lg tw-shadow-[0_1px_3px_0_rgba(51,51,51,0.2)] before-font-material before:tw-w-6 before:tw-h-6 before:tw-block before:tw-bg-no-repeat before:tw-bg-center before:tw-bg-contain before:tw-bg-[url('../public/img/github.svg')] before:tw-mr-2"
-              href="https://github.com/waveciou/words-up"
+              href="https://github.com/waveciou/WordsUp"
               target="_blank"
               title="GitHub - Words Up"
               rel="noreferrer"
