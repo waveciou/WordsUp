@@ -1,4 +1,3 @@
-/* eslint-disable import/order */
 import { IGapiResponse } from '@/Interfaces/sheetData';
 import { IWordItem } from '@/Interfaces/word';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';

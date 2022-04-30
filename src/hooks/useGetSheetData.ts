@@ -1,5 +1,5 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-console */
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from 'next/router';
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
@@ -32,7 +32,7 @@ const useGetSheetData = () => {
           await dispatch(setPartItems(partsResult));
           await dispatch(setIsLoading(false));
         }).catch((error) => {
-          console.log(error);
+          console.error(error);
         });
       },
       handleError: () => {

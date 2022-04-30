@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import '@/Styles/main.scss';
 
 import { AppProps } from 'next/app';
@@ -10,9 +11,10 @@ import { store } from '@/Store/index';
 
 const App = ({ Component, pageProps }: AppProps) => {
   const { pathname } = useRouter();
+  const componentPages: string[] = ['/404', '/error'];
 
   const pageMemo = useMemo(() => {
-    if (pathname === '/404' || pathname === '/error') {
+    if (componentPages.includes(pathname)) {
       return <Component {...pageProps} />;
     }
     return (
