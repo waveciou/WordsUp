@@ -22,17 +22,17 @@ const MetaData: React.FC = () => (
     <link rel="icon" type="image/png" sizes="32x32" href={`${process.env.BASE_PATH}/favicon/favicon-32x32.png`} />
     <link rel="icon" type="image/png" sizes="96x96" href={`${process.env.BASE_PATH}/favicon/favicon-96x96.png`} />
     <link rel="icon" type="image/png" sizes="16x16" href={`${process.env.BASE_PATH}/favicon/favicon-16x16.png`} />
-    <link rel="manifest" href="https://waveciou.github.io/words-up/manifest.json" />
+    <link rel="manifest" href="https://waveciou.github.io/WordsUp/manifest.json" />
     <meta name="msapplication-TileColor" content="#ffffff" />
     <meta name="msapplication-TileImage" content={`${process.env.BASE_PATH}/favicon/ms-icon-144x144.png`} />
     <meta name="theme-color" content="#ffffff" />
     <meta name="description" content="一個單字學習平台的 side project" />
     <meta property="og:title" content="Words Up" />
     <meta property="og:description" content="一個單字學習平台的 side project" />
-    <meta property="og:image" content="https://waveciou.github.io/words-up/img/icon.jpg" />
+    <meta property="og:image" content="https://waveciou.github.io/WordsUp/img/icon.jpg" />
     <meta name="twitter:title" content="Words Up" />
     <meta name="twitter:description" content="一個單字學習平台的 side project" />
-    <meta name="twitter:image" content="https://waveciou.github.io/words-up/img/icon.jpg" />
+    <meta name="twitter:image" content="https://waveciou.github.io/WordsUp/img/icon.jpg" />
   </Head>
 );
 
