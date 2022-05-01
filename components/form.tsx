@@ -57,7 +57,7 @@ export const PrimaryButton: React.FC<IPrimaryButton> = ({
       case 'red':
         return 'tw-bg-red desktop:hover:tw-bg-wine';
       case 'green-dark':
-        return 'tw-bg-green-dark desktop:hover:tw-bg-orange';
+        return 'tw-bg-green-dark desktop:hover:tw-bg-green';
       default:
         return 'tw-bg-green desktop:hover:tw-bg-green-dark';
     }
