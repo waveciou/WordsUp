@@ -10,9 +10,16 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/waveciou/WordsUp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/waveciou/WordsUp/issues"
+  },
+  "homepage": "https://github.com/waveciou/WordsUp#readme",
   "dependencies": {
     "@reduxjs/toolkit": "^1.6.1",
-    "axios": "^0.21.1",
     "dayjs": "^1.10.7",
     "next": "11.0.1",
     "react": "17.0.2",
