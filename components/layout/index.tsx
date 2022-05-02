@@ -1,6 +1,3 @@
-/* eslint-disable max-len */
-/* eslint-disable object-curly-newline */
-/* eslint-disable react-hooks/exhaustive-deps */
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import { useRouter } from 'next/router';

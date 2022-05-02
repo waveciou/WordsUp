@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import { useRouter } from 'next/router';

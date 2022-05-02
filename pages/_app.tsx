@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import '@/Styles/main.scss';
 
 import { AppProps } from 'next/app';

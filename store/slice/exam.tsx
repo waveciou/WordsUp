@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { IRecordItem, IRecordLocalItem } from '@/Interfaces/exam';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 

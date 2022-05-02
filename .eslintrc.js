@@ -60,5 +60,8 @@ module.exports = {
       custom: 'ignore',
       exceptions: [''],
     }],
+    'max-len': ['off'],
+    'object-curly-newline': ['off'],
+    'react-hooks/exhaustive-deps': ['off'],
   },
 };

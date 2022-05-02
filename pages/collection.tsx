@@ -1,6 +1,3 @@
-/* eslint-disable max-len */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable object-curly-newline */
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 
