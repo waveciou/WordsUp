@@ -10,16 +10,15 @@ import Menu from '@/Components/menu';
 import Meta from '@/Components/meta';
 import debounce from '@/Functions/debounce';
 import loadGapiScrpit from '@/Functions/googleSheetAPI/loadAPIScrpit';
-import randomCollection from '@/Functions/randomCollection';
 import useGetSheetData from '@/Hooks/useGetSheetData';
 import useScrollToTop from '@/Hooks/useScrollToTop';
+import useSetDailyCase from '@/Hooks/useSetDailyCase';
 import useSetDailyWords from '@/Hooks/useSetDailyWords';
 import useSetDate from '@/Hooks/useSetDate';
-import { IAnswerItem, IRecordItem, IRecordLocalItem } from '@/Interfaces/exam';
+import useSetRecordData from '@/Hooks/useSetRecordData';
 import { IProps } from '@/Interfaces/global';
-import { IDailyCases, IWordItem } from '@/Interfaces/word';
+import { IDailyCase } from '@/Interfaces/word';
 import { setIsAppMounted, setIsMenuOpen, setScreenWidth, setScrollValue } from '@/Slice/common';
-import { setRecordCollection } from '@/Slice/exam';
 import { RootState } from '@/Store/index';
 
 declare global {
@@ -36,7 +35,9 @@ const Layout: React.FC<IProps> = ({ children }) => {
   const handleGetData = useGetSheetData();
   const handleScrollToTop = useScrollToTop();
   const handleSetDate = useSetDate();
+  const handleSetDailyCase = useSetDailyCase();
   const handleSetDailyWords = useSetDailyWords();
+  const handleSetRecordData = useSetRecordData();
 
   const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
   const { isAppMounted, isMenuOpen, scrollValue } = useSelector((state: RootState) => state.common);
@@ -104,79 +105,16 @@ const Layout: React.FC<IProps> = ({ children }) => {
   useEffect(() => {
     if (!!dateId && WORDS_DATA.length > 10) {
       const localData: string = localStorage.getItem('daily') || '';
-      const dailyCases: IDailyCases = { date: dateId, words: [] };
-
-      let hasLocalData: boolean = false;
-
-      if (localData) {
-        const { date = '', words = [] }: IDailyCases = JSON.parse(localData);
-        const wordsNumberToSet: Set<number> = new Set(words);
-
-        if (date === dateId && wordsNumberToSet.size === 10) {
-          const cleanedWords: number[] = [...wordsNumberToSet];
-
-          const isConfirm: boolean = cleanedWords.every((item: number) => {
-            const parsedItem: number = parseInt(item as unknown as string, 10);
-            const isNotNaN: boolean = !Number.isNaN(parsedItem);
-            const isValided: boolean = WORDS_DATA.findIndex(({ id }) => id === `${parsedItem}`) >= 0;
-            return isNotNaN && isValided;
-          });
-
-          if (isConfirm) {
-            hasLocalData = true;
-            dailyCases.words = [...cleanedWords];
-          }
-        }
-      }
-
-      if (hasLocalData === false) {
-        dailyCases.words = randomCollection(10, WORDS_DATA.length);
-      }
-
-      handleSetDailyWords(dailyCases);
+      const dailyCase: IDailyCase = handleSetDailyCase(dateId, localData);
+      handleSetDailyWords(dailyCase);
     }
   }, [dateId, WORDS_DATA]);
 
   // Get record and set record collection
   useEffect(() => {
     if (WORDS_DATA.length) {
-      const recordData: string = localStorage.getItem('record') || '';
-
-      if (recordData !== '') {
-        const data: IRecordItem[] = JSON.parse(recordData).reduce((
-          prev: IRecordItem[],
-          current: IRecordLocalItem,
-        ) => {
-          const {
-            id, startTime, finishTime, answerState,
-          } = current;
-
-          const answerStateData: IAnswerItem[] = answerState.reduce((
-            prevAns: IAnswerItem[],
-            currentAns: { id: string, answer: string },
-          ) => {
-            const word: IWordItem | undefined = WORDS_DATA.find((item) => item.id === currentAns.id);
-            if (word) {
-              return [...prevAns, {
-                id: currentAns.id,
-                answer: currentAns.answer,
-                solution: word.en,
-                result: currentAns.answer === word.en,
-              }];
-            }
-            return [...prevAns];
-          }, []);
-
-          return [...prev, {
-            id,
-            startTime,
-            finishTime,
-            answerState: answerStateData,
-          }];
-        }, []);
-
-        dispatch(setRecordCollection(data));
-      }
+      const localData: string = localStorage.getItem('record') || '';
+      handleSetRecordData(localData);
     }
   }, [WORDS_DATA]);
 

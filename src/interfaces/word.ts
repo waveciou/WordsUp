@@ -6,7 +6,7 @@ export interface IWordItem {
   alphabet: string
 }
 
-export interface IDailyCases {
+export interface IDailyCase {
   date: string;
-  words: number[];
+  words: string[];
 }

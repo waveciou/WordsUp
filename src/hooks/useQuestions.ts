@@ -21,25 +21,6 @@ const useQuestions = () => {
         const randoms: number[] = randomCollection(quantity, WORDS_DATA.length);
         return randoms.map((num: number) => WORDS_DATA[num]);
       }
-      case 'writed-group-1':
-      case 'writed-group-2':
-      case 'writed-group-3':
-      case 'writed-group-4':
-      case 'writed-group-5': {
-        // 字首單字填空測驗
-
-        const writedGroupMapping = {
-          'writed-group-1': ['a', 'b', 'c', 'd', 'e'],
-          'writed-group-2': ['f', 'g', 'h', 'i', 'j'],
-          'writed-group-3': ['k', 'l', 'm', 'n', 'o'],
-          'writed-group-4': ['p', 'q', 'r', 's', 't'],
-          'writed-group-5': ['u', 'v', 'w', 'x', 'y', 'z'],
-        };
-
-        const FOCUS_WORDS: IWordItem[] = WORDS_DATA.filter(({ alphabet }) => writedGroupMapping[id].includes(alphabet));
-        const randoms: number[] = randomCollection(quantity, FOCUS_WORDS.length);
-        return randoms.map((num: number) => FOCUS_WORDS[num]);
-      }
       default: {
         return [];
       }

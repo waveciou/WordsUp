@@ -31,11 +31,6 @@ const Quiz: React.FC = () => {
     if (isExamAction && WORDS_DATA.length) {
       switch (id as IExamId) {
         case 'writed-random':
-        case 'writed-group-1':
-        case 'writed-group-2':
-        case 'writed-group-3':
-        case 'writed-group-4':
-        case 'writed-group-5':
           // * 單字填空測驗
           if (WORDS_DATA.length >= 10) {
             return <WritedExam id={id as IWritedExamId} quantity={10} />;
