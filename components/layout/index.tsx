@@ -10,14 +10,14 @@ import Menu from '@/Components/menu';
 import Meta from '@/Components/meta';
 import debounce from '@/Functions/debounce';
 import loadGapiScrpit from '@/Functions/googleSheetAPI/loadAPIScrpit';
-import randomCollection from '@/Functions/randomCollection';
 import useGetSheetData from '@/Hooks/useGetSheetData';
 import useScrollToTop from '@/Hooks/useScrollToTop';
+import useSetDailyCase from '@/Hooks/useSetDailyCase';
 import useSetDailyWords from '@/Hooks/useSetDailyWords';
 import useSetDate from '@/Hooks/useSetDate';
 import { IAnswerItem, IRecordItem, IRecordLocalItem } from '@/Interfaces/exam';
 import { IProps } from '@/Interfaces/global';
-import { IDailyCases, IWordItem } from '@/Interfaces/word';
+import { IDailyCase, IWordItem } from '@/Interfaces/word';
 import { setIsAppMounted, setIsMenuOpen, setScreenWidth, setScrollValue } from '@/Slice/common';
 import { setRecordCollection } from '@/Slice/exam';
 import { RootState } from '@/Store/index';
@@ -36,6 +36,7 @@ const Layout: React.FC<IProps> = ({ children }) => {
   const handleGetData = useGetSheetData();
   const handleScrollToTop = useScrollToTop();
   const handleSetDate = useSetDate();
+  const handleSetDailyCase = useSetDailyCase();
   const handleSetDailyWords = useSetDailyWords();
 
   const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
@@ -104,36 +105,8 @@ const Layout: React.FC<IProps> = ({ children }) => {
   useEffect(() => {
     if (!!dateId && WORDS_DATA.length > 10) {
       const localData: string = localStorage.getItem('daily') || '';
-      const dailyCases: IDailyCases = { date: dateId, words: [] };
-
-      let hasLocalData: boolean = false;
-
-      if (localData) {
-        const { date = '', words = [] }: IDailyCases = JSON.parse(localData);
-        const wordsNumberToSet: Set<number> = new Set(words);
-
-        if (date === dateId && wordsNumberToSet.size === 10) {
-          const cleanedWords: number[] = [...wordsNumberToSet];
-
-          const isConfirm: boolean = cleanedWords.every((item: number) => {
-            const parsedItem: number = parseInt(item as unknown as string, 10);
-            const isNotNaN: boolean = !Number.isNaN(parsedItem);
-            const isValided: boolean = WORDS_DATA.findIndex(({ id }) => id === `${parsedItem}`) >= 0;
-            return isNotNaN && isValided;
-          });
-
-          if (isConfirm) {
-            hasLocalData = true;
-            dailyCases.words = [...cleanedWords];
-          }
-        }
-      }
-
-      if (hasLocalData === false) {
-        dailyCases.words = randomCollection(10, WORDS_DATA.length);
-      }
-
-      handleSetDailyWords(dailyCases);
+      const dailyCase: IDailyCase = handleSetDailyCase(dateId, localData);
+      handleSetDailyWords(dailyCase);
     }
   }, [dateId, WORDS_DATA]);
 
@@ -150,6 +123,8 @@ const Layout: React.FC<IProps> = ({ children }) => {
           const {
             id, startTime, finishTime, answerState,
           } = current;
+
+          // console.log(current);
 
           const answerStateData: IAnswerItem[] = answerState.reduce((
             prevAns: IAnswerItem[],
