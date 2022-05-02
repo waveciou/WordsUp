@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import 'swiper/swiper-bundle.css';
 
 import { useRouter } from 'next/router';

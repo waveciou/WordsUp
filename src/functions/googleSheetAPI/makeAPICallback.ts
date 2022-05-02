@@ -4,7 +4,7 @@ import { IWordItem } from '@/Interfaces/word';
 const makeApiCall = (sheetId: string) => {
   const request = window.gapi.client.sheets.spreadsheets.get({
     spreadsheetId: sheetId,
-    ranges: 'Sheet1!2:1224',
+    ranges: 'Sheet1!2:1225',
     includeGridData: true,
   });
 
@@ -14,9 +14,10 @@ const makeApiCall = (sheetId: string) => {
 
       const result: IGapiResponse = { parts: [], words: [] };
 
-      const wordsData: IWordItem[] = sheetRowData.map((sheetData: ISheetData, index: number) => {
-        const enItemData: string = sheetData.values[0].formattedValue;
-        const zhItemData: string = sheetData.values[1].formattedValue;
+      const wordsData: IWordItem[] = sheetRowData.map((sheetData: ISheetData) => {
+        const id: string = sheetData.values[0].formattedValue;
+        const enItemData: string = sheetData.values[1].formattedValue;
+        const zhItemData: string = sheetData.values[2].formattedValue;
         const alphabet: string = enItemData.slice(0, 1).toLowerCase();
 
         const _parts: string[] = zhItemData.match(/【[a-z]{1,}】/g) ?? [];
@@ -26,7 +27,7 @@ const makeApiCall = (sheetId: string) => {
         result.parts = [...partsToSet];
 
         return {
-          id: `${index}`,
+          id,
           alphabet,
           parts,
           en: enItemData,
