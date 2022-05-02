@@ -22,9 +22,11 @@ const Info: React.FC = () => {
   const handleClearLocalStorage = useCallback(() => {
     localStorage.clear();
 
+    const randoms: number[] = randomCollection(10, WORDS_DATA.length);
+
     handleSetDailyWords({
       date: handleSetDate(),
-      words: randomCollection(10, WORDS_DATA.length),
+      words: randoms.map((num: number) => WORDS_DATA[num].id),
     });
 
     dispatch(setRecordCollection([]));

@@ -18,17 +18,12 @@ const useSetDailyCase = () => {
 
     if (localData) {
       const { date = '', words = [] }: IDailyCase = JSON.parse(localData);
-      const wordsNumberToSet: Set<number> = new Set(words);
+      const wordsNumberToSet: Set<string> = new Set(words);
 
       if (date === dateId && wordsNumberToSet.size === 10) {
-        const cleanedWords: number[] = [...wordsNumberToSet];
+        const cleanedWords: string[] = [...wordsNumberToSet];
 
-        const isConfirm: boolean = cleanedWords.every((item: number) => {
-          const parsedItem: number = parseInt(item as unknown as string, 10);
-          const isNotNaN: boolean = !Number.isNaN(parsedItem);
-          const isValided: boolean = WORDS_DATA.findIndex(({ id }) => id === `${parsedItem}`) >= 0;
-          return isNotNaN && isValided;
-        });
+        const isConfirm: boolean = cleanedWords.every((wordId: string) => WORDS_DATA.findIndex(({ id }) => id === wordId) >= 0);
 
         if (isConfirm) {
           hasLocalData = true;
@@ -38,7 +33,8 @@ const useSetDailyCase = () => {
     }
 
     if (hasLocalData === false) {
-      result.words = randomCollection(10, WORDS_DATA.length);
+      const randoms: number[] = randomCollection(10, WORDS_DATA.length);
+      result.words = randoms.map((num: number) => WORDS_DATA[num].id);
     }
 
     return result;

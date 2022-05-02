@@ -8,5 +8,5 @@ export interface IWordItem {
 
 export interface IDailyCase {
   date: string;
-  words: number[];
+  words: string[];
 }

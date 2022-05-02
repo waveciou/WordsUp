@@ -15,11 +15,11 @@ const useSetDailyWords = () => {
 
   return useCallback((dailyCase: IDailyCase) => {
     const result: IWordItem[] = dailyCase.words.reduce((prev, current) => {
-      const index: number = WORDS_DATA.findIndex(({ id }) => id === `${current}`);
-      if (index < 0) {
-        return [...prev];
+      const word: IWordItem | undefined = WORDS_DATA.find(({ id }) => id === current);
+      if (word) {
+        return [...prev, word];
       }
-      return [...prev, WORDS_DATA[index]];
+      return [...prev];
     }, [] as IWordItem[]);
 
     dispatch(setDailyWords(result));
