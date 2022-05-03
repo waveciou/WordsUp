@@ -55,6 +55,7 @@ module.exports = {
     },
     minHeight: {
       300: '300px',
+      '100p': '100%',
     },
     extend: {
       spacing: {
