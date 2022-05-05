@@ -3,7 +3,14 @@
 @import '@/Styles/utils/_utils.scss';
 
 $icon-size: 1.6em;
-$icons: ('home': '\e8ce', 'quiz': '\f04c', 'collection': '\e241', 'record': '\e85d', 'info': '\e88e');
+$icons: (
+  'home': '\e8ce',
+  'quiz': '\f04c',
+  'collection': '\e241',
+  'favorite': '\e8e6',
+  'record': '\e85d',
+  'info': '\e88e'
+);
 
 .item {
   display: flex;

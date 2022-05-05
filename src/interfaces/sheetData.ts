@@ -6,5 +6,6 @@ export interface ISheetData {
 
 export interface IGapiResponse {
   words: IWordItem[],
-  parts: string[]
+  parts: string[],
+  favorites: IWordItem[],
 }

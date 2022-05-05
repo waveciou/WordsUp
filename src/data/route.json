@@ -15,6 +15,11 @@
       "path": "/collection"
     },
     {
+      "id": "favorite",
+      "name": "收藏單字",
+      "path": "/favorite"
+    },
+    {
       "id": "record",
       "name": "測驗紀錄",
       "path": "/record"
