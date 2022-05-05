@@ -51,9 +51,11 @@ export const examSlice = createSlice({
     },
     deleteRecordItem: (state, action: PayloadAction<number>) => {
       const asignState = state;
-      const index: number = asignState.recordCollection.findIndex((item: IRecordItem) => item.startTime === action.payload);
+      const index: number = asignState.recordCollection.findIndex(({
+        startTime,
+      }: IRecordItem) => startTime === action.payload);
 
-      if (index >= 0) {
+      if (index > -1) {
         asignState.recordCollection.splice(index, 1);
         localStorage.setItem('record', JSON.stringify([...asignState.recordCollection]));
       }

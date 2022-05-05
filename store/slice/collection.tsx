@@ -2,7 +2,7 @@ import { IGapiResponse } from '@/Interfaces/sheetData';
 import { IWordItem } from '@/Interfaces/word';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState: IGapiResponse = { words: [], parts: [] };
+const initialState: IGapiResponse = { words: [], parts: [], favorites: [] };
 
 export const collectionSlice = createSlice({
   name: 'collection',
@@ -16,9 +16,39 @@ export const collectionSlice = createSlice({
       const asignState = state;
       asignState.parts = [...action.payload];
     },
+    setFavoriteItems: (state, action: PayloadAction<IWordItem[]>) => {
+      const asignState = state;
+      asignState.favorites = [...action.payload];
+    },
+    addFavoriteItem: (state, action: PayloadAction<string>) => {
+      const asignState = state;
+      const word: IWordItem | undefined = asignState.words.find(({
+        id,
+      }: IWordItem) => id === action.payload);
+
+      if (word) {
+        asignState.favorites.push(word);
+      }
+    },
+    deleteFavoriteItem: (state, action: PayloadAction<string>) => {
+      const asignState = state;
+      const index: number = asignState.favorites.findIndex(({
+        id,
+      }: IWordItem) => id === action.payload);
+
+      if (index > -1) {
+        asignState.favorites.splice(index, 1);
+      }
+    },
   },
 });
 
-export const { setWordItems, setPartItems } = collectionSlice.actions;
+export const {
+  setWordItems,
+  setPartItems,
+  setFavoriteItems,
+  addFavoriteItem,
+  deleteFavoriteItem,
+} = collectionSlice.actions;
 
 export default collectionSlice.reducer;

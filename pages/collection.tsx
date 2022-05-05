@@ -52,16 +52,18 @@ const Collection: React.FC = () => {
     const wordsData: IWordItem[] = [...WORDS_DATA];
 
     const filterListResult: IWordItem[] = wordsData.filter(({ alphabet, parts }) => {
+      const partsSet: Set<string> = new Set(parts);
+
       if (filterAlphabet === 'all' && filterPart === 'all') {
         return true;
       }
       if (filterAlphabet === 'all') {
-        return parts.includes(filterPart);
+        return partsSet.has(filterPart);
       }
       if (filterPart === 'all') {
         return alphabet === filterAlphabet;
       }
-      return alphabet === filterAlphabet && parts.includes(filterPart);
+      return alphabet === filterAlphabet && partsSet.has(filterPart);
     });
 
     const sortListResult: IWordItem[] = filterListResult.sort((a, b) => {

@@ -31,6 +31,7 @@ module.exports = {
       orange: '#f58f29',
       yellow: '#ffe464',
       'yellow-light': '#fcf8e3',
+      'yellow-dark': '#ffc107',
       red: '#f87171',
     },
     fontSize: {

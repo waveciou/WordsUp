@@ -11,10 +11,10 @@ import { store } from '@/Store/index';
 
 const App = ({ Component, pageProps }: AppProps) => {
   const { pathname } = useRouter();
-  const failedPages: string[] = ['/404', '/error'];
+  const failedPagesSet: Set<string> = new Set(['/404', '/error']);
 
   const pageMemo = useMemo(() => {
-    if (failedPages.includes(pathname)) {
+    if (failedPagesSet.has(pathname)) {
       return (
         <LayoutFailed>
           <Component {...pageProps} />
