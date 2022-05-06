@@ -60,7 +60,7 @@ const Favorite = () => {
                 { wordListMemo }
               </ul>
             ) : (
-              <div className="tw-text-center tw-text-gray tw-py-8">目前沒有資料</div>
+              <div className="tw-text-center tw-text-gray tw-py-8">目前沒有任何收藏單字</div>
             )
         }
       </div>
