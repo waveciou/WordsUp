@@ -4,6 +4,11 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: IGapiResponse = { words: [], parts: [], favorites: [] };
 
+const updateFavoriteLocalData = (payload: IWordItem[]) => {
+  const localData: string[] = payload.map(({ id }) => id);
+  localStorage.setItem('favorite', JSON.stringify([...localData]));
+};
+
 export const collectionSlice = createSlice({
   name: 'collection',
   initialState,
@@ -19,6 +24,7 @@ export const collectionSlice = createSlice({
     setFavoriteItems: (state, action: PayloadAction<IWordItem[]>) => {
       const asignState = state;
       asignState.favorites = [...action.payload];
+      updateFavoriteLocalData(asignState.favorites);
     },
     addFavoriteItem: (state, action: PayloadAction<string>) => {
       const asignState = state;
@@ -28,6 +34,7 @@ export const collectionSlice = createSlice({
 
       if (word) {
         asignState.favorites.push(word);
+        updateFavoriteLocalData(asignState.favorites);
       }
     },
     deleteFavoriteItem: (state, action: PayloadAction<string>) => {
@@ -38,6 +45,7 @@ export const collectionSlice = createSlice({
 
       if (index > -1) {
         asignState.favorites.splice(index, 1);
+        updateFavoriteLocalData(asignState.favorites);
       }
     },
   },
