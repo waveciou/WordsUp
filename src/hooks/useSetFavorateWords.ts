@@ -1,0 +1,32 @@
+import { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { IWordItem } from '@/Interfaces/word';
+import { setFavoriteItems } from '@/Slice/collection';
+import { RootState } from '@/Store/index';
+
+interface IFavorateData {
+  local: string[],
+  global: IWordItem[]
+}
+
+const useSetFavorateWords = () => {
+  const dispatch = useDispatch();
+  const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
+
+  return useCallback((localData: string[]) => {
+    const { local, global }: IFavorateData = localData.reduce((prev, current) => {
+      const word: IWordItem | undefined = WORDS_DATA.find(({ id }) => id === current);
+      if (word) {
+        prev.local.push(current);
+        prev.global.push(word);
+      }
+      return prev;
+    }, { local: [], global: [] } as IFavorateData);
+
+    dispatch(setFavoriteItems(global));
+    localStorage.setItem('favorite', JSON.stringify(local));
+  }, [WORDS_DATA, dispatch]);
+};
+
+export default useSetFavorateWords;

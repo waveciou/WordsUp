@@ -15,6 +15,7 @@ import useScrollToTop from '@/Hooks/useScrollToTop';
 import useSetDailyCase from '@/Hooks/useSetDailyCase';
 import useSetDailyWords from '@/Hooks/useSetDailyWords';
 import useSetDate from '@/Hooks/useSetDate';
+import useSetFavorateWords from '@/Hooks/useSetFavorateWords';
 import useSetRecordData from '@/Hooks/useSetRecordData';
 import { IProps } from '@/Interfaces/global';
 import { IDailyCase } from '@/Interfaces/word';
@@ -37,6 +38,7 @@ const Layout: React.FC<IProps> = ({ children }) => {
   const handleSetDate = useSetDate();
   const handleSetDailyCase = useSetDailyCase();
   const handleSetDailyWords = useSetDailyWords();
+  const handleSetFavorateWords = useSetFavorateWords();
   const handleSetRecordData = useSetRecordData();
 
   const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
@@ -115,6 +117,18 @@ const Layout: React.FC<IProps> = ({ children }) => {
     if (WORDS_DATA.length) {
       const localData: string = localStorage.getItem('record') || '';
       handleSetRecordData(localData);
+    }
+  }, [WORDS_DATA]);
+
+  // Get local data and set favorate words
+  useEffect(() => {
+    if (WORDS_DATA.length) {
+      const localData: string = localStorage.getItem('favorite') || '[]';
+      const parseData: string[] = JSON.parse(localData);
+
+      if (Array.isArray(parseData) && parseData.length > 0) {
+        handleSetFavorateWords(parseData);
+      }
     }
   }, [WORDS_DATA]);
 
