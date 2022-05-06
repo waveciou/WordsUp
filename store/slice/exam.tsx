@@ -19,6 +19,22 @@ const initialState: {
   },
 };
 
+const updateRecordLocalData = (payload: IRecordItem[]) => {
+  const localData: IRecordLocalItem[] = payload.map(({
+    id, startTime, finishTime, answerState,
+  }) => ({
+    id,
+    startTime,
+    finishTime,
+    answerState: answerState.map((item) => ({
+      id: item.id,
+      answer: item.answer,
+    })),
+  }));
+
+  localStorage.setItem('record', JSON.stringify([...localData]));
+};
+
 export const examSlice = createSlice({
   name: 'exam',
   initialState,
@@ -34,20 +50,7 @@ export const examSlice = createSlice({
     setRecordCollection: (state, action: PayloadAction<IRecordItem[]>) => {
       const asignState = state;
       asignState.recordCollection = [...action.payload];
-
-      const recordLocalData: IRecordLocalItem[] = [...action.payload].map(({
-        id, startTime, finishTime, answerState,
-      }) => ({
-        id,
-        startTime,
-        finishTime,
-        answerState: answerState.map((item) => ({
-          id: item.id,
-          answer: item.answer,
-        })),
-      }));
-
-      localStorage.setItem('record', JSON.stringify([...recordLocalData]));
+      updateRecordLocalData(asignState.recordCollection);
     },
     deleteRecordItem: (state, action: PayloadAction<number>) => {
       const asignState = state;
@@ -57,7 +60,7 @@ export const examSlice = createSlice({
 
       if (index > -1) {
         asignState.recordCollection.splice(index, 1);
-        localStorage.setItem('record', JSON.stringify([...asignState.recordCollection]));
+        updateRecordLocalData(asignState.recordCollection);
       }
     },
   },
