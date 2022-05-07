@@ -70,7 +70,7 @@ const Card: React.FC<ICardProps> = ({ wordData }) => {
         </div>
       </div>
       <Popup show={isShow} onClose={() => setIsShow(false)}>
-        <WordsDetails id={uuidv4()} wordData={wordData} />
+        <WordsDetails uuId={uuidv4()} wordData={wordData} />
       </Popup>
     </>
   );
