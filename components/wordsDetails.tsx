@@ -38,25 +38,14 @@ const WordsDetails: React.FC<IWordItemDetailProps> = ({ uuId, wordData }) => {
 
   return (
     <div className="tw-text-sm">
-      <div className="tw-relative">
-        <div className="tw-text-lg tw-text-wine tw-leading-9 tw-pr-9">{ en }</div>
-        {
-          isFavorite ? (
-            <button
-              type="button"
-              aria-label="favorite-button"
-              className="tw-w-9 tw-h-9 tw-flex tw-justify-center tw-items-center tw-absolute tw-right-0 tw-top-0 before-font-material before:tw-content-['\e838'] before:tw-text-center before:tw-leading-9 before:tw-text-yellow-dark"
-              onClick={handleSetFavorite}
-            />
-          ) : (
-            <button
-              type="button"
-              aria-label="favorite-button"
-              className="tw-w-9 tw-h-9 tw-flex tw-justify-center tw-items-center tw-absolute tw-right-0 tw-top-0 before-font-material before:tw-content-['\e838'] before:tw-text-center before:tw-leading-9 before:tw-text-gray/60"
-              onClick={handleSetFavorite}
-            />
-          )
-        }
+      <div className="tw-relative tw-pr-9">
+        <div className="tw-text-lg tw-text-wine tw-leading-9">{ en }</div>
+        <button
+          type="button"
+          aria-label="favorite-button"
+          className={`favorite-button before-icon-star tw-w-9 tw-h-9 tw-flex tw-justify-center tw-items-center tw-absolute tw-right-0 tw-top-0 before-font-material before:tw-leading-9 ${isFavorite ? 'tw-text-yellow-dark' : 'tw-text-gray/60'}`}
+          onClick={handleSetFavorite}
+        />
       </div>
       <div className="tw-leading-7">
         <div className="tw-my-2">
