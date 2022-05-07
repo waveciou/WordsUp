@@ -6,7 +6,6 @@ import useSpeechSpeak from '@/Hooks/useSpeechSpeak';
 import { IWordItem } from '@/Interfaces/word';
 import { addFavoriteItem, deleteFavoriteItem } from '@/Slice/collection';
 import { RootState } from '@/Store/index';
-import stylesButton from '@/Styles/button.module.scss';
 
 interface IWordItemDetailProps {
   uuId: string,
@@ -43,7 +42,7 @@ const WordsDetails: React.FC<IWordItemDetailProps> = ({ uuId, wordData }) => {
         <button
           type="button"
           aria-label="favorite-button"
-          className={`favorite-button before-icon-star tw-w-9 tw-h-9 tw-flex tw-justify-center tw-items-center tw-absolute tw-right-0 tw-top-0 before-font-material before:tw-leading-9 ${isFavorite ? 'tw-text-yellow-dark' : 'tw-text-gray/60'}`}
+          className={`favorite-button before-icon-star tw-w-9 tw-h-9 tw-absolute tw-right-0 tw-top-0 before:tw-leading-9 ${isFavorite ? 'tw-text-yellow-dark' : 'tw-text-gray/60'}`}
           onClick={handleSetFavorite}
         />
       </div>
@@ -52,7 +51,7 @@ const WordsDetails: React.FC<IWordItemDetailProps> = ({ uuId, wordData }) => {
           <button
             type="button"
             aria-label="speech"
-            className={stylesButton['speech-btn']}
+            className="tw-w-7 tw-h-7 tw-block tw-mr-1 tw-leading-7 before-font-material before:tw-content-['\e050'] before:tw-block before:tw-leading-7"
             onClick={() => handleSpeechSpeak(en)}
           />
         </div>

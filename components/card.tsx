@@ -53,7 +53,7 @@ const Card: React.FC<ICardProps> = ({ wordData }) => {
           <button
             type="button"
             aria-label="favorite-button"
-            className={`favorite-button before-icon-star tw-w-7 tw-h-7 tw-flex tw-justify-center tw-items-center tw-absolute tw-right-0 tw-top-0 before-font-material before:tw-leading-7 ${isFavorite ? 'tw-text-yellow-dark' : 'tw-text-gray/60'}`}
+            className={`favorite-button before-icon-star tw-w-7 tw-h-7 tw-absolute tw-right-0 tw-top-0 before:tw-leading-7 ${isFavorite ? 'tw-text-yellow-dark' : 'tw-text-gray/60'}`}
             onClick={handleSetFavorite}
           />
         </div>

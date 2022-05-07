@@ -104,7 +104,13 @@ html {
 // * Favorite Button
 
 .favorite-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   &.before-icon-star::before {
+    @include font-material;
+
     content: '\e838';
   }
 }
