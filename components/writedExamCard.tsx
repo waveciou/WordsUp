@@ -93,7 +93,7 @@ const WritedExamCard: React.FC<IWritedExamCardProps> = ({
             <button
               type="button"
               aria-label="speech"
-              className="tw-inline-block tw-align-top tw-leading-7 before-font-material before:tw-content-['\e050'] before:tw-w-7 before:tw-h-7 before:tw-block before:tw-leading-7 before:tw-text-center"
+              className="tw-w-7 tw-h-7 tw-inline-block tw-align-top tw-leading-7 before-font-material before:tw-content-['\e050'] before:tw-block before:tw-leading-7"
               onClick={() => handleSpeechSpeak(en)}
             />
           </div>

@@ -50,27 +50,16 @@ const Card: React.FC<ICardProps> = ({ wordData }) => {
           <div className="tw-text-xs tw-text-black tw-leading-6">
             <WordsCaption id={id} wordsList={zh} partsList={parts} />
           </div>
-          {
-            isFavorite ? (
-              <button
-                type="button"
-                aria-label="favorite-button"
-                className="tw-w-7 tw-h-7 tw-flex tw-justify-center tw-items-center tw-absolute tw-right-0 tw-top-0 before-font-material before:tw-content-['\e838'] before:tw-text-center before:tw-leading-7 before:tw-text-yellow-dark"
-                onClick={handleSetFavorite}
-              />
-            ) : (
-              <button
-                type="button"
-                aria-label="favorite-button"
-                className="tw-w-7 tw-h-7 tw-flex tw-justify-center tw-items-center tw-absolute tw-right-0 tw-top-0 before-font-material before:tw-content-['\e838'] before:tw-text-center before:tw-leading-7 before:tw-text-gray/60"
-                onClick={handleSetFavorite}
-              />
-            )
-          }
+          <button
+            type="button"
+            aria-label="favorite-button"
+            className={`favorite-button before-icon-star tw-w-7 tw-h-7 tw-absolute tw-right-0 tw-top-0 before:tw-leading-7 ${isFavorite ? 'tw-text-yellow-dark' : 'tw-text-gray/60'}`}
+            onClick={handleSetFavorite}
+          />
         </div>
       </div>
       <Popup show={isShow} onClose={() => setIsShow(false)}>
-        <WordsDetails id={uuidv4()} wordData={wordData} />
+        <WordsDetails uuId={uuidv4()} wordData={wordData} />
       </Popup>
     </>
   );
