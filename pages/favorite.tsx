@@ -13,8 +13,8 @@ const Favorite = () => {
   const [isShowDeleteAlert, setIsShowDeleteAlert] = useState<boolean>(false);
 
   // List Memo
-  const wordListMemo = useMemo(() => FAVORITES_DATA.map((wordData: IWordItem, index: number) => {
-    const { id } = wordData;
+  const wordListMemo = useMemo(() => FAVORITES_DATA.map((wordItem: IWordItem, index: number) => {
+    const { id } = wordItem;
     const isEven: boolean = !!(index % 2 === 1);
     const isThirChid: boolean = !!((index + 1) % 3 === 0);
     return (
@@ -22,7 +22,7 @@ const Favorite = () => {
         key={id}
         className={`tw-w-full tablet:tw-w-[calc((100%-0.75rem)/2)] tablet:tw-mr-3 desktop:tw-w-[calc((100%-1.5rem)/3)] ${index + 1 < FAVORITES_DATA.length ? 'tw-mb-3' : ''} ${isEven ? 'tablet:tw-mr-0 desktop:tw-mr-3' : ''} ${isThirChid ? 'desktop:tw-mr-0' : ''}`}
       >
-        <Card wordData={wordData} />
+        <Card wordItem={wordItem} />
       </li>
     );
   }), [FAVORITES_DATA]);

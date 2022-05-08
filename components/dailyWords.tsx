@@ -17,12 +17,12 @@ import { RootState } from '@/Store/index';
 
 interface IDailyWordsProps {
   dateCaption: string,
-  wordsData: IWordItem[]
+  wordItemList: IWordItem[]
 }
 
 const DailyWords: React.FC<IDailyWordsProps> = ({
   dateCaption = '',
-  wordsData = [],
+  wordItemList = [],
 }) => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -34,14 +34,14 @@ const DailyWords: React.FC<IDailyWordsProps> = ({
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
   useEffect(() => {
-    if (swipeIndex === wordsData.length - 1) {
+    if (swipeIndex === wordItemList.length - 1) {
       dispatch(setIsShowGuideButton(true));
     }
   }, [swipeIndex]);
 
   useEffect(() => {
     if (FAVORITES_DATA.length > 0) {
-      const word: IWordItem = wordsData[swipeIndex];
+      const word: IWordItem = wordItemList[swipeIndex];
       const dataSet: Set<IWordItem> = new Set(FAVORITES_DATA);
       setIsFavorite(dataSet.has(word));
     }
@@ -73,7 +73,7 @@ const DailyWords: React.FC<IDailyWordsProps> = ({
           onBeforeInit={(swipper) => setSwipe(swipper)}
         >
           {
-            wordsData?.map(({
+            wordItemList?.map(({
               id, en, zh, parts,
             }: IWordItem) => (
               <SwiperSlide key={uuidv4()}>
@@ -116,14 +116,14 @@ const DailyWords: React.FC<IDailyWordsProps> = ({
         <button
           type="button"
           aria-label="carousel-next-button"
-          className={`carousel-next-button tw-w-6 tw-h-6 tw-text-center tw-block tw-absolute tw-right-1 tw-top-2/4 tw--translate-y-2/4 tw-z-50 before-font-material before:tw-block before:tw-m-auto ${swipeIndex === wordsData.length - 1 ? 'before:tw-text-gray before:tw-cursor-not-allowed' : 'before:tw-text-black'}`}
+          className={`carousel-next-button tw-w-6 tw-h-6 tw-text-center tw-block tw-absolute tw-right-1 tw-top-2/4 tw--translate-y-2/4 tw-z-50 before-font-material before:tw-block before:tw-m-auto ${swipeIndex === wordItemList.length - 1 ? 'before:tw-text-gray before:tw-cursor-not-allowed' : 'before:tw-text-black'}`}
           onClick={() => swipe?.slideNext()}
         />
         <div className="tw-absolute tw-right-4 tw-top-3 tw-z-50">
           <span className="tw-text-brown/80 tw-text-xs tw-font-bold">
             {swipeIndex + 1}
             /
-            {wordsData.length}
+            {wordItemList.length}
           </span>
         </div>
       </div>

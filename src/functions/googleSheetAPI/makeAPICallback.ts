@@ -12,9 +12,9 @@ const makeApiCall = (sheetId: string) => {
     request.then((response: any) => {
       const sheetRowData: ISheetData[] = response.result.sheets[0].data[0].rowData;
 
-      const result: IGapiResponse = { parts: [], words: [] };
+      const result: IGapiResponse = { parts: [], words: [], favorites: [] };
 
-      const wordsData: IWordItem[] = sheetRowData.map((sheetData: ISheetData) => {
+      const wordItemList: IWordItem[] = sheetRowData.map((sheetData: ISheetData) => {
         const id: string = sheetData.values[0].formattedValue;
         const enItemData: string = sheetData.values[1].formattedValue;
         const zhItemData: string = sheetData.values[2].formattedValue;
@@ -38,7 +38,7 @@ const makeApiCall = (sheetId: string) => {
         };
       });
 
-      result.words = wordsData;
+      result.words = wordItemList;
 
       resolve(result);
     }, (response: any) => reject(response));

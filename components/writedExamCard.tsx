@@ -12,12 +12,12 @@ import { RootState } from '@/Store/index';
 
 interface IWritedExamCardProps {
   currentIndex: number,
-  wordData: IWordItem,
+  wordItem: IWordItem,
   setAnswer: (answerItem: IAnswerItem) => void,
 }
 
 const WritedExamCard: React.FC<IWritedExamCardProps> = ({
-  currentIndex, wordData, setAnswer,
+  currentIndex, wordItem, setAnswer,
 }) => {
   const router = useRouter();
   const handleSpeechSpeak = useSpeechSpeak();
@@ -27,7 +27,7 @@ const WritedExamCard: React.FC<IWritedExamCardProps> = ({
 
   const {
     en, zh, parts, id,
-  } = wordData;
+  } = wordItem;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const result: string = e.target.value;
@@ -58,7 +58,7 @@ const WritedExamCard: React.FC<IWritedExamCardProps> = ({
 
   useEffect(() => {
     setInputValue('');
-  }, [wordData]);
+  }, [wordItem]);
 
   return (
     <>

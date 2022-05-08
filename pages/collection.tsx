@@ -49,9 +49,9 @@ const Collection: React.FC = () => {
   const processWordsList = useCallback(() => {
     handleScrollToTop();
 
-    const wordsData: IWordItem[] = [...WORDS_DATA];
+    const wordItemList: IWordItem[] = [...WORDS_DATA];
 
-    const filterListResult: IWordItem[] = wordsData.filter(({ alphabet, parts }) => {
+    const filterListResult: IWordItem[] = wordItemList.filter(({ alphabet, parts }) => {
       const partsSet: Set<string> = new Set(parts);
 
       if (filterAlphabet === 'all' && filterPart === 'all') {
@@ -88,8 +88,8 @@ const Collection: React.FC = () => {
   }, [WORDS_DATA, filterPart, filterAlphabet, isSortDownAlt]);
 
   // List Memo
-  const wordListMemo = useMemo(() => confirmWords.map((wordData: IWordItem, index: number) => {
-    const { id } = wordData;
+  const wordListMemo = useMemo(() => confirmWords.map((wordItem: IWordItem, index: number) => {
+    const { id } = wordItem;
     const isEven: boolean = !!(index % 2 === 1);
     const isThirChid: boolean = !!((index + 1) % 3 === 0);
     return (
@@ -97,7 +97,7 @@ const Collection: React.FC = () => {
         key={id}
         className={`tw-w-full tablet:tw-w-[calc((100%-0.75rem)/2)] tablet:tw-mr-3 desktop:tw-w-[calc((100%-1.5rem)/3)] ${index + 1 < confirmWords.length ? 'tw-mb-3' : ''} ${isEven ? 'tablet:tw-mr-0 desktop:tw-mr-3' : ''} ${isThirChid ? 'desktop:tw-mr-0' : ''}`}
       >
-        <Card wordData={wordData} />
+        <Card wordItem={wordItem} />
       </li>
     );
   }), [confirmWords]);

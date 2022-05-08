@@ -9,16 +9,16 @@ import { RootState } from '@/Store/index';
 
 interface IWordItemDetailProps {
   uuId: string,
-  wordData: IWordItem
+  wordItem: IWordItem
 }
 
-const WordsDetails: React.FC<IWordItemDetailProps> = ({ uuId, wordData }) => {
+const WordsDetails: React.FC<IWordItemDetailProps> = ({ uuId, wordItem }) => {
   const dispatch = useDispatch();
   const handleSpeechSpeak = useSpeechSpeak();
   const FAVORITES_DATA = useSelector((state: RootState) => state.collection.favorites);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
-  const { id, en, zh, parts } = wordData;
+  const { id, en, zh, parts } = wordItem;
 
   const handleSetFavorite = (e: React.MouseEvent<HTMLDivElement | HTMLButtonElement>) => {
     e.preventDefault();
@@ -32,7 +32,7 @@ const WordsDetails: React.FC<IWordItemDetailProps> = ({ uuId, wordData }) => {
 
   useEffect(() => {
     const dataSet: Set<IWordItem> = new Set(FAVORITES_DATA);
-    setIsFavorite(dataSet.has(wordData));
+    setIsFavorite(dataSet.has(wordItem));
   }, [FAVORITES_DATA]);
 
   return (

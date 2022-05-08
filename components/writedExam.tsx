@@ -110,7 +110,7 @@ const WritedExam: React.FC<IWritedExamProps> = ({ id = 'writed-random', quantity
         !isLoading && isExamTesting && (
           <WritedExamCard
             currentIndex={currentIndex}
-            wordData={questions[currentIndex]}
+            wordItem={questions[currentIndex]}
             setAnswer={handleSetAnswer}
           />
         )

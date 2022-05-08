@@ -10,10 +10,10 @@ import { addFavoriteItem, deleteFavoriteItem } from '@/Slice/collection';
 import { RootState } from '@/Store/index';
 
 interface ICardProps {
-  wordData: IWordItem
+  wordItem: IWordItem
 }
 
-const Card: React.FC<ICardProps> = ({ wordData }) => {
+const Card: React.FC<ICardProps> = ({ wordItem }) => {
   const dispatch = useDispatch();
   const FAVORITES_DATA = useSelector((state: RootState) => state.collection.favorites);
   const [isShow, setIsShow] = useState<boolean>(false);
@@ -21,7 +21,7 @@ const Card: React.FC<ICardProps> = ({ wordData }) => {
 
   const {
     id, en, zh, parts,
-  } = wordData;
+  } = wordItem;
 
   const handleSetFavorite = (e: React.MouseEvent<HTMLDivElement | HTMLButtonElement>) => {
     e.preventDefault();
@@ -35,7 +35,7 @@ const Card: React.FC<ICardProps> = ({ wordData }) => {
 
   useEffect(() => {
     const dataSet: Set<IWordItem> = new Set(FAVORITES_DATA);
-    setIsFavorite(dataSet.has(wordData));
+    setIsFavorite(dataSet.has(wordItem));
   }, [FAVORITES_DATA]);
 
   return (
@@ -59,7 +59,7 @@ const Card: React.FC<ICardProps> = ({ wordData }) => {
         </div>
       </div>
       <Popup show={isShow} onClose={() => setIsShow(false)}>
-        <WordsDetails uuId={uuidv4()} wordData={wordData} />
+        <WordsDetails uuId={uuidv4()} wordItem={wordItem} />
       </Popup>
     </>
   );
