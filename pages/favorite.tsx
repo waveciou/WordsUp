@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Alert from '@/Components/alert';
 import Card from '@/Components/card';
+import ColumnItem from '@/Components/columnItem';
 import { IWordItem } from '@/Interfaces/word';
 import { setFavoriteItems } from '@/Slice/collection';
 import { RootState } from '@/Store/index';
@@ -13,19 +14,11 @@ const Favorite = () => {
   const [isShowDeleteAlert, setIsShowDeleteAlert] = useState<boolean>(false);
 
   // List Memo
-  const wordListMemo = useMemo(() => FAVORITES_DATA.map((wordItem: IWordItem, index: number) => {
-    const { id } = wordItem;
-    const isEven: boolean = !!(index % 2 === 1);
-    const isThirChid: boolean = !!((index + 1) % 3 === 0);
-    return (
-      <li
-        key={id}
-        className={`tw-w-full tablet:tw-w-[calc((100%-0.75rem)/2)] tablet:tw-mr-3 desktop:tw-w-[calc((100%-1.5rem)/3)] ${index + 1 < FAVORITES_DATA.length ? 'tw-mb-3' : ''} ${isEven ? 'tablet:tw-mr-0 desktop:tw-mr-3' : ''} ${isThirChid ? 'desktop:tw-mr-0' : ''}`}
-      >
-        <Card wordItem={wordItem} />
-      </li>
-    );
-  }), [FAVORITES_DATA]);
+  const wordListMemo = useMemo(() => FAVORITES_DATA.map((wordItem: IWordItem, index: number) => (
+    <ColumnItem id={wordItem.id} length={FAVORITES_DATA.length} index={index}>
+      <Card wordItem={wordItem} />
+    </ColumnItem>
+  )), [FAVORITES_DATA]);
 
   return (
     <>
