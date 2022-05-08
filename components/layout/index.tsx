@@ -15,8 +15,8 @@ import useScrollToTop from '@/Hooks/useScrollToTop';
 import useSetDailyCase from '@/Hooks/useSetDailyCase';
 import useSetDailyWords from '@/Hooks/useSetDailyWords';
 import useSetDate from '@/Hooks/useSetDate';
-import useSetFavorateWords from '@/Hooks/useSetFavorateWords';
-import useSetRecordData from '@/Hooks/useSetRecordData';
+import useSetFavorate from '@/Hooks/useSetFavorate';
+import useSetRecord from '@/Hooks/useSetRecord';
 import { IProps } from '@/Interfaces/global';
 import { IDailyCase } from '@/Interfaces/word';
 import { setIsAppMounted, setIsMenuOpen, setScreenWidth, setScrollValue } from '@/Slice/common';
@@ -38,8 +38,8 @@ const Layout: React.FC<IProps> = ({ children }) => {
   const handleSetDate = useSetDate();
   const handleSetDailyCase = useSetDailyCase();
   const handleSetDailyWords = useSetDailyWords();
-  const handleSetFavorateWords = useSetFavorateWords();
-  const handleSetRecordData = useSetRecordData();
+  const handleSetFavorate = useSetFavorate();
+  const handleSetRecord = useSetRecord();
 
   const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
   const { isAppMounted, isMenuOpen, scrollValue } = useSelector((state: RootState) => state.common);
@@ -116,7 +116,7 @@ const Layout: React.FC<IProps> = ({ children }) => {
   useEffect(() => {
     if (WORDS_DATA.length) {
       const localData: string = localStorage.getItem('record') || '';
-      handleSetRecordData(localData);
+      handleSetRecord(localData);
     }
   }, [WORDS_DATA]);
 
@@ -127,7 +127,7 @@ const Layout: React.FC<IProps> = ({ children }) => {
       const parseData: string[] = JSON.parse(localData);
 
       if (Array.isArray(parseData) && parseData.length > 0) {
-        handleSetFavorateWords(parseData);
+        handleSetFavorate(parseData);
       }
     }
   }, [WORDS_DATA]);

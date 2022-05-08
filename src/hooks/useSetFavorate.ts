@@ -10,7 +10,7 @@ interface IFavorateData {
   global: IWordItem[]
 }
 
-const useSetFavorateWords = () => {
+const useSetFavorate = () => {
   const dispatch = useDispatch();
   const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
 
@@ -29,4 +29,4 @@ const useSetFavorateWords = () => {
   }, [WORDS_DATA, dispatch]);
 };
 
-export default useSetFavorateWords;
+export default useSetFavorate;

@@ -8,13 +8,13 @@ import { RootState } from '@/Store/index';
 
 const useQuestions = () => {
   const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
-  const DAILY_WORDS = useSelector((state: RootState) => state.daily.dailyWords);
+  const DAILYS_DATA = useSelector((state: RootState) => state.daily.dailyWords);
 
   return useCallback((id: IExamId, quantity: number): IWordItem[] => {
     switch (id) {
       case 'writed-daily': {
         // 今日單字填空測驗
-        return [...DAILY_WORDS].sort(() => (Math.random() > 0.5 ? -1 : 1));
+        return [...DAILYS_DATA].sort(() => (Math.random() > 0.5 ? -1 : 1));
       }
       case 'writed-random': {
         // 單字填空測驗
@@ -25,7 +25,7 @@ const useQuestions = () => {
         return [];
       }
     }
-  }, [WORDS_DATA, DAILY_WORDS]);
+  }, [WORDS_DATA, DAILYS_DATA]);
 };
 
 export default useQuestions;
