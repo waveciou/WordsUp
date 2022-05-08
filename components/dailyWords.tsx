@@ -40,11 +40,9 @@ const DailyWords: React.FC<IDailyWordsProps> = ({
   }, [swipeIndex]);
 
   useEffect(() => {
-    if (FAVORITES_DATA.length > 0) {
-      const word: IWordItem = wordItemList[swipeIndex];
-      const dataSet: Set<IWordItem> = new Set(FAVORITES_DATA);
-      setIsFavorite(dataSet.has(word));
-    }
+    const word: IWordItem = wordItemList[swipeIndex];
+    const dataSet: Set<IWordItem> = new Set(FAVORITES_DATA);
+    setIsFavorite(dataSet.has(word));
   }, [swipeIndex, FAVORITES_DATA]);
 
   // The solution for install swiper issues.
