@@ -10,6 +10,7 @@ import { PrimaryButton } from '@/Components/form';
 import WordsCaption from '@/Components/wordsCaption';
 import useSpeechSpeak from '@/Hooks/useSpeechSpeak';
 import { IWordItem } from '@/Interfaces/word';
+import { addFavoriteItem, deleteFavoriteItem } from '@/Slice/collection';
 import { setIsShowGuideButton } from '@/Slice/daily';
 import { setIsExamAction } from '@/Slice/exam';
 import { RootState } from '@/Store/index';
@@ -26,15 +27,25 @@ const DailyWords: React.FC<IDailyWordsProps> = ({
   const router = useRouter();
   const dispatch = useDispatch();
   const handleSpeechSpeak = useSpeechSpeak();
+  const { isShowGuideButton } = useSelector((state: RootState) => state.daily);
+  const FAVORITES_DATA = useSelector((state: RootState) => state.collection.favorites);
   const [swipe, setSwipe] = useState<any>(null);
   const [swipeIndex, setSwipeIndex] = useState<number>(0);
-  const { isShowGuideButton } = useSelector((state: RootState) => state.daily);
+  const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
   useEffect(() => {
     if (swipeIndex === wordsData.length - 1) {
       dispatch(setIsShowGuideButton(true));
     }
   }, [swipeIndex]);
+
+  useEffect(() => {
+    if (FAVORITES_DATA.length > 0) {
+      const word: IWordItem = wordsData[swipeIndex];
+      const dataSet: Set<IWordItem> = new Set(FAVORITES_DATA);
+      setIsFavorite(dataSet.has(word));
+    }
+  }, [swipeIndex, FAVORITES_DATA]);
 
   // The solution for install swiper issues.
   // https://github.com/nolimits4web/swiper/issues/3855
@@ -81,6 +92,20 @@ const DailyWords: React.FC<IDailyWordsProps> = ({
                           onSpeech={() => handleSpeechSpeak(en)}
                         />
                       </div>
+                      <button
+                        type="button"
+                        aria-label="favorite-button"
+                        className={`favorite-button before-icon-star tw-w-8 tw-h-8 tw-absolute tw-left-4 tw-top-3 before:tw-leading-8 ${isFavorite ? 'tw-text-yellow-dark' : 'tw-text-gray/60'}`}
+                        onClick={(e: React.MouseEvent<HTMLDivElement | HTMLButtonElement>) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          if (isFavorite) {
+                            dispatch(deleteFavoriteItem(id));
+                          } else {
+                            dispatch(addFavoriteItem(id));
+                          }
+                        }}
+                      />
                     </div>
                   </div>
                 </div>
