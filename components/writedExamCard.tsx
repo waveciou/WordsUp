@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Alert from '@/Components/alert';
 import { InputText, PrimaryButton } from '@/Components/form';
@@ -8,26 +8,30 @@ import WordsCaption from '@/Components/wordsCaption';
 import useSpeechSpeak from '@/Hooks/useSpeechSpeak';
 import { IAnswerItem } from '@/Interfaces/exam';
 import { IWordItem } from '@/Interfaces/word';
+import { addFavoriteItem, deleteFavoriteItem } from '@/Slice/collection';
 import { RootState } from '@/Store/index';
 
 interface IWritedExamCardProps {
   currentIndex: number,
-  wordData: IWordItem,
+  wordItem: IWordItem,
   setAnswer: (answerItem: IAnswerItem) => void,
 }
 
 const WritedExamCard: React.FC<IWritedExamCardProps> = ({
-  currentIndex, wordData, setAnswer,
+  currentIndex, wordItem, setAnswer,
 }) => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const handleSpeechSpeak = useSpeechSpeak();
+  const FAVORITES_DATA = useSelector((state: RootState) => state.collection.favorites);
   const { examGuardAlert } = useSelector((state: RootState) => state.exam);
   const [inputValue, setInputValue] = useState<string>('');
   const [isShowExamGuardAlert, setIsShowExamGuardAlert] = useState<boolean>(false);
+  const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
   const {
     en, zh, parts, id,
-  } = wordData;
+  } = wordItem;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const result: string = e.target.value;
@@ -56,9 +60,24 @@ const WritedExamCard: React.FC<IWritedExamCardProps> = ({
     });
   };
 
+  const handleSetFavorite = (e: React.MouseEvent<HTMLDivElement | HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (isFavorite) {
+      dispatch(deleteFavoriteItem(id));
+    } else {
+      dispatch(addFavoriteItem(id));
+    }
+  };
+
+  useEffect(() => {
+    const dataSet: Set<IWordItem> = new Set(FAVORITES_DATA);
+    setIsFavorite(dataSet.has(wordItem));
+  }, [FAVORITES_DATA]);
+
   useEffect(() => {
     setInputValue('');
-  }, [wordData]);
+  }, [wordItem]);
 
   return (
     <>
@@ -74,13 +93,13 @@ const WritedExamCard: React.FC<IWritedExamCardProps> = ({
           <button
             type="button"
             onClick={() => setIsShowExamGuardAlert(true)}
-            className="tw-flex tw-items-center tw-text-xs tw-text-green-dark hover:tw-text-green before-font-material before:tw-content-['\e15e'] before:tw-block before:tw-mr-1"
+            className="tw-flex tw-items-center tw-text-xs tw-text-green-dark desktop:hover:tw-text-green before-font-material before:tw-content-['\e15e'] before:tw-block before:tw-mr-1"
           >
             離開測驗
           </button>
         </div>
 
-        <div className="tw-mb-4">
+        <div className="tw-mb-2">
           <InputText
             defaultValue={inputValue}
             onChange={handleChange}
@@ -88,16 +107,22 @@ const WritedExamCard: React.FC<IWritedExamCardProps> = ({
           />
         </div>
 
-        <div className="tw-pl-8 tw-relative tw-overflow-hidden tw-leading-7 tw-mb-4 tw-text-sm tw-text-black">
-          <div className="tw-absolute tw-top-0 tw-left-0">
+        <div className="tw-relative tw-overflow-hidden tw-leading-7 tw-mb-4 tw-text-sm tw-text-black">
+          <div className="tw-flex tw-items-center">
             <button
               type="button"
               aria-label="speech"
-              className="tw-w-7 tw-h-7 tw-inline-block tw-align-top tw-leading-7 before-font-material before:tw-content-['\e050'] before:tw-block before:tw-leading-7"
+              className="tw-w-7 tw-h-7 before-font-material before:tw-content-['\e050'] before:tw-block before:tw-leading-7"
               onClick={() => handleSpeechSpeak(en)}
             />
+            <button
+              type="button"
+              aria-label="favorite-button"
+              className={`favorite-button before-icon-star tw-w-7 tw-h-7 before:tw-leading-7 ${isFavorite ? 'tw-text-yellow-dark' : 'tw-text-gray/60'}`}
+              onClick={handleSetFavorite}
+            />
           </div>
-          <div className="tw-leading-7 tw-text-xs tablet:tw-text-sm">
+          <div className="tw-pl-2 tw-leading-7 tw-text-xs tablet:tw-text-sm">
             <WordsCaption id={id} wordsList={zh} partsList={parts} />
           </div>
         </div>

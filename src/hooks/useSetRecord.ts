@@ -11,7 +11,7 @@ import { IWordItem } from '@/Interfaces/word';
 import { setRecordCollection } from '@/Slice/exam';
 import { RootState } from '@/Store/index';
 
-const useSetRecordData = () => {
+const useSetRecord = () => {
   const dispatch = useDispatch();
   const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
 
@@ -90,4 +90,4 @@ const useSetRecordData = () => {
   }, [WORDS_DATA]);
 };
 
-export default useSetRecordData;
+export default useSetRecord;

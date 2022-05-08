@@ -12,7 +12,7 @@ const Quiz: React.FC = () => {
   const { id } = router.query;
   const dispatch = useDispatch();
   const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
-  const DAILY_WORDS = useSelector((state: RootState) => state.daily.dailyWords);
+  const DAILYS_DATA = useSelector((state: RootState) => state.daily.dailyWords);
   const { isExamAction } = useSelector((state: RootState) => state.exam);
 
   useEffect(() => () => {
@@ -38,8 +38,8 @@ const Quiz: React.FC = () => {
           return <FailedDataCaption />;
         case 'writed-daily':
           // * 今日單字填空測驗
-          if (DAILY_WORDS.length) {
-            return <WritedExam id={id as IWritedExamId} quantity={DAILY_WORDS.length} />;
+          if (DAILYS_DATA.length) {
+            return <WritedExam id={id as IWritedExamId} quantity={DAILYS_DATA.length} />;
           }
           return <FailedDataCaption />;
         default:
@@ -47,7 +47,7 @@ const Quiz: React.FC = () => {
       }
     }
     return <FailedDataCaption />;
-  }, [id, isExamAction, WORDS_DATA, DAILY_WORDS]);
+  }, [id, isExamAction, WORDS_DATA, DAILYS_DATA]);
 
   return (
     <>

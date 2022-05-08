@@ -10,31 +10,40 @@ import { PrimaryButton } from '@/Components/form';
 import WordsCaption from '@/Components/wordsCaption';
 import useSpeechSpeak from '@/Hooks/useSpeechSpeak';
 import { IWordItem } from '@/Interfaces/word';
+import { addFavoriteItem, deleteFavoriteItem } from '@/Slice/collection';
 import { setIsShowGuideButton } from '@/Slice/daily';
 import { setIsExamAction } from '@/Slice/exam';
 import { RootState } from '@/Store/index';
 
 interface IDailyWordsProps {
   dateCaption: string,
-  wordsData: IWordItem[]
+  wordItemList: IWordItem[]
 }
 
 const DailyWords: React.FC<IDailyWordsProps> = ({
   dateCaption = '',
-  wordsData = [],
+  wordItemList = [],
 }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const handleSpeechSpeak = useSpeechSpeak();
+  const { isShowGuideButton } = useSelector((state: RootState) => state.daily);
+  const FAVORITES_DATA = useSelector((state: RootState) => state.collection.favorites);
   const [swipe, setSwipe] = useState<any>(null);
   const [swipeIndex, setSwipeIndex] = useState<number>(0);
-  const { isShowGuideButton } = useSelector((state: RootState) => state.daily);
+  const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
   useEffect(() => {
-    if (swipeIndex === wordsData.length - 1) {
+    if (swipeIndex === wordItemList.length - 1) {
       dispatch(setIsShowGuideButton(true));
     }
   }, [swipeIndex]);
+
+  useEffect(() => {
+    const word: IWordItem = wordItemList[swipeIndex];
+    const dataSet: Set<IWordItem> = new Set(FAVORITES_DATA);
+    setIsFavorite(dataSet.has(word));
+  }, [swipeIndex, FAVORITES_DATA]);
 
   // The solution for install swiper issues.
   // https://github.com/nolimits4web/swiper/issues/3855
@@ -62,7 +71,7 @@ const DailyWords: React.FC<IDailyWordsProps> = ({
           onBeforeInit={(swipper) => setSwipe(swipper)}
         >
           {
-            wordsData?.map(({
+            wordItemList?.map(({
               id, en, zh, parts,
             }: IWordItem) => (
               <SwiperSlide key={uuidv4()}>
@@ -81,6 +90,20 @@ const DailyWords: React.FC<IDailyWordsProps> = ({
                           onSpeech={() => handleSpeechSpeak(en)}
                         />
                       </div>
+                      <button
+                        type="button"
+                        aria-label="favorite-button"
+                        className={`favorite-button before-icon-star tw-w-8 tw-h-8 tw-absolute tw-left-4 tw-top-3 before:tw-leading-8 ${isFavorite ? 'tw-text-yellow-dark' : 'tw-text-gray/60'}`}
+                        onClick={(e: React.MouseEvent<HTMLDivElement | HTMLButtonElement>) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          if (isFavorite) {
+                            dispatch(deleteFavoriteItem(id));
+                          } else {
+                            dispatch(addFavoriteItem(id));
+                          }
+                        }}
+                      />
                     </div>
                   </div>
                 </div>
@@ -91,14 +114,14 @@ const DailyWords: React.FC<IDailyWordsProps> = ({
         <button
           type="button"
           aria-label="carousel-next-button"
-          className={`carousel-next-button tw-w-6 tw-h-6 tw-text-center tw-block tw-absolute tw-right-1 tw-top-2/4 tw--translate-y-2/4 tw-z-50 before-font-material before:tw-block before:tw-m-auto ${swipeIndex === wordsData.length - 1 ? 'before:tw-text-gray before:tw-cursor-not-allowed' : 'before:tw-text-black'}`}
+          className={`carousel-next-button tw-w-6 tw-h-6 tw-text-center tw-block tw-absolute tw-right-1 tw-top-2/4 tw--translate-y-2/4 tw-z-50 before-font-material before:tw-block before:tw-m-auto ${swipeIndex === wordItemList.length - 1 ? 'before:tw-text-gray before:tw-cursor-not-allowed' : 'before:tw-text-black'}`}
           onClick={() => swipe?.slideNext()}
         />
         <div className="tw-absolute tw-right-4 tw-top-3 tw-z-50">
           <span className="tw-text-brown/80 tw-text-xs tw-font-bold">
             {swipeIndex + 1}
             /
-            {wordsData.length}
+            {wordItemList.length}
           </span>
         </div>
       </div>

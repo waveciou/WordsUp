@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import Card from '@/Components/card';
+import ColumnItem from '@/Components/columnItem';
 import { Select } from '@/Components/form';
 import useGetSheetData from '@/Hooks/useGetSheetData';
 import useScrollToTop from '@/Hooks/useScrollToTop';
@@ -49,9 +50,9 @@ const Collection: React.FC = () => {
   const processWordsList = useCallback(() => {
     handleScrollToTop();
 
-    const wordsData: IWordItem[] = [...WORDS_DATA];
+    const wordItemList: IWordItem[] = [...WORDS_DATA];
 
-    const filterListResult: IWordItem[] = wordsData.filter(({ alphabet, parts }) => {
+    const filterListResult: IWordItem[] = wordItemList.filter(({ alphabet, parts }) => {
       const partsSet: Set<string> = new Set(parts);
 
       if (filterAlphabet === 'all' && filterPart === 'all') {
@@ -88,19 +89,11 @@ const Collection: React.FC = () => {
   }, [WORDS_DATA, filterPart, filterAlphabet, isSortDownAlt]);
 
   // List Memo
-  const wordListMemo = useMemo(() => confirmWords.map((wordData: IWordItem, index: number) => {
-    const { id } = wordData;
-    const isEven: boolean = !!(index % 2 === 1);
-    const isThirChid: boolean = !!((index + 1) % 3 === 0);
-    return (
-      <li
-        key={id}
-        className={`tw-w-full tablet:tw-w-[calc((100%-0.75rem)/2)] tablet:tw-mr-3 desktop:tw-w-[calc((100%-1.5rem)/3)] ${index + 1 < confirmWords.length ? 'tw-mb-3' : ''} ${isEven ? 'tablet:tw-mr-0 desktop:tw-mr-3' : ''} ${isThirChid ? 'desktop:tw-mr-0' : ''}`}
-      >
-        <Card wordData={wordData} />
-      </li>
-    );
-  }), [confirmWords]);
+  const wordListMemo = useMemo(() => confirmWords.map((wordItem: IWordItem, index: number) => (
+    <ColumnItem id={wordItem.id} length={confirmWords.length} index={index}>
+      <Card wordItem={wordItem} />
+    </ColumnItem>
+  )), [confirmWords]);
 
   // Words Total
   const wordsTotalMemo = useMemo(() => (
