@@ -57,7 +57,7 @@ const ScoreTable: React.FC<IScoreTableProps> = ({ scoreList = [] }) => {
   }), [scoreList, WORDS_DATA]);
 
   return (
-    <div className="t-table-wrapper tw-w-full tw-overflow-x-auto tw-overflow-y-hidden tw-rounded-lg">
+    <div className="tw-w-full tw-overflow-x-auto tw-overflow-y-hidden tw-rounded-lg">
       <table className="tw-w-full tw-whitespace-nowrap">
         <thead>
           <tr className="tw-bg-green">
