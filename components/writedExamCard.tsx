@@ -122,6 +122,7 @@ const WritedExamCard: React.FC<IWritedExamCardProps> = ({
                   type="button"
                   aria-label="favorite-button"
                   className={`favorite-button before-icon-star tw-w-7 tw-h-7 before:tw-leading-7 ${isFavorite ? 'tw-text-yellow-dark' : 'tw-text-gray/60'}`}
+                  title={isFavorite ? '移除收藏' : '加入收藏'}
                   onClick={handleSetFavorite}
                 />
               )

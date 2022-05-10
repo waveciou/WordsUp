@@ -43,6 +43,7 @@ const WordsDetails: React.FC<IWordItemDetailProps> = ({ uuId, wordItem }) => {
           type="button"
           aria-label="favorite-button"
           className={`favorite-button before-icon-star tw-w-9 tw-h-9 tw-absolute tw-right-0 tw-top-0 before:tw-leading-9 ${isFavorite ? 'tw-text-yellow-dark' : 'tw-text-gray/60'}`}
+          title={isFavorite ? '移除收藏' : '加入收藏'}
           onClick={handleSetFavorite}
         />
       </div>
