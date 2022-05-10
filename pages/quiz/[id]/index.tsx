@@ -13,6 +13,7 @@ const Quiz: React.FC = () => {
   const dispatch = useDispatch();
   const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
   const DAILYS_DATA = useSelector((state: RootState) => state.daily.dailyWords);
+  const FAVORITES_DATA = useSelector((state: RootState) => state.collection.favorites);
   const { isExamAction } = useSelector((state: RootState) => state.exam);
 
   useEffect(() => () => {
@@ -31,7 +32,7 @@ const Quiz: React.FC = () => {
     if (isExamAction && WORDS_DATA.length) {
       switch (id as IExamId) {
         case 'writed-random':
-          // * 單字填空測驗
+          // * 隨機單字填空測驗
           if (WORDS_DATA.length >= 10) {
             return <WritedExam id={id as IWritedExamId} quantity={10} />;
           }
@@ -40,6 +41,12 @@ const Quiz: React.FC = () => {
           // * 今日單字填空測驗
           if (DAILYS_DATA.length) {
             return <WritedExam id={id as IWritedExamId} quantity={DAILYS_DATA.length} />;
+          }
+          return <FailedDataCaption />;
+        case 'writed-favorite':
+          // * 收藏單字填空測驗
+          if (FAVORITES_DATA.length) {
+            return <WritedExam id={id as IWritedExamId} quantity={FAVORITES_DATA.length} />;
           }
           return <FailedDataCaption />;
         default:

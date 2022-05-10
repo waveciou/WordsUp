@@ -52,8 +52,11 @@ const WritedExam: React.FC<IWritedExamProps> = ({ id = 'writed-random', quantity
 
     // Complete
     setStartTime(day.valueOf());
-    setIsLoading(false);
-    dispatch(setIsExamTesting(true));
+
+    setTimeout(() => {
+      setIsLoading(false);
+      dispatch(setIsExamTesting(true));
+    }, 600);
   };
 
   const handleExamFinish = () => {
@@ -104,11 +107,16 @@ const WritedExam: React.FC<IWritedExamProps> = ({ id = 'writed-random', quantity
   return (
     <div>
       {
-        isLoading && <div className="tw-text-center tw-text-green tw-py-8">資料載入中...</div>
+        isLoading && (
+          <div className="tw-text-center tw-text-green-dark tw-py-10">
+            資料載入中...
+          </div>
+        )
       }
       {
         !isLoading && isExamTesting && (
           <WritedExamCard
+            examId={id}
             currentIndex={currentIndex}
             wordItem={questions[currentIndex]}
             setAnswer={handleSetAnswer}
@@ -120,7 +128,7 @@ const WritedExam: React.FC<IWritedExamProps> = ({ id = 'writed-random', quantity
         && (
           <>
             <div className="tw-text-wine tw-my-6 tw-text-md tw-text-center">
-              {getExamName(id)}
+              { getExamName(id) }
             </div>
             <div className="tw-w-full tw-mb-2 tw-text-base tw-text-green-dark tw-text-center tw-flex tw-items-center tw-justify-center before-font-material before:tw-content-['\e8e8'] before:tw-block before:tw-mr-2">
               我的分數：

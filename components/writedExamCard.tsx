@@ -6,19 +6,20 @@ import Alert from '@/Components/alert';
 import { InputText, PrimaryButton } from '@/Components/form';
 import WordsCaption from '@/Components/wordsCaption';
 import useSpeechSpeak from '@/Hooks/useSpeechSpeak';
-import { IAnswerItem } from '@/Interfaces/exam';
+import { IAnswerItem, IExamId } from '@/Interfaces/exam';
 import { IWordItem } from '@/Interfaces/word';
 import { addFavoriteItem, deleteFavoriteItem } from '@/Slice/collection';
 import { RootState } from '@/Store/index';
 
 interface IWritedExamCardProps {
+  examId: IExamId;
   currentIndex: number,
   wordItem: IWordItem,
   setAnswer: (answerItem: IAnswerItem) => void,
 }
 
 const WritedExamCard: React.FC<IWritedExamCardProps> = ({
-  currentIndex, wordItem, setAnswer,
+  examId, currentIndex, wordItem, setAnswer,
 }) => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -115,12 +116,17 @@ const WritedExamCard: React.FC<IWritedExamCardProps> = ({
               className="tw-w-7 tw-h-7 before-font-material before:tw-content-['\e050'] before:tw-block before:tw-leading-7"
               onClick={() => handleSpeechSpeak(en)}
             />
-            <button
-              type="button"
-              aria-label="favorite-button"
-              className={`favorite-button before-icon-star tw-w-7 tw-h-7 before:tw-leading-7 ${isFavorite ? 'tw-text-yellow-dark' : 'tw-text-gray/60'}`}
-              onClick={handleSetFavorite}
-            />
+            {
+              examId !== 'writed-favorite' && (
+                <button
+                  type="button"
+                  aria-label="favorite-button"
+                  className={`favorite-button before-icon-star tw-w-7 tw-h-7 before:tw-leading-7 ${isFavorite ? 'tw-text-yellow-dark' : 'tw-text-gray/60'}`}
+                  title={isFavorite ? '移除收藏' : '加入收藏'}
+                  onClick={handleSetFavorite}
+                />
+              )
+            }
           </div>
           <div className="tw-pl-2 tw-leading-7 tw-text-xs tablet:tw-text-sm">
             <WordsCaption id={id} wordsList={zh} partsList={parts} />

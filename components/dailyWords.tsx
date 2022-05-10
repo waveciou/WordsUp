@@ -94,6 +94,7 @@ const DailyWords: React.FC<IDailyWordsProps> = ({
                         type="button"
                         aria-label="favorite-button"
                         className={`favorite-button before-icon-star tw-w-8 tw-h-8 tw-absolute tw-left-4 tw-top-3 before:tw-leading-8 ${isFavorite ? 'tw-text-yellow-dark' : 'tw-text-gray/60'}`}
+                        title={isFavorite ? '移除收藏' : '加入收藏'}
                         onClick={(e: React.MouseEvent<HTMLDivElement | HTMLButtonElement>) => {
                           e.preventDefault();
                           e.stopPropagation();
