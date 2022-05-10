@@ -1,4 +1,4 @@
-export type IWritedExamId = 'writed-random' | 'writed-daily';
+export type IWritedExamId = 'writed-random' | 'writed-daily' | 'writed-favorite';
 
 export type IExamId = '' | IWritedExamId;
 
