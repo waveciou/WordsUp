@@ -87,6 +87,7 @@ const Layout: React.FC<IProps> = ({ children }) => {
 
   // Close menu when router change
   useEffect(() => {
+    handleScrollToTop();
     dispatch(setIsMenuOpen(false));
   }, [dispatch, router]);
 
