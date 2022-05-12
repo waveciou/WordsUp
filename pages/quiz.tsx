@@ -1,4 +1,3 @@
-/* eslint-disable react/require-default-props */
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
