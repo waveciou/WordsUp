@@ -4,9 +4,9 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { PrimaryButton } from '@/Components/form';
+import WritedExamCard from '@/Components/exam/writedExamCard';
 import ScoreTable from '@/Components/scoreTable';
-import WritedExamCard from '@/Components/writedExamCard';
+import { PrimaryButton } from '@/Components/utils/form';
 import getExamName from '@/Functions/examName';
 import getExamScore from '@/Functions/examScore';
 import useQuestions from '@/Hooks/useQuestions';

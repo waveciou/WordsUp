@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Alert from '@/Components/alert';
+import Alert from '@/Components/utils/alert';
 import randomCollection from '@/Functions/randomCollection';
 import useGetSheetData from '@/Hooks/useGetSheetData';
 import useSetDailyWords from '@/Hooks/useSetDailyWords';

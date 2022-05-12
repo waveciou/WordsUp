@@ -4,10 +4,10 @@ import { useRouter } from 'next/router';
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Header from '@/Components/header';
-import Loader from '@/Components/loader';
-import Menu from '@/Components/menu';
-import Meta from '@/Components/meta';
+import Header from '@/Components/utils/header';
+import Loader from '@/Components/utils/loader';
+import Menu from '@/Components/utils/menu';
+import Meta from '@/Components/utils/meta';
 import debounce from '@/Functions/debounce';
 import loadGapiScrpit from '@/Functions/googleSheetAPI/loadAPIScrpit';
 import useGetSheetData from '@/Hooks/useGetSheetData';

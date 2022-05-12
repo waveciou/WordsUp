@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React from 'react';
 
-import { PrimaryButton } from '@/Components/form';
+import { PrimaryButton } from '@/Components/utils/form';
 
 const Custom404 = () => {
   const router = useRouter();

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Meta from '@/Components/meta';
+import Meta from '@/Components/utils/meta';
 import { IProps } from '@/Interfaces/global';
 
 const LayoutFailed: React.FC<IProps> = ({ children }) => (

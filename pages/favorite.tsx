@@ -1,9 +1,9 @@
 import React, { useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Alert from '@/Components/alert';
 import Card from '@/Components/card';
 import ColumnItem from '@/Components/columnItem';
+import Alert from '@/Components/utils/alert';
 import { IWordItem } from '@/Interfaces/word';
 import { setFavoriteItems } from '@/Slice/collection';
 import { RootState } from '@/Store/index';

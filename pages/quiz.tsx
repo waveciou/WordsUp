@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { PrimaryButton } from '@/Components/form';
+import { PrimaryButton } from '@/Components/utils/form';
 import getExamName from '@/Functions/examName';
 import { IExamId } from '@/Interfaces/exam';
 import { setIsExamAction } from '@/Slice/exam';

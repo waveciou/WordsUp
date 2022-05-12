@@ -2,13 +2,13 @@ import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Alert from '@/Components/alert';
+import Alert from '@/Components/utils/alert';
 import { IRouteItem } from '@/Interfaces/global';
 import { setIsMenuOpen } from '@/Slice/common';
 import { RootState } from '@/Store/index';
 import styles from '@/Styles/menu.module.scss';
 
-const ROUTE = require('../src/data/route.json');
+const ROUTE = require('../../src/data/route.json');
 
 const Menu: React.FC = () => {
   const router = useRouter();

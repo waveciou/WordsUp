@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import WritedExam from '@/Components/writedExam';
+import WritedExam from '@/Components/exam/writedExam';
 import { IExamId, IWritedExamId } from '@/Interfaces/exam';
 import { setIsExamAction } from '@/Slice/exam';
 import { RootState } from '@/Store/index';

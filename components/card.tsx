@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 
-import Popup from '@/Components/popup';
+import Popup from '@/Components/utils/popup';
 import WordsCaption from '@/Components/wordsCaption';
 import WordsDetails from '@/Components/wordsDetails';
 import { IWordItem } from '@/Interfaces/word';
