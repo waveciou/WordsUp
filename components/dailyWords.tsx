@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { v4 as uuidv4 } from 'uuid';
 
-import { PrimaryButton } from '@/Components/form';
+import { PrimaryButton } from '@/Components/utils/form';
 import WordsCaption from '@/Components/wordsCaption';
 import useSpeechSpeak from '@/Hooks/useSpeechSpeak';
 import { IWordItem } from '@/Interfaces/word';

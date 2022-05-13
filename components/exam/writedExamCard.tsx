@@ -2,8 +2,8 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Alert from '@/Components/alert';
-import { InputText, PrimaryButton } from '@/Components/form';
+import Alert from '@/Components/utils/alert';
+import { InputText, PrimaryButton } from '@/Components/utils/form';
 import WordsCaption from '@/Components/wordsCaption';
 import useSpeechSpeak from '@/Hooks/useSpeechSpeak';
 import { IAnswerItem, IExamId } from '@/Interfaces/exam';

@@ -2,8 +2,8 @@ import React, { useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 
-import Alert from '@/Components/alert';
 import RecordCard from '@/Components/recordCard';
+import Alert from '@/Components/utils/alert';
 import { IRecordItem } from '@/Interfaces/exam';
 import { setRecordCollection } from '@/Slice/exam';
 import { RootState } from '@/Store/index';

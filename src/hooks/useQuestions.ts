@@ -13,18 +13,23 @@ const useQuestions = () => {
 
   return useCallback((id: IExamId, quantity: number): IWordItem[] => {
     switch (id) {
-      case 'writed-daily': {
-        // * 今日單字填空測驗
-        return [...DAILYS_DATA].sort(() => (Math.random() > 0.5 ? -1 : 1));
-      }
+      // * 隨機單字填空測驗
       case 'writed-random': {
-        // * 隨機單字填空測驗
         const randoms: number[] = randomCollection(quantity, WORDS_DATA.length);
         return randoms.map((num: number) => WORDS_DATA[num]);
       }
+      // * 今日單字填空測驗
+      case 'writed-daily': {
+        return [...DAILYS_DATA].sort(() => (Math.random() > 0.5 ? -1 : 1));
+      }
+      // * 收藏單字填空測驗
       case 'writed-favorite': {
-        // * 收藏單字填空測驗
         return [...FAVORITES_DATA].sort(() => (Math.random() > 0.5 ? -1 : 1));
+      }
+      // * 隨機單字選擇測驗
+      case 'selected-random': {
+        const randoms: number[] = randomCollection(quantity, WORDS_DATA.length);
+        return randoms.map((num: number) => WORDS_DATA[num]);
       }
       default: {
         return [];

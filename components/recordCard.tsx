@@ -5,10 +5,10 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import Alert from '@/Components/alert';
-import { PrimaryButton } from '@/Components/form';
-import Popup from '@/Components/popup';
 import ScoreTable from '@/Components/scoreTable';
+import Alert from '@/Components/utils/alert';
+import { PrimaryButton } from '@/Components/utils/form';
+import Popup from '@/Components/utils/popup';
 import getExamName from '@/Functions/examName';
 import getExamScore from '@/Functions/examScore';
 import { IRecordItem } from '@/Interfaces/exam';
