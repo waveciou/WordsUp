@@ -28,6 +28,6 @@ export interface IRecordLocalItem {
   }[]
 }
 
-export interface ISelectedExamItem extends IWordItem {
+export interface ISelectedWordItem extends IWordItem {
   options: string[];
 }

@@ -9,8 +9,9 @@ import ScoreTable from '@/Components/scoreTable';
 import { PrimaryButton } from '@/Components/utils/form';
 import getExamName from '@/Functions/examName';
 import getExamScore from '@/Functions/examScore';
+import randomNumber from '@/Functions/randomNumber';
 import useQuestions from '@/Hooks/useQuestions';
-import { IAnswerItem, IRecordItem, ISelectedExamId, ISelectedExamItem } from '@/Interfaces/exam';
+import { IAnswerItem, IRecordItem, ISelectedExamId, ISelectedWordItem } from '@/Interfaces/exam';
 import { IWordItem } from '@/Interfaces/word';
 import { setIsExamTesting, setRecordCollection } from '@/Slice/exam';
 import { RootState } from '@/Store/index';
@@ -27,9 +28,10 @@ const SelectedExam: React.FC<ISelectedExamProps> = ({ id = 'selected-random', qu
   const router = useRouter();
   const dispatch = useDispatch();
   const getQuestions = useQuestions();
+  const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
   const { isExamTesting, recordCollection } = useSelector((state: RootState) => state.exam);
 
-  const [questions, setQuestions] = useState<ISelectedExamItem[]>([]);
+  const [questions, setQuestions] = useState<ISelectedWordItem[]>([]);
   const [answerState, setAnswerState] = useState<IAnswerItem[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isFinish, setIsFinish] = useState<boolean>(false);
@@ -48,7 +50,26 @@ const SelectedExam: React.FC<ISelectedExamProps> = ({ id = 'selected-random', qu
     setDurationTime('');
 
     // Get Questions
-    setQuestions(getQuestions(id, quantity) as ISelectedExamItem[]);
+    const questionGetter: IWordItem[] = getQuestions(id, quantity);
+    const questionReselt: ISelectedWordItem[] = questionGetter.map((wordItem) => {
+      const options: string[] = [wordItem.en];
+
+      while (options.length < 4) {
+        const { en } = WORDS_DATA[randomNumber(0, WORDS_DATA.length - 1)];
+        const optionsSet: Set<string> = new Set(...options);
+
+        if (!optionsSet.has(en)) {
+          options.push(en);
+        }
+      }
+
+      return {
+        ...wordItem,
+        options: options.sort(() => (Math.random() > 0.5 ? -1 : 1)),
+      };
+    });
+
+    setQuestions(questionReselt);
 
     // Complete
     setStartTime(day.valueOf());
@@ -115,13 +136,12 @@ const SelectedExam: React.FC<ISelectedExamProps> = ({ id = 'selected-random', qu
       }
       {
         !isLoading && isExamTesting && (
-          // <SelectedExamCard
-          //   examId={id}
-          //   currentIndex={currentIndex}
-          //   wordItem={questions[currentIndex]}
-          //   setAnswer={handleSetAnswer}
-          // />
-          <></>
+          <SelectedExamCard
+            examId={id}
+            currentIndex={currentIndex}
+            wordItem={questions[currentIndex]}
+            setAnswer={handleSetAnswer}
+          />
         )
       }
       {

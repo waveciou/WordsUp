@@ -11,6 +11,9 @@ const examName = (id: IExamId): string => {
     // * 收藏單字填空測驗
     case 'writed-favorite':
       return '收藏單字測驗';
+    // * 隨機單字選擇測驗
+    case 'selected-random':
+      return '隨機單字選擇測驗';
     default:
       return '';
   }
