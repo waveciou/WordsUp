@@ -1,6 +1,8 @@
-export type IWritedExamId = 'writed-random' | 'writed-daily' | 'writed-favorite';
+import { IWordItem } from '@/Interfaces/word';
 
-export type IExamId = '' | IWritedExamId;
+export type IWritedExamId = 'writed-random' | 'writed-daily' | 'writed-favorite';
+export type ISelectedExamId = 'selected-random' | 'selected-daily' | 'selected-favorite';
+export type IExamId = '' | IWritedExamId | ISelectedExamId;
 
 export interface IAnswerItem {
   id: string,
@@ -24,4 +26,8 @@ export interface IRecordLocalItem {
     id: string,
     answer: string
   }[]
+}
+
+export interface ISelectedExamItem extends IWordItem {
+  options: string[];
 }
