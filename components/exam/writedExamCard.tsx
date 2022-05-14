@@ -72,8 +72,9 @@ const WritedExamCard: React.FC<IWritedExamCardProps> = ({
   };
 
   useEffect(() => {
-    const dataSet: Set<IWordItem> = new Set(FAVORITES_DATA);
-    setIsFavorite(dataSet.has(wordItem));
+    const dataIdList: string[] = FAVORITES_DATA.map((item) => item.id);
+    const dataIdSet: Set<string> = new Set(dataIdList);
+    setIsFavorite(dataIdSet.has(id));
   }, [FAVORITES_DATA]);
 
   useEffect(() => {

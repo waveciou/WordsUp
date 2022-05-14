@@ -28,6 +28,9 @@ const Alert: React.FC<IAlertModalProps> = ({
 
   useEffect(() => {
     setIsBrowser(true);
+    return () => {
+      document.documentElement.classList.remove('is-fixed');
+    };
   }, []);
 
   useEffect(() => {
