@@ -14,6 +14,9 @@ const Popup: React.FC<IPopupProps> = ({ children, show, onClose }) => {
 
   useEffect(() => {
     setIsBrowser(true);
+    return () => {
+      document.documentElement.classList.remove('is-fixed');
+    };
   }, []);
 
   useEffect(() => {
