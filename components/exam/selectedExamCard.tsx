@@ -58,8 +58,9 @@ const SelectedExamCard: React.FC<ISelectedExamCardProps> = ({
   };
 
   useEffect(() => {
-    const dataSet: Set<IWordItem> = new Set(FAVORITES_DATA);
-    setIsFavorite(dataSet.has(wordItem));
+    const dataIdList: string[] = FAVORITES_DATA.map((item) => item.id);
+    const dataIdSet: Set<string> = new Set(dataIdList);
+    setIsFavorite(dataIdSet.has(id));
   }, [FAVORITES_DATA]);
 
   useEffect(() => {
@@ -86,27 +87,6 @@ const SelectedExamCard: React.FC<ISelectedExamCardProps> = ({
           </button>
         </div>
 
-        {
-          options.map((optionItem: string) => {
-            const uuid: string = uuidv4();
-            return (
-              <div>
-                <input
-                  key={optionItem}
-                  id={uuid}
-                  type="radio"
-                  value={optionItem}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
-                    setSelectValue(e.target.value);
-                  }}
-                  checked={selectValue === optionItem}
-                />
-                <label htmlFor={uuid}>{ optionItem }</label>
-              </div>
-            );
-          })
-        }
-
         <div className="tw-relative tw-overflow-hidden tw-leading-7 tw-mb-4 tw-text-sm tw-text-black">
           <div className="tw-flex tw-items-center">
             <button
@@ -131,6 +111,39 @@ const SelectedExamCard: React.FC<ISelectedExamCardProps> = ({
             <WordsCaption id={id} wordsList={zh} partsList={parts} />
           </div>
         </div>
+
+        {
+          options.map((optionItem: string) => {
+            const uuid: string = uuidv4();
+            const isChecked: boolean = !!(selectValue === optionItem);
+            return (
+              <div className="tw-relative tw-overflow-hidden">
+                <input
+                  key={optionItem}
+                  id={uuid}
+                  type="radio"
+                  value={optionItem}
+                  onChange={() => setSelectValue(optionItem)}
+                  checked={isChecked}
+                  className="tw-absolute tw-invisible tw-opacity-0 tw-select-none"
+                />
+                <label htmlFor={uuid} className="tw-block tw-mb-2">
+                  {
+                    isChecked ? (
+                      <div className="tw-flex tw-items-center tw-text-sm tw-cursor-pointer before-font-material before:tw-content-['\e837'] before:tw-block before:tw-mr-1 before:tw-text-base">
+                        { optionItem }
+                      </div>
+                    ) : (
+                      <div className="tw-flex tw-items-center tw-text-sm tw-cursor-pointer before-font-material before:tw-content-['\e836'] before:tw-block before:tw-mr-1 before:tw-text-base">
+                        { optionItem }
+                      </div>
+                    )
+                  }
+                </label>
+              </div>
+            );
+          })
+        }
 
         <div className="tw-flex tw-justify-center tw-mt-6">
           <PrimaryButton
