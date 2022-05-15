@@ -48,7 +48,8 @@ const WordsDetails: React.FC<IWordItemDetailProps> = ({ uuId, wordItem }) => {
         />
       </div>
       <div className="tw-leading-7">
-        <div className="tw-my-2">
+        <WordsCaption id={uuId} wordsList={zh} partsList={parts} hasBrackets />
+        <div className="tw-mt-2">
           <button
             type="button"
             aria-label="speech"
@@ -56,8 +57,7 @@ const WordsDetails: React.FC<IWordItemDetailProps> = ({ uuId, wordItem }) => {
             onClick={() => handleSpeechSpeak(en)}
           />
         </div>
-        <WordsCaption id={uuId} wordsList={zh} partsList={parts} hasBrackets />
-        <div className="tw-w-full tw-h-px tw-mt-4 tw-mb-3 tw-bg-gray" />
+        <div className="tw-w-full tw-h-px tw-my-3 tw-bg-gray" />
         <a
           href={`https://dictionary.cambridge.org/zht/詞典/英語-漢語-繁體/${en}`}
           target="_blank"

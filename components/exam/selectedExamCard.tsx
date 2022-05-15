@@ -8,7 +8,6 @@ import { PrimaryButton } from '@/Components/utils/form';
 import WordsCaption from '@/Components/wordsCaption';
 import useSpeechSpeak from '@/Hooks/useSpeechSpeak';
 import { IAnswerItem, IExamId, ISelectedWordItem } from '@/Interfaces/exam';
-import { IWordItem } from '@/Interfaces/word';
 import { addFavoriteItem, deleteFavoriteItem } from '@/Slice/collection';
 import { RootState } from '@/Store/index';
 
@@ -87,7 +86,7 @@ const SelectedExamCard: React.FC<ISelectedExamCardProps> = ({
           </button>
         </div>
 
-        <div className="tw-relative tw-overflow-hidden tw-leading-7 tw-mb-4 tw-text-sm tw-text-black">
+        <div className="tw-py-3 tw-px-2 tw-mb-4 first-letter:tw-relative tw-overflow-hidden tw-leading-7 tw-text-sm tw-text-black tw-bg-gray-light tw-rounded-lg">
           <div className="tw-flex tw-items-center">
             <button
               type="button"
