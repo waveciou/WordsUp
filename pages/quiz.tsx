@@ -62,7 +62,7 @@ const Quiz: React.FC = () => {
       id: 'writed-random',
       types: 'writed',
       isForFavorite: false,
-      description: '從單字資料庫隨機取得 10 個單字來進行填空測驗',
+      description: '從單字資料庫隨機取得 10 個單字進行填空測驗',
     },
     {
       id: 'writed-daily',
