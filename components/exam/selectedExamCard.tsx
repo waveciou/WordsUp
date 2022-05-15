@@ -95,7 +95,7 @@ const SelectedExamCard: React.FC<ISelectedExamCardProps> = ({
               onClick={() => handleSpeechSpeak(en)}
             />
             {
-              examId !== 'writed-favorite' && (
+              examId !== 'selected-favorite' && (
                 <button
                   type="button"
                   aria-label="favorite-button"

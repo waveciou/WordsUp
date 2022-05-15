@@ -82,6 +82,18 @@ const Quiz: React.FC = () => {
       isForFavorite: false,
       description: '從單字資料庫隨機取得 10 個單字來進行選擇測驗',
     },
+    {
+      id: 'selected-daily',
+      types: 'selected',
+      isForFavorite: false,
+      description: '使用「今日單字」進行選擇測驗',
+    },
+    {
+      id: 'selected-favorite',
+      types: 'selected',
+      isForFavorite: true,
+      description: '使用「收藏單字」進行選擇測驗',
+    },
   ]);
 
   useEffect(() => {
@@ -96,22 +108,19 @@ const Quiz: React.FC = () => {
       return types === filterId && isForFavorite === false;
     }
     return types === filterId;
-  }).map(({ id, description }: IQuizzesData, index: number) => {
-    const isEvenChild: boolean = !!(index % 2 === 1);
-    return (
-      <li className={`tw-w-full tw-mb-4 desktop:tw-w-[calc((100%-0.75rem)/2)] desktop:tw-mr-3 ${isEvenChild ? 'desktop:tw-mr-0' : ''}`}>
-        <QuizzesLink
-          id={id}
-          description={description}
-        />
-      </li>
-    );
-  }), [writedExamData, hasFavorites]);
+  }).map(({ id, description }: IQuizzesData) => (
+    <li className="tw-w-full tw-mb-4">
+      <QuizzesLink
+        id={id}
+        description={description}
+      />
+    </li>
+  )), [writedExamData, hasFavorites]);
 
   return (
     <>
       <h1 className="title">單字測驗</h1>
-      <div className="content size-large">
+      <div className="content">
         <h2 className="tw-flex tw-items-center tw-mb-4 tw-text-green-dark tw-text-md desktop:tw-text-lg tw-leading-9 before-font-material before:tw-content-['\e3c9'] before:tw-mr-1">填空題型</h2>
 
         <ul className="tw-flex tw-flex-wrap">
