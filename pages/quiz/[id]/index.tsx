@@ -56,6 +56,18 @@ const Quiz: React.FC = () => {
             return <SelectedExam id={id as ISelectedExamId} quantity={10} />;
           }
           return <FailedDataCaption />;
+        // * 今日單字選擇測驗
+        case 'selected-daily':
+          if (DAILYS_DATA.length) {
+            return <SelectedExam id={id as ISelectedExamId} quantity={DAILYS_DATA.length} />;
+          }
+          return <FailedDataCaption />;
+        // * 收藏單字選擇測驗
+        case 'selected-favorite':
+          if (FAVORITES_DATA.length) {
+            return <SelectedExam id={id as ISelectedExamId} quantity={FAVORITES_DATA.length} />;
+          }
+          return <FailedDataCaption />;
         default:
           return <FailedDataCaption />;
       }

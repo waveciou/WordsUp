@@ -1,8 +1,7 @@
-import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Alert from '@/Components/utils/alert';
+import ExamCardHeader from '@/Components/exam/examCardHeader';
 import { InputText, PrimaryButton } from '@/Components/utils/form';
 import WordsCaption from '@/Components/wordsCaption';
 import useSpeechSpeak from '@/Hooks/useSpeechSpeak';
@@ -21,13 +20,10 @@ interface IWritedExamCardProps {
 const WritedExamCard: React.FC<IWritedExamCardProps> = ({
   examId, currentIndex, wordItem, setAnswer,
 }) => {
-  const router = useRouter();
   const dispatch = useDispatch();
   const handleSpeechSpeak = useSpeechSpeak();
   const FAVORITES_DATA = useSelector((state: RootState) => state.collection.favorites);
-  const { examGuardAlert } = useSelector((state: RootState) => state.exam);
   const [inputValue, setInputValue] = useState<string>('');
-  const [isShowExamGuardAlert, setIsShowExamGuardAlert] = useState<boolean>(false);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
   const {
@@ -82,82 +78,54 @@ const WritedExamCard: React.FC<IWritedExamCardProps> = ({
   }, [wordItem]);
 
   return (
-    <>
-      <div>
-        <div className="tw-flex tw-items-center tw-justify-between tw-mb-4">
-          <div className="tw-text-md tw-text-wine tw-leading-7">
-            第
-            {' '}
-            {currentIndex + 1}
-            {' '}
-            題
-          </div>
+    <div>
+      <ExamCardHeader currentIndex={currentIndex} />
+
+      <div className="tw-mb-2">
+        <InputText
+          defaultValue={inputValue}
+          onChange={handleChange}
+          placeholder="請輸入正確的英文單字"
+        />
+      </div>
+
+      <div className="tw-relative tw-overflow-hidden tw-leading-7 tw-mb-4 tw-text-sm tw-text-black">
+        <div className="tw-flex tw-items-center">
           <button
             type="button"
-            onClick={() => setIsShowExamGuardAlert(true)}
-            className="tw-flex tw-items-center tw-text-xs tw-text-green-dark desktop:hover:tw-text-green before-font-material before:tw-content-['\e15e'] before:tw-block before:tw-mr-1"
-          >
-            離開測驗
-          </button>
-        </div>
-
-        <div className="tw-mb-2">
-          <InputText
-            defaultValue={inputValue}
-            onChange={handleChange}
-            placeholder="請輸入正確的英文單字"
+            aria-label="speech"
+            className="tw-w-7 tw-h-7 before-font-material before:tw-content-['\e050'] before:tw-block before:tw-leading-7"
+            onClick={() => handleSpeechSpeak(en)}
           />
+          {
+            examId !== 'writed-favorite' && (
+              <button
+                type="button"
+                aria-label="favorite-button"
+                className={`favorite-button before-icon-star tw-w-7 tw-h-7 before:tw-leading-7 ${isFavorite ? 'tw-text-yellow-dark' : 'tw-text-gray/60'}`}
+                title={isFavorite ? '移除收藏' : '加入收藏'}
+                onClick={handleSetFavorite}
+              />
+            )
+          }
         </div>
-
-        <div className="tw-relative tw-overflow-hidden tw-leading-7 tw-mb-4 tw-text-sm tw-text-black">
-          <div className="tw-flex tw-items-center">
-            <button
-              type="button"
-              aria-label="speech"
-              className="tw-w-7 tw-h-7 before-font-material before:tw-content-['\e050'] before:tw-block before:tw-leading-7"
-              onClick={() => handleSpeechSpeak(en)}
-            />
-            {
-              examId !== 'writed-favorite' && (
-                <button
-                  type="button"
-                  aria-label="favorite-button"
-                  className={`favorite-button before-icon-star tw-w-7 tw-h-7 before:tw-leading-7 ${isFavorite ? 'tw-text-yellow-dark' : 'tw-text-gray/60'}`}
-                  title={isFavorite ? '移除收藏' : '加入收藏'}
-                  onClick={handleSetFavorite}
-                />
-              )
-            }
-          </div>
-          <div className="tw-pl-2 tw-leading-7 tw-text-xs tablet:tw-text-sm">
-            <WordsCaption id={id} wordsList={zh} partsList={parts} />
-          </div>
-        </div>
-
-        <div className="tw-flex tw-justify-center tw-mt-6">
-          <PrimaryButton
-            text="送出"
-            isDisabled={!!(inputValue.trim() === '')}
-            onClick={handleSubmit}
-          />
-          <PrimaryButton
-            text="略過"
-            onClick={handleNextQuestion}
-          />
+        <div className="tw-pl-2 tw-leading-7 tw-text-xs tablet:tw-text-sm">
+          <WordsCaption id={id} wordsList={zh} partsList={parts} />
         </div>
       </div>
 
-      <Alert
-        show={isShowExamGuardAlert}
-        title={examGuardAlert.title}
-        content={examGuardAlert.content}
-        confirmText="確定"
-        cancelText="取消"
-        onConfirm={() => router.back()}
-        onCancel={() => setIsShowExamGuardAlert(false)}
-        theme="warn"
-      />
-    </>
+      <div className="tw-flex tw-justify-center tw-mt-6">
+        <PrimaryButton
+          text="送出"
+          isDisabled={!!(inputValue.trim() === '')}
+          onClick={handleSubmit}
+        />
+        <PrimaryButton
+          text="略過"
+          onClick={handleNextQuestion}
+        />
+      </div>
+    </div>
   );
 };
 

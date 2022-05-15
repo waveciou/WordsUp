@@ -7,6 +7,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { v4 as uuidv4 } from 'uuid';
 
 import { PrimaryButton } from '@/Components/utils/form';
+import Popup from '@/Components/utils/popup';
 import WordsCaption from '@/Components/wordsCaption';
 import useSpeechSpeak from '@/Hooks/useSpeechSpeak';
 import { IWordItem } from '@/Interfaces/word';
@@ -32,6 +33,7 @@ const DailyWords: React.FC<IDailyWordsProps> = ({
   const [swipe, setSwipe] = useState<any>(null);
   const [swipeIndex, setSwipeIndex] = useState<number>(0);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
+  const [isShowGuideBtnPopup, setIsShowGuideBtnPopup] = useState<boolean>(false);
 
   useEffect(() => {
     if (swipeIndex === wordItemList.length - 1) {
@@ -44,6 +46,12 @@ const DailyWords: React.FC<IDailyWordsProps> = ({
     const dataSet: Set<IWordItem> = new Set(FAVORITES_DATA);
     setIsFavorite(dataSet.has(word));
   }, [swipeIndex, FAVORITES_DATA]);
+
+  useEffect(() => {
+    if (isShowGuideButton === false) {
+      setIsShowGuideBtnPopup(false);
+    }
+  }, [isShowGuideButton]);
 
   // The solution for install swiper issues.
   // https://github.com/nolimits4web/swiper/issues/3855
@@ -132,13 +140,36 @@ const DailyWords: React.FC<IDailyWordsProps> = ({
           <PrimaryButton
             text="測驗今日單字"
             colorStyle="green-dark"
+            onClick={() => setIsShowGuideBtnPopup(true)}
+          />
+        </div>
+      )}
+
+      <Popup show={isShowGuideBtnPopup} onClose={() => setIsShowGuideBtnPopup(false)}>
+        <div className="tw-p-px">
+          <div className="tw-mb-3 tw-text-wine">請選擇測驗題型：</div>
+          <button
+            type="button"
+            className="tw-flex tw-justify-center tw-items-center tw-w-full tw-p-4 desktop:tw-p-5 tw-mb-3 tw-text-sm desktop:tw-text-base tw-text-green-dark tw-bg-white tw-rounded-md tw-shadow-[0_1px_3px_0_rgba(51,51,51,0.4)] before-font-material before:tw-content-['\e3c9'] before:tw-mr-1 desktop:hover:tw-text-white desktop:hover:tw-bg-green-dark"
             onClick={async () => {
               await dispatch(setIsExamAction(true));
               await router.push('/quiz/writed-daily');
             }}
-          />
+          >
+            填空題
+          </button>
+          <button
+            type="button"
+            className="tw-flex tw-justify-center tw-items-center tw-w-full tw-p-4 desktop:tw-p-5 tw-mb-3 tw-text-sm desktop:tw-text-base tw-text-green-dark tw-bg-white tw-rounded-md tw-shadow-[0_1px_3px_0_rgba(51,51,51,0.4)] before-font-material before:tw-content-['\e0ee'] before:tw-mr-1 desktop:hover:tw-text-white desktop:hover:tw-bg-green-dark"
+            onClick={async () => {
+              await dispatch(setIsExamAction(true));
+              await router.push('/quiz/selected-daily');
+            }}
+          >
+            選擇題
+          </button>
         </div>
-      )}
+      </Popup>
     </>
   );
 };
