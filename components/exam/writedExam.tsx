@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import WritedExamCard from '@/Components/exam/writedExamCard';
@@ -36,6 +36,7 @@ const WritedExam: React.FC<IWritedExamProps> = ({ id = 'writed-random', quantity
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [startTime, setStartTime] = useState<number>(0);
   const [durationTime, setDurationTime] = useState<string>('');
+  const initTimeoutRef = useRef<number>(0);
 
   const handleExamStart = () => {
     dispatch(setIsExamTesting(false));
@@ -53,10 +54,10 @@ const WritedExam: React.FC<IWritedExamProps> = ({ id = 'writed-random', quantity
     // Complete
     setStartTime(day.valueOf());
 
-    setTimeout(() => {
+    initTimeoutRef.current = setTimeout(() => {
       setIsLoading(false);
       dispatch(setIsExamTesting(true));
-    }, 600);
+    }, 600) as unknown as number;
   };
 
   const handleExamFinish = () => {
@@ -85,6 +86,7 @@ const WritedExam: React.FC<IWritedExamProps> = ({ id = 'writed-random', quantity
     handleExamStart();
     return () => {
       dispatch(setIsExamTesting(false));
+      clearTimeout(initTimeoutRef.current);
     };
   }, []);
 
