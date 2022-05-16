@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import SelectedExamCard from '@/Components/exam/selectedExamCard';
@@ -38,6 +38,7 @@ const SelectedExam: React.FC<ISelectedExamProps> = ({ id = 'selected-random', qu
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [startTime, setStartTime] = useState<number>(0);
   const [durationTime, setDurationTime] = useState<string>('');
+  const initTimeoutRef = useRef<number>(0);
 
   const handleExamStart = () => {
     dispatch(setIsExamTesting(false));
@@ -74,10 +75,10 @@ const SelectedExam: React.FC<ISelectedExamProps> = ({ id = 'selected-random', qu
     // Complete
     setStartTime(day.valueOf());
 
-    setTimeout(() => {
+    initTimeoutRef.current = setTimeout(() => {
       setIsLoading(false);
       dispatch(setIsExamTesting(true));
-    }, 600);
+    }, 600) as unknown as number;
   };
 
   const handleExamFinish = () => {
@@ -106,6 +107,7 @@ const SelectedExam: React.FC<ISelectedExamProps> = ({ id = 'selected-random', qu
     handleExamStart();
     return () => {
       dispatch(setIsExamTesting(false));
+      clearTimeout(initTimeoutRef.current);
     };
   }, []);
 
