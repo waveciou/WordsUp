@@ -14,38 +14,38 @@ export const collectionSlice = createSlice({
   initialState,
   reducers: {
     setWordItems: (state, action: PayloadAction<IWordItem[]>) => {
-      const asignState = state;
-      asignState.words = [...action.payload];
+      const assignState = state;
+      assignState.words = [...action.payload];
     },
     setPartItems: (state, action: PayloadAction<string[]>) => {
-      const asignState = state;
-      asignState.parts = [...action.payload];
+      const assignState = state;
+      assignState.parts = [...action.payload];
     },
     setFavoriteItems: (state, action: PayloadAction<IWordItem[]>) => {
-      const asignState = state;
-      asignState.favorites = [...action.payload];
-      updateFavoriteLocalData(asignState.favorites);
+      const assignState = state;
+      assignState.favorites = [...action.payload];
+      updateFavoriteLocalData(assignState.favorites);
     },
     addFavoriteItem: (state, action: PayloadAction<string>) => {
-      const asignState = state;
-      const word: IWordItem | undefined = asignState.words.find(({
+      const assignState = state;
+      const word: IWordItem | undefined = assignState.words.find(({
         id,
       }: IWordItem) => id === action.payload);
 
       if (word) {
-        asignState.favorites.push(word);
-        updateFavoriteLocalData(asignState.favorites);
+        assignState.favorites.push(word);
+        updateFavoriteLocalData(assignState.favorites);
       }
     },
     deleteFavoriteItem: (state, action: PayloadAction<string>) => {
-      const asignState = state;
-      const index: number = asignState.favorites.findIndex(({
+      const assignState = state;
+      const index: number = assignState.favorites.findIndex(({
         id,
       }: IWordItem) => id === action.payload);
 
       if (index > -1) {
-        asignState.favorites.splice(index, 1);
-        updateFavoriteLocalData(asignState.favorites);
+        assignState.favorites.splice(index, 1);
+        updateFavoriteLocalData(assignState.favorites);
       }
     },
   },

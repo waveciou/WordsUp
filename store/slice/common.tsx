@@ -19,24 +19,24 @@ export const commonSlice = createSlice({
   initialState,
   reducers: {
     setIsAppMounted: (state, action: PayloadAction<boolean>) => {
-      const asignState = state;
-      asignState.isAppMounted = action.payload;
+      const assignState = state;
+      assignState.isAppMounted = action.payload;
     },
     setIsLoading: (state, action: PayloadAction<boolean>) => {
-      const asignState = state;
-      asignState.isLoading = action.payload;
+      const assignState = state;
+      assignState.isLoading = action.payload;
     },
     setIsMenuOpen: (state, action: PayloadAction<boolean>) => {
-      const asignState = state;
-      asignState.isMenuOpen = action.payload;
+      const assignState = state;
+      assignState.isMenuOpen = action.payload;
     },
     setScreenWidth: (state, action: PayloadAction<number>) => {
-      const asignState = state;
-      asignState.screenWidth = action.payload < 1 ? 0 : action.payload;
+      const assignState = state;
+      assignState.screenWidth = action.payload < 1 ? 0 : action.payload;
     },
     setScrollValue: (state, action: PayloadAction<number>) => {
-      const asignState = state;
-      asignState.scrollValue = action.payload < 1 ? 0 : action.payload;
+      const assignState = state;
+      assignState.scrollValue = action.payload < 1 ? 0 : action.payload;
     },
   },
 });
