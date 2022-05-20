@@ -40,27 +40,27 @@ export const examSlice = createSlice({
   initialState,
   reducers: {
     setIsExamAction: (state, action: PayloadAction<boolean>) => {
-      const asignState = state;
-      asignState.isExamAction = action.payload;
+      const assignState = state;
+      assignState.isExamAction = action.payload;
     },
     setIsExamTesting: (state, action: PayloadAction<boolean>) => {
-      const asignState = state;
-      asignState.isExamTesting = action.payload;
+      const assignState = state;
+      assignState.isExamTesting = action.payload;
     },
     setRecordCollection: (state, action: PayloadAction<IRecordItem[]>) => {
-      const asignState = state;
-      asignState.recordCollection = [...action.payload];
-      updateRecordLocalData(asignState.recordCollection);
+      const assignState = state;
+      assignState.recordCollection = [...action.payload];
+      updateRecordLocalData(assignState.recordCollection);
     },
     deleteRecordItem: (state, action: PayloadAction<number>) => {
-      const asignState = state;
-      const index: number = asignState.recordCollection.findIndex(({
+      const assignState = state;
+      const index: number = assignState.recordCollection.findIndex(({
         startTime,
       }: IRecordItem) => startTime === action.payload);
 
       if (index > -1) {
-        asignState.recordCollection.splice(index, 1);
-        updateRecordLocalData(asignState.recordCollection);
+        assignState.recordCollection.splice(index, 1);
+        updateRecordLocalData(assignState.recordCollection);
       }
     },
   },

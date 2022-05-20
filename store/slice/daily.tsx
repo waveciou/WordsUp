@@ -18,20 +18,20 @@ export const dailySlice = createSlice({
   initialState,
   reducers: {
     setDateId: (state, action: PayloadAction<string>) => {
-      const asignState = state;
-      asignState.dateId = action.payload;
+      const assignState = state;
+      assignState.dateId = action.payload;
     },
     setDateCaption: (state, action: PayloadAction<string>) => {
-      const asignState = state;
-      asignState.dateCaption = action.payload;
+      const assignState = state;
+      assignState.dateCaption = action.payload;
     },
     setDailyWords: (state, action: PayloadAction<IWordItem[]>) => {
-      const asignState = state;
-      asignState.dailyWords = [...action.payload];
+      const assignState = state;
+      assignState.dailyWords = [...action.payload];
     },
     setIsShowGuideButton: (state, action: PayloadAction<boolean>) => {
-      const asignState = state;
-      asignState.isShowGuideButton = action.payload;
+      const assignState = state;
+      assignState.isShowGuideButton = action.payload;
     },
   },
 });
