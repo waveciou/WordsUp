@@ -42,7 +42,9 @@ const Layout: React.FC<IProps> = ({ children }) => {
   const handleSetRecord = useSetRecord();
 
   const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
-  const { isAppMounted, isMenuOpen, scrollValue } = useSelector((state: RootState) => state.common);
+  const { isAppMounted, isMenuOpen, scrollValue } = useSelector(
+    (state: RootState) => state.common
+  );
   const { dateId } = useSelector((state: RootState) => state.daily);
 
   // Get browser screen width
@@ -53,17 +55,21 @@ const Layout: React.FC<IProps> = ({ children }) => {
 
   // Get Scroll Value (Desktop, >= 1025)
   const handleGetScrollValue = useCallback(() => {
-    const value: number = window.pageYOffset
-    || document.documentElement.scrollTop
-    || document.body.scrollTop;
+    const value: number =
+      window.pageYOffset ||
+      document.documentElement.scrollTop ||
+      document.body.scrollTop;
     dispatch(setScrollValue(value));
   }, [dispatch]);
 
   // Get Scroll Value (Tablet, Mobile, <= 1024)
-  const handleGetLayoutScrollValue = useCallback((e) => {
-    const value: number = e.target.scrollTop;
-    dispatch(setScrollValue(value));
-  }, [dispatch]);
+  const handleGetLayoutScrollValue = useCallback(
+    (e) => {
+      const value: number = e.target.scrollTop;
+      dispatch(setScrollValue(value));
+    },
+    [dispatch]
+  );
 
   useEffect(() => {
     dispatch(setIsAppMounted(true));
@@ -149,21 +155,25 @@ const Layout: React.FC<IProps> = ({ children }) => {
       <Meta />
       <div id="__layout" onScroll={handleGetLayoutScrollValue}>
         <Header />
-        <main id="__main" className="tw-pt-header-height">{ children }</main>
-        {
-          scrollValue > 0 && (
-            <button
-              type="button"
-              aria-label="scroll-to-top-button"
-              className="tw-w-10 tw-h-10 tw-block tw-fixed tw-right-5 tw-bottom-12 tw-bg-green-dark/60 tw-rounded-full before-font-material before:tw-content-['\e5d8'] before:tw-leading-10 before:tw-text-yellow"
-              onClick={handleScrollToTop}
-            />
-          )
-        }
+        <main id="__main" className="tw-pt-header-height">
+          {children}
+        </main>
+        {scrollValue > 0 && (
+          <button
+            type="button"
+            aria-label="scroll-to-top-button"
+            className="tw-w-10 tw-h-10 tw-block tw-fixed tw-right-5 tw-bottom-12 tw-bg-green-dark/60 tw-rounded-full before-font-material before:tw-content-['\e5d8'] before:tw-leading-10 before:tw-text-yellow"
+            onClick={handleScrollToTop}
+          />
+        )}
         <div
           aria-hidden="true"
           onClick={() => dispatch(setIsMenuOpen(false))}
-          className={`tw-w-full tw-h-full tw-fixed tw-top-0 tw-left-0 tw-z-4000 tw-bg-black/70 tw-transition-opacity ${isMenuOpen ? 'tw-opacity-100 tw-visible tw-pointer-events-auto' : 'tw-opacity-0 tw-invisible tw-pointer-events-none'}`}
+          className={`tw-w-full tw-h-full tw-fixed tw-top-0 tw-left-0 tw-z-4000 tw-bg-black/70 tw-transition-opacity ${
+            isMenuOpen
+              ? 'tw-opacity-100 tw-visible tw-pointer-events-auto'
+              : 'tw-opacity-0 tw-invisible tw-pointer-events-none'
+          }`}
         />
         <Menu />
       </div>

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { CSSTransition } from 'react-transition-group';
 
 interface IPopupProps {
-  children: React.ReactNode,
+  children: React.ReactNode;
   show: boolean;
   onClose: () => void;
 }
@@ -27,7 +27,9 @@ const Popup: React.FC<IPopupProps> = ({ children, show, onClose }) => {
     }
   }, [show]);
 
-  const handleClosePopup = (e: React.MouseEvent<HTMLDivElement | HTMLButtonElement>) => {
+  const handleClosePopup = (
+    e: React.MouseEvent<HTMLDivElement | HTMLButtonElement>
+  ) => {
     e.preventDefault();
     onClose();
   };
@@ -50,7 +52,9 @@ const Popup: React.FC<IPopupProps> = ({ children, show, onClose }) => {
         <div
           className="tw-max-w-670 tw-w-[calc(100%-20px)] tw-min-h-300 tw-max-h-[calc(100%-20px)] tw-py-8 tw-px-4 tw-relative tw-overflow-hidden tw-rounded-lg tw-bg-white desktop:tw-px-5"
           aria-hidden="true"
-          onClick={(e) => { e.stopPropagation(); }}
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
         >
           <button
             type="button"
@@ -59,7 +63,7 @@ const Popup: React.FC<IPopupProps> = ({ children, show, onClose }) => {
             onClick={handleClosePopup}
           />
           <div className="tw-w-full tw-h-full tw-max-h-[calc(100vh-200px)] tw-overflow-x-hidden tw-overflow-y-auto">
-            { children }
+            {children}
           </div>
         </div>
       </div>
@@ -69,7 +73,7 @@ const Popup: React.FC<IPopupProps> = ({ children, show, onClose }) => {
   if (isBrowser === true) {
     return ReactDOM.createPortal(
       modalContent,
-      document.getElementById('modal-root-popup')!,
+      document.getElementById('modal-root-popup')!
     );
   }
   return null;

@@ -77,14 +77,9 @@ const Info: React.FC = () => {
           </li>
         </ul>
         <div className="tw-mt-8 tw-mb-2 tw-text-center tw-text-xs tw-leading-6">
+          <p>Version: {pkg.version}</p>
           <p>
-            Version:
-            {' '}
-            {pkg.version}
-          </p>
-          <p>
-            Created By
-            {' '}
+            Created By{' '}
             <a
               href="https://github.com/waveciou"
               target="_blank"

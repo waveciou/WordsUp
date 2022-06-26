@@ -18,21 +18,27 @@ const useGetSheetData = () => {
 
     initGapiClient({
       handleCallback: (SHEET_ID) => {
-        makeGapiCallback(SHEET_ID).then(async (response) => {
-          const { words, parts } = response as IGapiResponse;
+        makeGapiCallback(SHEET_ID)
+          .then(async (response) => {
+            const { words, parts } = response as IGapiResponse;
 
-          const partsResult: string[] = parts.sort((a, b) => {
-            if (a < b) { return -1; }
-            if (a > b) { return 1; }
-            return 0;
+            const partsResult: string[] = parts.sort((a, b) => {
+              if (a < b) {
+                return -1;
+              }
+              if (a > b) {
+                return 1;
+              }
+              return 0;
+            });
+
+            await dispatch(setWordItems(words));
+            await dispatch(setPartItems(partsResult));
+            await dispatch(setIsLoading(false));
+          })
+          .catch((error) => {
+            console.error(error);
           });
-
-          await dispatch(setWordItems(words));
-          await dispatch(setPartItems(partsResult));
-          await dispatch(setIsLoading(false));
-        }).catch((error) => {
-          console.error(error);
-        });
       },
       handleError: () => {
         router.push('/error');

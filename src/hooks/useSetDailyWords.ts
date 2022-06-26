@@ -13,18 +13,23 @@ const useSetDailyWords = () => {
   const dispatch = useDispatch();
   const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
 
-  return useCallback((dailyCase: IDailyCase) => {
-    const result: IWordItem[] = dailyCase.words.reduce((prev, current) => {
-      const word: IWordItem | undefined = WORDS_DATA.find(({ id }) => id === current);
-      if (word) {
-        return [...prev, word];
-      }
-      return [...prev];
-    }, [] as IWordItem[]);
+  return useCallback(
+    (dailyCase: IDailyCase) => {
+      const result: IWordItem[] = dailyCase.words.reduce((prev, current) => {
+        const word: IWordItem | undefined = WORDS_DATA.find(
+          ({ id }) => id === current
+        );
+        if (word) {
+          return [...prev, word];
+        }
+        return [...prev];
+      }, [] as IWordItem[]);
 
-    dispatch(setDailyWords(result));
-    localStorage.setItem('daily', JSON.stringify(dailyCase));
-  }, [WORDS_DATA, dispatch]);
+      dispatch(setDailyWords(result));
+      localStorage.setItem('daily', JSON.stringify(dailyCase));
+    },
+    [WORDS_DATA, dispatch]
+  );
 };
 
 export default useSetDailyWords;

@@ -6,9 +6,7 @@ import { IProps } from '@/Interfaces/global';
 const LayoutFailed: React.FC<IProps> = ({ children }) => (
   <>
     <Meta />
-    <div className="content size-small tw-bg-transparent">
-      { children }
-    </div>
+    <div className="content size-small tw-bg-transparent">{children}</div>
   </>
 );
 

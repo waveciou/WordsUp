@@ -12,24 +12,27 @@ import { RootState } from '@/Store/index';
 
 interface ISelectedExamCardProps {
   examId: IExamId;
-  currentIndex: number,
-  wordItem: ISelectedWordItem,
-  setAnswer: (answerItem: IAnswerItem) => void,
+  currentIndex: number;
+  wordItem: ISelectedWordItem;
+  setAnswer: (answerItem: IAnswerItem) => void;
 }
 
 const SelectedExamCard: React.FC<ISelectedExamCardProps> = ({
-  examId, currentIndex, wordItem, setAnswer,
+  examId,
+  currentIndex,
+  wordItem,
+  setAnswer,
 }) => {
   const dispatch = useDispatch();
   const handleSpeechSpeak = useSpeechSpeak();
-  const FAVORITES_DATA = useSelector((state: RootState) => state.collection.favorites);
+  const FAVORITES_DATA = useSelector(
+    (state: RootState) => state.collection.favorites
+  );
 
   const [selectValue, setSelectValue] = useState<string>('');
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
-  const {
-    en, zh, parts, id, options,
-  } = wordItem;
+  const { en, zh, parts, id, options } = wordItem;
 
   const handleSubmit = () => {
     if (selectValue !== '') {
@@ -42,7 +45,9 @@ const SelectedExamCard: React.FC<ISelectedExamCardProps> = ({
     }
   };
 
-  const handleSetFavorite = (e: React.MouseEvent<HTMLDivElement | HTMLButtonElement>) => {
+  const handleSetFavorite = (
+    e: React.MouseEvent<HTMLDivElement | HTMLButtonElement>
+  ) => {
     e.preventDefault();
     e.stopPropagation();
     if (isFavorite) {
@@ -74,55 +79,51 @@ const SelectedExamCard: React.FC<ISelectedExamCardProps> = ({
             className="tw-w-7 tw-h-7 before-font-material before:tw-content-['\e050'] before:tw-block before:tw-leading-7"
             onClick={() => handleSpeechSpeak(en)}
           />
-          {
-            examId !== 'selected-favorite' && (
-              <button
-                type="button"
-                aria-label="favorite-button"
-                className={`favorite-button before-icon-star tw-w-7 tw-h-7 before:tw-leading-7 ${isFavorite ? 'tw-text-yellow-dark' : 'tw-text-gray/60'}`}
-                title={isFavorite ? '移除收藏' : '加入收藏'}
-                onClick={handleSetFavorite}
-              />
-            )
-          }
+          {examId !== 'selected-favorite' && (
+            <button
+              type="button"
+              aria-label="favorite-button"
+              className={`favorite-button before-icon-star tw-w-7 tw-h-7 before:tw-leading-7 ${
+                isFavorite ? 'tw-text-yellow-dark' : 'tw-text-gray/60'
+              }`}
+              title={isFavorite ? '移除收藏' : '加入收藏'}
+              onClick={handleSetFavorite}
+            />
+          )}
         </div>
         <div className="tw-leading-7 tw-text-xs tablet:tw-text-sm">
           <WordsCaption id={id} wordsList={zh} partsList={parts} />
         </div>
       </div>
 
-      {
-        options.map((optionItem: string) => {
-          const uuid: string = uuidv4();
-          const isChecked: boolean = !!(selectValue === optionItem);
-          return (
-            <div className="tw-relative tw-overflow-hidden tw-mb-2 tw-px-4">
-              <input
-                key={optionItem}
-                id={uuid}
-                type="radio"
-                value={optionItem}
-                onChange={() => setSelectValue(optionItem)}
-                checked={isChecked}
-                className="tw-absolute tw-invisible tw-opacity-0 tw-select-none"
-              />
-              <label htmlFor={uuid} className="tw-block">
-                {
-                  isChecked ? (
-                    <div className="tw-flex tw-items-center tw-text-sm tw-cursor-pointer before-font-material before:tw-content-['\e837'] before:tw-block before:tw-mr-1 before:tw-text-base">
-                      { optionItem }
-                    </div>
-                  ) : (
-                    <div className="tw-flex tw-items-center tw-text-sm tw-cursor-pointer before-font-material before:tw-content-['\e836'] before:tw-block before:tw-mr-1 before:tw-text-base">
-                      { optionItem }
-                    </div>
-                  )
-                }
-              </label>
-            </div>
-          );
-        })
-      }
+      {options.map((optionItem: string) => {
+        const uuid: string = uuidv4();
+        const isChecked: boolean = !!(selectValue === optionItem);
+        return (
+          <div className="tw-relative tw-overflow-hidden tw-mb-2 tw-px-4">
+            <input
+              key={optionItem}
+              id={uuid}
+              type="radio"
+              value={optionItem}
+              onChange={() => setSelectValue(optionItem)}
+              checked={isChecked}
+              className="tw-absolute tw-invisible tw-opacity-0 tw-select-none"
+            />
+            <label htmlFor={uuid} className="tw-block">
+              {isChecked ? (
+                <div className="tw-flex tw-items-center tw-text-sm tw-cursor-pointer before-font-material before:tw-content-['\e837'] before:tw-block before:tw-mr-1 before:tw-text-base">
+                  {optionItem}
+                </div>
+              ) : (
+                <div className="tw-flex tw-items-center tw-text-sm tw-cursor-pointer before-font-material before:tw-content-['\e836'] before:tw-block before:tw-mr-1 before:tw-text-base">
+                  {optionItem}
+                </div>
+              )}
+            </label>
+          </div>
+        );
+      })}
 
       <div className="tw-flex tw-justify-center tw-mt-6">
         <PrimaryButton

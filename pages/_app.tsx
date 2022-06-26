@@ -28,11 +28,7 @@ const App = ({ Component, pageProps }: AppProps) => {
     );
   }, [Component, pageProps, pathname]);
 
-  return (
-    <Provider store={store}>
-      { pageMemo }
-    </Provider>
-  );
+  return <Provider store={store}>{pageMemo}</Provider>;
 };
 
 export default App;

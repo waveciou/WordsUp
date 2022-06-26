@@ -11,18 +11,15 @@ interface IExamCardHeaderProps {
 
 const ExamCardHeader: React.FC<IExamCardHeaderProps> = ({ currentIndex }) => {
   const router = useRouter();
-  const [isShowExamGuardAlert, setIsShowExamGuardAlert] = useState<boolean>(false);
+  const [isShowExamGuardAlert, setIsShowExamGuardAlert] =
+    useState<boolean>(false);
   const { examGuardAlert } = useSelector((state: RootState) => state.exam);
 
   return (
     <>
       <div className="tw-flex tw-items-center tw-justify-between tw-mb-4">
         <div className="tw-text-md tw-text-wine tw-leading-7">
-          第
-          {' '}
-          {currentIndex + 1}
-          {' '}
-          題
+          第 {currentIndex + 1} 題
         </div>
         <button
           type="button"

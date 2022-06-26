@@ -15,7 +15,7 @@ import { IRecordItem } from '@/Interfaces/exam';
 import { deleteRecordItem, setIsExamAction } from '@/Slice/exam';
 
 interface IRecordCardProps {
-  recordData: IRecordItem
+  recordData: IRecordItem;
 }
 
 const RecordCard: React.FC<IRecordCardProps> = ({ recordData }) => {
@@ -29,20 +29,19 @@ const RecordCard: React.FC<IRecordCardProps> = ({ recordData }) => {
   const [testTime, setTestTime] = useState<string>('');
   const [durationTime, setDurationTime] = useState<string>('');
 
-  const {
-    id,
-    startTime,
-    finishTime,
-    answerState,
-  } = recordData;
+  const { id, startTime, finishTime, answerState } = recordData;
 
   useEffect(() => {
-    const time: string = dayjs(startTime).utcOffset(8).format('YYYY年MM月DD日 HH:mm');
+    const time: string = dayjs(startTime)
+      .utcOffset(8)
+      .format('YYYY年MM月DD日 HH:mm');
     setTestTime(time);
   }, [startTime]);
 
   useEffect(() => {
-    const time: string = dayjs.duration(finishTime - startTime).format('HH:mm:ss');
+    const time: string = dayjs
+      .duration(finishTime - startTime)
+      .format('HH:mm:ss');
     setDurationTime(time);
   }, [startTime, finishTime]);
 
@@ -55,46 +54,50 @@ const RecordCard: React.FC<IRecordCardProps> = ({ recordData }) => {
       >
         <div className="tw-w-16 tablet:tw-w-24 tw-text-green-dark">
           <span className="tw-leading-relaxed tw-text-lg tablet:tw-text-xl">
-            { getExamScore(answerState) }
+            {getExamScore(answerState)}
           </span>
           <span className="tw-text-xs">分</span>
         </div>
         <div className="tw-w-[calc(100%-4rem)] tablet:tw-w-[calc(100%-6rem)] tw-overflow-hidden tw-pl-1">
-          <div className="tw-truncate tw-leading-relaxed tw-text-sm tablet:tw-text-base tw-text-wine">{ getExamName(id) }</div>
-          <div className="tw-truncate tw-leading-relaxed tw-text-xxs tablet:tw-text-xs tw-text-black">{ testTime }</div>
+          <div className="tw-truncate tw-leading-relaxed tw-text-sm tablet:tw-text-base tw-text-wine">
+            {getExamName(id)}
+          </div>
+          <div className="tw-truncate tw-leading-relaxed tw-text-xxs tablet:tw-text-xs tw-text-black">
+            {testTime}
+          </div>
         </div>
       </div>
 
       <Popup show={isShow} onClose={() => setIsShow(false)}>
         <div>
-          <div className="tw-w-full tw-text-center tw-text-wine tw-text-base tablet:tw-text-lg tw-leading-relaxed tw-mb-4">{ getExamName(id) }</div>
+          <div className="tw-w-full tw-text-center tw-text-wine tw-text-base tablet:tw-text-lg tw-leading-relaxed tw-mb-4">
+            {getExamName(id)}
+          </div>
 
           <div className="tw-text-xs tablet:tw-text-xs tw-p-2 tablet:tw-p-4 tw-mb-4 tw-border tw-border-gray-light tw-border-solid tw-rounded-lg">
             <dl className="tw-flex tw-items-center tw-flex-wrap tw-mb-2">
               <dt className="tw-flex tw-items-center before-font-material before:tw-content-['\e8e8'] before:tw-block before:tw-mr-2">
                 分數：
               </dt>
-              <dd>
-                { getExamScore(answerState) }
-                {' '}
-                分
-              </dd>
+              <dd>{getExamScore(answerState)} 分</dd>
             </dl>
             <dl className="tw-flex tw-items-center tw-flex-wrap tw-mb-2">
-              <dt className="tw-flex tw-items-center before-font-material before:tw-content-['\f045'] before:tw-block before:tw-mr-2">題數：</dt>
-              <dd>
-                { answerState.length }
-                {' '}
-                題
-              </dd>
+              <dt className="tw-flex tw-items-center before-font-material before:tw-content-['\f045'] before:tw-block before:tw-mr-2">
+                題數：
+              </dt>
+              <dd>{answerState.length} 題</dd>
             </dl>
             <dl className="tw-flex tw-items-center tw-flex-wrap tw-mb-2">
-              <dt className="tw-flex tw-items-center before-font-material before:tw-content-['\e924'] before:tw-block before:tw-mr-2">測驗時間：</dt>
-              <dd>{ testTime }</dd>
+              <dt className="tw-flex tw-items-center before-font-material before:tw-content-['\e924'] before:tw-block before:tw-mr-2">
+                測驗時間：
+              </dt>
+              <dd>{testTime}</dd>
             </dl>
             <dl className="tw-flex tw-items-center tw-flex-wrap">
-              <dt className="tw-flex tw-items-center before-font-material before:tw-content-['\e425'] before:tw-block before:tw-mr-2">作答時間：</dt>
-              <dd>{ durationTime }</dd>
+              <dt className="tw-flex tw-items-center before-font-material before:tw-content-['\e425'] before:tw-block before:tw-mr-2">
+                作答時間：
+              </dt>
+              <dd>{durationTime}</dd>
             </dl>
           </div>
 

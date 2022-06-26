@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: {
-  isAppMounted: boolean,
-  isLoading: boolean,
-  isMenuOpen: boolean,
-  screenWidth: number,
-  scrollValue: number
+  isAppMounted: boolean;
+  isLoading: boolean;
+  isMenuOpen: boolean;
+  screenWidth: number;
+  scrollValue: number;
 } = {
   isAppMounted: false,
   isLoading: true,
