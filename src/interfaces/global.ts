@@ -1,5 +1,5 @@
 export interface IProps {
-  children?: React.ReactNode
+  children?: React.ReactNode;
 }
 
 export interface IRouteItem {
