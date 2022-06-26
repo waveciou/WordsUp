@@ -18,76 +18,93 @@ const useSetRecord = () => {
   const checkTypes = (payload: any, base: 'string' | 'number'): boolean => {
     switch (base) {
       case 'string':
-        return typeof (payload) === 'string';
+        return typeof payload === 'string';
       case 'number':
-        return typeof (payload) === 'number';
+        return typeof payload === 'number';
       default:
         return false;
     }
   };
 
-  return useCallback((localData: string) => {
-    if (localData) {
-      const parseData: IRecordItem[] = JSON.parse(localData);
+  return useCallback(
+    (localData: string) => {
+      if (localData) {
+        const parseData: IRecordItem[] = JSON.parse(localData);
 
-      if (Array.isArray(parseData)) {
-        const result: IRecordItem[] = parseData.reduce((
-          prev: IRecordItem[],
-          current: IRecordLocalItem,
-        ) => {
-          const {
-            id = '',
-            startTime = 0,
-            finishTime = 0,
-            answerState = [],
-          } = current;
+        if (Array.isArray(parseData)) {
+          const result: IRecordItem[] = parseData.reduce(
+            (prev: IRecordItem[], current: IRecordLocalItem) => {
+              const {
+                id = '',
+                startTime = 0,
+                finishTime = 0,
+                answerState = [],
+              } = current;
 
-          const isConfirm: boolean = (() => {
-            const isId: boolean = examIdValidator(id);
-            const isStartTime: boolean = checkTypes(startTime, 'number') && startTime !== 0;
-            const isFinishTime: boolean = checkTypes(startTime, 'number') && finishTime !== 0;
-            const isAnswerState: boolean = Array.isArray(answerState) && answerState.length > 0;
-            return isId && isStartTime && isFinishTime && isAnswerState;
-          })();
+              const isConfirm: boolean = (() => {
+                const isId: boolean = examIdValidator(id);
+                const isStartTime: boolean =
+                  checkTypes(startTime, 'number') && startTime !== 0;
+                const isFinishTime: boolean =
+                  checkTypes(startTime, 'number') && finishTime !== 0;
+                const isAnswerState: boolean =
+                  Array.isArray(answerState) && answerState.length > 0;
+                return isId && isStartTime && isFinishTime && isAnswerState;
+              })();
 
-          if (isConfirm) {
-            const answerStateData: IAnswerItem[] = answerState.reduce((
-              prevAns: IAnswerItem[],
-              currentAns: { id: string, answer: string },
-            ) => {
-              if (
-                checkTypes(currentAns.id, 'string')
-                && checkTypes(currentAns.answer, 'string')
-              ) {
-                const word: IWordItem | undefined = WORDS_DATA.find((item) => item.id === currentAns.id);
+              if (isConfirm) {
+                const answerStateData: IAnswerItem[] = answerState.reduce(
+                  (
+                    prevAns: IAnswerItem[],
+                    currentAns: { id: string; answer: string }
+                  ) => {
+                    if (
+                      checkTypes(currentAns.id, 'string') &&
+                      checkTypes(currentAns.answer, 'string')
+                    ) {
+                      const word: IWordItem | undefined = WORDS_DATA.find(
+                        (item) => item.id === currentAns.id
+                      );
 
-                if (word) {
-                  return [...prevAns, {
-                    id: currentAns.id,
-                    answer: currentAns.answer,
-                    solution: word.en,
-                    result: currentAns.answer === word.en,
-                  }];
-                }
+                      if (word) {
+                        return [
+                          ...prevAns,
+                          {
+                            id: currentAns.id,
+                            answer: currentAns.answer,
+                            solution: word.en,
+                            result: currentAns.answer === word.en,
+                          },
+                        ];
+                      }
+                    }
+
+                    return [...prevAns];
+                  },
+                  []
+                );
+
+                return [
+                  ...prev,
+                  {
+                    id,
+                    startTime,
+                    finishTime,
+                    answerState: answerStateData,
+                  },
+                ];
               }
+              return [...prev];
+            },
+            []
+          );
 
-              return [...prevAns];
-            }, []);
-
-            return [...prev, {
-              id,
-              startTime,
-              finishTime,
-              answerState: answerStateData,
-            }];
-          }
-          return [...prev];
-        }, []);
-
-        dispatch(setRecordCollection(result));
+          dispatch(setRecordCollection(result));
+        }
       }
-    }
-  }, [WORDS_DATA]);
+    },
+    [WORDS_DATA]
+  );
 };
 
 export default useSetRecord;
