@@ -11,8 +11,8 @@ import { IWordItem } from '@/Interfaces/word';
 import { RootState } from '@/Store/index';
 
 interface IOptionsData {
-  id: string,
-  name: string
+  id: string;
+  name: string;
 }
 
 const PARTS = require('../src/data/parts.json');
@@ -27,7 +27,9 @@ const Collection: React.FC = () => {
   const handleScrollToTop = useScrollToTop();
   const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
   const PARTS_DATA = useSelector((state: RootState) => state.collection.parts);
-  const { scrollValue, screenWidth } = useSelector((state: RootState) => state.common);
+  const { scrollValue, screenWidth } = useSelector(
+    (state: RootState) => state.common
+  );
   const [isMounted, setIsMounted] = useState<Boolean>(false);
   const [words, setWords] = useState<IWordItem[]>([]);
   const [confirmWords, setConfirmWords] = useState<IWordItem[]>([]);
@@ -41,7 +43,9 @@ const Collection: React.FC = () => {
   const [filterPartOption, setFilterPartOption] = useState<ISelectOption[]>([]);
 
   const [filterAlphabet, setFilterAlphabet] = useState<string>('all');
-  const [filterAlphabetOption, setFilterAlphabetOption] = useState<ISelectOption[]>([]);
+  const [filterAlphabetOption, setFilterAlphabetOption] = useState<
+    ISelectOption[]
+  >([]);
 
   // Sort
   const [isSortDownAlt, setIsSortDownAlt] = useState<boolean>(false);
@@ -52,20 +56,22 @@ const Collection: React.FC = () => {
 
     const wordItemList: IWordItem[] = [...WORDS_DATA];
 
-    const filterListResult: IWordItem[] = wordItemList.filter(({ alphabet, parts }) => {
-      const partsSet: Set<string> = new Set(parts);
+    const filterListResult: IWordItem[] = wordItemList.filter(
+      ({ alphabet, parts }) => {
+        const partsSet: Set<string> = new Set(parts);
 
-      if (filterAlphabet === 'all' && filterPart === 'all') {
-        return true;
+        if (filterAlphabet === 'all' && filterPart === 'all') {
+          return true;
+        }
+        if (filterAlphabet === 'all') {
+          return partsSet.has(filterPart);
+        }
+        if (filterPart === 'all') {
+          return alphabet === filterAlphabet;
+        }
+        return alphabet === filterAlphabet && partsSet.has(filterPart);
       }
-      if (filterAlphabet === 'all') {
-        return partsSet.has(filterPart);
-      }
-      if (filterPart === 'all') {
-        return alphabet === filterAlphabet;
-      }
-      return alphabet === filterAlphabet && partsSet.has(filterPart);
-    });
+    );
 
     const sortListResult: IWordItem[] = filterListResult.sort((a, b) => {
       const aText: string = a.en.toLocaleLowerCase();
@@ -85,24 +91,32 @@ const Collection: React.FC = () => {
 
     setWords(sortListResult);
     setLoadIndex(1);
-    setLoadTotal(Math.floor(total / LOAD_AMOUNT) + ((total % LOAD_AMOUNT) > 0 ? 1 : 0));
+    setLoadTotal(
+      Math.floor(total / LOAD_AMOUNT) + (total % LOAD_AMOUNT > 0 ? 1 : 0)
+    );
   }, [WORDS_DATA, filterPart, filterAlphabet, isSortDownAlt]);
 
   // List Memo
-  const wordListMemo = useMemo(() => confirmWords.map((wordItem: IWordItem, index: number) => (
-    <ColumnItem id={wordItem.id} length={confirmWords.length} index={index}>
-      <Card wordItem={wordItem} />
-    </ColumnItem>
-  )), [confirmWords]);
+  const wordListMemo = useMemo(
+    () =>
+      confirmWords.map((wordItem: IWordItem, index: number) => (
+        <ColumnItem id={wordItem.id} length={confirmWords.length} index={index}>
+          <Card wordItem={wordItem} />
+        </ColumnItem>
+      )),
+    [confirmWords]
+  );
 
   // Words Total
-  const wordsTotalMemo = useMemo(() => (
-    <div className="tw-text-yellow tw-text-xs">
-      共
-      <span className="tw-mx-1">{ words.length }</span>
-      筆資料
-    </div>
-  ), [words]);
+  const wordsTotalMemo = useMemo(
+    () => (
+      <div className="tw-text-yellow tw-text-xs">
+        共<span className="tw-mx-1">{words.length}</span>
+        筆資料
+      </div>
+    ),
+    [words]
+  );
 
   useEffect(() => {
     setIsMounted(true);
@@ -112,11 +126,15 @@ const Collection: React.FC = () => {
   useEffect(() => {
     if (isMounted) {
       const partsData: ISelectOption[] = ['all', ...PARTS_DATA].map((part) => {
-        const { name }: ISelectOption = partsOptionsData.filter(({ id }: IOptionsData) => id === part)[0];
+        const { name }: ISelectOption = partsOptionsData.filter(
+          ({ id }: IOptionsData) => id === part
+        )[0];
         return { name: name || part, value: part };
       });
 
-      const alphabetData: ISelectOption[] = alphabetOptionsData.map(({ id, name }: IOptionsData) => ({ name, value: id }));
+      const alphabetData: ISelectOption[] = alphabetOptionsData.map(
+        ({ id, name }: IOptionsData) => ({ name, value: id })
+      );
 
       setFilterPart('all');
       setFilterAlphabet('all');
@@ -129,7 +147,14 @@ const Collection: React.FC = () => {
     if (isMounted) {
       processWordsList();
     }
-  }, [isMounted, processWordsList, WORDS_DATA, filterPart, filterAlphabet, isSortDownAlt]);
+  }, [
+    isMounted,
+    processWordsList,
+    WORDS_DATA,
+    filterPart,
+    filterAlphabet,
+    isSortDownAlt,
+  ]);
 
   useEffect(() => {
     const browserHeight: number = window.innerHeight;
@@ -144,7 +169,7 @@ const Collection: React.FC = () => {
       return document.body.clientHeight;
     })();
 
-    if (scrollValue + browserHeight >= contentHeight - (browserHeight / 2)) {
+    if (scrollValue + browserHeight >= contentHeight - browserHeight / 2) {
       if (loadIndex < loadTotal) {
         const index: number = loadIndex + 1;
         setLoadIndex(index);
@@ -174,7 +199,7 @@ const Collection: React.FC = () => {
       <h1 className="title">單字列表</h1>
       <div className="content size-large tw-p-0 tw-rounded-none tw-bg-transparent">
         <div className="tablet:tw-flex tablet:tw-items-center tablet:tw-justify-between">
-          { screenWidth > 767 && wordsTotalMemo }
+          {screenWidth > 767 && wordsTotalMemo}
           <div className="tw-flex tw-items-center tw-flex-wrap tw-justify-end">
             <div className="tw-w-6/12 tw-pr-1 tw-mb-2.5 tw-leading-none tablet:tw-w-auto tablet:tw-mr-2.5 tablet:tw-mb-0 tablet:tw-pr-0">
               <Select
@@ -189,12 +214,16 @@ const Collection: React.FC = () => {
               />
             </div>
             <div className="tw-w-full tw-flex tw-items-center tw-justify-between tablet:tw-justify-start tablet:tw-w-auto">
-              { screenWidth < 768 && wordsTotalMemo }
+              {screenWidth < 768 && wordsTotalMemo}
               <div className="tw-flex tw-items-center tablet:tw-justify-start">
                 <div className="tw-mr-2.5 tw-leading-none tablet:tw-mb-0">
                   <button
                     type="button"
-                    className={`tw-w-10 tw-h-10 tw-bg-white tw-rounded-lg tw-flex tw-justify-center tw-items-center before:tw-w-5 before:tw-h-5 before:tw-block before:tw-bg-no-repeat before:tw-bg-center before:tw-bg-contain ${isSortDownAlt ? 'before:tw-bg-[url("../public/img/alphabet_z_to_a.svg")]' : 'before:tw-bg-[url("../public/img/alphabet_a_to_z.svg")]'}`}
+                    className={`tw-w-10 tw-h-10 tw-bg-white tw-rounded-lg tw-flex tw-justify-center tw-items-center before:tw-w-5 before:tw-h-5 before:tw-block before:tw-bg-no-repeat before:tw-bg-center before:tw-bg-contain ${
+                      isSortDownAlt
+                        ? 'before:tw-bg-[url("../public/img/alphabet_z_to_a.svg")]'
+                        : 'before:tw-bg-[url("../public/img/alphabet_a_to_z.svg")]'
+                    }`}
                     aria-label="sort-alpha-button"
                     onClick={() => setIsSortDownAlt(!isSortDownAlt)}
                   />
@@ -213,16 +242,13 @@ const Collection: React.FC = () => {
         </div>
       </div>
       <div className="content size-large">
-        {
-          confirmWords.length
-            ? (
-              <ul className="tw-flex tw-flex-wrap">
-                { wordListMemo }
-              </ul>
-            ) : (
-              <div className="tw-text-center tw-text-gray tw-py-8">目前沒有資料</div>
-            )
-        }
+        {confirmWords.length ? (
+          <ul className="tw-flex tw-flex-wrap">{wordListMemo}</ul>
+        ) : (
+          <div className="tw-text-center tw-text-gray tw-py-8">
+            目前沒有資料
+          </div>
+        )}
       </div>
     </>
   );
