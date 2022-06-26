@@ -12,23 +12,26 @@ import { RootState } from '@/Store/index';
 
 interface IWritedExamCardProps {
   examId: IExamId;
-  currentIndex: number,
-  wordItem: IWordItem,
-  setAnswer: (answerItem: IAnswerItem) => void,
+  currentIndex: number;
+  wordItem: IWordItem;
+  setAnswer: (answerItem: IAnswerItem) => void;
 }
 
 const WritedExamCard: React.FC<IWritedExamCardProps> = ({
-  examId, currentIndex, wordItem, setAnswer,
+  examId,
+  currentIndex,
+  wordItem,
+  setAnswer,
 }) => {
   const dispatch = useDispatch();
   const handleSpeechSpeak = useSpeechSpeak();
-  const FAVORITES_DATA = useSelector((state: RootState) => state.collection.favorites);
+  const FAVORITES_DATA = useSelector(
+    (state: RootState) => state.collection.favorites
+  );
   const [inputValue, setInputValue] = useState<string>('');
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
-  const {
-    en, zh, parts, id,
-  } = wordItem;
+  const { en, zh, parts, id } = wordItem;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const result: string = e.target.value;
@@ -57,7 +60,9 @@ const WritedExamCard: React.FC<IWritedExamCardProps> = ({
     });
   };
 
-  const handleSetFavorite = (e: React.MouseEvent<HTMLDivElement | HTMLButtonElement>) => {
+  const handleSetFavorite = (
+    e: React.MouseEvent<HTMLDivElement | HTMLButtonElement>
+  ) => {
     e.preventDefault();
     e.stopPropagation();
     if (isFavorite) {
@@ -97,17 +102,17 @@ const WritedExamCard: React.FC<IWritedExamCardProps> = ({
             className="tw-w-7 tw-h-7 before-font-material before:tw-content-['\e050'] before:tw-block before:tw-leading-7"
             onClick={() => handleSpeechSpeak(en)}
           />
-          {
-            examId !== 'writed-favorite' && (
-              <button
-                type="button"
-                aria-label="favorite-button"
-                className={`favorite-button before-icon-star tw-w-7 tw-h-7 before:tw-leading-7 ${isFavorite ? 'tw-text-yellow-dark' : 'tw-text-gray/60'}`}
-                title={isFavorite ? '移除收藏' : '加入收藏'}
-                onClick={handleSetFavorite}
-              />
-            )
-          }
+          {examId !== 'writed-favorite' && (
+            <button
+              type="button"
+              aria-label="favorite-button"
+              className={`favorite-button before-icon-star tw-w-7 tw-h-7 before:tw-leading-7 ${
+                isFavorite ? 'tw-text-yellow-dark' : 'tw-text-gray/60'
+              }`}
+              title={isFavorite ? '移除收藏' : '加入收藏'}
+              onClick={handleSetFavorite}
+            />
+          )}
         </div>
         <div className="tw-pl-2 tw-leading-7 tw-text-xs tablet:tw-text-sm">
           <WordsCaption id={id} wordsList={zh} partsList={parts} />
@@ -120,10 +125,7 @@ const WritedExamCard: React.FC<IWritedExamCardProps> = ({
           isDisabled={!!(inputValue.trim() === '')}
           onClick={handleSubmit}
         />
-        <PrimaryButton
-          text="略過"
-          onClick={handleNextQuestion}
-        />
+        <PrimaryButton text="略過" onClick={handleNextQuestion} />
       </div>
     </div>
   );

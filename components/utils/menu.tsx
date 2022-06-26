@@ -14,9 +14,12 @@ const Menu: React.FC = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { isMenuOpen } = useSelector((state: RootState) => state.common);
-  const { isExamTesting, examGuardAlert } = useSelector((state: RootState) => state.exam);
+  const { isExamTesting, examGuardAlert } = useSelector(
+    (state: RootState) => state.exam
+  );
   const [routeList, setRouteList] = useState<IRouteItem[]>([]);
-  const [isShowExamGuardAlert, setIsShowExamGuardAlert] = useState<boolean>(false);
+  const [isShowExamGuardAlert, setIsShowExamGuardAlert] =
+    useState<boolean>(false);
   const [pathTarget, setPathTarget] = useState<string>('');
 
   useEffect(() => {
@@ -73,7 +76,9 @@ const Menu: React.FC = () => {
   return (
     <>
       <nav
-        className={`tw-w-menu-width tw-min-w-140 tw-max-w-400 tw-h-full tw-flex tw-fixed tw-top-0 tw-right-0 tw-bg-white tw-z-4500 tw-transition-transform tw-duration-300 tw-translate-x-full tw-flex-col ${isMenuOpen === true ? 'tw-translate-x-0' : ''}`}
+        className={`tw-w-menu-width tw-min-w-140 tw-max-w-400 tw-h-full tw-flex tw-fixed tw-top-0 tw-right-0 tw-bg-white tw-z-4500 tw-transition-transform tw-duration-300 tw-translate-x-full tw-flex-col ${
+          isMenuOpen === true ? 'tw-translate-x-0' : ''
+        }`}
       >
         <div className="tw-flex tw-items-start tw-justify-end tw-basis-12">
           <button
@@ -85,9 +90,7 @@ const Menu: React.FC = () => {
         </div>
         <div className="tw-relative tw-overflow-hidden tw-grow">
           <div className="tw-w-full tw-h-full tw-absolute tw-top-0 tw-left-0 tw-overflow-x-hidden tw-overflow-y-auto">
-            <ul>
-              { routeListMemo }
-            </ul>
+            <ul>{routeListMemo}</ul>
           </div>
         </div>
       </nav>

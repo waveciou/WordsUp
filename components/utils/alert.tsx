@@ -56,18 +56,15 @@ const Alert: React.FC<IAlertModalProps> = ({
       >
         <div className="tw-w-72 tw-relative tw-overflow-hidden tw-rounded-lg tw-bg-white">
           <div className="tw-p-4 tw-text-center">
-            <div className="tw-text-sm tw-leading-7 tw-mb-2">{ title }</div>
-            {
-              theme === '' && (
-                <div className="tw-text-xxs tw-leading-5">{ content }</div>
-              )
-            }
-            {
-              theme === 'warn' && content !== ''
-              && (
-                <div className="tw-flex tw-items-center tw-justify-center tw-text-xxs tw-leading-5 tw-text-red before-font-material before:tw-content-['\e002'] before:tw-block before:tw-mr-1">{ content }</div>
-              )
-            }
+            <div className="tw-text-sm tw-leading-7 tw-mb-2">{title}</div>
+            {theme === '' && (
+              <div className="tw-text-xxs tw-leading-5">{content}</div>
+            )}
+            {theme === 'warn' && content !== '' && (
+              <div className="tw-flex tw-items-center tw-justify-center tw-text-xxs tw-leading-5 tw-text-red before-font-material before:tw-content-['\e002'] before:tw-block before:tw-mr-1">
+                {content}
+              </div>
+            )}
           </div>
           <div className="tw-flex tw-border-t tw-border-gray tw-border-solid">
             <button
@@ -77,18 +74,15 @@ const Alert: React.FC<IAlertModalProps> = ({
             >
               {confirmText}
             </button>
-            {
-              cancelText && onCancel
-              && (
-                <button
-                  type="button"
-                  className="tw-px-1 tw-py-2 tw-grow tw-text-sm tw-border-l tw-border-t-0 tw-border-r-0 tw-border-b-0 tw-border-gray tw-border-solid"
-                  onClick={onCancel}
-                >
-                  {cancelText}
-                </button>
-              )
-            }
+            {cancelText && onCancel && (
+              <button
+                type="button"
+                className="tw-px-1 tw-py-2 tw-grow tw-text-sm tw-border-l tw-border-t-0 tw-border-r-0 tw-border-b-0 tw-border-gray tw-border-solid"
+                onClick={onCancel}
+              >
+                {cancelText}
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -98,7 +92,7 @@ const Alert: React.FC<IAlertModalProps> = ({
   if (isBrowser === true) {
     return ReactDOM.createPortal(
       modalContent,
-      document.getElementById('modal-root-alert')!,
+      document.getElementById('modal-root-alert')!
     );
   }
   return null;

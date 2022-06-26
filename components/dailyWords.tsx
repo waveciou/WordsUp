@@ -17,8 +17,8 @@ import { setIsExamAction } from '@/Slice/exam';
 import { RootState } from '@/Store/index';
 
 interface IDailyWordsProps {
-  dateCaption: string,
-  wordItemList: IWordItem[]
+  dateCaption: string;
+  wordItemList: IWordItem[];
 }
 
 const DailyWords: React.FC<IDailyWordsProps> = ({
@@ -29,11 +29,14 @@ const DailyWords: React.FC<IDailyWordsProps> = ({
   const dispatch = useDispatch();
   const handleSpeechSpeak = useSpeechSpeak();
   const { isShowGuideButton } = useSelector((state: RootState) => state.daily);
-  const FAVORITES_DATA = useSelector((state: RootState) => state.collection.favorites);
+  const FAVORITES_DATA = useSelector(
+    (state: RootState) => state.collection.favorites
+  );
   const [swipe, setSwipe] = useState<any>(null);
   const [swipeIndex, setSwipeIndex] = useState<number>(0);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
-  const [isShowGuideBtnPopup, setIsShowGuideBtnPopup] = useState<boolean>(false);
+  const [isShowGuideBtnPopup, setIsShowGuideBtnPopup] =
+    useState<boolean>(false);
 
   useEffect(() => {
     if (swipeIndex === wordItemList.length - 1) {
@@ -62,14 +65,20 @@ const DailyWords: React.FC<IDailyWordsProps> = ({
         <h1 className="tw-flex tw-items-center tw-leading-8 tw-text-sm mini:tw-text-md tw-text-yellow tablet:tw-text-green-dark before-font-material before:tw-content-['\e8ce'] before:tw-w-8 before:tw-h-8 before:tw-leading-8 before:tw-block before:tw-text-center">
           今日單字
         </h1>
-        <div className="tw-flex tw-items-center tw-justify-start tw-text-xs tw-text-white tablet:tw-text-black">{ dateCaption }</div>
+        <div className="tw-flex tw-items-center tw-justify-start tw-text-xs tw-text-white tablet:tw-text-black">
+          {dateCaption}
+        </div>
       </div>
 
       <div className="carousel tw-relative tw-overflow-hidden">
         <button
           type="button"
           aria-label="carousel-prev-button"
-          className={`carousel-prev-button tw-w-6 tw-h-6 tw-text-center tw-block tw-absolute tw-left-1 tw-top-2/4 tw--translate-y-2/4 tw-z-50 before-font-material before:tw-block before:tw-m-auto ${swipeIndex === 0 ? 'before:tw-text-gray before:tw-cursor-not-allowed' : 'before:tw-text-black'}`}
+          className={`carousel-prev-button tw-w-6 tw-h-6 tw-text-center tw-block tw-absolute tw-left-1 tw-top-2/4 tw--translate-y-2/4 tw-z-50 before-font-material before:tw-block before:tw-m-auto ${
+            swipeIndex === 0
+              ? 'before:tw-text-gray before:tw-cursor-not-allowed'
+              : 'before:tw-text-black'
+          }`}
           onClick={() => swipe?.slidePrev()}
         />
         <Swiper
@@ -78,64 +87,68 @@ const DailyWords: React.FC<IDailyWordsProps> = ({
           onSlideChange={({ realIndex }) => setSwipeIndex(realIndex)}
           onBeforeInit={(swipper) => setSwipe(swipper)}
         >
-          {
-            wordItemList?.map(({
-              id, en, zh, parts,
-            }: IWordItem) => (
-              <SwiperSlide key={uuidv4()}>
-                <div className="tw-w-full tw-h-full tablet:tw-p-1">
-                  <div className="tw-w-full tw-h-full tw-py-16 tw-px-6 tw-flex tw-justify-center tw-items-center tw-rounded-lg tablet:tw-shadow-[0_1px_3px_0_rgba(51,51,51,0.4)] tw-bg-white">
-                    <div className="tw-w-full">
-                      <div className="tw-text-xl tw-text-center tw-leading-relaxed tw-text-wine tw-break-all tw-mb-2.5">{ en }</div>
-                      <div className="tw-leading-8 tw-text-xs mini:tw-text-sm">
-                        <WordsCaption
-                          id={id}
-                          wordsList={zh}
-                          partsList={parts}
-                          hasBrackets
-                          hasTextCenter
-                          hasSpeechButton
-                          onSpeech={() => handleSpeechSpeak(en)}
-                        />
-                      </div>
-                      <button
-                        type="button"
-                        aria-label="favorite-button"
-                        className={`favorite-button before-icon-star tw-w-8 tw-h-8 tw-absolute tw-left-4 tw-top-3 before:tw-leading-8 ${isFavorite ? 'tw-text-yellow-dark' : 'tw-text-gray/60'}`}
-                        title={isFavorite ? '移除收藏' : '加入收藏'}
-                        onClick={(e: React.MouseEvent<HTMLDivElement | HTMLButtonElement>) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          if (isFavorite) {
-                            dispatch(deleteFavoriteItem(id));
-                          } else {
-                            dispatch(addFavoriteItem(id));
-                          }
-                        }}
+          {wordItemList?.map(({ id, en, zh, parts }: IWordItem) => (
+            <SwiperSlide key={uuidv4()}>
+              <div className="tw-w-full tw-h-full tablet:tw-p-1">
+                <div className="tw-w-full tw-h-full tw-py-16 tw-px-6 tw-flex tw-justify-center tw-items-center tw-rounded-lg tablet:tw-shadow-[0_1px_3px_0_rgba(51,51,51,0.4)] tw-bg-white">
+                  <div className="tw-w-full">
+                    <div className="tw-text-xl tw-text-center tw-leading-relaxed tw-text-wine tw-break-all tw-mb-2.5">
+                      {en}
+                    </div>
+                    <div className="tw-leading-8 tw-text-xs mini:tw-text-sm">
+                      <WordsCaption
+                        id={id}
+                        wordsList={zh}
+                        partsList={parts}
+                        hasBrackets
+                        hasTextCenter
+                        hasSpeechButton
+                        onSpeech={() => handleSpeechSpeak(en)}
                       />
                     </div>
+                    <button
+                      type="button"
+                      aria-label="favorite-button"
+                      className={`favorite-button before-icon-star tw-w-8 tw-h-8 tw-absolute tw-left-4 tw-top-3 before:tw-leading-8 ${
+                        isFavorite ? 'tw-text-yellow-dark' : 'tw-text-gray/60'
+                      }`}
+                      title={isFavorite ? '移除收藏' : '加入收藏'}
+                      onClick={(
+                        e: React.MouseEvent<HTMLDivElement | HTMLButtonElement>
+                      ) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        if (isFavorite) {
+                          dispatch(deleteFavoriteItem(id));
+                        } else {
+                          dispatch(addFavoriteItem(id));
+                        }
+                      }}
+                    />
                   </div>
                 </div>
-              </SwiperSlide>
-            ))
-          }
+              </div>
+            </SwiperSlide>
+          ))}
         </Swiper>
         <button
           type="button"
           aria-label="carousel-next-button"
-          className={`carousel-next-button tw-w-6 tw-h-6 tw-text-center tw-block tw-absolute tw-right-1 tw-top-2/4 tw--translate-y-2/4 tw-z-50 before-font-material before:tw-block before:tw-m-auto ${swipeIndex === wordItemList.length - 1 ? 'before:tw-text-gray before:tw-cursor-not-allowed' : 'before:tw-text-black'}`}
+          className={`carousel-next-button tw-w-6 tw-h-6 tw-text-center tw-block tw-absolute tw-right-1 tw-top-2/4 tw--translate-y-2/4 tw-z-50 before-font-material before:tw-block before:tw-m-auto ${
+            swipeIndex === wordItemList.length - 1
+              ? 'before:tw-text-gray before:tw-cursor-not-allowed'
+              : 'before:tw-text-black'
+          }`}
           onClick={() => swipe?.slideNext()}
         />
         <div className="tw-absolute tw-right-4 tw-top-3 tw-z-50">
           <span className="tw-text-brown/80 tw-text-xs tw-font-bold">
-            {swipeIndex + 1}
-            /
-            {wordItemList.length}
+            {swipeIndex + 1}/{wordItemList.length}
           </span>
         </div>
       </div>
 
-      { isShowGuideButton && (
+      {isShowGuideButton && (
         <div className="tw-flex tw-justify-center tw-mt-3">
           <PrimaryButton
             text="測驗今日單字"
@@ -145,7 +158,10 @@ const DailyWords: React.FC<IDailyWordsProps> = ({
         </div>
       )}
 
-      <Popup show={isShowGuideBtnPopup} onClose={() => setIsShowGuideBtnPopup(false)}>
+      <Popup
+        show={isShowGuideBtnPopup}
+        onClose={() => setIsShowGuideBtnPopup(false)}
+      >
         <div className="tw-p-px">
           <div className="tw-mb-3 tw-text-wine">請選擇測驗題型：</div>
           <button

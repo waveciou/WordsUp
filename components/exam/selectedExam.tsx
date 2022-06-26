@@ -21,7 +21,10 @@ interface ISelectedExamProps {
   quantity: number;
 }
 
-const SelectedExam: React.FC<ISelectedExamProps> = ({ id = 'selected-random', quantity = 10 }) => {
+const SelectedExam: React.FC<ISelectedExamProps> = ({
+  id = 'selected-random',
+  quantity = 10,
+}) => {
   dayjs.extend(duration);
 
   const day = dayjs();
@@ -29,7 +32,9 @@ const SelectedExam: React.FC<ISelectedExamProps> = ({ id = 'selected-random', qu
   const dispatch = useDispatch();
   const getQuestions = useQuestions();
   const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
-  const { isExamTesting, recordCollection } = useSelector((state: RootState) => state.exam);
+  const { isExamTesting, recordCollection } = useSelector(
+    (state: RootState) => state.exam
+  );
 
   const [questions, setQuestions] = useState<ISelectedWordItem[]>([]);
   const [answerState, setAnswerState] = useState<IAnswerItem[]>([]);
@@ -52,23 +57,25 @@ const SelectedExam: React.FC<ISelectedExamProps> = ({ id = 'selected-random', qu
 
     // Get Questions
     const questionGetter: IWordItem[] = getQuestions(id, quantity);
-    const questionReselt: ISelectedWordItem[] = questionGetter.map((wordItem) => {
-      const options: string[] = [wordItem.en];
+    const questionReselt: ISelectedWordItem[] = questionGetter.map(
+      (wordItem) => {
+        const options: string[] = [wordItem.en];
 
-      while (options.length < 4) {
-        const { en } = WORDS_DATA[randomNumber(0, WORDS_DATA.length - 1)];
-        const optionsSet: Set<string> = new Set(...options);
+        while (options.length < 4) {
+          const { en } = WORDS_DATA[randomNumber(0, WORDS_DATA.length - 1)];
+          const optionsSet: Set<string> = new Set(...options);
 
-        if (!optionsSet.has(en)) {
-          options.push(en);
+          if (!optionsSet.has(en)) {
+            options.push(en);
+          }
         }
-      }
 
-      return {
-        ...wordItem,
-        options: options.sort(() => (Math.random() > 0.5 ? -1 : 1)),
-      };
-    });
+        return {
+          ...wordItem,
+          options: options.sort(() => (Math.random() > 0.5 ? -1 : 1)),
+        };
+      }
+    );
 
     setQuestions(questionReselt);
 
@@ -91,7 +98,7 @@ const SelectedExam: React.FC<ISelectedExamProps> = ({ id = 'selected-random', qu
 
   const handleToNextQuestion = () => {
     const nextNumber: number = currentIndex + 1;
-    if (nextNumber > (quantity - 1)) {
+    if (nextNumber > quantity - 1) {
       handleExamFinish();
     } else {
       setCurrentIndex(nextNumber);
@@ -115,61 +122,58 @@ const SelectedExam: React.FC<ISelectedExamProps> = ({ id = 'selected-random', qu
     if (isFinish && answerState.length === quantity) {
       const finishTime: number = day.valueOf();
 
-      const result: IRecordItem[] = [{
-        id,
-        startTime,
-        finishTime,
-        answerState: [...answerState],
-      }, ...recordCollection];
+      const result: IRecordItem[] = [
+        {
+          id,
+          startTime,
+          finishTime,
+          answerState: [...answerState],
+        },
+        ...recordCollection,
+      ];
 
-      setDurationTime(dayjs.duration(finishTime - startTime).format('HH:mm:ss'));
+      setDurationTime(
+        dayjs.duration(finishTime - startTime).format('HH:mm:ss')
+      );
       dispatch(setRecordCollection(result));
     }
   }, [answerState, isFinish]);
 
   return (
     <div>
-      {
-        isLoading && (
-          <div className="tw-text-center tw-text-green-dark tw-py-10">
-            資料載入中...
+      {isLoading && (
+        <div className="tw-text-center tw-text-green-dark tw-py-10">
+          資料載入中...
+        </div>
+      )}
+      {!isLoading && isExamTesting && (
+        <SelectedExamCard
+          examId={id}
+          currentIndex={currentIndex}
+          wordItem={questions[currentIndex]}
+          setAnswer={handleSetAnswer}
+        />
+      )}
+      {!isLoading && !isExamTesting && isFinish && (
+        <>
+          <div className="tw-text-wine tw-my-6 tw-text-md tw-text-center">
+            {getExamName(id)}
           </div>
-        )
-      }
-      {
-        !isLoading && isExamTesting && (
-          <SelectedExamCard
-            examId={id}
-            currentIndex={currentIndex}
-            wordItem={questions[currentIndex]}
-            setAnswer={handleSetAnswer}
-          />
-        )
-      }
-      {
-        !isLoading && !isExamTesting && isFinish
-        && (
-          <>
-            <div className="tw-text-wine tw-my-6 tw-text-md tw-text-center">
-              { getExamName(id) }
-            </div>
-            <div className="tw-w-full tw-mb-2 tw-text-base tw-text-green-dark tw-text-center tw-flex tw-items-center tw-justify-center before-font-material before:tw-content-['\e8e8'] before:tw-block before:tw-mr-2">
-              我的分數：
-              { getExamScore(answerState) }
-              分
-            </div>
-            <div className="tw-mb-8 tw-text-center tw-text-xs tw-text-gray-dark">
-              作答時間：
-              { durationTime }
-            </div>
-            <ScoreTable scoreList={answerState} />
-            <div className="tw-my-5 tw-flex tw-justify-center">
-              <PrimaryButton text="再次測驗" onClick={handleExamStart} />
-              <PrimaryButton text="離開測驗" onClick={() => router.back()} />
-            </div>
-          </>
-        )
-      }
+          <div className="tw-w-full tw-mb-2 tw-text-base tw-text-green-dark tw-text-center tw-flex tw-items-center tw-justify-center before-font-material before:tw-content-['\e8e8'] before:tw-block before:tw-mr-2">
+            我的分數：
+            {getExamScore(answerState)}分
+          </div>
+          <div className="tw-mb-8 tw-text-center tw-text-xs tw-text-gray-dark">
+            作答時間：
+            {durationTime}
+          </div>
+          <ScoreTable scoreList={answerState} />
+          <div className="tw-my-5 tw-flex tw-justify-center">
+            <PrimaryButton text="再次測驗" onClick={handleExamStart} />
+            <PrimaryButton text="離開測驗" onClick={() => router.back()} />
+          </div>
+        </>
+      )}
     </div>
   );
 };

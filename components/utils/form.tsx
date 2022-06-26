@@ -21,7 +21,11 @@ export const Select: React.FC<ISelect> = ({ options, onChange }: ISelect) => {
   return (
     <div className={styles.select}>
       <select value={currentValue} onChange={handleOnChange}>
-        { options.map(({ value, name }) => <option key={value} value={value}>{name}</option>) }
+        {options.map(({ value, name }) => (
+          <option key={value} value={value}>
+            {name}
+          </option>
+        ))}
       </select>
     </div>
   );
@@ -65,7 +69,9 @@ export const PrimaryButton: React.FC<IPrimaryButton> = ({
   return (
     <button
       type="button"
-      className={`tw-min-w-105 tw-py-2 tw-px-5 tw-mx-1.5 tw-inline-block tw-text-sm tw-text-center tw-text-white tw-rounded-lg tw-leading-6 ${isDisabled ? 'tw-bg-gray-dark tw-cursor-not-allowed' : ClassColorStyle}`}
+      className={`tw-min-w-105 tw-py-2 tw-px-5 tw-mx-1.5 tw-inline-block tw-text-sm tw-text-center tw-text-white tw-rounded-lg tw-leading-6 ${
+        isDisabled ? 'tw-bg-gray-dark tw-cursor-not-allowed' : ClassColorStyle
+      }`}
       onClick={onClick}
       title={text}
     >
