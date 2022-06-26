@@ -8,7 +8,7 @@ const initialState: {
   examGuardAlert: {
     title: string;
     content: string;
-  }
+  };
 } = {
   isExamAction: false,
   isExamTesting: false,
@@ -20,17 +20,17 @@ const initialState: {
 };
 
 const updateRecordLocalData = (payload: IRecordItem[]) => {
-  const localData: IRecordLocalItem[] = payload.map(({
-    id, startTime, finishTime, answerState,
-  }) => ({
-    id,
-    startTime,
-    finishTime,
-    answerState: answerState.map((item) => ({
-      id: item.id,
-      answer: item.answer,
-    })),
-  }));
+  const localData: IRecordLocalItem[] = payload.map(
+    ({ id, startTime, finishTime, answerState }) => ({
+      id,
+      startTime,
+      finishTime,
+      answerState: answerState.map((item) => ({
+        id: item.id,
+        answer: item.answer,
+      })),
+    })
+  );
 
   localStorage.setItem('record', JSON.stringify([...localData]));
 };
@@ -54,9 +54,9 @@ export const examSlice = createSlice({
     },
     deleteRecordItem: (state, action: PayloadAction<number>) => {
       const assignState = state;
-      const index: number = assignState.recordCollection.findIndex(({
-        startTime,
-      }: IRecordItem) => startTime === action.payload);
+      const index: number = assignState.recordCollection.findIndex(
+        ({ startTime }: IRecordItem) => startTime === action.payload
+      );
 
       if (index > -1) {
         assignState.recordCollection.splice(index, 1);
@@ -67,7 +67,10 @@ export const examSlice = createSlice({
 });
 
 export const {
-  setIsExamAction, setIsExamTesting, setRecordCollection, deleteRecordItem,
+  setIsExamAction,
+  setIsExamTesting,
+  setRecordCollection,
+  deleteRecordItem,
 } = examSlice.actions;
 
 export default examSlice.reducer;

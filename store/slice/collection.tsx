@@ -28,9 +28,9 @@ export const collectionSlice = createSlice({
     },
     addFavoriteItem: (state, action: PayloadAction<string>) => {
       const assignState = state;
-      const word: IWordItem | undefined = assignState.words.find(({
-        id,
-      }: IWordItem) => id === action.payload);
+      const word: IWordItem | undefined = assignState.words.find(
+        ({ id }: IWordItem) => id === action.payload
+      );
 
       if (word) {
         assignState.favorites.push(word);
@@ -39,9 +39,9 @@ export const collectionSlice = createSlice({
     },
     deleteFavoriteItem: (state, action: PayloadAction<string>) => {
       const assignState = state;
-      const index: number = assignState.favorites.findIndex(({
-        id,
-      }: IWordItem) => id === action.payload);
+      const index: number = assignState.favorites.findIndex(
+        ({ id }: IWordItem) => id === action.payload
+      );
 
       if (index > -1) {
         assignState.favorites.splice(index, 1);

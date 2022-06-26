@@ -37,7 +37,10 @@ export const dailySlice = createSlice({
 });
 
 export const {
-  setDateId, setDateCaption, setDailyWords, setIsShowGuideButton,
+  setDateId,
+  setDateCaption,
+  setDailyWords,
+  setIsShowGuideButton,
 } = dailySlice.actions;
 
 export default dailySlice.reducer;
