@@ -34,15 +34,15 @@ const Favorite = () => {
     <>
       <h1 className="title">收藏單字</h1>
       {FAVORITES_DATA.length > 0 && (
-        <div className="content size-large tw-p-0 tw-rounded-none tw-bg-transparent">
-          <div className="tw-flex tw-justify-between tw-items-center">
-            <div className="tw-text-yellow tw-text-xs">
-              共<span className="tw-mx-1">{FAVORITES_DATA.length}</span>
+        <div className="content size-large p-0 rounded-none bg-transparent">
+          <div className="flex justify-between items-center">
+            <div className="text-yellow text-xs">
+              共<span className="mx-1">{FAVORITES_DATA.length}</span>
               筆資料
             </div>
             <button
               type="button"
-              className="tw-inline-flex tw-items-center tw-py-2 tw-pl-2 tw-pr-3 tw-rounded-lg tw-bg-white tw-text-black tw-text-xxs before-font-material before:tw-content-['\e92b'] before:tw-text-black desktop:hover:tw-bg-green-dark desktop:hover:tw-text-white desktop:hover:before:tw-text-white"
+              className="inline-flex items-center py-2 pl-2 pr-3 rounded-lg bg-white text-black text-xxs before-font-material before:content-['\e92b'] before:text-black desktop:hover:bg-green-dark desktop:hover:text-white desktop:hover:before:text-white"
               aria-label="data-update-button"
               onClick={() => setIsShowDeleteAlert(true)}
             >
@@ -54,11 +54,9 @@ const Favorite = () => {
 
       <div className="content size-large">
         {FAVORITES_DATA.length ? (
-          <ul className="tw-flex tw-flex-wrap">{wordListMemo}</ul>
+          <ul className="flex flex-wrap">{wordListMemo}</ul>
         ) : (
-          <div className="tw-text-center tw-text-gray tw-py-8">
-            目前沒有任何收藏單字
-          </div>
+          <div className="text-center text-gray py-8">目前沒有任何收藏單字</div>
         )}
       </div>
 

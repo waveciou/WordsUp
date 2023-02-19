@@ -48,21 +48,21 @@ const RecordCard: React.FC<IRecordCardProps> = ({ recordData }) => {
   return (
     <>
       <div
-        className="tw-w-full tw-flex tw-items-center tw-py-3 tw-px-4 tw-rounded-lg tw-cursor-pointer tw-shadow-[0_1px_3px_0_rgba(51,51,51,0.2)]"
+        className="w-full flex items-center py-3 px-4 rounded-lg cursor-pointer shadow-[0_1px_3px_0_rgba(51,51,51,0.2)]"
         aria-hidden="true"
         onClick={() => setIsShow(true)}
       >
-        <div className="tw-w-16 tablet:tw-w-24 tw-text-green-dark">
-          <span className="tw-leading-relaxed tw-text-lg tablet:tw-text-xl">
+        <div className="w-16 tablet:w-24 text-green-dark">
+          <span className="leading-relaxed text-lg tablet:text-xl">
             {getExamScore(answerState)}
           </span>
-          <span className="tw-text-xs">分</span>
+          <span className="text-xs">分</span>
         </div>
-        <div className="tw-w-[calc(100%-4rem)] tablet:tw-w-[calc(100%-6rem)] tw-overflow-hidden tw-pl-1">
-          <div className="tw-truncate tw-leading-relaxed tw-text-sm tablet:tw-text-base tw-text-wine">
+        <div className="w-[calc(100%-4rem)] tablet:w-[calc(100%-6rem)] overflow-hidden pl-1">
+          <div className="truncate leading-relaxed text-sm tablet:text-base text-wine">
             {getExamName(id)}
           </div>
-          <div className="tw-truncate tw-leading-relaxed tw-text-xxs tablet:tw-text-xs tw-text-black">
+          <div className="truncate leading-relaxed text-xxs tablet:text-xs text-black">
             {testTime}
           </div>
         </div>
@@ -70,31 +70,31 @@ const RecordCard: React.FC<IRecordCardProps> = ({ recordData }) => {
 
       <Popup show={isShow} onClose={() => setIsShow(false)}>
         <div>
-          <div className="tw-w-full tw-text-center tw-text-wine tw-text-base tablet:tw-text-lg tw-leading-relaxed tw-mb-4">
+          <div className="w-full text-center text-wine text-base tablet:text-lg leading-relaxed mb-4">
             {getExamName(id)}
           </div>
 
-          <div className="tw-text-xs tablet:tw-text-xs tw-p-2 tablet:tw-p-4 tw-mb-4 tw-border tw-border-gray-light tw-border-solid tw-rounded-lg">
-            <dl className="tw-flex tw-items-center tw-flex-wrap tw-mb-2">
-              <dt className="tw-flex tw-items-center before-font-material before:tw-content-['\e8e8'] before:tw-block before:tw-mr-2">
+          <div className="text-xs tablet:text-xs p-2 tablet:p-4 mb-4 border border-gray-light border-solid rounded-lg">
+            <dl className="flex items-center flex-wrap mb-2">
+              <dt className="flex items-center before-font-material before:content-['\e8e8'] before:block before:mr-2">
                 分數：
               </dt>
               <dd>{getExamScore(answerState)} 分</dd>
             </dl>
-            <dl className="tw-flex tw-items-center tw-flex-wrap tw-mb-2">
-              <dt className="tw-flex tw-items-center before-font-material before:tw-content-['\f045'] before:tw-block before:tw-mr-2">
+            <dl className="flex items-center flex-wrap mb-2">
+              <dt className="flex items-center before-font-material before:content-['\f045'] before:block before:mr-2">
                 題數：
               </dt>
               <dd>{answerState.length} 題</dd>
             </dl>
-            <dl className="tw-flex tw-items-center tw-flex-wrap tw-mb-2">
-              <dt className="tw-flex tw-items-center before-font-material before:tw-content-['\e924'] before:tw-block before:tw-mr-2">
+            <dl className="flex items-center flex-wrap mb-2">
+              <dt className="flex items-center before-font-material before:content-['\e924'] before:block before:mr-2">
                 測驗時間：
               </dt>
               <dd>{testTime}</dd>
             </dl>
-            <dl className="tw-flex tw-items-center tw-flex-wrap">
-              <dt className="tw-flex tw-items-center before-font-material before:tw-content-['\e425'] before:tw-block before:tw-mr-2">
+            <dl className="flex items-center flex-wrap">
+              <dt className="flex items-center before-font-material before:content-['\e425'] before:block before:mr-2">
                 作答時間：
               </dt>
               <dd>{durationTime}</dd>
@@ -103,7 +103,7 @@ const RecordCard: React.FC<IRecordCardProps> = ({ recordData }) => {
 
           <ScoreTable scoreList={answerState} />
 
-          <div className="tw-mt-5 tw-flex tw-justify-center">
+          <div className="mt-5 flex justify-center">
             <PrimaryButton
               text="重新挑戰"
               onClick={async () => {

@@ -40,36 +40,36 @@ const WordsDetails: React.FC<IWordItemDetailProps> = ({ uuId, wordItem }) => {
   }, [FAVORITES_DATA]);
 
   return (
-    <div className="tw-text-sm">
-      <div className="tw-relative tw-pr-9">
-        <div className="tw-text-lg tw-text-wine tw-leading-9">{en}</div>
+    <div className="text-sm">
+      <div className="relative pr-9">
+        <div className="text-lg text-wine leading-9">{en}</div>
         <button
           type="button"
           aria-label="favorite-button"
-          className={`favorite-button before-icon-star tw-w-9 tw-h-9 tw-absolute tw-right-0 tw-top-0 before:tw-leading-9 ${
-            isFavorite ? 'tw-text-yellow-dark' : 'tw-text-gray/60'
+          className={`favorite-button before-icon-star w-9 h-9 absolute right-0 top-0 before:leading-9 ${
+            isFavorite ? 'text-yellow-dark' : 'text-gray/60'
           }`}
           title={isFavorite ? '移除收藏' : '加入收藏'}
           onClick={handleSetFavorite}
         />
       </div>
-      <div className="tw-leading-7">
+      <div className="leading-7">
         <WordsCaption id={uuId} wordsList={zh} partsList={parts} hasBrackets />
-        <div className="tw-mt-2">
+        <div className="mt-2">
           <button
             type="button"
             aria-label="speech"
-            className="tw-w-7 tw-h-7 tw-block tw-mr-1 tw-leading-7 before-font-material before:tw-content-['\e050'] before:tw-block before:tw-leading-7"
+            className="w-7 h-7 block mr-1 leading-7 before-font-material before:content-['\e050'] before:block before:leading-7"
             onClick={() => handleSpeechSpeak(en)}
           />
         </div>
-        <div className="tw-w-full tw-h-px tw-my-3 tw-bg-gray" />
+        <div className="w-full h-px my-3 bg-gray" />
         <a
           href={`https://dictionary.cambridge.org/zht/詞典/英語-漢語-繁體/${en}`}
           target="_blank"
           rel="noreferrer"
           title="劍橋辭典連結"
-          className="tw-inline-flex tw-items-center tw-text-xs before-font-material before:tw-content-['\ea19'] before:tw-block before:tw-mr-2 desktop:hover:tw-text-green"
+          className="inline-flex items-center text-xs before-font-material before:content-['\ea19'] before:block before:mr-2 desktop:hover:text-green"
         >
           劍橋辭典連結
         </a>

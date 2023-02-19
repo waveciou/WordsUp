@@ -47,7 +47,7 @@ const Menu: React.FC = () => {
     return routeList.map((route: IRouteItem) => {
       const { id, path, name } = route;
       return (
-        <li key={id} className="tw-px-4 tw-mb-2.5">
+        <li key={id} className="px-4 mb-2.5">
           <button
             type="button"
             className={ClassHandle(path, id)}
@@ -76,20 +76,20 @@ const Menu: React.FC = () => {
   return (
     <>
       <nav
-        className={`tw-w-menu-width tw-min-w-140 tw-max-w-400 tw-h-full tw-flex tw-fixed tw-top-0 tw-right-0 tw-bg-white tw-z-4500 tw-transition-transform tw-duration-300 tw-translate-x-full tw-flex-col ${
-          isMenuOpen === true ? 'tw-translate-x-0' : ''
+        className={`w-menu-width min-w-140 max-w-400 h-full flex fixed top-0 right-0 bg-white z-4500 transition-transform duration-300 translate-x-full flex-col ${
+          isMenuOpen === true ? 'translate-x-0' : ''
         }`}
       >
-        <div className="tw-flex tw-items-start tw-justify-end tw-basis-12">
+        <div className="flex items-start justify-end basis-12">
           <button
             type="button"
             aria-label="close-menu"
-            className="tw-w-12 tw-h-12 tw-flex tw-items-center tw-justify-center tw-text-center before-font-material before:tw-content-['\e5cd'] before:tw-w-6 before:tw-h-6 before:tw-leading-6 before:tw-block before:tw-m-auto before:tw-text-black"
+            className="w-12 h-12 flex items-center justify-center text-center before-font-material before:content-['\e5cd'] before:w-6 before:h-6 before:leading-6 before:block before:m-auto before:text-black"
             onClick={() => dispatch(setIsMenuOpen(false))}
           />
         </div>
-        <div className="tw-relative tw-overflow-hidden tw-grow">
-          <div className="tw-w-full tw-h-full tw-absolute tw-top-0 tw-left-0 tw-overflow-x-hidden tw-overflow-y-auto">
+        <div className="relative overflow-hidden grow">
+          <div className="w-full h-full absolute top-0 left-0 overflow-x-hidden overflow-y-auto">
             <ul>{routeListMemo}</ul>
           </div>
         </div>

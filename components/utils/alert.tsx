@@ -52,24 +52,24 @@ const Alert: React.FC<IAlertModalProps> = ({
     >
       <div
         ref={nodeRef}
-        className="tw-w-full tw-h-full tw-flex tw-items-center tw-justify-center tw-fixed tw-top-0 tw-left-0 tw-z-6000 tw-bg-black/90"
+        className="w-full h-full flex items-center justify-center fixed top-0 left-0 z-6000 bg-black/90"
       >
-        <div className="tw-w-72 tw-relative tw-overflow-hidden tw-rounded-lg tw-bg-white">
-          <div className="tw-p-4 tw-text-center">
-            <div className="tw-text-sm tw-leading-7 tw-mb-2">{title}</div>
+        <div className="w-72 relative overflow-hidden rounded-lg bg-white">
+          <div className="p-4 text-center">
+            <div className="text-sm leading-7 mb-2">{title}</div>
             {theme === '' && (
-              <div className="tw-text-xxs tw-leading-5">{content}</div>
+              <div className="text-xxs leading-5">{content}</div>
             )}
             {theme === 'warn' && content !== '' && (
-              <div className="tw-flex tw-items-center tw-justify-center tw-text-xxs tw-leading-5 tw-text-red before-font-material before:tw-content-['\e002'] before:tw-block before:tw-mr-1">
+              <div className="flex items-center justify-center text-xxs leading-5 text-red before-font-material before:content-['\e002'] before:block before:mr-1">
                 {content}
               </div>
             )}
           </div>
-          <div className="tw-flex tw-border-t tw-border-gray tw-border-solid">
+          <div className="flex border-t border-gray border-solid">
             <button
               type="button"
-              className="tw-px-1 tw-py-2 tw-grow tw-text-sm"
+              className="px-1 py-2 grow text-sm"
               onClick={onConfirm}
             >
               {confirmText}
@@ -77,7 +77,7 @@ const Alert: React.FC<IAlertModalProps> = ({
             {cancelText && onCancel && (
               <button
                 type="button"
-                className="tw-px-1 tw-py-2 tw-grow tw-text-sm tw-border-l tw-border-t-0 tw-border-r-0 tw-border-b-0 tw-border-gray tw-border-solid"
+                className="px-1 py-2 grow text-sm border-l border-t-0 border-r-0 border-b-0 border-gray border-solid"
                 onClick={onCancel}
               >
                 {cancelText}

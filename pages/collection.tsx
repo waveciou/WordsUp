@@ -110,8 +110,8 @@ const Collection: React.FC = () => {
   // Words Total
   const wordsTotalMemo = useMemo(
     () => (
-      <div className="tw-text-yellow tw-text-xs">
-        共<span className="tw-mx-1">{words.length}</span>
+      <div className="text-yellow text-xs">
+        共<span className="mx-1">{words.length}</span>
         筆資料
       </div>
     ),
@@ -197,41 +197,41 @@ const Collection: React.FC = () => {
   return (
     <>
       <h1 className="title">單字列表</h1>
-      <div className="content size-large tw-p-0 tw-rounded-none tw-bg-transparent">
-        <div className="tablet:tw-flex tablet:tw-items-center tablet:tw-justify-between">
+      <div className="content size-large p-0 rounded-none bg-transparent">
+        <div className="tablet:flex tablet:items-center tablet:justify-between">
           {screenWidth > 767 && wordsTotalMemo}
-          <div className="tw-flex tw-items-center tw-flex-wrap tw-justify-end">
-            <div className="tw-w-6/12 tw-pr-1 tw-mb-2.5 tw-leading-none tablet:tw-w-auto tablet:tw-mr-2.5 tablet:tw-mb-0 tablet:tw-pr-0">
+          <div className="flex items-center flex-wrap justify-end">
+            <div className="w-6/12 pr-1 mb-2.5 leading-none tablet:w-auto tablet:mr-2.5 tablet:mb-0 tablet:pr-0">
               <Select
                 options={filterAlphabetOption}
                 onChange={(event) => setFilterAlphabet(event.target.value)}
               />
             </div>
-            <div className="tw-w-6/12 tw-pl-1 tw-mb-2.5 tw-leading-none tablet:tw-w-auto tablet:tw-mr-2.5 tablet:tw-mb-0 tablet:tw-pl-0">
+            <div className="w-6/12 pl-1 mb-2.5 leading-none tablet:w-auto tablet:mr-2.5 tablet:mb-0 tablet:pl-0">
               <Select
                 options={filterPartOption}
                 onChange={(event) => setFilterPart(event.target.value)}
               />
             </div>
-            <div className="tw-w-full tw-flex tw-items-center tw-justify-between tablet:tw-justify-start tablet:tw-w-auto">
+            <div className="w-full flex items-center justify-between tablet:justify-start tablet:w-auto">
               {screenWidth < 768 && wordsTotalMemo}
-              <div className="tw-flex tw-items-center tablet:tw-justify-start">
-                <div className="tw-mr-2.5 tw-leading-none tablet:tw-mb-0">
+              <div className="flex items-center tablet:justify-start">
+                <div className="mr-2.5 leading-none tablet:mb-0">
                   <button
                     type="button"
-                    className={`tw-w-10 tw-h-10 tw-bg-white tw-rounded-lg tw-flex tw-justify-center tw-items-center before:tw-w-5 before:tw-h-5 before:tw-block before:tw-bg-no-repeat before:tw-bg-center before:tw-bg-contain ${
+                    className={`w-10 h-10 bg-white rounded-lg flex justify-center items-center before:w-5 before:h-5 before:block before:bg-no-repeat before:bg-center before:bg-contain ${
                       isSortDownAlt
-                        ? 'before:tw-bg-[url("../public/img/alphabet_z_to_a.svg")]'
-                        : 'before:tw-bg-[url("../public/img/alphabet_a_to_z.svg")]'
+                        ? 'before:bg-[url("../public/img/alphabet_z_to_a.svg")]'
+                        : 'before:bg-[url("../public/img/alphabet_a_to_z.svg")]'
                     }`}
                     aria-label="sort-alpha-button"
                     onClick={() => setIsSortDownAlt(!isSortDownAlt)}
                   />
                 </div>
-                <div className="tw-mr-0 tw-leading-none tablet:tw-mb-0">
+                <div className="mr-0 leading-none tablet:mb-0">
                   <button
                     type="button"
-                    className="tw-w-10 tw-h-10 tw-bg-white tw-rounded-lg before-font-material before:tw-content-['\e5d5'] before:tw-text-center before:tw-leading-10 before:tw-text-black"
+                    className="w-10 h-10 bg-white rounded-lg before-font-material before:content-['\e5d5'] before:text-center before:leading-10 before:text-black"
                     aria-label="data-update-button"
                     onClick={handleGetData}
                   />
@@ -243,11 +243,9 @@ const Collection: React.FC = () => {
       </div>
       <div className="content size-large">
         {confirmWords.length ? (
-          <ul className="tw-flex tw-flex-wrap">{wordListMemo}</ul>
+          <ul className="flex flex-wrap">{wordListMemo}</ul>
         ) : (
-          <div className="tw-text-center tw-text-gray tw-py-8">
-            目前沒有資料
-          </div>
+          <div className="text-center text-gray py-8">目前沒有資料</div>
         )}
       </div>
     </>

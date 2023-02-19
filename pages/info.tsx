@@ -38,45 +38,43 @@ const Info: React.FC = () => {
       <h1 className="title">更多資訊</h1>
       <div className="content size-small">
         <ul>
-          <li className="tw-mb-3">
+          <li className="mb-3">
             <button
               type="button"
-              className="tw-w-full tw-flex tw-items-center tw-text-xs tw-text-left tw-p-3 tw-rounded-lg tw-shadow-[0_1px_3px_0_rgba(51,51,51,0.2)] before-font-material before:tw-content-['\e1db'] before:tw-block before:tw-mr-2"
+              className="w-full flex items-center text-xs text-left p-3 rounded-lg shadow-[0_1px_3px_0_rgba(51,51,51,0.2)] before-font-material before:content-['\e1db'] before:block before:mr-2"
               title="清空 LocalStorage"
               onClick={() => setIsShowClearAlert(true)}
             >
-              <span className="tw-block tw-truncate tw-leading-relaxed">
+              <span className="block truncate leading-relaxed">
                 清空 LocalStorage
               </span>
             </button>
           </li>
-          <li className="tw-mb-3">
+          <li className="mb-3">
             <button
               type="button"
-              className="tw-w-full tw-flex tw-items-center tw-text-xs tw-text-left tw-p-3 tw-rounded-lg tw-shadow-[0_1px_3px_0_rgba(51,51,51,0.2)] before-font-material before:tw-content-['\e5d5'] before:tw-block before:tw-mr-2"
+              className="w-full flex items-center text-xs text-left p-3 rounded-lg shadow-[0_1px_3px_0_rgba(51,51,51,0.2)] before-font-material before:content-['\e5d5'] before:block before:mr-2"
               onClick={handleGetData}
               title="更新單字資料庫"
             >
-              <span className="tw-block tw-truncate tw-leading-relaxed">
+              <span className="block truncate leading-relaxed">
                 更新單字資料庫
               </span>
             </button>
           </li>
-          <li className="tw-mb-3">
+          <li className="mb-3">
             <a
-              className="tw-w-full tw-flex tw-items-center tw-text-xs tw-text-left tw-p-3 tw-rounded-lg tw-shadow-[0_1px_3px_0_rgba(51,51,51,0.2)] before-font-material before:tw-w-6 before:tw-h-6 before:tw-block before:tw-bg-no-repeat before:tw-bg-center before:tw-bg-contain before:tw-bg-[url('../public/img/github.svg')] before:tw-mr-2"
+              className="w-full flex items-center text-xs text-left p-3 rounded-lg shadow-[0_1px_3px_0_rgba(51,51,51,0.2)] before-font-material before:w-6 before:h-6 before:block before:bg-no-repeat before:bg-center before:bg-contain before:bg-[url('../public/img/github.svg')] before:mr-2"
               href="https://github.com/waveciou/WordsUp"
               target="_blank"
               title="GitHub - Words Up"
               rel="noreferrer"
             >
-              <span className="tw-block tw-truncate tw-leading-relaxed">
-                GitHub
-              </span>
+              <span className="block truncate leading-relaxed">GitHub</span>
             </a>
           </li>
         </ul>
-        <div className="tw-mt-8 tw-mb-2 tw-text-center tw-text-xs tw-leading-6">
+        <div className="mt-8 mb-2 text-center text-xs leading-6">
           <p>Version: {pkg.version}</p>
           <p>
             Created By{' '}
@@ -85,7 +83,7 @@ const Info: React.FC = () => {
               target="_blank"
               title="GitHub @waveciou"
               rel="noreferrer"
-              className="hover:tw-text-green-dark"
+              className="hover:text-green-dark"
             >
               @waveciou
             </a>
