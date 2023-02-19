@@ -8,12 +8,12 @@ const Header: React.FC = () => {
   const dispatch = useDispatch();
 
   return (
-    <header className="tw-w-full tw-h-header-height tw-fixed tw-top-0 tw-left-0 tw-bg-white tw-z-3000 tw-shadow-[0_1px_3px_0_rgba(51,51,51,0.1)]">
-      <div className="tw-w-full tw-flex tw-items-center tw-justify-between">
+    <header className="w-full h-header-height fixed top-0 left-0 bg-white z-3000 shadow-[0_1px_3px_0_rgba(51,51,51,0.1)]">
+      <div className="w-full flex items-center justify-between">
         <Link href="/" passHref>
           <a
             href="replace"
-            className="tw-pr-2 tw-pl-2 tw-flex tw-items-center tw-font-bold tw-text-base tw-text-green before:tw-w-8 before:tw-h-8 before:tw-mr-2 before:tw-block before:tw-bg-no-repeat before:tw-bg-center before:tw-bg-contain before:tw-bg-[url('../public/img/icon.svg')]"
+            className="pr-2 pl-2 flex items-center font-bold text-base text-green before:w-8 before:h-8 before:mr-2 before:block before:bg-no-repeat before:bg-center before:bg-contain before:bg-[url('../public/img/icon.svg')]"
           >
             <span>Words Up</span>
           </a>
@@ -21,7 +21,7 @@ const Header: React.FC = () => {
         <button
           type="button"
           aria-label="open-menu"
-          className="tw-w-header-height tw-h-header-height tw-flex tw-items-center tw-justify-center tw-text-center before-font-material before:tw-content-['\e5d2'] before:tw-w-6 before:tw-h-6 before:tw-m-auto before:tw-block before:tw-leading-6 before:tw-text-green"
+          className="w-header-height h-header-height flex items-center justify-center text-center before-font-material before:content-['\e5d2'] before:w-6 before:h-6 before:m-auto before:block before:leading-6 before:text-green"
           onClick={() => dispatch(setIsMenuOpen(true))}
         />
       </div>

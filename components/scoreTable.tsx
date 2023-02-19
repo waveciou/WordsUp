@@ -12,7 +12,7 @@ interface IScoreTableProps {
 }
 
 const classDefines: string =
-  'tw-py-2.5 tw-px-4 tw-leading-relaxed tw-align-middle tw-text-center tw-border tw-border-gray-light tw-border-solid tw-text-xs';
+  'py-2.5 px-4 leading-relaxed align-middle text-center border border-gray-light border-solid text-xs';
 
 const ScoreTable: React.FC<IScoreTableProps> = ({ scoreList = [] }) => {
   const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
@@ -28,16 +28,16 @@ const ScoreTable: React.FC<IScoreTableProps> = ({ scoreList = [] }) => {
         return (
           <>
             {word ? (
-              <tr key={key} className="tw-bg-white">
+              <tr key={key} className="bg-white">
                 <td className={classDefines}>
                   {result === true ? (
-                    <div className="tw-text-center before-font-material before:tw-w-6 before:tw-h-6 before:tw-leading-6 before:tw-block before:tw-m-auto before:tw-content-['\e86c'] before:tw-text-green-light" />
+                    <div className="text-center before-font-material before:w-6 before:h-6 before:leading-6 before:block before:m-auto before:content-['\e86c'] before:text-green-light" />
                   ) : (
-                    <div className="tw-text-center before-font-material before:tw-w-6 before:tw-h-6 before:tw-leading-6 before:tw-block before:tw-m-auto before:tw-content-['\e5c9'] before:tw-text-red" />
+                    <div className="text-center before-font-material before:w-6 before:h-6 before:leading-6 before:block before:m-auto before:content-['\e5c9'] before:text-red" />
                   )}
                 </td>
                 <td className={classDefines}>
-                  <div className="tw-min-w-200 tw-m-auto tw-whitespace-normal tablet:tw-min-w-0 tablet:tw-max-w-xs">
+                  <div className="min-w-200 m-auto whitespace-normal tablet:min-w-0 tablet:max-w-xs">
                     <WordsCaption
                       id={id}
                       wordsList={word.zh}
@@ -46,7 +46,7 @@ const ScoreTable: React.FC<IScoreTableProps> = ({ scoreList = [] }) => {
                   </div>
                 </td>
                 <td className={classDefines}>
-                  <span className={!result && answer ? 'tw-text-red' : ''}>
+                  <span className={!result && answer ? 'text-red' : ''}>
                     {answer === '' ? '-' : answer}
                   </span>
                 </td>
@@ -64,14 +64,14 @@ const ScoreTable: React.FC<IScoreTableProps> = ({ scoreList = [] }) => {
   );
 
   return (
-    <div className="tw-w-full tw-overflow-x-auto tw-overflow-y-hidden tw-rounded-lg">
-      <table className="tw-w-full tw-whitespace-nowrap">
+    <div className="w-full overflow-x-auto overflow-y-hidden rounded-lg">
+      <table className="w-full whitespace-nowrap">
         <thead>
-          <tr className="tw-bg-green">
-            <th className={`${classDefines} tw-text-white`}>成績</th>
-            <th className={`${classDefines} tw-text-white`}>題目</th>
-            <th className={`${classDefines} tw-text-white`}>你的答案</th>
-            <th className={`${classDefines} tw-text-white`}>正確答案</th>
+          <tr className="bg-green">
+            <th className={`${classDefines} text-white`}>成績</th>
+            <th className={`${classDefines} text-white`}>題目</th>
+            <th className={`${classDefines} text-white`}>你的答案</th>
+            <th className={`${classDefines} text-white`}>正確答案</th>
           </tr>
         </thead>
         <tbody>{scoreListMemo}</tbody>

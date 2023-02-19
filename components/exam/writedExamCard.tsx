@@ -86,7 +86,7 @@ const WritedExamCard: React.FC<IWritedExamCardProps> = ({
     <div>
       <ExamCardHeader currentIndex={currentIndex} />
 
-      <div className="tw-mb-2">
+      <div className="mb-2">
         <InputText
           defaultValue={inputValue}
           onChange={handleChange}
@@ -94,32 +94,32 @@ const WritedExamCard: React.FC<IWritedExamCardProps> = ({
         />
       </div>
 
-      <div className="tw-relative tw-overflow-hidden tw-leading-7 tw-mb-4 tw-text-sm tw-text-black">
-        <div className="tw-flex tw-items-center">
+      <div className="relative overflow-hidden leading-7 mb-4 text-sm text-black">
+        <div className="flex items-center">
           <button
             type="button"
             aria-label="speech"
-            className="tw-w-7 tw-h-7 before-font-material before:tw-content-['\e050'] before:tw-block before:tw-leading-7"
+            className="w-7 h-7 before-font-material before:content-['\e050'] before:block before:leading-7"
             onClick={() => handleSpeechSpeak(en)}
           />
           {examId !== 'writed-favorite' && (
             <button
               type="button"
               aria-label="favorite-button"
-              className={`favorite-button before-icon-star tw-w-7 tw-h-7 before:tw-leading-7 ${
-                isFavorite ? 'tw-text-yellow-dark' : 'tw-text-gray/60'
+              className={`favorite-button before-icon-star w-7 h-7 before:leading-7 ${
+                isFavorite ? 'text-yellow-dark' : 'text-gray/60'
               }`}
               title={isFavorite ? '移除收藏' : '加入收藏'}
               onClick={handleSetFavorite}
             />
           )}
         </div>
-        <div className="tw-pl-2 tw-leading-7 tw-text-xs tablet:tw-text-sm">
+        <div className="pl-2 leading-7 text-xs tablet:text-sm">
           <WordsCaption id={id} wordsList={zh} partsList={parts} />
         </div>
       </div>
 
-      <div className="tw-flex tw-justify-center tw-mt-6">
+      <div className="flex justify-center mt-6">
         <PrimaryButton
           text="送出"
           isDisabled={!!(inputValue.trim() === '')}

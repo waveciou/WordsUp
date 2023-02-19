@@ -17,14 +17,14 @@ const ExamCardHeader: React.FC<IExamCardHeaderProps> = ({ currentIndex }) => {
 
   return (
     <>
-      <div className="tw-flex tw-items-center tw-justify-between tw-mb-4">
-        <div className="tw-text-md tw-text-wine tw-leading-7">
+      <div className="flex items-center justify-between mb-4">
+        <div className="text-md text-wine leading-7">
           第 {currentIndex + 1} 題
         </div>
         <button
           type="button"
           onClick={() => setIsShowExamGuardAlert(true)}
-          className="tw-flex tw-items-center tw-text-xs tw-text-green-dark desktop:hover:tw-text-green before-font-material before:tw-content-['\e15e'] before:tw-block before:tw-mr-1"
+          className="flex items-center text-xs text-green-dark desktop:hover:text-green before-font-material before:content-['\e15e'] before:block before:mr-1"
         >
           離開測驗
         </button>

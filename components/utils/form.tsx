@@ -40,7 +40,7 @@ export const InputText: React.FC<IInputText> = ({
 }: IInputText) => (
   <input
     type="text"
-    className="tw-w-full tw-h-10 tw-block tw-py-3 tw-px-4 tw-leading-4 tw-rounded-md tw-text-xs tw-bg-gray-light"
+    className="w-full h-10 block py-3 px-4 leading-4 rounded-md text-xs bg-gray-light"
     value={defaultValue}
     onChange={onChange}
     placeholder={placeholder}
@@ -58,19 +58,19 @@ export const PrimaryButton: React.FC<IPrimaryButton> = ({
   const ClassColorStyle = useMemo(() => {
     switch (colorStyle) {
       case 'red':
-        return 'tw-bg-red desktop:hover:tw-bg-wine';
+        return 'bg-red desktop:hover:bg-wine';
       case 'green-dark':
-        return 'tw-bg-green-dark desktop:hover:tw-bg-green';
+        return 'bg-green-dark desktop:hover:bg-green';
       default:
-        return 'tw-bg-green desktop:hover:tw-bg-green-dark';
+        return 'bg-green desktop:hover:bg-green-dark';
     }
   }, [colorStyle]);
 
   return (
     <button
       type="button"
-      className={`tw-min-w-105 tw-py-2 tw-px-5 tw-mx-1.5 tw-inline-block tw-text-sm tw-text-center tw-text-white tw-rounded-lg tw-leading-6 ${
-        isDisabled ? 'tw-bg-gray-dark tw-cursor-not-allowed' : ClassColorStyle
+      className={`min-w-105 py-2 px-5 mx-1.5 inline-block text-sm text-center text-white rounded-lg leading-6 ${
+        isDisabled ? 'bg-gray-dark cursor-not-allowed' : ClassColorStyle
       }`}
       onClick={onClick}
       title={text}

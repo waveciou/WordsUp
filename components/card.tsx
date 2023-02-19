@@ -43,22 +43,22 @@ const Card: React.FC<ICardProps> = ({ wordItem }) => {
   return (
     <>
       <div
-        className="tw-h-full tw-p-3 tw-block tw-rounded-lg tw-cursor-pointer tw-shadow-[0_1px_3px_0_rgba(51,51,51,0.2)]"
+        className="h-full p-3 block rounded-lg cursor-pointer shadow-[0_1px_3px_0_rgba(51,51,51,0.2)]"
         aria-hidden="true"
         onClick={() => setIsShow(true)}
       >
-        <div className="tw-relative">
-          <div className="tw-text-base tw-text-wine tw-leading-7 tw-break-all tw-pr-7">
+        <div className="relative">
+          <div className="text-base text-wine leading-7 break-all pr-7">
             {en}
           </div>
-          <div className="tw-text-xs tw-text-black tw-leading-6">
+          <div className="text-xs text-black leading-6">
             <WordsCaption id={id} wordsList={zh} partsList={parts} />
           </div>
           <button
             type="button"
             aria-label="favorite-button"
-            className={`favorite-button before-icon-star tw-w-7 tw-h-7 tw-absolute tw-right-0 tw-top-0 before:tw-leading-7 ${
-              isFavorite ? 'tw-text-yellow-dark' : 'tw-text-gray/60'
+            className={`favorite-button before-icon-star w-7 h-7 absolute right-0 top-0 before:leading-7 ${
+              isFavorite ? 'text-yellow-dark' : 'text-gray/60'
             }`}
             title={isFavorite ? '移除收藏' : '加入收藏'}
             onClick={handleSetFavorite}

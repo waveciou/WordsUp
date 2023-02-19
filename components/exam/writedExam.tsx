@@ -119,9 +119,7 @@ const WritedExam: React.FC<IWritedExamProps> = ({
   return (
     <div>
       {isLoading && (
-        <div className="tw-text-center tw-text-green-dark tw-py-10">
-          資料載入中...
-        </div>
+        <div className="text-center text-green-dark py-10">資料載入中...</div>
       )}
       {!isLoading && isExamTesting && (
         <WritedExamCard
@@ -133,19 +131,19 @@ const WritedExam: React.FC<IWritedExamProps> = ({
       )}
       {!isLoading && !isExamTesting && isFinish && (
         <>
-          <div className="tw-text-wine tw-my-6 tw-text-md tw-text-center">
+          <div className="text-wine my-6 text-md text-center">
             {getExamName(id)}
           </div>
-          <div className="tw-w-full tw-mb-2 tw-text-base tw-text-green-dark tw-text-center tw-flex tw-items-center tw-justify-center before-font-material before:tw-content-['\e8e8'] before:tw-block before:tw-mr-2">
+          <div className="w-full mb-2 text-base text-green-dark text-center flex items-center justify-center before-font-material before:content-['\e8e8'] before:block before:mr-2">
             我的分數：
             {getExamScore(answerState)}分
           </div>
-          <div className="tw-mb-8 tw-text-center tw-text-xs tw-text-gray-dark">
+          <div className="mb-8 text-center text-xs text-gray-dark">
             作答時間：
             {durationTime}
           </div>
           <ScoreTable scoreList={answerState} />
-          <div className="tw-my-5 tw-flex tw-justify-center">
+          <div className="my-5 flex justify-center">
             <PrimaryButton text="再次測驗" onClick={handleExamStart} />
             <PrimaryButton text="離開測驗" onClick={() => router.back()} />
           </div>

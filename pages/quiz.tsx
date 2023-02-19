@@ -25,12 +25,12 @@ const QuizzesLink: React.FC<IQuizzesLinkProps> = ({
   const dispatch = useDispatch();
 
   return (
-    <div className="tw-h-full tw-py-5 tw-px-4 tw-rounded-lg tw-shadow-[0_1px_3px_0_rgba(51,51,51,0.4)]">
-      <h3 className="tw-text-wine tw-mb-5 tw-text-md tw-text-center tw-leading-9">
+    <div className="h-full py-5 px-4 rounded-lg shadow-[0_1px_3px_0_rgba(51,51,51,0.4)]">
+      <h3 className="text-wine mb-5 text-md text-center leading-9">
         {getExamName(id)}
       </h3>
-      <p className="tw-text-center tw-text-xs tw-text-brown">{description}</p>
-      <div className="tw-mt-5 tw-flex tw-justify-center">
+      <p className="text-center text-xs text-brown">{description}</p>
+      <div className="mt-5 flex justify-center">
         <PrimaryButton
           text="開始測驗"
           onClick={async () => {
@@ -112,7 +112,7 @@ const Quiz: React.FC = () => {
           return types === filterId;
         })
         .map(({ id, description }: IQuizzesData) => (
-          <li className="tw-w-full tw-mb-4">
+          <li className="w-full mb-4">
             <QuizzesLink id={id} description={description} />
           </li>
         )),
@@ -123,17 +123,17 @@ const Quiz: React.FC = () => {
     <>
       <h1 className="title">單字測驗</h1>
       <div className="content">
-        <h2 className="tw-flex tw-items-center tw-mb-4 tw-text-green-dark tw-text-md desktop:tw-text-lg tw-leading-9 before-font-material before:tw-content-['\e3c9'] before:tw-mr-1">
+        <h2 className="flex items-center mb-4 text-green-dark text-md desktop:text-lg leading-9 before-font-material before:content-['\e3c9'] before:mr-1">
           填空題型
         </h2>
 
-        <ul className="tw-flex tw-flex-wrap">{examLinkProvider('writed')}</ul>
+        <ul className="flex flex-wrap">{examLinkProvider('writed')}</ul>
 
-        <h2 className="tw-flex tw-items-center tw-my-4 tw-text-green-dark tw-text-md desktop:tw-text-lg tw-leading-9 before-font-material before:tw-content-['\e0ee'] before:tw-mr-1">
+        <h2 className="flex items-center my-4 text-green-dark text-md desktop:text-lg leading-9 before-font-material before:content-['\e0ee'] before:mr-1">
           選擇題型
         </h2>
 
-        <ul className="tw-flex tw-flex-wrap">{examLinkProvider('selected')}</ul>
+        <ul className="flex flex-wrap">{examLinkProvider('selected')}</ul>
       </div>
     </>
   );

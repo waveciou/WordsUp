@@ -10,7 +10,7 @@ const Home: React.FC = () => {
   );
 
   return (
-    <div className="content size-small tw-py-0 tablet:tw-py-5 tw-px-0 tablet:tw-px-4 tw-bg-transparent tablet:tw-bg-white">
+    <div className="content size-small py-0 tablet:py-5 px-0 tablet:px-4 bg-transparent tablet:bg-white">
       <DailyWords dateCaption={dateCaption} wordItemList={dailyWords} />
     </div>
   );

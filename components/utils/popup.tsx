@@ -45,12 +45,12 @@ const Popup: React.FC<IPopupProps> = ({ children, show, onClose }) => {
     >
       <div
         ref={nodeRef}
-        className="tw-w-full tw-h-full tw-flex tw-items-center tw-justify-center tw-fixed tw-top-0 tw-left-0 tw-z-5000 tw-bg-black/90"
+        className="w-full h-full flex items-center justify-center fixed top-0 left-0 z-5000 bg-black/90"
         aria-hidden="true"
         onClick={handleClosePopup}
       >
         <div
-          className="tw-max-w-670 tw-w-[calc(100%-20px)] tw-min-h-300 tw-max-h-[calc(100%-20px)] tw-py-8 tw-px-4 tw-relative tw-overflow-hidden tw-rounded-lg tw-bg-white desktop:tw-px-5"
+          className="max-w-670 w-[calc(100%-20px)] min-h-300 max-h-[calc(100%-20px)] py-8 px-4 relative overflow-hidden rounded-lg bg-white desktop:px-5"
           aria-hidden="true"
           onClick={(e) => {
             e.stopPropagation();
@@ -59,10 +59,10 @@ const Popup: React.FC<IPopupProps> = ({ children, show, onClose }) => {
           <button
             type="button"
             aria-label="close-popup"
-            className="tw-w-5 tw-h-5 tw-absolute tw-overflow-hidden tw-top-2.5 tw-right-2.5 tw-flex tw-items-center tw-justify-center tw-text-center before-font-material before:tw-content-['\e5cd'] before:tw-w-6 before:tw-h-6 before:tw-leading-6 before:tw-block before:tw-m-auto before:tw-text-black"
+            className="w-5 h-5 absolute overflow-hidden top-2.5 right-2.5 flex items-center justify-center text-center before-font-material before:content-['\e5cd'] before:w-6 before:h-6 before:leading-6 before:block before:m-auto before:text-black"
             onClick={handleClosePopup}
           />
-          <div className="tw-w-full tw-h-full tw-max-h-[calc(100vh-200px)] tw-overflow-x-hidden tw-overflow-y-auto">
+          <div className="w-full h-full max-h-[calc(100vh-200px)] overflow-x-hidden overflow-y-auto">
             {children}
           </div>
         </div>

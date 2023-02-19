@@ -25,15 +25,13 @@ const WordsCaption: React.FC<IWordsCaptionProps> = ({
       return (
         <div
           key={key}
-          className={
-            hasTextCenter ? 'tw-flex tw-justify-center tw-items-start' : ''
-          }
+          className={hasTextCenter ? 'flex justify-center items-start' : ''}
         >
           {hasSpeechButton && index === 0 && (
             <button
               type="button"
               aria-label="speech"
-              className="tw-w-8 tw-h-8 tw-inline-block tw-align-top tw-mr-1 tw-leading-8 before-font-material before:tw-content-['\e050'] before:tw-block before:tw-leading-8"
+              className="w-8 h-8 inline-block align-top mr-1 leading-8 before-font-material before:content-['\e050'] before:block before:leading-8"
               onClick={(
                 e: React.MouseEvent<HTMLDivElement | HTMLButtonElement>
               ) => {
@@ -43,7 +41,7 @@ const WordsCaption: React.FC<IWordsCaptionProps> = ({
               }}
             />
           )}
-          <span className="tw-mr-2.5 tw-font-bold">
+          <span className="mr-2.5 font-bold">
             {hasBrackets && '('}
             {partsList[index]}.{hasBrackets && ')'}
           </span>

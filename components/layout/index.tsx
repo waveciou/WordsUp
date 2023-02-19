@@ -19,7 +19,12 @@ import useSetFavorate from '@/Hooks/useSetFavorate';
 import useSetRecord from '@/Hooks/useSetRecord';
 import { IProps } from '@/Interfaces/global';
 import { IDailyCase } from '@/Interfaces/word';
-import { setIsAppMounted, setIsMenuOpen, setScreenWidth, setScrollValue } from '@/Slice/common';
+import {
+  setIsAppMounted,
+  setIsMenuOpen,
+  setScreenWidth,
+  setScrollValue,
+} from '@/Slice/common';
 import { RootState } from '@/Store/index';
 
 declare global {
@@ -155,24 +160,24 @@ const Layout: React.FC<IProps> = ({ children }) => {
       <Meta />
       <div id="__layout" onScroll={handleGetLayoutScrollValue}>
         <Header />
-        <main id="__main" className="tw-pt-header-height">
+        <main id="__main" className="pt-header-height">
           {children}
         </main>
         {scrollValue > 0 && (
           <button
             type="button"
             aria-label="scroll-to-top-button"
-            className="tw-w-10 tw-h-10 tw-block tw-fixed tw-right-5 tw-bottom-12 tw-bg-green-dark/60 tw-rounded-full before-font-material before:tw-content-['\e5d8'] before:tw-leading-10 before:tw-text-yellow"
+            className="w-10 h-10 block fixed right-5 bottom-12 bg-green-dark/60 rounded-full before-font-material before:content-['\e5d8'] before:leading-10 before:text-yellow"
             onClick={handleScrollToTop}
           />
         )}
         <div
           aria-hidden="true"
           onClick={() => dispatch(setIsMenuOpen(false))}
-          className={`tw-w-full tw-h-full tw-fixed tw-top-0 tw-left-0 tw-z-4000 tw-bg-black/70 tw-transition-opacity ${
+          className={`w-full h-full fixed top-0 left-0 z-4000 bg-black/70 transition-opacity ${
             isMenuOpen
-              ? 'tw-opacity-100 tw-visible tw-pointer-events-auto'
-              : 'tw-opacity-0 tw-invisible tw-pointer-events-none'
+              ? 'opacity-100 visible pointer-events-auto'
+              : 'opacity-0 invisible pointer-events-none'
           }`}
         />
         <Menu />

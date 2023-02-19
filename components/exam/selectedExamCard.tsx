@@ -71,27 +71,27 @@ const SelectedExamCard: React.FC<ISelectedExamCardProps> = ({
     <div>
       <ExamCardHeader currentIndex={currentIndex} />
 
-      <div className="tw-py-3 tw-px-4 tw-mb-4 first-letter:tw-relative tw-overflow-hidden tw-leading-7 tw-text-sm tw-text-black tw-bg-gray-light tw-rounded-lg">
-        <div className="tw-flex tw-items-center">
+      <div className="py-3 px-4 mb-4 first-letter:relative overflow-hidden leading-7 text-sm text-black bg-gray-light rounded-lg">
+        <div className="flex items-center">
           <button
             type="button"
             aria-label="speech"
-            className="tw-w-7 tw-h-7 before-font-material before:tw-content-['\e050'] before:tw-block before:tw-leading-7"
+            className="w-7 h-7 before-font-material before:content-['\e050'] before:block before:leading-7"
             onClick={() => handleSpeechSpeak(en)}
           />
           {examId !== 'selected-favorite' && (
             <button
               type="button"
               aria-label="favorite-button"
-              className={`favorite-button before-icon-star tw-w-7 tw-h-7 before:tw-leading-7 ${
-                isFavorite ? 'tw-text-yellow-dark' : 'tw-text-gray/60'
+              className={`favorite-button before-icon-star w-7 h-7 before:leading-7 ${
+                isFavorite ? 'text-yellow-dark' : 'text-gray/60'
               }`}
               title={isFavorite ? '移除收藏' : '加入收藏'}
               onClick={handleSetFavorite}
             />
           )}
         </div>
-        <div className="tw-leading-7 tw-text-xs tablet:tw-text-sm">
+        <div className="leading-7 text-xs tablet:text-sm">
           <WordsCaption id={id} wordsList={zh} partsList={parts} />
         </div>
       </div>
@@ -100,7 +100,7 @@ const SelectedExamCard: React.FC<ISelectedExamCardProps> = ({
         const uuid: string = uuidv4();
         const isChecked: boolean = !!(selectValue === optionItem);
         return (
-          <div className="tw-relative tw-overflow-hidden tw-mb-2 tw-px-4">
+          <div className="relative overflow-hidden mb-2 px-4">
             <input
               key={optionItem}
               id={uuid}
@@ -108,15 +108,15 @@ const SelectedExamCard: React.FC<ISelectedExamCardProps> = ({
               value={optionItem}
               onChange={() => setSelectValue(optionItem)}
               checked={isChecked}
-              className="tw-absolute tw-invisible tw-opacity-0 tw-select-none"
+              className="absolute invisible opacity-0 select-none"
             />
-            <label htmlFor={uuid} className="tw-block">
+            <label htmlFor={uuid} className="block">
               {isChecked ? (
-                <div className="tw-flex tw-items-center tw-text-sm tw-cursor-pointer before-font-material before:tw-content-['\e837'] before:tw-block before:tw-mr-1 before:tw-text-base">
+                <div className="flex items-center text-sm cursor-pointer before-font-material before:content-['\e837'] before:block before:mr-1 before:text-base">
                   {optionItem}
                 </div>
               ) : (
-                <div className="tw-flex tw-items-center tw-text-sm tw-cursor-pointer before-font-material before:tw-content-['\e836'] before:tw-block before:tw-mr-1 before:tw-text-base">
+                <div className="flex items-center text-sm cursor-pointer before-font-material before:content-['\e836'] before:block before:mr-1 before:text-base">
                   {optionItem}
                 </div>
               )}
@@ -125,7 +125,7 @@ const SelectedExamCard: React.FC<ISelectedExamCardProps> = ({
         );
       })}
 
-      <div className="tw-flex tw-justify-center tw-mt-6">
+      <div className="flex justify-center mt-6">
         <PrimaryButton
           text="送出"
           isDisabled={!!(selectValue === '')}

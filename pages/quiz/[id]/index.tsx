@@ -33,9 +33,7 @@ const Quiz: React.FC = () => {
   }, [isExamAction]);
 
   const FailedDataCaption: React.FC = () => (
-    <div className="tw-py-8 tw-my-4 tw-text-center tw-text-gray">
-      DATA ERROR
-    </div>
+    <div className="py-8 my-4 text-center text-gray">DATA ERROR</div>
   );
 
   const examProviderMemo = useMemo(() => {

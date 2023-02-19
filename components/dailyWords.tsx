@@ -61,23 +61,23 @@ const DailyWords: React.FC<IDailyWordsProps> = ({
 
   return (
     <>
-      <div className="tw-flex tw-justify-between tw-items-center tw-flex-wrap tw-mb-4">
-        <h1 className="tw-flex tw-items-center tw-leading-8 tw-text-sm mini:tw-text-md tw-text-yellow tablet:tw-text-green-dark before-font-material before:tw-content-['\e8ce'] before:tw-w-8 before:tw-h-8 before:tw-leading-8 before:tw-block before:tw-text-center">
+      <div className="flex justify-between items-center flex-wrap mb-4">
+        <h1 className="flex items-center leading-8 text-sm mini:text-md text-yellow tablet:text-green-dark before-font-material before:content-['\e8ce'] before:w-8 before:h-8 before:leading-8 before:block before:text-center">
           今日單字
         </h1>
-        <div className="tw-flex tw-items-center tw-justify-start tw-text-xs tw-text-white tablet:tw-text-black">
+        <div className="flex items-center justify-start text-xs text-white tablet:text-black">
           {dateCaption}
         </div>
       </div>
 
-      <div className="carousel tw-relative tw-overflow-hidden">
+      <div className="carousel relative overflow-hidden">
         <button
           type="button"
           aria-label="carousel-prev-button"
-          className={`carousel-prev-button tw-w-6 tw-h-6 tw-text-center tw-block tw-absolute tw-left-1 tw-top-2/4 tw--translate-y-2/4 tw-z-50 before-font-material before:tw-block before:tw-m-auto ${
+          className={`carousel-prev-button w-6 h-6 text-center block absolute left-1 top-2/4 -translate-y-2/4 z-50 before-font-material before:block before:m-auto ${
             swipeIndex === 0
-              ? 'before:tw-text-gray before:tw-cursor-not-allowed'
-              : 'before:tw-text-black'
+              ? 'before:text-gray before:cursor-not-allowed'
+              : 'before:text-black'
           }`}
           onClick={() => swipe?.slidePrev()}
         />
@@ -89,13 +89,13 @@ const DailyWords: React.FC<IDailyWordsProps> = ({
         >
           {wordItemList?.map(({ id, en, zh, parts }: IWordItem) => (
             <SwiperSlide key={uuidv4()}>
-              <div className="tw-w-full tw-h-full tablet:tw-p-1">
-                <div className="tw-w-full tw-h-full tw-py-16 tw-px-6 tw-flex tw-justify-center tw-items-center tw-rounded-lg tablet:tw-shadow-[0_1px_3px_0_rgba(51,51,51,0.4)] tw-bg-white">
-                  <div className="tw-w-full">
-                    <div className="tw-text-xl tw-text-center tw-leading-relaxed tw-text-wine tw-break-all tw-mb-2.5">
+              <div className="w-full h-full tablet:p-1">
+                <div className="w-full h-full py-16 px-6 flex justify-center items-center rounded-lg tablet:shadow-[0_1px_3px_0_rgba(51,51,51,0.4)] bg-white">
+                  <div className="w-full">
+                    <div className="text-xl text-center leading-relaxed text-wine break-all mb-2.5">
                       {en}
                     </div>
-                    <div className="tw-leading-8 tw-text-xs mini:tw-text-sm">
+                    <div className="leading-8 text-xs mini:text-sm">
                       <WordsCaption
                         id={id}
                         wordsList={zh}
@@ -109,8 +109,8 @@ const DailyWords: React.FC<IDailyWordsProps> = ({
                     <button
                       type="button"
                       aria-label="favorite-button"
-                      className={`favorite-button before-icon-star tw-w-8 tw-h-8 tw-absolute tw-left-4 tw-top-3 before:tw-leading-8 ${
-                        isFavorite ? 'tw-text-yellow-dark' : 'tw-text-gray/60'
+                      className={`favorite-button before-icon-star w-8 h-8 absolute left-4 top-3 before:leading-8 ${
+                        isFavorite ? 'text-yellow-dark' : 'text-gray/60'
                       }`}
                       title={isFavorite ? '移除收藏' : '加入收藏'}
                       onClick={(
@@ -134,22 +134,22 @@ const DailyWords: React.FC<IDailyWordsProps> = ({
         <button
           type="button"
           aria-label="carousel-next-button"
-          className={`carousel-next-button tw-w-6 tw-h-6 tw-text-center tw-block tw-absolute tw-right-1 tw-top-2/4 tw--translate-y-2/4 tw-z-50 before-font-material before:tw-block before:tw-m-auto ${
+          className={`carousel-next-button w-6 h-6 text-center block absolute right-1 top-2/4 -translate-y-2/4 z-50 before-font-material before:block before:m-auto ${
             swipeIndex === wordItemList.length - 1
-              ? 'before:tw-text-gray before:tw-cursor-not-allowed'
-              : 'before:tw-text-black'
+              ? 'before:text-gray before:cursor-not-allowed'
+              : 'before:text-black'
           }`}
           onClick={() => swipe?.slideNext()}
         />
-        <div className="tw-absolute tw-right-4 tw-top-3 tw-z-50">
-          <span className="tw-text-brown/80 tw-text-xs tw-font-bold">
+        <div className="absolute right-4 top-3 z-50">
+          <span className="text-brown/80 text-xs font-bold">
             {swipeIndex + 1}/{wordItemList.length}
           </span>
         </div>
       </div>
 
       {isShowGuideButton && (
-        <div className="tw-flex tw-justify-center tw-mt-3">
+        <div className="flex justify-center mt-3">
           <PrimaryButton
             text="測驗今日單字"
             colorStyle="green-dark"
@@ -162,11 +162,11 @@ const DailyWords: React.FC<IDailyWordsProps> = ({
         show={isShowGuideBtnPopup}
         onClose={() => setIsShowGuideBtnPopup(false)}
       >
-        <div className="tw-p-px">
-          <div className="tw-mb-3 tw-text-wine">請選擇測驗題型：</div>
+        <div className="p-px">
+          <div className="mb-3 text-wine">請選擇測驗題型：</div>
           <button
             type="button"
-            className="tw-flex tw-justify-center tw-items-center tw-w-full tw-p-4 desktop:tw-p-5 tw-mb-3 tw-text-sm desktop:tw-text-base tw-text-green-dark tw-bg-white tw-rounded-md tw-shadow-[0_1px_3px_0_rgba(51,51,51,0.4)] before-font-material before:tw-content-['\e3c9'] before:tw-mr-1 desktop:hover:tw-text-white desktop:hover:tw-bg-green-dark"
+            className="flex justify-center items-center w-full p-4 desktop:p-5 mb-3 text-sm desktop:text-base text-green-dark bg-white rounded-md shadow-[0_1px_3px_0_rgba(51,51,51,0.4)] before-font-material before:content-['\e3c9'] before:mr-1 desktop:hover:text-white desktop:hover:bg-green-dark"
             onClick={async () => {
               await dispatch(setIsExamAction(true));
               await router.push('/quiz/writed-daily');
@@ -176,7 +176,7 @@ const DailyWords: React.FC<IDailyWordsProps> = ({
           </button>
           <button
             type="button"
-            className="tw-flex tw-justify-center tw-items-center tw-w-full tw-p-4 desktop:tw-p-5 tw-mb-3 tw-text-sm desktop:tw-text-base tw-text-green-dark tw-bg-white tw-rounded-md tw-shadow-[0_1px_3px_0_rgba(51,51,51,0.4)] before-font-material before:tw-content-['\e0ee'] before:tw-mr-1 desktop:hover:tw-text-white desktop:hover:tw-bg-green-dark"
+            className="flex justify-center items-center w-full p-4 desktop:p-5 mb-3 text-sm desktop:text-base text-green-dark bg-white rounded-md shadow-[0_1px_3px_0_rgba(51,51,51,0.4)] before-font-material before:content-['\e0ee'] before:mr-1 desktop:hover:text-white desktop:hover:bg-green-dark"
             onClick={async () => {
               await dispatch(setIsExamAction(true));
               await router.push('/quiz/selected-daily');
