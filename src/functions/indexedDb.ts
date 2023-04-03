@@ -1,3 +1,8 @@
+/* eslint-disable no-await-in-loop */
+/* eslint-disable no-console */
+/* eslint-disable no-continue */
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable lines-between-class-members */
 import { IDBPDatabase, openDB } from 'idb';
 
 class IndexedDb {
@@ -23,6 +28,7 @@ class IndexedDb {
           }
         },
       });
+      return false;
     } catch (error) {
       return false;
     }

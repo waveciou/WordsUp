@@ -1,7 +1,14 @@
-const secret = require('./secret.js') || '';
-
+/* eslint-disable global-require */
 const isDevEnv = process.env.NODE_ENV === 'development';
 const productionPath = '';
+
+const provideApiKey = () => {
+  if (isDevEnv) {
+    const secret = require('./secret.js');
+    return secret();
+  }
+  return 'AIzaSyBqwYzbJZjQZggrAYBkiUgUNhxnTI695oI';
+};
 
 module.exports = {
   basePath: isDevEnv ? '' : productionPath,
@@ -9,7 +16,7 @@ module.exports = {
   reactStrictMode: false,
   env: {
     BASE_PATH: isDevEnv ? '' : productionPath,
-    API_KEY: isDevEnv ? secret() : 'AIzaSyBqwYzbJZjQZggrAYBkiUgUNhxnTI695oI',
+    API_KEY: provideApiKey(),
     CLIENT_ID: '',
     SCOPE: 'https://www.googleapis.com/auth/spreadsheets.readonly',
     SHEET_ID: '1zPtjgSkHph67f_4RxL5AzEzdmwh6XMxzdSYoJcSkJtY',
