@@ -19,12 +19,7 @@ import useSetFavorate from '@/Hooks/useSetFavorate';
 import useSetRecord from '@/Hooks/useSetRecord';
 import { IProps } from '@/Interfaces/global';
 import { IDailyCase } from '@/Interfaces/word';
-import {
-  setIsAppMounted,
-  setIsMenuOpen,
-  setScreenWidth,
-  setScrollValue,
-} from '@/Slice/common';
+import { setIsAppMounted, setIsMenuOpen, setScreenWidth, setScrollValue } from '@/Slice/common';
 import { RootState } from '@/Store/index';
 
 declare global {
@@ -69,7 +64,7 @@ const Layout: React.FC<IProps> = ({ children }) => {
 
   // Get Scroll Value (Tablet, Mobile, <= 1024)
   const handleGetLayoutScrollValue = useCallback(
-    (e) => {
+    (e: any) => {
       const value: number = e.target.scrollTop;
       dispatch(setScrollValue(value));
     },
