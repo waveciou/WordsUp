@@ -1,4 +1,4 @@
-const secret = require('./secret.js');
+const secret = require('./secret.js') || '';
 
 const isDevEnv = process.env.NODE_ENV === 'development';
 const productionPath = '';
