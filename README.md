@@ -1,10 +1,10 @@
 # 📌 Words Up 單字學習的好夥伴
 
-[Demo](https://waveciou.github.io/WordsUp/)
+[Demo](https://waveciou-wordsup.vercel.app/)
 
 自製的單字學習軟體 Side Project，擁有 1200 個單字詞彙的資料庫，並包含每日單字以及多種單字測驗等功能。
 
-![Words Up Banner](https://waveciou.github.io/WordsUp/demo/banner.jpg "Words Up Banner")
+![Words Up Banner](https://user-images.githubusercontent.com/17502097/229435508-8e032985-b403-41d6-8429-b105559ef783.jpg 'Words Up Banner')
 
 ## 💡 從這個專案當中學到了什麼
 
