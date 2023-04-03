@@ -1,7 +1,7 @@
 const secret = require('./secret.js');
 
 const isDevEnv = process.env.NODE_ENV === 'development';
-const productionPath = '/WordsUp';
+const productionPath = '';
 
 module.exports = {
   basePath: isDevEnv ? '' : productionPath,
