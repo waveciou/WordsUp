@@ -112,7 +112,7 @@ const Quiz: React.FC = () => {
           return types === filterId;
         })
         .map(({ id, description }: IQuizzesData) => (
-          <li className="w-full mb-4">
+          <li className="w-full mb-4" key={id}>
             <QuizzesLink id={id} description={description} />
           </li>
         )),

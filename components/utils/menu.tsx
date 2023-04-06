@@ -76,8 +76,8 @@ const Menu: React.FC = () => {
   return (
     <>
       <nav
-        className={`w-menu-width min-w-140 max-w-400 h-full flex fixed top-0 right-0 bg-white z-4500 transition-transform duration-300 translate-x-full flex-col ${
-          isMenuOpen === true ? 'translate-x-0' : ''
+        className={`w-menu-width min-w-140 max-w-400 h-full flex fixed top-0 right-0 bg-white z-4500 transition-transform duration-300 flex-col ${
+          isMenuOpen === true ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
         <div className="flex items-start justify-end basis-12">

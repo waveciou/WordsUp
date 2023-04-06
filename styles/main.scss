@@ -19,3 +19,26 @@
 .after-font-awesome::after {
   @include font-awesome;
 }
+
+.column-item {
+  @media (min-width: 768px) {
+    width: calc((100% - 0.75rem)/2);
+    margin-right: 0.75rem;
+
+    &:nth-child(even) {
+      margin-right: 0;
+    }
+  }
+
+  @media (min-width: 1025px) {
+    width: calc((100% - 1.5rem)/3);
+
+    &:nth-child(even) {
+      margin-right: 0.75rem;
+    }
+
+    &:nth-child(3n + 3) {
+      margin-right: 0;
+    }
+  }
+}

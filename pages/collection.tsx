@@ -100,7 +100,12 @@ const Collection: React.FC = () => {
   const wordListMemo = useMemo(
     () =>
       confirmWords.map((wordItem: IWordItem, index: number) => (
-        <ColumnItem id={wordItem.id} length={confirmWords.length} index={index}>
+        <ColumnItem
+          id={wordItem.id}
+          length={confirmWords.length}
+          index={index}
+          key={wordItem.id}
+        >
           <Card wordItem={wordItem} />
         </ColumnItem>
       )),
