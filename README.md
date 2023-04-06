@@ -13,6 +13,7 @@
 - 在 Google Sheets 建立單字資料庫，並使用 [Google Sheets API](https://developers.google.com/sheets/api) 串接相關功能。
 - 使用 [Redux](https://redux.js.org/) + [Redux Toolkit](https://redux-toolkit.js.org/) 建立 React Global State。
 - 使用 [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API) 實現單字聲音播放功能。
+- 使用 [Vercel](https://vercel.com/) 作為專案部署的 Serverless 平台
 
 ## License
 
