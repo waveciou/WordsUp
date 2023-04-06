@@ -83,7 +83,7 @@ const MetaData: React.FC = () => (
     />
     <link
       rel="manifest"
-      href="https://waveciou.github.io/WordsUp/manifest.json"
+      href="https://waveciou-wordsup.vercel.app/manifest.json"
     />
     <meta name="msapplication-TileColor" content="#ffffff" />
     <meta
@@ -96,7 +96,7 @@ const MetaData: React.FC = () => (
     <meta property="og:description" content="一個單字學習平台的 side project" />
     <meta
       property="og:image"
-      content="https://waveciou.github.io/WordsUp/img/icon.jpg"
+      content="hhttps://waveciou-wordsup.vercel.app/img/icon.jpg"
     />
     <meta name="twitter:title" content="Words Up" />
     <meta
@@ -105,7 +105,7 @@ const MetaData: React.FC = () => (
     />
     <meta
       name="twitter:image"
-      content="https://waveciou.github.io/WordsUp/img/icon.jpg"
+      content="https://waveciou-wordsup.vercel.app/img/icon.jpg"
     />
   </Head>
 );
