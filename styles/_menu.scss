@@ -12,7 +12,7 @@ $icons: (
   'info': '\e88e'
 );
 
-.item {
+.menu__item {
   display: flex;
   align-items: center;
   font-size: map-get($font-size, base);

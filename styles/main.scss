@@ -5,6 +5,8 @@
 @import '@/Styles/_reset.scss';
 @import '@/Styles/_content.scss';
 @import '@/Styles/_animate.scss';
+@import '@/Styles/_form.scss';
+@import '@/Styles/_menu.scss';
 
 @tailwind base;
 @tailwind components;
@@ -19,6 +21,8 @@
 .after-font-awesome::after {
   @include font-awesome;
 }
+
+// Column
 
 .column-item {
   @media (min-width: 768px) {
