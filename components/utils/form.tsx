@@ -1,7 +1,6 @@
 import React, { ChangeEvent, useEffect, useMemo, useState } from 'react';
 
 import { IInputText, IPrimaryButton, ISelect } from '@/Interfaces/form';
-import styles from '@/Styles/form.module.scss';
 
 // * Select
 
@@ -19,7 +18,7 @@ export const Select: React.FC<ISelect> = ({ options, onChange }: ISelect) => {
   };
 
   return (
-    <div className={styles.select}>
+    <div className="element-select">
       <select value={currentValue} onChange={handleOnChange}>
         {options.map(({ value, name }) => (
           <option key={value} value={value}>

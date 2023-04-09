@@ -6,7 +6,6 @@ import Alert from '@/Components/utils/alert';
 import { IRouteItem } from '@/Interfaces/global';
 import { setIsMenuOpen } from '@/Slice/common';
 import { RootState } from '@/Store/index';
-import styles from '@/Styles/menu.module.scss';
 
 const ROUTE = require('../../src/data/route.json');
 
@@ -38,9 +37,9 @@ const Menu: React.FC = () => {
       const routePath: string = `/${router.pathname.split('/')[1]}`;
       const isCurrent: boolean = !!(routePath === path);
       return `
-        ${styles.item}
-        ${styles[`icon-${id}`]}
-        ${isCurrent ? styles.current : ''}
+        menu__item
+        ${`icon-${id}`}
+        ${isCurrent ? 'current' : ''}
       `;
     };
 
