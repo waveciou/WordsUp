@@ -1,5 +1,5 @@
 /**
- * Verify data from localStorage and set correct record collection.
+ * Verify data from IndexedDB and set correct record collection.
  */
 
 import { useCallback } from 'react';
@@ -27,12 +27,10 @@ const useSetRecord = () => {
   };
 
   return useCallback(
-    (localData: string) => {
+    (localData: IRecordItem[]) => {
       if (localData) {
-        const parseData: IRecordItem[] = JSON.parse(localData);
-
-        if (Array.isArray(parseData)) {
-          const result: IRecordItem[] = parseData.reduce(
+        if (Array.isArray(localData)) {
+          const result: IRecordItem[] = [...localData].reduce(
             (prev: IRecordItem[], current: IRecordLocalItem) => {
               const {
                 id = '',

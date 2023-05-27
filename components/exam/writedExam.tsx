@@ -10,18 +10,18 @@ import { PrimaryButton } from '@/Components/utils/form';
 import getExamName from '@/Functions/examName';
 import getExamScore from '@/Functions/examScore';
 import useQuestions from '@/Hooks/useQuestions';
-import { IAnswerItem, IRecordItem, IWritedExamId } from '@/Interfaces/exam';
+import { EnumWritedExamID, IAnswerItem, IRecordItem } from '@/Interfaces/exam';
 import { IWordItem } from '@/Interfaces/word';
 import { setIsExamTesting, setRecordCollection } from '@/Slice/exam';
 import { RootState } from '@/Store/index';
 
 interface IWritedExamProps {
-  id: IWritedExamId;
+  id: EnumWritedExamID;
   quantity: number;
 }
 
 const WritedExam: React.FC<IWritedExamProps> = ({
-  id = 'writed-random',
+  id = EnumWritedExamID.RANDOM,
   quantity = 10,
 }) => {
   dayjs.extend(duration);

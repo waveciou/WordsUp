@@ -6,12 +6,17 @@ import ExamCardHeader from '@/Components/exam/examCardHeader';
 import { PrimaryButton } from '@/Components/utils/form';
 import WordsCaption from '@/Components/wordsCaption';
 import useSpeechSpeak from '@/Hooks/useSpeechSpeak';
-import { IAnswerItem, IExamId, ISelectedWordItem } from '@/Interfaces/exam';
+import {
+  EnumSelectedExamID,
+  IAnswerItem,
+  IExamID,
+  ISelectedWordItem,
+} from '@/Interfaces/exam';
 import { addFavoriteItem, deleteFavoriteItem } from '@/Slice/collection';
 import { RootState } from '@/Store/index';
 
 interface ISelectedExamCardProps {
-  examId: IExamId;
+  examId: IExamID;
   currentIndex: number;
   wordItem: ISelectedWordItem;
   setAnswer: (answerItem: IAnswerItem) => void;
@@ -60,8 +65,8 @@ const SelectedExamCard: React.FC<ISelectedExamCardProps> = ({
   useEffect(() => {
     const dataIdList: string[] = FAVORITES_DATA.map((item) => item.id);
     const dataIdSet: Set<string> = new Set(dataIdList);
-    setIsFavorite(dataIdSet.has(id));
-  }, [FAVORITES_DATA]);
+    setIsFavorite(dataIdSet.has(wordItem.id));
+  }, [wordItem, FAVORITES_DATA]);
 
   useEffect(() => {
     setSelectValue('');
@@ -79,7 +84,7 @@ const SelectedExamCard: React.FC<ISelectedExamCardProps> = ({
             className="w-7 h-7 before-font-material before:content-['\e050'] before:block before:leading-7"
             onClick={() => handleSpeechSpeak(en)}
           />
-          {examId !== 'selected-favorite' && (
+          {examId !== EnumSelectedExamID.FAVORITE && (
             <button
               type="button"
               aria-label="favorite-button"
@@ -100,9 +105,8 @@ const SelectedExamCard: React.FC<ISelectedExamCardProps> = ({
         const uuid: string = uuidv4();
         const isChecked: boolean = !!(selectValue === optionItem);
         return (
-          <div className="relative overflow-hidden mb-2 px-4">
+          <div className="relative overflow-hidden mb-2 px-4" key={optionItem}>
             <input
-              key={optionItem}
               id={uuid}
               type="radio"
               value={optionItem}

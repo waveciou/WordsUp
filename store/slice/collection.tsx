@@ -1,3 +1,6 @@
+/* eslint-disable no-console */
+import { set } from 'idb-keyval';
+
 import { IGapiResponse } from '@/Interfaces/sheetData';
 import { IWordItem } from '@/Interfaces/word';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
@@ -6,7 +9,10 @@ const initialState: IGapiResponse = { words: [], parts: [], favorites: [] };
 
 const updateFavoriteLocalData = (payload: IWordItem[]) => {
   const localData: string[] = payload.map(({ id }) => id);
-  localStorage.setItem('favorite', JSON.stringify([...localData]));
+
+  set('favorite', [...localData])
+    .then(() => console.log('set favorite successfully'))
+    .catch((error) => console.log('set favorite failed', error));
 };
 
 export const collectionSlice = createSlice({

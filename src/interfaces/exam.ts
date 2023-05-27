@@ -1,31 +1,43 @@
+/* eslint-disable no-shadow */
 import { IWordItem } from '@/Interfaces/word';
 
-export type IWritedExamId =
-  | 'writed-random'
-  | 'writed-daily'
-  | 'writed-favorite';
-export type ISelectedExamId =
-  | 'selected-random'
-  | 'selected-daily'
-  | 'selected-favorite';
-export type IExamId = '' | IWritedExamId | ISelectedExamId;
+enum EnumWritedExamID {
+  RANDOM = 'writed-random',
+  DAILY = 'writed-daily',
+  FAVORITE = 'writed-favorite',
+}
 
-export interface IAnswerItem {
+enum EnumSelectedExamID {
+  RANDOM = 'selected-random',
+  DAILY = 'selected-daily',
+  FAVORITE = 'selected-favorite',
+}
+
+type IExamID =
+  | ''
+  | EnumWritedExamID.RANDOM
+  | EnumWritedExamID.DAILY
+  | EnumWritedExamID.FAVORITE
+  | EnumSelectedExamID.RANDOM
+  | EnumSelectedExamID.DAILY
+  | EnumSelectedExamID.FAVORITE;
+
+interface IAnswerItem {
   id: string;
   answer: string;
   solution: string;
   result: boolean;
 }
 
-export interface IRecordItem {
-  id: IExamId;
+interface IRecordItem {
+  id: IExamID;
   startTime: number;
   finishTime: number;
   answerState: IAnswerItem[];
 }
 
-export interface IRecordLocalItem {
-  id: IExamId;
+interface IRecordLocalItem {
+  id: IExamID;
   startTime: number;
   finishTime: number;
   answerState: {
@@ -34,6 +46,16 @@ export interface IRecordLocalItem {
   }[];
 }
 
-export interface ISelectedWordItem extends IWordItem {
+interface ISelectedWordItem extends IWordItem {
   options: string[];
 }
+
+export { EnumWritedExamID, EnumSelectedExamID };
+
+export type {
+  IExamID,
+  IAnswerItem,
+  IRecordItem,
+  IRecordLocalItem,
+  ISelectedWordItem,
+};

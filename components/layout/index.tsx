@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
+import { get } from 'idb-keyval';
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,9 +18,15 @@ import useSetDailyWords from '@/Hooks/useSetDailyWords';
 import useSetDate from '@/Hooks/useSetDate';
 import useSetFavorate from '@/Hooks/useSetFavorate';
 import useSetRecord from '@/Hooks/useSetRecord';
+import { IRecordItem } from '@/Interfaces/exam';
 import { IProps } from '@/Interfaces/global';
 import { IDailyCase } from '@/Interfaces/word';
-import { setIsAppMounted, setIsMenuOpen, setScreenWidth, setScrollValue } from '@/Slice/common';
+import {
+  setIsAppMounted,
+  setIsMenuOpen,
+  setScreenWidth,
+  setScrollValue,
+} from '@/Slice/common';
 import { RootState } from '@/Store/index';
 
 declare global {
@@ -113,29 +120,33 @@ const Layout: React.FC<IProps> = ({ children }) => {
 
   useEffect(() => {
     if (!!dateId && WORDS_DATA.length > 10) {
-      const localData: string = localStorage.getItem('daily') || '';
-      const dailyCase: IDailyCase = handleSetDailyCase(dateId, localData);
-      handleSetDailyWords(dailyCase);
+      get('daily').then((value) => {
+        const dailyCase: IDailyCase = handleSetDailyCase(dateId, value);
+        handleSetDailyWords(dailyCase);
+      });
     }
   }, [dateId, WORDS_DATA]);
 
   // Get record and set record collection
   useEffect(() => {
     if (WORDS_DATA.length) {
-      const localData: string = localStorage.getItem('record') || '';
-      handleSetRecord(localData);
+      get('record').then((value) => {
+        const localData: IRecordItem[] = value || [];
+        handleSetRecord(localData);
+      });
     }
   }, [WORDS_DATA]);
 
   // Get local data and set favorate words
   useEffect(() => {
     if (WORDS_DATA.length) {
-      const localData: string = localStorage.getItem('favorite') || '[]';
-      const parseData: string[] = JSON.parse(localData);
+      get('favorite').then((value) => {
+        const localData: string[] = value || [];
 
-      if (Array.isArray(parseData) && parseData.length > 0) {
-        handleSetFavorate(parseData);
-      }
+        if (Array.isArray(localData) && localData.length > 0) {
+          handleSetFavorate(localData);
+        }
+      });
     }
   }, [WORDS_DATA]);
 

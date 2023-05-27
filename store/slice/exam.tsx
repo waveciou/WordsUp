@@ -1,3 +1,6 @@
+/* eslint-disable no-console */
+import { set } from 'idb-keyval';
+
 import { IRecordItem, IRecordLocalItem } from '@/Interfaces/exam';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
@@ -32,7 +35,9 @@ const updateRecordLocalData = (payload: IRecordItem[]) => {
     })
   );
 
-  localStorage.setItem('record', JSON.stringify([...localData]));
+  set('record', [...localData])
+    .then(() => console.log('set record successfully'))
+    .catch((error) => console.log('set record failed', error));
 };
 
 export const examSlice = createSlice({

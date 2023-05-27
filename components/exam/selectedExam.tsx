@@ -12,9 +12,9 @@ import getExamScore from '@/Functions/examScore';
 import randomNumber from '@/Functions/randomNumber';
 import useQuestions from '@/Hooks/useQuestions';
 import {
+  EnumSelectedExamID,
   IAnswerItem,
   IRecordItem,
-  ISelectedExamId,
   ISelectedWordItem,
 } from '@/Interfaces/exam';
 import { IWordItem } from '@/Interfaces/word';
@@ -22,12 +22,12 @@ import { setIsExamTesting, setRecordCollection } from '@/Slice/exam';
 import { RootState } from '@/Store/index';
 
 interface ISelectedExamProps {
-  id: ISelectedExamId;
+  id: EnumSelectedExamID;
   quantity: number;
 }
 
 const SelectedExam: React.FC<ISelectedExamProps> = ({
-  id = 'selected-random',
+  id = EnumSelectedExamID.RANDOM,
   quantity = 10,
 }) => {
   dayjs.extend(duration);

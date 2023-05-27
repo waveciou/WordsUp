@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+import { set } from 'idb-keyval';
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -31,7 +33,10 @@ const useSetFavorate = () => {
       );
 
       dispatch(setFavoriteItems(global));
-      localStorage.setItem('favorite', JSON.stringify(local));
+
+      set('favorite', local)
+        .then(() => console.log('set favorite successfully'))
+        .catch((error) => console.log('set favorite failed', error));
     },
     [WORDS_DATA, dispatch]
   );

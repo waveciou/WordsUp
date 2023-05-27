@@ -1,11 +1,13 @@
 import { IWordItem } from '@/Interfaces/word';
 
-export interface ISheetData {
+interface ISheetData {
   values: { formattedValue: string }[];
 }
 
-export interface IGapiResponse {
+interface IGapiResponse {
   words: IWordItem[];
   parts: string[];
   favorites: IWordItem[];
 }
+
+export type { ISheetData, IGapiResponse };

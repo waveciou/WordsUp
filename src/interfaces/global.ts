@@ -1,9 +1,11 @@
-export interface IProps {
+interface IProps {
   children?: React.ReactNode;
 }
 
-export interface IRouteItem {
+interface IRouteItem {
   id: string;
   name: string;
   path: string;
 }
+
+export type { IProps, IRouteItem };
