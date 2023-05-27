@@ -1,4 +1,4 @@
-export interface IWordItem {
+interface IWordItem {
   id: string;
   en: string;
   zh: string[];
@@ -6,7 +6,9 @@ export interface IWordItem {
   alphabet: string;
 }
 
-export interface IDailyCase {
+interface IDailyCase {
   date: string;
   words: string[];
 }
+
+export type { IWordItem, IDailyCase };

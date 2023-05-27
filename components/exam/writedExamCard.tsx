@@ -5,13 +5,13 @@ import ExamCardHeader from '@/Components/exam/examCardHeader';
 import { InputText, PrimaryButton } from '@/Components/utils/form';
 import WordsCaption from '@/Components/wordsCaption';
 import useSpeechSpeak from '@/Hooks/useSpeechSpeak';
-import { IAnswerItem, IExamId } from '@/Interfaces/exam';
+import { EnumWritedExamID, IAnswerItem, IExamID } from '@/Interfaces/exam';
 import { IWordItem } from '@/Interfaces/word';
 import { addFavoriteItem, deleteFavoriteItem } from '@/Slice/collection';
 import { RootState } from '@/Store/index';
 
 interface IWritedExamCardProps {
-  examId: IExamId;
+  examId: IExamID;
   currentIndex: number;
   wordItem: IWordItem;
   setAnswer: (answerItem: IAnswerItem) => void;
@@ -75,8 +75,8 @@ const WritedExamCard: React.FC<IWritedExamCardProps> = ({
   useEffect(() => {
     const dataIdList: string[] = FAVORITES_DATA.map((item) => item.id);
     const dataIdSet: Set<string> = new Set(dataIdList);
-    setIsFavorite(dataIdSet.has(id));
-  }, [FAVORITES_DATA]);
+    setIsFavorite(dataIdSet.has(wordItem.id));
+  }, [wordItem, FAVORITES_DATA]);
 
   useEffect(() => {
     setInputValue('');
@@ -102,7 +102,7 @@ const WritedExamCard: React.FC<IWritedExamCardProps> = ({
             className="w-7 h-7 before-font-material before:content-['\e050'] before:block before:leading-7"
             onClick={() => handleSpeechSpeak(en)}
           />
-          {examId !== 'writed-favorite' && (
+          {examId !== EnumWritedExamID.FAVORITE && (
             <button
               type="button"
               aria-label="favorite-button"

@@ -1,24 +1,28 @@
-import { IExamId } from '@/Interfaces/exam';
+import {
+  EnumSelectedExamID,
+  EnumWritedExamID,
+  IExamID,
+} from '@/Interfaces/exam';
 
-const examName = (id: IExamId): string => {
+const examName = (id: IExamID): string => {
   switch (id) {
     // * 隨機單字填空測驗
-    case 'writed-random':
+    case EnumWritedExamID.RANDOM:
       return '單字填空測驗';
     // * 今日單字填空測驗
-    case 'writed-daily':
+    case EnumWritedExamID.DAILY:
       return '今日單字填空測驗';
     // * 收藏單字填空測驗
-    case 'writed-favorite':
+    case EnumWritedExamID.FAVORITE:
       return '收藏單字填空測驗';
     // * 隨機單字選擇測驗
-    case 'selected-random':
+    case EnumSelectedExamID.RANDOM:
       return '單字選擇測驗';
     // * 今日單字選擇測驗
-    case 'selected-daily':
+    case EnumSelectedExamID.DAILY:
       return '今日單字選擇測驗';
     // * 收藏單字選擇測驗
-    case 'selected-favorite':
+    case EnumSelectedExamID.FAVORITE:
       return '收藏單字選擇測驗';
     default:
       return '';

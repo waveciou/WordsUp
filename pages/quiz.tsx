@@ -4,12 +4,16 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { PrimaryButton } from '@/Components/utils/form';
 import getExamName from '@/Functions/examName';
-import { IExamId } from '@/Interfaces/exam';
+import {
+  EnumSelectedExamID,
+  EnumWritedExamID,
+  IExamID,
+} from '@/Interfaces/exam';
 import { setIsExamAction } from '@/Slice/exam';
 import { RootState } from '@/Store/index';
 
 interface IQuizzesLinkProps {
-  id: IExamId;
+  id: IExamID;
   description: string;
   isPushRoute?: boolean;
   onClick?: () => void;
@@ -49,7 +53,7 @@ const QuizzesLink: React.FC<IQuizzesLinkProps> = ({
 
 const Quiz: React.FC = () => {
   interface IQuizzesData {
-    id: IExamId;
+    id: IExamID;
     description: string;
     types: 'writed' | 'selected';
     isForFavorite: boolean;
@@ -61,37 +65,37 @@ const Quiz: React.FC = () => {
   const [hasFavorites, setHasFavorites] = useState<boolean>(false);
   const [writedExamData] = useState<IQuizzesData[]>([
     {
-      id: 'writed-random',
+      id: EnumWritedExamID.RANDOM,
       types: 'writed',
       isForFavorite: false,
       description: '從單字資料庫隨機取得 10 個單字進行填空測驗',
     },
     {
-      id: 'writed-daily',
+      id: EnumWritedExamID.DAILY,
       types: 'writed',
       isForFavorite: false,
       description: '使用「今日單字」進行填空測驗',
     },
     {
-      id: 'writed-favorite',
+      id: EnumWritedExamID.FAVORITE,
       types: 'writed',
       isForFavorite: true,
       description: '使用「收藏單字」進行填空測驗',
     },
     {
-      id: 'selected-random',
+      id: EnumSelectedExamID.RANDOM,
       types: 'selected',
       isForFavorite: false,
       description: '從單字資料庫隨機取得 10 個單字來進行選擇測驗',
     },
     {
-      id: 'selected-daily',
+      id: EnumSelectedExamID.DAILY,
       types: 'selected',
       isForFavorite: false,
       description: '使用「今日單字」進行選擇測驗',
     },
     {
-      id: 'selected-favorite',
+      id: EnumSelectedExamID.FAVORITE,
       types: 'selected',
       isForFavorite: true,
       description: '使用「收藏單字」進行選擇測驗',

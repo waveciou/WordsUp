@@ -2,7 +2,11 @@ import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 
 import randomCollection from '@/Functions/randomCollection';
-import { IExamId } from '@/Interfaces/exam';
+import {
+  EnumSelectedExamID,
+  EnumWritedExamID,
+  IExamID,
+} from '@/Interfaces/exam';
 import { IWordItem } from '@/Interfaces/word';
 import { RootState } from '@/Store/index';
 
@@ -14,12 +18,12 @@ const useQuestions = () => {
   );
 
   return useCallback(
-    (id: IExamId, quantity: number): IWordItem[] => {
+    (id: IExamID, quantity: number): IWordItem[] => {
       switch (id) {
         // * 隨機單字填空測驗
         // * 隨機單字選擇測驗
-        case 'writed-random':
-        case 'selected-random': {
+        case EnumWritedExamID.RANDOM:
+        case EnumSelectedExamID.RANDOM: {
           const randoms: number[] = randomCollection(
             quantity,
             WORDS_DATA.length
@@ -28,14 +32,14 @@ const useQuestions = () => {
         }
         // * 今日單字填空測驗
         // * 今日單字選擇測驗
-        case 'writed-daily':
-        case 'selected-daily': {
+        case EnumWritedExamID.DAILY:
+        case EnumSelectedExamID.DAILY: {
           return [...DAILYS_DATA].sort(() => (Math.random() > 0.5 ? -1 : 1));
         }
         // * 收藏單字填空測驗
         // * 收藏單字選擇測驗
-        case 'writed-favorite':
-        case 'selected-favorite': {
+        case EnumWritedExamID.FAVORITE:
+        case EnumSelectedExamID.FAVORITE: {
           return [...FAVORITES_DATA].sort(() => (Math.random() > 0.5 ? -1 : 1));
         }
         default: {

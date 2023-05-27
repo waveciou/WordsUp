@@ -4,7 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import SelectedExam from '@/Components/exam/selectedExam';
 import WritedExam from '@/Components/exam/writedExam';
-import { IExamId, ISelectedExamId, IWritedExamId } from '@/Interfaces/exam';
+import {
+  EnumSelectedExamID,
+  EnumWritedExamID,
+  IExamID,
+} from '@/Interfaces/exam';
 import { setIsExamAction } from '@/Slice/exam';
 import { RootState } from '@/Store/index';
 
@@ -38,58 +42,65 @@ const Quiz: React.FC = () => {
 
   const examProviderMemo = useMemo(() => {
     if (isExamAction && WORDS_DATA.length) {
-      switch (id as IExamId) {
+      switch (id as IExamID) {
         // * 隨機單字填空測驗
-        case 'writed-random':
+        case EnumWritedExamID.RANDOM:
           if (WORDS_DATA.length >= 10) {
-            return <WritedExam id={id as IWritedExamId} quantity={10} />;
+            return (
+              <WritedExam id={id as EnumWritedExamID.RANDOM} quantity={10} />
+            );
           }
           return <FailedDataCaption />;
         // * 今日單字填空測驗
-        case 'writed-daily':
+        case EnumWritedExamID.DAILY:
           if (DAILYS_DATA.length) {
             return (
               <WritedExam
-                id={id as IWritedExamId}
+                id={id as EnumWritedExamID.DAILY}
                 quantity={DAILYS_DATA.length}
               />
             );
           }
           return <FailedDataCaption />;
         // * 收藏單字填空測驗
-        case 'writed-favorite':
+        case EnumWritedExamID.FAVORITE:
           if (FAVORITES_DATA.length) {
             return (
               <WritedExam
-                id={id as IWritedExamId}
+                id={id as EnumWritedExamID.FAVORITE}
                 quantity={FAVORITES_DATA.length}
               />
             );
           }
           return <FailedDataCaption />;
         // * 隨機單字選擇測驗
-        case 'selected-random':
+        case EnumSelectedExamID.RANDOM:
           if (WORDS_DATA.length >= 10) {
-            return <SelectedExam id={id as ISelectedExamId} quantity={10} />;
+            return (
+              <SelectedExam
+                id={id as EnumSelectedExamID.RANDOM}
+                quantity={10}
+              />
+            );
           }
           return <FailedDataCaption />;
         // * 今日單字選擇測驗
-        case 'selected-daily':
+        case EnumSelectedExamID.DAILY:
           if (DAILYS_DATA.length) {
             return (
               <SelectedExam
-                id={id as ISelectedExamId}
+                id={id as EnumSelectedExamID.DAILY}
                 quantity={DAILYS_DATA.length}
               />
             );
           }
           return <FailedDataCaption />;
         // * 收藏單字選擇測驗
-        case 'selected-favorite':
+        case EnumSelectedExamID.FAVORITE:
           if (FAVORITES_DATA.length) {
             return (
               <SelectedExam
-                id={id as ISelectedExamId}
+                id={id as EnumSelectedExamID.FAVORITE}
                 quantity={FAVORITES_DATA.length}
               />
             );

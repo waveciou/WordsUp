@@ -1,16 +1,20 @@
-import { IExamId } from '@/Interfaces/exam';
+import {
+  EnumSelectedExamID,
+  EnumWritedExamID,
+  IExamID,
+} from '@/Interfaces/exam';
 
-const examIdCollection: IExamId[] = [
-  'writed-random',
-  'writed-daily',
-  'writed-favorite',
-  'selected-random',
-  'selected-daily',
-  'selected-favorite',
+const examIdCollection: IExamID[] = [
+  EnumWritedExamID.RANDOM,
+  EnumWritedExamID.DAILY,
+  EnumWritedExamID.FAVORITE,
+  EnumSelectedExamID.RANDOM,
+  EnumSelectedExamID.DAILY,
+  EnumSelectedExamID.FAVORITE,
 ];
 
-const examIdValidator = (id: IExamId) => {
-  const collectionSet: Set<IExamId> = new Set(examIdCollection);
+const examIdValidator = (id: IExamID) => {
+  const collectionSet: Set<IExamID> = new Set(examIdCollection);
   return collectionSet.has(id);
 };
 

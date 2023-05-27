@@ -6,12 +6,17 @@ import ExamCardHeader from '@/Components/exam/examCardHeader';
 import { PrimaryButton } from '@/Components/utils/form';
 import WordsCaption from '@/Components/wordsCaption';
 import useSpeechSpeak from '@/Hooks/useSpeechSpeak';
-import { IAnswerItem, IExamId, ISelectedWordItem } from '@/Interfaces/exam';
+import {
+  EnumSelectedExamID,
+  IAnswerItem,
+  IExamID,
+  ISelectedWordItem,
+} from '@/Interfaces/exam';
 import { addFavoriteItem, deleteFavoriteItem } from '@/Slice/collection';
 import { RootState } from '@/Store/index';
 
 interface ISelectedExamCardProps {
-  examId: IExamId;
+  examId: IExamID;
   currentIndex: number;
   wordItem: ISelectedWordItem;
   setAnswer: (answerItem: IAnswerItem) => void;
@@ -79,7 +84,7 @@ const SelectedExamCard: React.FC<ISelectedExamCardProps> = ({
             className="w-7 h-7 before-font-material before:content-['\e050'] before:block before:leading-7"
             onClick={() => handleSpeechSpeak(en)}
           />
-          {examId !== 'selected-favorite' && (
+          {examId !== EnumSelectedExamID.FAVORITE && (
             <button
               type="button"
               aria-label="favorite-button"
