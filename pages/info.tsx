@@ -1,3 +1,4 @@
+import { clear } from 'idb-keyval';
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -19,8 +20,8 @@ const Info: React.FC = () => {
   const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
   const [isShowClearAlert, setIsShowClearAlert] = useState<boolean>(false);
 
-  const handleClearLocalStorage = useCallback(() => {
-    localStorage.clear();
+  const handleClearIndexedDB = useCallback(() => {
+    clear();
 
     const randoms: number[] = randomCollection(10, WORDS_DATA.length);
 
@@ -42,11 +43,11 @@ const Info: React.FC = () => {
             <button
               type="button"
               className="w-full flex items-center text-xs text-left p-3 rounded-lg shadow-[0_1px_3px_0_rgba(51,51,51,0.2)] before-font-material before:content-['\e1db'] before:block before:mr-2"
-              title="清空 LocalStorage"
+              title="清空 IndexedDB"
               onClick={() => setIsShowClearAlert(true)}
             >
               <span className="block truncate leading-relaxed">
-                清空 LocalStorage
+                清空 IndexedDB
               </span>
             </button>
           </li>
@@ -93,11 +94,11 @@ const Info: React.FC = () => {
 
       <Alert
         show={isShowClearAlert}
-        title="確定要清空 LocalStorage？"
+        title="確定要清空 IndexedDB？"
         content="此動作將會清空測驗紀錄、收藏單字並重置今日單字資料"
         confirmText="確定"
         cancelText="取消"
-        onConfirm={handleClearLocalStorage}
+        onConfirm={handleClearIndexedDB}
         onCancel={() => setIsShowClearAlert(false)}
       />
     </>

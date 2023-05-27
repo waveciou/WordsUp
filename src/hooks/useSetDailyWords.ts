@@ -1,7 +1,10 @@
+/* eslint-disable no-console */
+
 /**
  * Use the ID of daily words to add words data.
  */
 
+import { set } from 'idb-keyval';
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -26,7 +29,10 @@ const useSetDailyWords = () => {
       }, [] as IWordItem[]);
 
       dispatch(setDailyWords(result));
-      localStorage.setItem('daily', JSON.stringify(dailyCase));
+
+      set('daily', dailyCase)
+        .then(() => console.log('set daily 儲存成功'))
+        .catch((error) => console.log('set daily 儲存失敗', error));
     },
     [WORDS_DATA, dispatch]
   );

@@ -1,5 +1,5 @@
 /**
- * Verify data from localStorage and set correct record collection.
+ * Verify data from IndexedDB and set correct record collection.
  */
 
 import { useCallback } from 'react';

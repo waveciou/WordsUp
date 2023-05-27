@@ -1,5 +1,5 @@
 /**
- * Verify data from localStorage to return correct daily case.
+ * Verify data from IndexedDB to return correct daily case.
  */
 
 import { useCallback } from 'react';
@@ -13,12 +13,14 @@ const useSetDailyCase = () => {
   const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
 
   return useCallback(
-    (dateId: string, localData: string): IDailyCase => {
+    (dateId: string, localData: IDailyCase | undefined): IDailyCase => {
       const result: IDailyCase = { date: dateId, words: [] };
       let hasLocalData: boolean = false;
 
       if (localData) {
-        const { date = '', words = [] }: IDailyCase = JSON.parse(localData);
+        const { date = '', words = [] }: IDailyCase = JSON.parse(
+          JSON.stringify(localData)
+        );
         const wordsNumberToSet: Set<string> = new Set(words);
 
         if (date === dateId && wordsNumberToSet.size === 10) {

@@ -100,9 +100,8 @@ const SelectedExamCard: React.FC<ISelectedExamCardProps> = ({
         const uuid: string = uuidv4();
         const isChecked: boolean = !!(selectValue === optionItem);
         return (
-          <div className="relative overflow-hidden mb-2 px-4">
+          <div className="relative overflow-hidden mb-2 px-4" key={optionItem}>
             <input
-              key={optionItem}
               id={uuid}
               type="radio"
               value={optionItem}

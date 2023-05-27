@@ -5,7 +5,7 @@
   "author": "waveciou <waveciou@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "next dev -p 8080",
+    "dev": "next dev",
     "build": "next build",
     "build:export": "next build && next export",
     "start": "next start",
@@ -22,7 +22,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.6.1",
     "dayjs": "^1.10.7",
-    "idb": "^7.1.0",
+    "idb-keyval": "^6.2.1",
     "next": "11.0.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
