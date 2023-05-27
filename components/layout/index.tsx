@@ -18,6 +18,7 @@ import useSetDailyWords from '@/Hooks/useSetDailyWords';
 import useSetDate from '@/Hooks/useSetDate';
 import useSetFavorate from '@/Hooks/useSetFavorate';
 import useSetRecord from '@/Hooks/useSetRecord';
+import { IRecordItem } from '@/Interfaces/exam';
 import { IProps } from '@/Interfaces/global';
 import { IDailyCase } from '@/Interfaces/word';
 import {
@@ -130,7 +131,7 @@ const Layout: React.FC<IProps> = ({ children }) => {
   useEffect(() => {
     if (WORDS_DATA.length) {
       get('record').then((value) => {
-        const localData: string = value || '';
+        const localData: IRecordItem[] = value || [];
         handleSetRecord(localData);
       });
     }

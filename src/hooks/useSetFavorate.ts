@@ -35,8 +35,8 @@ const useSetFavorate = () => {
       dispatch(setFavoriteItems(global));
 
       set('favorite', local)
-        .then(() => console.log('set favorite 儲存成功'))
-        .catch((error) => console.log('set favorite 儲存失敗', error));
+        .then(() => console.log('set favorite successfully'))
+        .catch((error) => console.log('set favorite failed', error));
     },
     [WORDS_DATA, dispatch]
   );

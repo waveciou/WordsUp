@@ -11,8 +11,8 @@ const updateFavoriteLocalData = (payload: IWordItem[]) => {
   const localData: string[] = payload.map(({ id }) => id);
 
   set('favorite', [...localData])
-    .then(() => console.log('set favorite 儲存成功'))
-    .catch((error) => console.log('set favorite 儲存失敗', error));
+    .then(() => console.log('set favorite successfully'))
+    .catch((error) => console.log('set favorite failed', error));
 };
 
 export const collectionSlice = createSlice({

@@ -60,8 +60,8 @@ const SelectedExamCard: React.FC<ISelectedExamCardProps> = ({
   useEffect(() => {
     const dataIdList: string[] = FAVORITES_DATA.map((item) => item.id);
     const dataIdSet: Set<string> = new Set(dataIdList);
-    setIsFavorite(dataIdSet.has(id));
-  }, [FAVORITES_DATA]);
+    setIsFavorite(dataIdSet.has(wordItem.id));
+  }, [wordItem, FAVORITES_DATA]);
 
   useEffect(() => {
     setSelectValue('');

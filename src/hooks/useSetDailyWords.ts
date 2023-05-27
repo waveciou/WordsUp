@@ -31,8 +31,8 @@ const useSetDailyWords = () => {
       dispatch(setDailyWords(result));
 
       set('daily', dailyCase)
-        .then(() => console.log('set daily 儲存成功'))
-        .catch((error) => console.log('set daily 儲存失敗', error));
+        .then(() => console.log('set daily successfully'))
+        .catch((error) => console.log('set daily failed', error));
     },
     [WORDS_DATA, dispatch]
   );

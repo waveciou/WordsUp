@@ -36,8 +36,8 @@ const updateRecordLocalData = (payload: IRecordItem[]) => {
   );
 
   set('record', [...localData])
-    .then(() => console.log('set record 儲存成功'))
-    .catch((error) => console.log('set record 儲存失敗', error));
+    .then(() => console.log('set record successfully'))
+    .catch((error) => console.log('set record failed', error));
 };
 
 export const examSlice = createSlice({
