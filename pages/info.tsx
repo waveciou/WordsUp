@@ -20,12 +20,11 @@ const Info: React.FC = () => {
   const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
   const [isShowClearAlert, setIsShowClearAlert] = useState<boolean>(false);
 
-  const wordsUpStore = createStore('wordsUpDB', 'wordsUpStore');
-
   const handleClearIndexedDB = useCallback(() => {
-    clear(wordsUpStore);
-
+    const wordsUpStore = createStore('wordsUpDB', 'wordsUpStore');
     const randoms: number[] = randomCollection(10, WORDS_DATA.length);
+
+    clear(wordsUpStore);
 
     handleSetDailyWords({
       date: handleSetDate(),
