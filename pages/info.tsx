@@ -1,4 +1,4 @@
-import { clear } from 'idb-keyval';
+import { clear, createStore } from 'idb-keyval';
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -20,8 +20,10 @@ const Info: React.FC = () => {
   const WORDS_DATA = useSelector((state: RootState) => state.collection.words);
   const [isShowClearAlert, setIsShowClearAlert] = useState<boolean>(false);
 
+  const wordsUpStore = createStore('wordsUpDB', 'wordsUpStore');
+
   const handleClearIndexedDB = useCallback(() => {
-    clear();
+    clear(wordsUpStore);
 
     const randoms: number[] = randomCollection(10, WORDS_DATA.length);
 

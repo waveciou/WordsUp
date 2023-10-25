@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
-import { get } from 'idb-keyval';
+import { createStore, get } from 'idb-keyval';
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -120,7 +120,9 @@ const Layout: React.FC<IProps> = ({ children }) => {
 
   useEffect(() => {
     if (!!dateId && WORDS_DATA.length > 10) {
-      get('daily').then((value) => {
+      const wordsUpStore = createStore('wordsUpDB', 'wordsUpStore');
+
+      get('daily', wordsUpStore).then((value) => {
         const dailyCase: IDailyCase = handleSetDailyCase(dateId, value);
         handleSetDailyWords(dailyCase);
       });
@@ -130,7 +132,9 @@ const Layout: React.FC<IProps> = ({ children }) => {
   // Get record and set record collection
   useEffect(() => {
     if (WORDS_DATA.length) {
-      get('record').then((value) => {
+      const wordsUpStore = createStore('wordsUpDB', 'wordsUpStore');
+
+      get('record', wordsUpStore).then((value) => {
         const localData: IRecordItem[] = value || [];
         handleSetRecord(localData);
       });
@@ -140,7 +144,9 @@ const Layout: React.FC<IProps> = ({ children }) => {
   // Get local data and set favorate words
   useEffect(() => {
     if (WORDS_DATA.length) {
-      get('favorite').then((value) => {
+      const wordsUpStore = createStore('wordsUpDB', 'wordsUpStore');
+
+      get('favorite', wordsUpStore).then((value) => {
         const localData: string[] = value || [];
 
         if (Array.isArray(localData) && localData.length > 0) {

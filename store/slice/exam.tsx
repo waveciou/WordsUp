@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { set } from 'idb-keyval';
+import { createStore, set } from 'idb-keyval';
 
 import { IRecordItem, IRecordLocalItem } from '@/Interfaces/exam';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
@@ -23,6 +23,8 @@ const initialState: {
 };
 
 const updateRecordLocalData = (payload: IRecordItem[]) => {
+  const wordsUpStore = createStore('wordsUpDB', 'wordsUpStore');
+
   const localData: IRecordLocalItem[] = payload.map(
     ({ id, startTime, finishTime, answerState }) => ({
       id,
@@ -35,7 +37,7 @@ const updateRecordLocalData = (payload: IRecordItem[]) => {
     })
   );
 
-  set('record', [...localData])
+  set('record', [...localData], wordsUpStore)
     .then(() => console.log('set record successfully'))
     .catch((error) => console.log('set record failed', error));
 };
