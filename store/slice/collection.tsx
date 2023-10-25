@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { set } from 'idb-keyval';
+import { createStore, set } from 'idb-keyval';
 
 import { IGapiResponse } from '@/Interfaces/sheetData';
 import { IWordItem } from '@/Interfaces/word';
@@ -9,8 +9,9 @@ const initialState: IGapiResponse = { words: [], parts: [], favorites: [] };
 
 const updateFavoriteLocalData = (payload: IWordItem[]) => {
   const localData: string[] = payload.map(({ id }) => id);
+  const wordsUpStore = createStore('wordsUpDB', 'wordsUpStore');
 
-  set('favorite', [...localData])
+  set('favorite', [...localData], wordsUpStore)
     .then(() => console.log('set favorite successfully'))
     .catch((error) => console.log('set favorite failed', error));
 };

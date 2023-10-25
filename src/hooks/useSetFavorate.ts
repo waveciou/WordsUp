@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { set } from 'idb-keyval';
+import { createStore, set } from 'idb-keyval';
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -18,6 +18,8 @@ const useSetFavorate = () => {
 
   return useCallback(
     (localData: string[]) => {
+      const wordsUpStore = createStore('wordsUpDB', 'wordsUpStore');
+
       const { local, global }: IFavorateData = localData.reduce(
         (prev, current) => {
           const word: IWordItem | undefined = WORDS_DATA.find(
@@ -34,7 +36,7 @@ const useSetFavorate = () => {
 
       dispatch(setFavoriteItems(global));
 
-      set('favorite', local)
+      set('favorite', local, wordsUpStore)
         .then(() => console.log('set favorite successfully'))
         .catch((error) => console.log('set favorite failed', error));
     },

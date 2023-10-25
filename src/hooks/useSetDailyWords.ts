@@ -4,7 +4,7 @@
  * Use the ID of daily words to add words data.
  */
 
-import { set } from 'idb-keyval';
+import { createStore, set } from 'idb-keyval';
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -18,6 +18,8 @@ const useSetDailyWords = () => {
 
   return useCallback(
     (dailyCase: IDailyCase) => {
+      const wordsUpStore = createStore('wordsUpDB', 'wordsUpStore');
+
       const result: IWordItem[] = dailyCase.words.reduce((prev, current) => {
         const word: IWordItem | undefined = WORDS_DATA.find(
           ({ id }) => id === current
@@ -30,7 +32,7 @@ const useSetDailyWords = () => {
 
       dispatch(setDailyWords(result));
 
-      set('daily', dailyCase)
+      set('daily', dailyCase, wordsUpStore)
         .then(() => console.log('set daily successfully'))
         .catch((error) => console.log('set daily failed', error));
     },
