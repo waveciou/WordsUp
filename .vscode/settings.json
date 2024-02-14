@@ -1,24 +1,12 @@
 {
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true,
-    "source.fixAll.stylelint": true
+    "source.fixAll.eslint": "explicit",
+    "source.fixAll.stylelint": "explicit"
   },
   "editor.formatOnSave": true,
   "importSorter.generalConfiguration.sortOnBeforeSave": true,
-  "stylelint.snippet": [
-    "css",
-    "less",
-    "postcss",
-    "sass",
-    "scss"
-  ],
-  "stylelint.validate": [
-    "css",
-    "less",
-    "postcss",
-    "sass",
-    "scss"
-  ],
+  "stylelint.snippet": ["css", "less", "postcss", "sass", "scss"],
+  "stylelint.validate": ["css", "less", "postcss", "sass", "scss"],
   "[vue]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -33,5 +21,5 @@
   },
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
+  }
 }
