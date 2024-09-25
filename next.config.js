@@ -5,9 +5,17 @@ const productionPath = '';
 const provideApiKey = () => {
   if (isDevEnv) {
     const secret = require('./secret.js');
-    return secret();
+    return secret().API_KEY;
   }
   return process.env.API_KEY;
+};
+
+const provideSheetID = () => {
+  if (isDevEnv) {
+    const secret = require('./secret.js');
+    return secret().SHEET_ID;
+  }
+  return process.env.SHEET_ID;
 };
 
 module.exports = {
@@ -19,7 +27,7 @@ module.exports = {
     API_KEY: provideApiKey(),
     CLIENT_ID: '',
     SCOPE: 'https://www.googleapis.com/auth/spreadsheets.readonly',
-    SHEET_ID: '1zPtjgSkHph67f_4RxL5AzEzdmwh6XMxzdSYoJcSkJtY',
+    SHEET_ID: provideSheetID(),
     DISCOVERY_DOCS: 'https://sheets.googleapis.com/$discovery/rest?version=v4',
   },
 };
