@@ -7,7 +7,7 @@ const provideApiKey = () => {
     const secret = require('./secret.js');
     return secret();
   }
-  return 'AIzaSyBqwYzbJZjQZggrAYBkiUgUNhxnTI695oI';
+  return process.env.API_KEY;
 };
 
 module.exports = {
