@@ -21,12 +21,7 @@ import useSetRecord from '@/Hooks/useSetRecord';
 import { IRecordItem } from '@/Interfaces/exam';
 import { IProps } from '@/Interfaces/global';
 import { IDailyCase } from '@/Interfaces/word';
-import {
-  setIsAppMounted,
-  setIsMenuOpen,
-  setScreenWidth,
-  setScrollValue,
-} from '@/Slice/common';
+import { setIsAppMounted, setIsMenuOpen, setScreenWidth, setScrollValue } from '@/Slice/common';
 import { RootState } from '@/Store/index';
 
 declare global {
