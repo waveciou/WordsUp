@@ -1,6 +1,8 @@
 /* stylelint-disable function-no-unknown */
 @charset 'UTF-8';
-@import '@/Styles/utils/_utils.scss';
+@use "sass:map";
+@use '@/Styles/_mixin.scss' as *;
+@use '@/Styles/_variables.scss' as *;
 
 $icon-size: 1.6em;
 $icons: (
@@ -15,7 +17,7 @@ $icons: (
 .menu__item {
   display: flex;
   align-items: center;
-  font-size: map-get($font-size, base);
+  font-size: map.get($font-size, base);
   color: rgba($color-brown, 0.5);
   line-height: $icon-size;
 

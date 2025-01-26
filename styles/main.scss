@@ -1,12 +1,13 @@
 /* stylelint-disable scss/at-rule-no-unknown */
 @charset 'UTF-8';
-@import '@/Styles/utils/_utils.scss';
-@import '@/Styles/_font.scss';
-@import '@/Styles/_reset.scss';
-@import '@/Styles/_content.scss';
-@import '@/Styles/_animate.scss';
-@import '@/Styles/_form.scss';
-@import '@/Styles/_menu.scss';
+@use '@/Styles/_mixin.scss' as *;
+@use '@/Styles/_variables.scss' as *;
+@use '@/Styles/_font.scss' as *;
+@use '@/Styles/_reset.scss' as *;
+@use '@/Styles/_content.scss' as *;
+@use '@/Styles/_animate.scss' as *;
+@use '@/Styles/_form.scss' as *;
+@use '@/Styles/_menu.scss' as *;
 
 @tailwind base;
 @tailwind components;

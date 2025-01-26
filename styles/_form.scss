@@ -1,6 +1,8 @@
 /* stylelint-disable function-no-unknown */
 @charset 'UTF-8';
-@import '@/Styles/utils/_utils.scss';
+@use "sass:map";
+@use '@/Styles/_mixin.scss' as *;
+@use '@/Styles/_variables.scss' as *;
 
 $select--padding-tb: 9px;
 $select--padding-lr: 11px;
@@ -23,7 +25,7 @@ $checkbox--icon-size: 16px;
     padding: $select--padding-tb $select--padding-lr;
     padding-right: $select--line-height + $select--padding-lr;
     line-height: $select--line-height;
-    font-size: map-get($font-size, xxs);
+    font-size: map.get($font-size, xxs);
     appearance: none;
     cursor: pointer;
   }

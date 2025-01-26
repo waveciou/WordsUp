@@ -1,6 +1,8 @@
 /* stylelint-disable function-no-unknown */
 @charset 'UTF-8';
-@import '@/Styles/utils/_utils.scss';
+@use "sass:map";
+@use '@/Styles/_mixin.scss' as *;
+@use '@/Styles/_variables.scss' as *;
 
 // * ==========================================================================
 // * RESET
@@ -111,7 +113,7 @@ section {
 body {
   overflow-x: hidden;
   overflow-y: auto;
-  font-size: map-get($font-size, base);
+  font-size: map.get($font-size, base);
   font-family: $font-family;
   color: $color-black;
   background-color: $color-green;

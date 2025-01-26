@@ -23,18 +23,41 @@
     "resolveJsonModule": true,
     "baseUrl": ".",
     "paths": {
-      "@/Src/*": ["src/*"],
-      "@/Data/*": ["src/data/*"],
-      "@/Functions/*": ["src/functions/*"],
-      "@/Hooks/*": ["src/hooks/*"],
-      "@/Interfaces/*": ["src/interfaces/*"],
-      "@/Components/*": ["components/*"],
-      "@/Pages/*": ["pages/*"],
-      "@/Public/*": ["public/*"],
-      "@/Store/*": ["store/*"],
-      "@/Slice/*": ["store/slice/*"],
-      "@/Styles/*": ["styles/*"],
-    }
+      "@/Src/*": [
+        "src/*"
+      ],
+      "@/Data/*": [
+        "src/data/*"
+      ],
+      "@/Functions/*": [
+        "src/functions/*"
+      ],
+      "@/Hooks/*": [
+        "src/hooks/*"
+      ],
+      "@/Interfaces/*": [
+        "src/interfaces/*"
+      ],
+      "@/Components/*": [
+        "components/*"
+      ],
+      "@/Pages/*": [
+        "pages/*"
+      ],
+      "@/Public/*": [
+        "public/*"
+      ],
+      "@/Store/*": [
+        "store/*"
+      ],
+      "@/Slice/*": [
+        "store/slice/*"
+      ],
+      "@/Styles/*": [
+        "styles/*"
+      ]
+    },
+    "incremental": true
   },
   "include": [
     "next-env.d.ts",

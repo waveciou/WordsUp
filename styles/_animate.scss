@@ -1,5 +1,6 @@
 @charset 'UTF-8';
-@import '@/Styles/utils/_utils.scss';
+@use '@/Styles/_mixin.scss' as *;
+@use '@/Styles/_variables.scss' as *;
 
 // * ==========================================================================
 // * Animation
